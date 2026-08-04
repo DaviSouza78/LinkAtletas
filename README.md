@@ -88,9 +88,6 @@ Desenvolver um **ecossistema digital (aplicativo mobile + plataforma web)** que 
 - Acompanhamento de métricas de evolução — a arquitetura precisa ser **flexível o suficiente para múltiplas modalidades**, já que cada esporte tem métricas diferentes (ex.: tempo/distância na corrida, carga/repetições em treino de força, pontuação/tática em esportes de precisão).
 - No futuro, previsão de **integração com dispositivos vestíveis (smartwatches)** para automatizar a coleta de dados de performance.
 
-### 4. Pagamentos
-- Pagamento das mensalidades feito diretamente pela plataforma, de forma segura, com **split automático** entre a taxa da plataforma e o valor do treinador, e suporte a **recorrência** (assinaturas mensais).
-
 ## Restrições e requisitos obrigatórios
 
 Esses pontos foram definidos pela empresa demandante como não-negociáveis:
@@ -98,7 +95,6 @@ Esses pontos foram definidos pela empresa demandante como não-negociáveis:
 - ✅ **Validação profissional obrigatória**: nenhum treinador pode ser aprovado sem validação de registro profissional (CREF ou equivalente).
 - ✅ **Conformidade com a LGPD**: a plataforma lida com dados sensíveis de saúde e biometria dos atletas, exigindo tratamento e armazenamento adequados à lei.
 - ✅ **Plataformas distintas por público**: experiência do atleta prioritariamente **mobile** (iOS e Android); painel do treinador funcionando **perfeitamente em ambiente Web**.
-- ✅ **Gateway de pagamentos com split e recorrência**: suporte a divisão automática de valores e cobranças recorrentes (assinaturas).
 
 ## Arquitetura e tecnologias
 
@@ -111,7 +107,6 @@ Esses pontos foram definidos pela empresa demandante como não-negociáveis:
 | Backend / API | Node.js + TypeScript *(proposto)* | REST/GraphQL, autenticação por papéis (atleta / treinador / admin) |
 | Banco de dados | PostgreSQL *(proposto)* | Dados relacionais + histórico de treinos/métricas |
 | Armazenamento de mídia | Object storage (ex. S3-compatível) *(proposto)* | Vídeos de execução e performance |
-| Pagamentos | Gateway com split + assinaturas (ex. Stripe Connect ou similar) *(proposto)* | Split automático + recorrência |
 | Integrações futuras | APIs de wearables (Apple Health, Google Fit, Garmin etc.) | Fora do escopo do MVP |
 | Infra / CI-CD | Docker + GitHub Actions *(proposto)* | A definir com o avanço do projeto |
 
@@ -123,8 +118,7 @@ O desenvolvimento será dividido em fases incrementais, priorizando primeiro o n
 2. **Fase 2 — Matchmaking**: algoritmo de recomendação baseado nos critérios de ambos os perfis + listagem/filtro de treinadores.
 3. **Fase 3 — Ambiente de gestão**: prescrição de treinos, upload de vídeos, registro de métricas por modalidade, feedback do atleta.
 4. **Fase 4 — Avaliações**: sistema de reviews de treinadores.
-5. **Fase 5 — Pagamentos**: integração do gateway com split e assinaturas recorrentes.
-6. **Fase 6 (futuro, fora do MVP)** — integração com wearables para coleta automática de dados de performance.
+5. **Fase 5 (futuro, fora do MVP)** — integração com wearables para coleta automática de dados de performance.
 
 ## Como será desenvolvido
 
@@ -132,10 +126,6 @@ O desenvolvimento será dividido em fases incrementais, priorizando primeiro o n
 - **Fidelidade do protótipo**: conforme exigido pela Saga, o foco é entregar um **protótipo funcional de média fidelidade**, priorizando o fluxo principal (cadastro → validação → match → gestão do treino) antes de funcionalidades secundárias.
 - **Privacidade por padrão**: por lidar com dados sensíveis de saúde/biometria, decisões de modelagem de dados e armazenamento seguirão princípios de minimização de dados e conformidade com a LGPD desde o início do projeto.
 - **Separação de experiências**: o time desenvolverá o painel web (treinadores) e o app mobile (atletas) como frentes paralelas, compartilhando a mesma API/backend.
-
-## Status do projeto
-
-🚧 Em desenvolvimento — fase inicial de definição de escopo, fluxo do MVP e modelagem de dados.
 
 ## Licença
 
