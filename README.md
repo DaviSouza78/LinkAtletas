@@ -1,14 +1,14 @@
-# LinkAtletas 🏃‍♂️🤝🏋️‍♀️
+# LinkAtletas 
 
 **Matchmaking e Gestão de Treinamento Esportivo**
 
 Projeto Integrador Interdisciplinar II — Faculdade de Tecnologia SENAI Félix Guisard
 Desenvolvido no contexto da **Saga SENAI de Inovação / Desafio SENAI de Projetos Integradores**, em atendimento a uma demanda real da indústria.
 
-> 📄 Demanda original: [Plataforma GP Inovação SENAI — Demanda #12871](https://plataforma.gpinovacao.senai.br/plataforma/demandas-da-industria/interna/12871)
-> 🏢 Empresa demandante: **Ivi-it**
-> 📍 Escola: SENAI/SC — Joinville Sul
-> 🗓️ Vigência: 16/07/2026 a 16/12/2027 (17 meses)
+>  Demanda original: [Plataforma GP Inovação SENAI — Demanda #12871](https://plataforma.gpinovacao.senai.br/plataforma/demandas-da-industria/interna/12871)
+>  Empresa demandante: **Ivi-it**
+>  Escola: SENAI/SC — Joinville Sul
+>  Vigência: 16/07/2026 a 16/12/2027 (17 meses)
 
 ---
 
@@ -66,11 +66,11 @@ Desenvolver um **ecossistema digital (aplicativo mobile + plataforma web)** que 
 
 ## Benefícios esperados
 
-- ⏱️ Reduzir o tempo de busca e contratação de profissionais esportivos qualificados.
-- 📈 Aumentar a taxa de captação de alunos para treinadores e assessorias esportivas.
-- 💰 Diminuir custos operacionais dos treinadores, centralizando a gestão de alunos em uma única ferramenta.
-- 🛡️ Reduzir o risco de lesões, garantindo que atletas sejam orientados por profissionais com credenciais verificadas.
-- 🌍 Democratizar o acesso a treinos personalizados, viabilizando consultorias 100% remotas ou híbridas em diversas modalidades.
+-  Reduzir o tempo de busca e contratação de profissionais esportivos qualificados.
+-  Aumentar a taxa de captação de alunos para treinadores e assessorias esportivas.
+-  Diminuir custos operacionais dos treinadores, centralizando a gestão de alunos em uma única ferramenta.
+-  Reduzir o risco de lesões, garantindo que atletas sejam orientados por profissionais com credenciais verificadas.
+-  Democratizar o acesso a treinos personalizados, viabilizando consultorias 100% remotas ou híbridas em diversas modalidades.
 
 ## Como o produto vai funcionar
 
@@ -92,9 +92,9 @@ Desenvolver um **ecossistema digital (aplicativo mobile + plataforma web)** que 
 
 Esses pontos foram definidos pela empresa demandante como não-negociáveis:
 
-- ✅ **Validação profissional obrigatória**: nenhum treinador pode ser aprovado sem validação de registro profissional (CREF ou equivalente).
-- ✅ **Conformidade com a LGPD**: a plataforma lida com dados sensíveis de saúde e biometria dos atletas, exigindo tratamento e armazenamento adequados à lei.
-- ✅ **Plataformas distintas por público**: experiência do atleta prioritariamente **mobile** (iOS e Android); painel do treinador funcionando **perfeitamente em ambiente Web**.
+-  **Validação profissional obrigatória**: nenhum treinador pode ser aprovado sem validação de registro profissional (CREF ou equivalente).
+-  **Conformidade com a LGPD**: a plataforma lida com dados sensíveis de saúde e biometria dos atletas, exigindo tratamento e armazenamento adequados à lei.
+-  **Plataformas distintas por público**: experiência do atleta prioritariamente **mobile** (iOS e Android); painel do treinador funcionando **perfeitamente em ambiente Web**.
 
 ## Arquitetura e tecnologias
 
