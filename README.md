@@ -1,46 +1,15 @@
-# LinkAtletas 
+# LinkAtletas
 
-**Matchmaking e Gestão de Treinamento Esportivo**
+Protótipo funcional e responsivo de uma plataforma que conecta atletas a treinadores verificados e centraliza a gestão do treinamento esportivo.
 
-Projeto Integrador Interdisciplinar II — Faculdade de Tecnologia SENAI Félix Guisard
-Desenvolvido no contexto da **Saga SENAI de Inovação / Desafio SENAI de Projetos Integradores**, em atendimento a uma demanda real da indústria.
+O projeto foi construído como base web do ecossistema LinkAtletas. A experiência do treinador prioriza desktop, enquanto a área do atleta é mobile-first e já serve como referência visual e funcional para um futuro aplicativo React Native.
 
->  Demanda original: [Plataforma GP Inovação SENAI — Demanda #12871](https://plataforma.gpinovacao.senai.br/plataforma/demandas-da-industria/interna/12871)
->  Empresa demandante: **Ivi-it**
->  Escola: SENAI/SC — Joinville Sul
->  Vigência: 16/07/2026 a 16/12/2027 (17 meses)
+Projeto Integrador Interdisciplinar II da Faculdade de Tecnologia SENAI Félix Guisard, desenvolvido para a Saga SENAI de Inovação em resposta à [demanda #12871](https://plataforma.gpinovacao.senai.br/plataforma/demandas-da-industria/interna/12871), proposta pela empresa Ivi-it.
 
----
-
-## Índice
-
-- [Sobre o projeto](#sobre-o-projeto)
-- [A equipe](#a-equipe)
-- [O problema](#o-problema)
-- [Objetivo da solução](#objetivo-da-solução)
-- [Benefícios esperados](#benefícios-esperados)
-- [Como o produto vai funcionar](#como-o-produto-vai-funcionar)
-- [Restrições e requisitos obrigatórios](#restrições-e-requisitos-obrigatórios)
-- [Arquitetura e tecnologias](#arquitetura-e-tecnologias)
-- [Roadmap / MVP](#roadmap--mvp)
-- [Como será desenvolvido](#como-será-desenvolvido)
-- [Status do projeto](#status-do-projeto)
-- [Licença](#licença)
-
----
-
-## Sobre o projeto
-
-Este repositório contém o desenvolvimento do **LinkAtletas**, projeto criado pela nossa equipe para o **Desafio SENAI de Projetos Integradores**, etapa da Saga SENAI de Inovação em que equipes de alunos desenvolvem, ao longo de cerca de 6 meses, um protótipo funcional de média fidelidade como resposta a um problema real proposto por uma empresa parceira.
-
-A demanda foi proposta pela empresa **Ivi-it** (área de Tecnologia da Informação, SC) e consiste em criar um **ecossistema digital de matchmaking e gestão de treinamento esportivo**, conectando atletas a treinadores qualificados e oferecendo ferramentas de acompanhamento de performance.
-
-## A equipe
-
-**Nome da equipe:** LinkAtletas
+### Equipe
 
 | # | Integrante |
-|---|------------|
+| --- | --- |
 | 01 | João Gabriel Floriano Olimpio |
 | 02 | Miguel Oliveira de Almeida |
 | 03 | Lucas Souza Silva |
@@ -48,85 +17,144 @@ A demanda foi proposta pela empresa **Ivi-it** (área de Tecnologia da Informaç
 | 05 | João Pedro Fonseca Alves de Carvalho |
 | 06 | Lucca Castilho Costa |
 
-## O problema
+## O que está implementado
 
-O mercado de assessoria esportiva hoje é **fragmentado, descentralizado e dependente de indicações**. Isso gera dois grandes pontos de dor:
+### Site público
 
-- **Para os atletas** (amadores a profissionais): dificuldade em encontrar, comparar e validar treinadores alinhados aos seus objetivos, orçamento e modalidade — especialmente fora dos grandes centros urbanos ou em esportes de nicho (ex.: um atleta de triatlo no interior pode não ter um técnico especializado disponível na sua região).
-- **Para os treinadores**: crescimento estagnado pela limitação geográfica de captação de alunos, além de perda de tempo gerindo treinos, alunos e pagamentos em ferramentas não integradas (planilhas, WhatsApp, agendas separadas etc.).
+- Landing page responsiva com proposta de valor, benefícios, fluxo do produto, segurança, FAQ e chamadas para os dois públicos.
+- Comunicação explícita sobre validação de CREF, LGPD, atendimento remoto/híbrido e pagamentos protegidos.
+- Identidade visual original e asset fotográfico local, sem dependência de banco de imagens externo.
 
-Esse cenário resulta em **baixa eficiência de mercado, insegurança nas contratações** (falta de validação profissional) e **limita o desenvolvimento esportivo** de atletas que não têm acesso a orientação qualificada.
+### Autenticação demonstrativa
 
-## Objetivo da solução
+Dois acessos locais e separados por papel:
 
-Desenvolver um **ecossistema digital (aplicativo mobile + plataforma web)** que resolva esse problema em duas frentes complementares:
+| Papel | E-mail | Senha |
+| --- | --- | --- |
+| Treinador | `emailtreinador@email.com` | `senhatreinador` |
+| Atleta | `emailatleta@email.com` | `senhaatleta` |
 
-1. **Conexão inteligente (Matchmaking)** — um algoritmo de recomendação que cruza o perfil do atleta (modalidade, nível de experiência, objetivos, orçamento e disponibilidade) com o portfólio do treinador (especializações, certificações, metodologia e valores), sugerindo os matches mais aderentes.
-2. **Ambiente de gestão** — após o match, a plataforma oferece um espaço de trabalho onde o treinador prescreve treinos, envia vídeos de execução e acompanha a evolução do aluno, enquanto o atleta registra feedbacks, envia vídeos de sua performance para correção técnica e realiza o pagamento das mensalidades com segurança.
+A sessão é mantida no `localStorage`. Não existe autenticação real ou transmissão das credenciais neste protótipo.
 
-## Benefícios esperados
+### Painel do treinador
 
--  Reduzir o tempo de busca e contratação de profissionais esportivos qualificados.
--  Aumentar a taxa de captação de alunos para treinadores e assessorias esportivas.
--  Diminuir custos operacionais dos treinadores, centralizando a gestão de alunos em uma única ferramenta.
--  Reduzir o risco de lesões, garantindo que atletas sejam orientados por profissionais com credenciais verificadas.
--  Democratizar o acesso a treinos personalizados, viabilizando consultorias 100% remotas ou híbridas em diversas modalidades.
+- Visão geral com alunos ativos, adesão, treinos, feedbacks, carga semanal e agenda.
+- Gestão de alunos com busca e filtros por modalidade/status.
+- Biblioteca de treinos com visualização em cards ou lista.
+- Calendário de consultorias com propósito, descrição, atleta, horário e duração.
+- Criação automática de evento e chamada do Google Meet quando o OAuth está configurado.
+- Mensagens com histórico e envio local demonstrativo.
+- Financeiro com receita recorrente, split ilustrativo, repasses e transações.
+- Perfil profissional com CREF verificado, especialidades e status de documentação.
 
-## Como o produto vai funcionar
+### Portal do atleta
 
-### 1. Cadastro e validação de perfis
-- **Atletas** criam perfil informando modalidade, nível de experiência, objetivos, orçamento e disponibilidade.
-- **Treinadores** criam perfil informando especializações, metodologia, valores e **credenciais profissionais** (ex.: CREF ou certificação internacional equivalente), que passam por um processo obrigatório de validação antes da aprovação — a plataforma **não pode** liberar um treinador sem essa checagem, para evitar exercício ilegal da profissão.
+- Início com treino do dia, ciclo atual, métricas e contato com o treinador.
+- Matchmaking com percentual de compatibilidade, filtros e perfis verificados.
+- Notificações de novas consultorias e cartão do próximo encontro, incluindo pauta e acesso ao Meet.
+- Detalhe do treino com blocos, vídeo de orientação, esforço percebido e upload simulado.
+- Mensagens responsivas.
+- Perfil esportivo, configurações e central de privacidade.
+- Navegação inferior própria para telas pequenas.
 
-### 2. Matchmaking
-- Algoritmo de recomendação cruza os critérios de ambos os lados e sugere os treinadores mais compatíveis com cada atleta (e vice-versa).
-- Sistema de **avaliações (reviews)** dos treinadores por atletas já atendidos, para reforçar a confiança nas contratações.
+## Tecnologias
 
-### 3. Gestão do treinamento
-- Treinador prescreve treinos e envia vídeos de execução/orientação.
-- Atleta registra feedback, sobe vídeos da própria performance para correção técnica.
-- Acompanhamento de métricas de evolução — a arquitetura precisa ser **flexível o suficiente para múltiplas modalidades**, já que cada esporte tem métricas diferentes (ex.: tempo/distância na corrida, carga/repetições em treino de força, pontuação/tática em esportes de precisão).
-- No futuro, previsão de **integração com dispositivos vestíveis (smartwatches)** para automatizar a coleta de dados de performance.
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Lucide React
+- CSS responsivo sem framework de UI
 
-## Restrições e requisitos obrigatórios
+Os dados são mockados em `src/data/mock.ts` para manter o protótipo demonstrável sem backend.
 
-Esses pontos foram definidos pela empresa demandante como não-negociáveis:
+## Como executar
 
--  **Validação profissional obrigatória**: nenhum treinador pode ser aprovado sem validação de registro profissional (CREF ou equivalente).
--  **Conformidade com a LGPD**: a plataforma lida com dados sensíveis de saúde e biometria dos atletas, exigindo tratamento e armazenamento adequados à lei.
--  **Plataformas distintas por público**: experiência do atleta prioritariamente **mobile** (iOS e Android); painel do treinador funcionando **perfeitamente em ambiente Web**.
+Requisitos: Node.js 20+ e pnpm (ou npm).
 
-## Arquitetura e tecnologias
+```bash
+pnpm install
+pnpm dev
+```
 
-> A stack abaixo segue a orientação definida com a empresa (React/TypeScript) e as restrições da demanda (apps mobile para atletas + painel web para treinadores). Itens marcados como "proposto" ainda podem ser ajustados pela equipe ao longo do desenvolvimento.
+Acesse `http://localhost:5173`.
 
-| Camada | Tecnologia | Observação |
-|---|---|---|
-| Painel Web (treinadores) | React + TypeScript | Definido pela equipe |
-| App Mobile (atletas) | React Native + TypeScript *(proposto)* | Reaproveita conhecimento/código do time em React |
-| Backend / API | Node.js + TypeScript *(proposto)* | REST/GraphQL, autenticação por papéis (atleta / treinador / admin) |
-| Banco de dados | PostgreSQL *(proposto)* | Dados relacionais + histórico de treinos/métricas |
-| Armazenamento de mídia | Object storage (ex. S3-compatível) *(proposto)* | Vídeos de execução e performance |
-| Integrações futuras | APIs de wearables (Apple Health, Google Fit, Garmin etc.) | Fora do escopo do MVP |
-| Infra / CI-CD | Docker + GitHub Actions *(proposto)* | A definir com o avanço do projeto |
+Para validar o bundle de produção:
 
-## Roadmap / MVP
+```bash
+pnpm build
+pnpm preview
+```
 
-O desenvolvimento será dividido em fases incrementais, priorizando primeiro o núcleo do produto (cadastro, validação e matchmaking) antes de gestão avançada e pagamentos:
+## Estrutura principal
 
-1. **Fase 1 — Cadastro e validação**: cadastro de atletas e treinadores, fluxo de validação profissional (CREF/certificações).
-2. **Fase 2 — Matchmaking**: algoritmo de recomendação baseado nos critérios de ambos os perfis + listagem/filtro de treinadores.
-3. **Fase 3 — Ambiente de gestão**: prescrição de treinos, upload de vídeos, registro de métricas por modalidade, feedback do atleta.
-4. **Fase 4 — Avaliações**: sistema de reviews de treinadores.
-5. **Fase 5 (futuro, fora do MVP)** — integração com wearables para coleta automática de dados de performance.
+```text
+src/
+  components/       componentes compartilhados, navegação e shell
+  context/          sessão e autenticação demonstrativa
+  data/             atletas, treinadores, treinos e métricas mockadas
+  pages/
+    athlete/        experiência mobile-first do atleta
+    coach/          painel web do treinador
+    shared/         fluxos compartilhados, como mensagens
+  App.tsx           rotas e proteção por papel
+  styles.css        design system e breakpoints responsivos
+```
 
-## Como será desenvolvido
+## Rotas
 
-- **Metodologia**: desenvolvimento incremental por sprints, com entregas alinhadas às Unidades Curriculares (UCs) do curso e ao cronograma do Desafio SENAI de Projetos Integradores.
-- **Fidelidade do protótipo**: conforme exigido pela Saga, o foco é entregar um **protótipo funcional de média fidelidade**, priorizando o fluxo principal (cadastro → validação → match → gestão do treino) antes de funcionalidades secundárias.
-- **Privacidade por padrão**: por lidar com dados sensíveis de saúde/biometria, decisões de modelagem de dados e armazenamento seguirão princípios de minimização de dados e conformidade com a LGPD desde o início do projeto.
-- **Separação de experiências**: o time desenvolverá o painel web (treinadores) e o app mobile (atletas) como frentes paralelas, compartilhando a mesma API/backend.
+| Rota | Finalidade |
+| --- | --- |
+| `/` | Site público |
+| `/login` | Login por papel |
+| `/treinador` | Dashboard do treinador |
+| `/treinador/alunos` | Gestão de alunos |
+| `/treinador/treinos` | Prescrição e biblioteca |
+| `/treinador/consultorias` | Calendário, agendamento e Google Meet |
+| `/treinador/mensagens` | Conversas e feedbacks |
+| `/treinador/financeiro` | Receitas e repasses |
+| `/treinador/perfil` | Perfil e validação profissional |
+| `/atleta` | Início do atleta |
+| `/atleta/descobrir` | Matchmaking |
+| `/atleta/treino` | Execução e feedback do treino |
+| `/atleta/mensagens` | Conversa com treinador |
+| `/atleta/perfil` | Perfil e privacidade |
 
-## Licença
+## Decisões de produto incorporadas
 
-Projeto acadêmico desenvolvido para fins educacionais no âmbito do Desafio SENAI de Projetos Integradores. Licença a definir pela equipe.
+- O treinador só é apresentado ao atleta quando possui credencial verificada.
+- O matchmaking explica a compatibilidade e considera modalidade, objetivo, orçamento, localização e forma de atendimento.
+- As métricas são exibidas de forma flexível por modalidade; a modelagem definitiva deve usar um catálogo de tipos e valores de métricas.
+- Saúde, biometria e vídeos aparecem como dados sensíveis e devem possuir consentimento, finalidade, retenção e controle de acesso no backend real.
+- O financeiro representa recorrência e split, mas não processa pagamentos.
+- O treinador agenda a consultoria; a plataforma registra uma notificação interna e, com o Google conectado, cria um evento com Meet e envia o convite de calendário ao atleta.
+- Wearables e marketplace esportivo permanecem fora do escopo do MVP.
+
+## Configurar Google Agenda e Meet
+
+O modo local funciona sem credenciais: a agenda e a notificação do atleta são criadas, mas o link real do Meet fica pendente. Para habilitar a integração oficial:
+
+1. Crie ou selecione um projeto no Google Cloud Console.
+2. Ative a **Google Calendar API**.
+3. Configure a tela de consentimento OAuth.
+4. Crie um **OAuth Client ID** do tipo **Aplicativo da Web**.
+5. Adicione `http://localhost:5173` em **Origens JavaScript autorizadas**. Na publicação, adicione também o domínio HTTPS de produção.
+6. Copie `.env.example` para `.env` e informe o Client ID:
+
+```env
+VITE_GOOGLE_CLIENT_ID=seu-client-id.apps.googleusercontent.com
+```
+
+7. Reinicie `pnpm dev`, entre como treinador, abra **Consultorias** e clique em **Conectar Google Agenda**.
+
+A integração solicita somente o escopo `calendar.events`. Ao confirmar um agendamento, o sistema chama `events.insert` com `conferenceDataVersion=1`, solicita uma conferência `hangoutsMeet`, adiciona o atleta como participante e usa `sendUpdates=all` para enviar o convite.
+
+O Client ID web não é um segredo, mas nunca adicione Client Secret ou tokens OAuth ao frontend. Para uma versão com agendamentos em segundo plano e acesso duradouro, use o fluxo de autorização por código com backend e armazenamento criptografado de refresh tokens.
+
+## Próxima etapa recomendada
+
+Transformar o protótipo em aplicação full-stack com API Node.js/TypeScript, PostgreSQL, armazenamento S3, autenticação baseada em papéis, trilha de auditoria, validação manual/assistida de CREF, gateway compatível com split/recorrência e políticas reais de retenção e consentimento LGPD.
+
+## Aviso
+
+Este projeto é um protótipo acadêmico. Dados, pagamentos, validações, envio de mídia e mensagens são simulados e não devem ser interpretados como implementação pronta para produção.
