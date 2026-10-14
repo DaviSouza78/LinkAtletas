@@ -1,0 +1,31 @@
+sequenceDiagram
+  actor T as Treinador
+  actor A as Atleta
+  participant UI as Interface web
+  participant API as API Fastify
+  participant DB as PostgreSQL
+  T->>UI: Criar ficha e blocos (RF-14)
+  UI->>API: POST /api/workouts
+  API->>DB: Verificar propriedade e vinculo active
+  alt vinculo invalido ou alheio
+    API-->>UI: Erro sem salvar ficha
+  else permitido
+    API->>DB: Salvar ficha e blocos em transacao
+    API-->>UI: Rascunho ou publicado
+  end
+  Note over T,DB: Rascunho privado e video somente por referencia HTTPS - RF-15 parcial
+  A->>UI: Consultar treino (RF-16)
+  UI->>API: GET /api/workouts/:id
+  API->>DB: Consultar ficha publicada do atleta
+  API-->>UI: Ficha, blocos e execucao existente
+  UI->>API: GET /api/metrics?sport=modalidade
+  API-->>UI: Catalogo de chaves, unidades e limites
+  A->>UI: Informar execucao e feedback (RF-17)
+  UI->>API: PUT /api/workouts/:id/execution
+  API->>DB: Validar dono, publicacao e catalogo
+  API->>DB: INSERT ou UPDATE da execucao unica
+  API-->>UI: Ficha com retorno persistido
+  T->>UI: Consultar acompanhamento (RF-17 RF-23)
+  UI->>API: GET /api/workouts
+  API->>DB: Fichas do treinador com execucoes
+  API-->>UI: Dados reais do aluno vinculado

@@ -1,160 +1,103 @@
 # LinkAtletas
 
-Protótipo funcional e responsivo de uma plataforma que conecta atletas a treinadores verificados e centraliza a gestão do treinamento esportivo.
+Projeto Integrador Interdisciplinar II — ADS, Faculdade de Tecnologia SENAI Félix Guisard. Plataforma para conectar atletas a treinadores e acompanhar o treinamento esportivo, em resposta à demanda SAGA nº 12871 da Ivi-it.
 
-O projeto foi construído como base web do ecossistema LinkAtletas. A experiência do treinador prioriza desktop, enquanto a área do atleta é mobile-first e já serve como referência visual e funcional para um futuro aplicativo React Native.
+Na Sprint 2, a base React foi integrada a uma API Node/TypeScript e a PostgreSQL. O fluxo abrange cadastro, perfis, conferência profissional manual, recomendação explicável, solicitação e aceite de vínculo, prescrição, execução e feedback. A entrega usa interface web responsiva; React Native permanece no backlog.
 
-Projeto Integrador Interdisciplinar II da Faculdade de Tecnologia SENAI Félix Guisard, desenvolvido para a Saga SENAI de Inovação em resposta à [demanda #12871](https://plataforma.gpinovacao.senai.br/plataforma/demandas-da-industria/interna/12871), proposta pela empresa Ivi-it.
+## Equipe
 
-### Equipe
+João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa.
 
-| # | Integrante |
-| --- | --- |
-| 01 | João Gabriel Floriano Olimpio |
-| 02 | Miguel Oliveira de Almeida |
-| 03 | Lucas Souza Silva |
-| 04 | Davi Marcondes Paes de Souza |
-| 05 | João Pedro Fonseca Alves de Carvalho |
-| 06 | Lucca Castilho Costa |
+As atribuições do planejamento original não comprovam participação individual. O histórico Git e os registros efetivos de revisão e apresentação devem compor essa evidência.
 
-## O que está implementado
+## Instalação local
 
-### Site público
+Requisitos: Node.js 24, pnpm 10 e Docker Desktop com o engine ativo. Execute na raiz do clone:
 
-- Landing page responsiva com proposta de valor, benefícios, fluxo do produto, segurança, FAQ e chamadas para os dois públicos.
-- Comunicação explícita sobre validação de CREF, LGPD, atendimento remoto/híbrido e pagamentos protegidos.
-- Identidade visual original e asset fotográfico local, sem dependência de banco de imagens externo.
+```powershell
+pnpm install --frozen-lockfile
+Copy-Item .env.example .env
+docker compose up -d --wait
+pnpm db:migrate
+pnpm db:seed
+pnpm dev:all
+```
 
-### Autenticação demonstrativa
+O arquivo `.env` é opcional para os padrões locais documentados em `.env.example`; copie-o para personalizar o ambiente. Nunca versione credenciais reais.
 
-Dois acessos locais e separados por papel:
+- Interface: [localhost:5173](http://localhost:5173).
+- API: [localhost:3001/api](http://localhost:3001/api).
+- Swagger: [localhost:3001/api/docs](http://localhost:3001/api/docs).
+- OpenAPI JSON: [localhost:3001/api/openapi.json](http://localhost:3001/api/openapi.json).
+- PostgreSQL local: porta `54329`, banco `linkatletas`; consulte usuário/senha de desenvolvimento em `compose.yaml`.
 
-| Papel | E-mail | Senha |
-| --- | --- | --- |
-| Treinador | `emailtreinador@email.com` | `senhatreinador` |
+O Compose mantém os dados em volume persistente. `docker compose down` para os serviços sem remover o volume. Não remova volumes para atualizar a aplicação. `pnpm db:migrate` aplica somente migrations ainda não registradas. Seed é explícito e restrito ao desenvolvimento.
+
+## Contas de demonstração
+
+Criadas por `pnpm db:seed`, com dados fictícios:
+
+| Papel | E-mail | Senha local |
+|---|---|---|
 | Atleta | `emailatleta@email.com` | `senhaatleta` |
+| Treinador | `emailtreinador@email.com` | `senhatreinador` |
+| Administrador | `admin@linkatletas.local` | `SenhaAdmin123!` |
 
-A sessão é mantida no `localStorage`. Não existe autenticação real ou transmissão das credenciais neste protótipo.
+Também é possível criar novas contas de atleta e treinador na interface. O cadastro público não cria administradores. A autenticação usa sessão do servidor e cookie HttpOnly, não credenciais no localStorage.
 
-### Painel do treinador
+## Demonstrar o fluxo
 
-- Visão geral com alunos ativos, adesão, treinos, feedbacks, carga semanal e agenda.
-- Gestão de alunos com busca e filtros por modalidade/status.
-- Biblioteca de treinos com visualização em cards ou lista.
-- Calendário de consultorias com propósito, descrição, atleta, horário e duração.
-- Criação automática de evento e chamada do Google Meet quando o OAuth está configurado.
-- Mensagens com histórico e envio local demonstrativo.
-- Financeiro com receita recorrente, split ilustrativo, repasses e transações.
-- Perfil profissional com CREF verificado, especialidades e status de documentação.
+1. Cadastre um treinador, preencha seu perfil e submeta CREF e referência de comprovação. Ele permanece fora das recomendações enquanto pendente.
+2. Em outra sessão de navegador, entre como administrador e aprove ou reprove a solicitação com justificativa. A decisão grava auditoria; não representa consulta automática ao conselho.
+3. Cadastre um atleta, preencha preferências compatíveis e procure o treinador aprovado.
+4. Solicite contratação. O treinador recebe a solicitação e aceita ou recusa. Só o aceite ativa o vínculo; não há cobrança nesta Sprint.
+5. Como treinador, crie um treino para o atleta vinculado e publique a ficha. Rascunhos são privados do treinador.
+6. Como atleta, registre blocos executados, métricas da modalidade, esforço e comentário. O treinador consulta o retorno.
+7. Recarregue para conferir a persistência. Para demonstrar persistência além do processo, encerre e reinicie os serviços mantendo o banco e entre novamente.
 
-### Portal do atleta
+## Verificação
 
-- Início com treino do dia, ciclo atual, métricas e contato com o treinador.
-- Matchmaking com percentual de compatibilidade, filtros e perfis verificados.
-- Notificações de novas consultorias e cartão do próximo encontro, incluindo pauta e acesso ao Meet.
-- Detalhe do treino com blocos, vídeo de orientação, esforço percebido e upload simulado.
-- Mensagens responsivas.
-- Perfil esportivo, configurações e central de privacidade.
-- Navegação inferior própria para telas pequenas.
-
-## Tecnologias
-
-- React 19
-- TypeScript
-- Vite
-- React Router
-- Lucide React
-- CSS responsivo sem framework de UI
-
-Os dados são mockados em `src/data/mock.ts` para manter o protótipo demonstrável sem backend.
-
-## Como executar
-
-Requisitos: Node.js 20+ e pnpm (ou npm).
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Acesse `http://localhost:5173`.
-
-Para validar o bundle de produção:
-
-```bash
+```powershell
+pnpm typecheck
 pnpm build
-pnpm preview
+pnpm test
+pnpm exec playwright install chromium
+pnpm test:e2e
+pnpm test:smoke
 ```
 
-## Estrutura principal
+Os testes usam banco separado `linkatletas_test`; jamais aponte a configuração de testes para uma base com dados importantes. O E2E prepara migrations/seed e usa API 3002/UI 5174, separadas do desenvolvimento 3001/5173. Não execute as duas suítes simultaneamente contra o mesmo banco de teste. Os pré-requisitos e resultados observados estão no [relatório de testes](docs/sprint-2/relatorio-testes.md). Os comandos documentados não constituem por si só evidência de aprovação.
+
+## Arquitetura e execução de produção
+
+React/TypeScript/Vite no cliente; Fastify, Zod e `pg` na API; PostgreSQL 17 no banco. O cliente chama `/api`; Vite encaminha as chamadas em desenvolvimento. Em produção de demonstração, `pnpm start` serve o frontend compilado e a API no mesmo domínio, depois de `pnpm build`.
+
+Configure `NODE_ENV=production`, `DATABASE_URL` explicitamente e `APP_ORIGIN` com a origem HTTPS real. O modo de produção exige cookies seguros; HTTP local não é uma implantação de produção. O padrão de origem no desenvolvimento é `http://localhost:5173`. Para criar um administrador próprio, configure `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` e execute `pnpm db:admin`; o comando exige os três valores, não habilita senha padrão de produção. Banco hospedado, proxy TLS, backups, gestão de segredos e operação pública precisam de configuração própria; este repositório não comprova implantação em nuvem.
 
 ```text
-src/
-  components/       componentes compartilhados, navegação e shell
-  context/          sessão e autenticação demonstrativa
-  data/             atletas, treinadores, treinos e métricas mockadas
-  pages/
-    athlete/        experiência mobile-first do atleta
-    coach/          painel web do treinador
-    shared/         fluxos compartilhados, como mensagens
-  App.tsx           rotas e proteção por papel
-  styles.css        design system e breakpoints responsivos
+server/                 API, segurança, migrations SQL e seed
+shared/contracts.ts     contratos públicos TypeScript
+src/services/api.ts     cliente HTTP
+src/pages/              áreas de atleta, treinador e administrador
+tests/                  regras, integração e navegador
+docs/sprint-2/          documentação acadêmica e evidências
 ```
 
-## Rotas
+## Documentação da Sprint 2
 
-| Rota | Finalidade |
-| --- | --- |
-| `/` | Site público |
-| `/login` | Login por papel |
-| `/treinador` | Dashboard do treinador |
-| `/treinador/alunos` | Gestão de alunos |
-| `/treinador/treinos` | Prescrição e biblioteca |
-| `/treinador/consultorias` | Calendário, agendamento e Google Meet |
-| `/treinador/mensagens` | Conversas e feedbacks |
-| `/treinador/financeiro` | Receitas e repasses |
-| `/treinador/perfil` | Perfil e validação profissional |
-| `/atleta` | Início do atleta |
-| `/atleta/descobrir` | Matchmaking |
-| `/atleta/treino` | Execução e feedback do treino |
-| `/atleta/mensagens` | Conversa com treinador |
-| `/atleta/perfil` | Perfil e privacidade |
+- [Índice e checklist da entrega](docs/sprint-2/entrega.md).
+- [ERS v1.1: requisitos, fluxos e cenários não funcionais](docs/sprint-2/ERS-v1.1.md).
+- [Diagramas e fontes editáveis](docs/sprint-2/diagramas.md).
+- [Backlog priorizado](docs/sprint-2/backlog.md).
+- [Matriz de rastreabilidade e UCs](docs/sprint-2/rastreabilidade.md).
+- [Decisões, dificuldades e mudanças de escopo](docs/sprint-2/decisoes.md).
+- [Guia da API](docs/sprint-2/api.md).
+- [Estado original da base](docs/sprint-2/estado-inicial.md).
 
-## Decisões de produto incorporadas
+## Limitações declaradas
 
-- O treinador só é apresentado ao atleta quando possui credencial verificada.
-- O matchmaking explica a compatibilidade e considera modalidade, objetivo, orçamento, localização e forma de atendimento.
-- As métricas são exibidas de forma flexível por modalidade; a modelagem definitiva deve usar um catálogo de tipos e valores de métricas.
-- Saúde, biometria e vídeos aparecem como dados sensíveis e devem possuir consentimento, finalidade, retenção e controle de acesso no backend real.
-- O financeiro representa recorrência e split, mas não processa pagamentos.
-- O treinador agenda a consultoria; a plataforma registra uma notificação interna e, com o Google conectado, cria um evento com Meet e envia o convite de calendário ao atleta.
-- Wearables e marketplace esportivo permanecem fora do escopo do MVP.
+Pagamentos, split, recorrência, cartão, chat em tempo real, avaliações públicas, cancelamento de assinatura, upload S3 e aplicativo nativo estão reservados para evolução. As rotas de financeiro, mensagens e consultorias exibem aviso de recurso futuro. O código demonstrativo original dessas áreas permanece como referência no repositório e não integra a navegação funcional desta Sprint.
 
-## Configurar Google Agenda e Meet
+Vídeo de exercício pode ser uma referência HTTPS; não há upload de vídeo. A conferência de CREF é manual e acadêmica. O match é uma regra determinística sobre perfis, sem modelo de IA treinado nem validação estatística. Não há comprovação integral de LGPD, criptografia de métricas em repouso, certificação PCI, escala em nuvem ou compatibilidade nativa iOS/Android. Use somente dados fictícios nesta demonstração.
 
-O modo local funciona sem credenciais: a agenda e a notificação do atleta são criadas, mas o link real do Meet fica pendente. Para habilitar a integração oficial:
-
-1. Crie ou selecione um projeto no Google Cloud Console.
-2. Ative a **Google Calendar API**.
-3. Configure a tela de consentimento OAuth.
-4. Crie um **OAuth Client ID** do tipo **Aplicativo da Web**.
-5. Adicione `http://localhost:5173` em **Origens JavaScript autorizadas**. Na publicação, adicione também o domínio HTTPS de produção.
-6. Copie `.env.example` para `.env` e informe o Client ID:
-
-```env
-VITE_GOOGLE_CLIENT_ID=seu-client-id.apps.googleusercontent.com
-```
-
-7. Reinicie `pnpm dev`, entre como treinador, abra **Consultorias** e clique em **Conectar Google Agenda**.
-
-A integração solicita somente o escopo `calendar.events`. Ao confirmar um agendamento, o sistema chama `events.insert` com `conferenceDataVersion=1`, solicita uma conferência `hangoutsMeet`, adiciona o atleta como participante e usa `sendUpdates=all` para enviar o convite.
-
-O Client ID web não é um segredo, mas nunca adicione Client Secret ou tokens OAuth ao frontend. Para uma versão com agendamentos em segundo plano e acesso duradouro, use o fluxo de autorização por código com backend e armazenamento criptografado de refresh tokens.
-
-## Próxima etapa recomendada
-
-Transformar o protótipo em aplicação full-stack com API Node.js/TypeScript, PostgreSQL, armazenamento S3, autenticação baseada em papéis, trilha de auditoria, validação manual/assistida de CREF, gateway compatível com split/recorrência e políticas reais de retenção e consentimento LGPD.
-
-## Aviso
-
-Este projeto é um protótipo acadêmico. Dados, pagamentos, validações, envio de mídia e mensagens são simulados e não devem ser interpretados como implementação pronta para produção.
+O código original de integração Google Agenda/Meet foi preservado como referência, fora da navegação integrada e do aceite desta Sprint. Se reativado, configurado e acionado em evolução futura, pode criar eventos e enviar convites reais. Não coloque Client Secret ou tokens no frontend.

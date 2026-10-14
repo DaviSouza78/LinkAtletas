@@ -10,6 +10,6 @@ tmp/
 !.env.example
 .DS_Store
 test-results/
-playwright-report/
+/playwright-report/
 coverage/
 docs/sprint-2/evidencias/playwright-artifacts/
