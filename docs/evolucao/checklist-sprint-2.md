@@ -33,7 +33,8 @@ Atualizado em 14/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] Evidências Chromium 390/1440 e seis telas sem violações axe: [E2E](evidencias/playwright-results.json), [axe](evidencias/chromium-axe.json), [chat desktop](evidencias/chromium-chat.png) e [privacidade mobile](evidencias/chromium-privacidade-mobile.png).
 - [x] App: tipos/dependências/Doctor, [9/9 testes de transporte](evidencias/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/mobile-bundles.json); ver [limites](evidencias/mobile-verificacao.md).
 - [x] Firefox e WebKit executados: [resultados](evidencias/playwright-results.json), [axe Firefox](evidencias/firefox-axe.json) e [axe WebKit](evidencias/webkit-axe.json).
-- [ ] APK/IPA assinado e execução em aparelhos Android/iOS; Safari/Edge reais e leitor de tela: não presumidos por bundles ou viewport.
+- [x] APK Android de verificação compilado no GitHub, com assinatura de desenvolvimento: [execução e hash](publicacao.md). Ainda requer URL HTTPS real para testar integrações.
+- [ ] Assinatura de distribuição, IPA e homologação completa em aparelhos Android/iOS; Safari/Edge reais e leitor de tela: não presumidos por compilação, bundles ou viewport.
 
 ## 5. Validações e tratamento básico de erros
 

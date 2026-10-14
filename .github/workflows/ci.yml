@@ -1,6 +1,7 @@
 name: LinkAtletas checks
 on:
   push:
+    paths-ignore: ['docs/**', 'README.md']
   pull_request:
 permissions:
   contents: read

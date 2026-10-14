@@ -1,0 +1,20 @@
+name: Documentation checks
+on:
+  push:
+    paths: ['docs/**', 'README.md', '.github/workflows/docs.yml']
+permissions:
+  contents: read
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm docs:check

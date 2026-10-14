@@ -1,0 +1,63 @@
+name: Android emulator smoke
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Run que gerou o artefato LinkAtletas-APK-verificacao'
+        required: true
+        default: '38654092520'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  startup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/download-artifact@v4
+        with:
+          name: LinkAtletas-APK-verificacao
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: apk
+      - name: Boot isolated Android emulator
+        run: |
+          sudo chmod 666 /dev/kvm
+          sdkmanager 'system-images;android-35;google_apis;x86_64'
+          echo no | avdmanager create avd -n linkatletas -k 'system-images;android-35;google_apis;x86_64' --device pixel_6 --force
+          mkdir -p emulator-evidence
+          "$ANDROID_HOME/emulator/emulator" -avd linkatletas -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect > emulator-evidence/emulator.log 2>&1 &
+          adb wait-for-device
+          timeout 300 bash -c 'until adb shell getprop sys.boot_completed | grep -q 1; do sleep 2; done'
+          adb shell input keyevent 82
+      - name: Install and launch the actual APK
+        run: |
+          adb install apk/LinkAtletas-verificacao.apk
+          adb logcat -c
+          adb shell am start -W -n br.edu.linkatletas.app/.MainActivity
+          sleep 15
+          adb shell uiautomator dump /sdcard/window.xml
+          adb pull /sdcard/window.xml emulator-evidence/window.xml
+          adb exec-out screencap -p > emulator-evidence/startup.png
+          adb logcat -d -s AndroidRuntime:E ReactNativeJS:E > emulator-evidence/errors.log
+          python3 - <<'PY'
+          import json, pathlib, xml.etree.ElementTree as ET
+          root=pathlib.Path('emulator-evidence')
+          tree=ET.parse(root/'window.xml')
+          text=' '.join(n.attrib.get('text','')+' '+n.attrib.get('content-desc','') for n in tree.iter('node'))
+          assert 'E-mail' in text and 'Senha' in text and 'Entrar' in text, text
+          errors=(root/'errors.log').read_text()
+          assert 'FATAL EXCEPTION' not in errors and 'TypeError:' not in errors, errors
+          (root/'result.json').write_text(json.dumps({'installed':True,'launched':True,'loginFieldsVisible':True,'runtimeCrashDetected':False,'environment':'Android API 35 x86_64 emulator','fullFlowValidated':False,'realDeviceValidated':False},indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LinkAtletas-Android-emulator-evidence
+          path: emulator-evidence/
+          retention-days: 30
