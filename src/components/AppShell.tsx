@@ -1,96 +1,189 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import {
-  Bell, CalendarDays, ChevronDown, CircleUserRound, Dumbbell, LayoutDashboard,
-  LogOut, Menu, MessageCircle, Search, ShieldCheck, Sparkles, Users, WalletCards, X,
+  CircleUserRound,
+  Dumbbell,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Search,
+  ShieldCheck,
+  Users,
+  X,
 } from 'lucide-react'
 import { Logo } from './Logo'
-import { Avatar } from './Ui'
 import { useAuth } from '../context/AuthContext'
-import { getAthleteNotifications, markAthleteNotificationsRead, subscribeToConsultations } from '../services/consultations'
-
+import type { Role } from '../../shared/contracts'
 const coachItems = [
-  { to: '/treinador', label: 'Visão geral', icon: LayoutDashboard, end: true },
-  { to: '/treinador/alunos', label: 'Alunos', icon: Users },
+  { to: '/treinador', label: 'Visão geral', icon: LayoutDashboard },
+  { to: '/treinador/alunos', label: 'Alunos e solicitações', icon: Users },
   { to: '/treinador/treinos', label: 'Treinos', icon: Dumbbell },
-  { to: '/treinador/consultorias', label: 'Consultorias', icon: CalendarDays },
-  { to: '/treinador/mensagens', label: 'Mensagens', icon: MessageCircle, count: 3 },
-  { to: '/treinador/financeiro', label: 'Financeiro', icon: WalletCards },
-  { to: '/treinador/perfil', label: 'Perfil profissional', icon: CircleUserRound },
+  {
+    to: '/treinador/perfil',
+    label: 'Perfil profissional',
+    icon: CircleUserRound,
+  },
 ]
-
 const athleteItems = [
-  { to: '/atleta', label: 'Início', icon: LayoutDashboard, end: true },
+  { to: '/atleta', label: 'Início', icon: LayoutDashboard },
   { to: '/atleta/descobrir', label: 'Descobrir', icon: Search },
   { to: '/atleta/treino', label: 'Meu treino', icon: Dumbbell },
-  { to: '/atleta/mensagens', label: 'Mensagens', icon: MessageCircle, count: 1 },
   { to: '/atleta/perfil', label: 'Perfil', icon: CircleUserRound },
 ]
-
-const titles: Record<string, string> = {
-  '/treinador': 'Visão geral', '/treinador/alunos': 'Meus alunos', '/treinador/treinos': 'Treinos', '/treinador/consultorias': 'Consultorias', '/treinador/mensagens': 'Mensagens', '/treinador/financeiro': 'Financeiro', '/treinador/perfil': 'Perfil profissional',
-  '/atleta': 'Olá, Marina!', '/atleta/descobrir': 'Encontre seu treinador', '/atleta/treino': 'Meu treino', '/atleta/mensagens': 'Mensagens', '/atleta/perfil': 'Meu perfil',
-}
-
-export function AppShell({ children, role }: { children: ReactNode; role: 'coach' | 'athlete' }) {
+export function AppShell({
+  children,
+  role,
+}: {
+  children: ReactNode
+  role: Role
+}) {
   const { user, logout } = useAuth()
   const location = useLocation()
   const [open, setOpen] = useState(false)
-  const [notificationOpen, setNotificationOpen] = useState(false)
-  const [notifications, setNotifications] = useState(() => role === 'athlete' ? getAthleteNotifications() : [])
-  const items = role === 'coach' ? coachItems : athleteItems
-  const isCoach = role === 'coach'
-  const title = titles[location.pathname] ?? 'LinkAtletas'
-  const unread = notifications.filter(item => !item.read).length
-
-  useEffect(() => subscribeToConsultations(() => setNotifications(role === 'athlete' ? getAthleteNotifications() : [])), [role])
-
-  function toggleNotifications() {
-    const next = !notificationOpen
-    setNotificationOpen(next)
-    if (next && role === 'athlete' && unread) {
-      markAthleteNotificationsRead()
-      setNotifications(getAthleteNotifications())
+  const [error, setError] = useState('')
+  useEffect(() => {
+    function close(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [])
+  const items =
+    role === 'admin'
+      ? [
+          {
+            to: '/admin',
+            label: 'Verificações profissionais',
+            icon: ShieldCheck,
+          },
+        ]
+      : role === 'coach'
+        ? coachItems
+        : athleteItems
+  async function exit() {
+    setError('')
+    try {
+      await logout()
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Falha ao sair.')
     }
   }
-
+  const initials =
+    user?.name
+      .split(' ')
+      .slice(0, 2)
+      .map((n) => n[0])
+      .join('') || 'LA'
   return (
-    <div className={`app-shell ${isCoach ? 'app-shell--coach' : 'app-shell--athlete'}`}>
-      <aside className={`sidebar ${open ? 'sidebar--open' : ''}`}>
-        <div className="sidebar__top"><Logo light /><button className="icon-button sidebar__close" onClick={() => setOpen(false)}><X size={20} /></button></div>
-        <div className="sidebar__role"><span>{isCoach ? 'Área do treinador' : 'Área do atleta'}</span><ChevronDown size={14} /></div>
+    <div
+      className={`app-shell app-shell--${role === 'athlete' ? 'athlete' : 'coach'}`}
+    >
+      <aside
+        id="application-sidebar"
+        className={`sidebar ${open ? 'sidebar--open' : ''}`}
+      >
+        <div className="sidebar__top">
+          <Logo light />
+          <button
+            className="icon-button sidebar__close"
+            aria-label="Fechar menu"
+            onClick={() => setOpen(false)}
+          >
+            <X />
+          </button>
+        </div>
+        <div className="sidebar__role">
+          Área{' '}
+          {role === 'admin'
+            ? 'administrativa'
+            : role === 'coach'
+              ? 'do treinador'
+              : 'do atleta'}
+        </div>
         <nav className="sidebar__nav" aria-label="Navegação principal">
-          {items.map(({ to, label, icon: Icon, count, end }) => (
-            <NavLink key={to} to={to} end={end} onClick={() => setOpen(false)} className={({ isActive }) => `nav-item ${isActive ? 'nav-item--active' : ''}`}>
-              <Icon size={19} strokeWidth={1.9} /><span>{label}</span>{count && <b>{count}</b>}
+          {items.map(({ to, label, icon: Icon }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `nav-item ${isActive ? 'nav-item--active' : ''}`
+              }
+            >
+              <Icon size={19} />
+              <span>{label}</span>
             </NavLink>
           ))}
         </nav>
-        {isCoach && <div className="sidebar__verify"><ShieldCheck size={24} /><div><strong>Perfil verificado</strong><span>CREF 012345-G/SC</span></div></div>}
-        <div className="sidebar__user"><Avatar initials={isCoach ? 'AM' : 'MC'} color={isCoach ? '#d7f266' : '#74d6d1'} /><div><strong>{user?.name}</strong><span>{isCoach ? 'Treinador' : 'Atleta'}</span></div><button onClick={logout} title="Sair"><LogOut size={18} /></button></div>
+        <div className="sidebar__user">
+          <span className="live-avatar">{initials}</span>
+          <div>
+            <strong>{user?.name}</strong>
+            <span>
+              {role === 'admin'
+                ? 'Administrador'
+                : role === 'coach'
+                  ? 'Treinador'
+                  : 'Atleta'}
+            </span>
+          </div>
+          <button onClick={exit} title="Sair" aria-label="Sair">
+            <LogOut size={18} />
+          </button>
+        </div>
       </aside>
-      {open && <button className="sidebar-backdrop" onClick={() => setOpen(false)} aria-label="Fechar menu" />}
-
+      {open && (
+        <button
+          className="sidebar-backdrop"
+          aria-label="Fechar menu"
+          onClick={() => setOpen(false)}
+        />
+      )}
       <div className="app-main">
         <header className="app-header">
-          <button className="icon-button app-header__menu" onClick={() => setOpen(true)}><Menu size={21} /></button>
-          <div><span className="app-header__kicker">{isCoach ? 'Domingo, 16 de agosto' : 'Seu próximo passo'}</span><h1>{title}</h1></div>
-          <div className="app-header__actions">
-            {isCoach && <label className="header-search"><Search size={17} /><input placeholder="Buscar aluno, treino..." /></label>}
-            <button className="icon-button notification" onClick={toggleNotifications} aria-label="Notificações"><Bell size={20} />{(isCoach || unread > 0) && <i />}{unread > 0 && <b className="notification-count">{unread}</b>}</button>
-            <Avatar initials={isCoach ? 'AM' : 'MC'} color={isCoach ? '#d7f266' : '#74d6d1'} />
-            {notificationOpen && <div className="notification-popover"><header><strong>Notificações</strong><span>{unread ? `${unread} nova${unread > 1 ? 's' : ''}` : 'Tudo em dia'}</span></header>{role === 'athlete' && notifications.length ? <div>{notifications.slice(0, 5).map(item => <article key={item.id}><span><CalendarDays /></span><div><strong>{item.title}</strong><p>{item.message}</p><small>Agora mesmo</small></div></article>)}</div> : <div className="notification-empty"><Bell /><span>Nenhuma notificação nova.</span></div>}</div>}
+          <button
+            className="icon-button app-header__menu"
+            aria-label="Abrir menu"
+            aria-expanded={open}
+            aria-controls="application-sidebar"
+            onClick={() => setOpen(true)}
+          >
+            <Menu />
+          </button>
+          <div>
+            <span className="app-header__kicker">Conecte. Treine. Evolua.</span>
+            <h1>
+              {items.find((i) => i.to === location.pathname)?.label ||
+                'LinkAtletas'}
+            </h1>
           </div>
+          <span className="live-header-name">{user?.name}</span>
         </header>
-        <main className="app-content">{children}</main>
+        <main className="app-content">
+          {error && (
+            <div role="alert" className="form-error">
+              {error}
+            </div>
+          )}
+          {children}
+        </main>
       </div>
-
-      {!isCoach && <nav className="bottom-nav" aria-label="Navegação mobile">
-        {athleteItems.slice(0, 5).map(({ to, label, icon: Icon, end }) => <NavLink key={to} to={to} end={end} className={({ isActive }) => isActive ? 'active' : ''}><Icon size={20} /><span>{label}</span></NavLink>)}
-      </nav>}
-
-      <button className="privacy-chip" title="Privacidade e proteção de dados"><ShieldCheck size={15} /> LGPD</button>
-      <div className="assistant-orb" title="Assistente Link"><Sparkles size={18} /></div>
+      {role === 'athlete' && (
+        <nav className="bottom-nav" aria-label="Navegação mobile">
+          {athleteItems.map(({ to, label, icon: Icon }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <Icon size={20} />
+              <span>{label}</span>
+            </NavLink>
+          ))}
+        </nav>
+      )}
     </div>
   )
 }
