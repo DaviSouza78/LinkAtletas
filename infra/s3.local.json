@@ -1,0 +1,1 @@
+{"identities":[{"name":"linkatletas-local","credentials":[{"accessKey":"linkatletas-local","secretKey":"local-only-change-in-production"}],"actions":["Admin","Read","Write","List","Tagging"]}]}

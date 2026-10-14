@@ -1,0 +1,27 @@
+flowchart LR
+  Atleta[Atleta]
+  Treinador[Treinador]
+  Administrador[Administrador]
+  subgraph LinkAtletas[LinkAtletas - Sprint 2]
+    Conta([RF-01 RF-02 RF-05 - Conta e perfil])
+    Submeter([RF-03 - Submeter CREF e referencia])
+    Decidir([RF-04 - Conferir e decidir manualmente])
+    Buscar([RF-06 RF-07 RF-08 - Buscar e consultar treinador])
+    Solicitar([RF-09 - Solicitar vinculo sem cobranca])
+    Aceitar([RF-10 RF-23 - Aceitar ou recusar e consultar carteira])
+    Prescrever([RF-14 RF-15 - Salvar rascunho e publicar ficha])
+    Consultar([RF-16 - Consultar ficha publicada])
+    Executar([RF-17 - Registrar execucao e feedback])
+    Acompanhar([RF-17 RF-23 - Acompanhar retorno do aluno])
+  end
+  Atleta --> Conta
+  Treinador --> Conta
+  Treinador --> Submeter
+  Administrador --> Decidir
+  Atleta --> Buscar
+  Atleta --> Solicitar
+  Treinador --> Aceitar
+  Treinador --> Prescrever
+  Atleta --> Consultar
+  Atleta --> Executar
+  Treinador --> Acompanhar

@@ -1,49 +1,86 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import type { UserRole, UserSession } from '../types'
-
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from 'react'
+import type { AppUser, Role } from '../../shared/contracts'
+import { api, json } from '../services/api'
 interface AuthContextValue {
-  user: UserSession | null
-  login: (email: string, password: string, role: UserRole) => Promise<void>
-  logout: () => void
+  user: AppUser | null
+  loading: boolean
+  error: string
+  login: (email: string, password: string, role?: Role) => Promise<AppUser>
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    role: 'athlete' | 'coach',
+  ) => Promise<AppUser>
+  logout: () => Promise<void>
+  refresh: () => Promise<void>
 }
-
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
-const STORAGE_KEY = 'linkatletas.session'
-
+export const homeFor = (role: Role) =>
+  role === 'admin' ? '/admin' : role === 'coach' ? '/treinador' : '/atleta'
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserSession | null>(null)
-
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      try { setUser(JSON.parse(stored) as UserSession) } catch { localStorage.removeItem(STORAGE_KEY) }
+  const [user, setUser] = useState<AppUser | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  async function refresh() {
+    setLoading(true)
+    setError('')
+    try {
+      const data = await api<{ user: AppUser | null }>('/auth/session')
+      setUser(data.user)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Falha ao recuperar sessão.')
+    } finally {
+      setLoading(false)
     }
-  }, [])
-
-  const login = async (email: string, password: string, role: UserRole) => {
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    const expected = role === 'coach'
-      ? { email: 'emailtreinador@email.com', password: 'senhatreinador', name: 'André Martins' }
-      : { email: 'emailatleta@email.com', password: 'senhaatleta', name: 'Marina Costa' }
-    if (email.trim().toLowerCase() !== expected.email || password !== expected.password) {
-      throw new Error('E-mail ou senha incorretos para este perfil.')
-    }
-    const next = { role, name: expected.name, email: expected.email }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-    setUser(next)
   }
-
-  const logout = () => {
-    localStorage.removeItem(STORAGE_KEY)
+  useEffect(() => {
+    localStorage.removeItem('linkatletas.session')
+    void refresh()
+  }, [])
+  async function login(email: string, password: string) {
+    const data = await api<{ user: AppUser }>(
+      '/auth/login',
+      json('POST', { email, password }),
+    )
+    setUser(data.user)
+    setError('')
+    return data.user
+  }
+  async function register(
+    name: string,
+    email: string,
+    password: string,
+    role: 'athlete' | 'coach',
+  ) {
+    const data = await api<{ user: AppUser }>(
+      '/auth/register',
+      json('POST', { name, email, password, role }),
+    )
+    setUser(data.user)
+    setError('')
+    return data.user
+  }
+  async function logout() {
+    await api('/auth/logout', json('POST', {}))
     setUser(null)
   }
-
-  const value = useMemo(() => ({ user, login, logout }), [user])
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider
+      value={{ user, loading, error, login, register, logout, refresh }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
 }
-
 export function useAuth() {
   const value = useContext(AuthContext)
-  if (!value) throw new Error('useAuth deve ser usado dentro de AuthProvider')
+  if (!value) throw new Error('AuthProvider ausente')
   return value
 }

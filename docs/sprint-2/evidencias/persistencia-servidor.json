@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-10-14T04:13:16.202Z",
+  "success": true,
+  "database": "linkatletas_test",
+  "mode": "production",
+  "transport": "HTTP em loopback, sem implantação TLS; HTTPS configurado apenas como origem para verificar flags de cookie.",
+  "staticFrontend": 200,
+  "swagger": 200,
+  "unknownApi": 404,
+  "secureHttpOnlyCookie": true,
+  "sessionSurvivedProcessRestart": true,
+  "dashboardIdenticalAfterRestart": true,
+  "contractIds": [
+    "5d1191cf-c6dc-4224-b7f3-55a52fec5e67"
+  ],
+  "workoutIds": [
+    "cb1f39b3-7e28-49ab-84c8-a1c2626ad173"
+  ],
+  "databaseCounts": {
+    "users": 10,
+    "contracts": 2,
+    "workouts": 2,
+    "executions": 1
+  }
+}

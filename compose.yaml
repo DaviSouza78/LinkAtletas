@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: linkatletas
+      POSTGRES_USER: linkatletas
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-linkatletas_dev}
+    ports:
+      - "127.0.0.1:54329:5432"
+    volumes:
+      - linkatletas_data:/var/lib/postgresql/data
+      - ./server/db/init-test.sql:/docker-entrypoint-initdb.d/01-test.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U linkatletas -d linkatletas"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  mail:
+    image: axllent/mailpit:v1.31.5
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+    environment:
+      MP_DATABASE: /data/mailpit.db
+    volumes:
+      - linkatletas_mail:/data
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  storage:
+    image: chrislusf/seaweedfs:4.48
+    command: ["server", "-dir=/data", "-filer", "-s3", "-s3.config=/config/s3.json", "-ip.bind=0.0.0.0", "-master.volumeSizeLimitMB=1024"]
+    ports:
+      - "127.0.0.1:8333:8333"
+    volumes:
+      - linkatletas_objects:/data
+      - ./infra/s3.local.json:/config/s3.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:9333/cluster/status"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+volumes:
+  linkatletas_data:
+  linkatletas_mail:
+  linkatletas_objects:

@@ -1,0 +1,37 @@
+sequenceDiagram
+  actor T as Treinador
+  actor G as Administrador
+  actor A as Atleta
+  participant UI as Interface web
+  participant API as API Fastify
+  participant DB as PostgreSQL
+  T->>UI: Submeter CREF e referencia (RF-03)
+  UI->>API: POST /api/verifications
+  API->>DB: Registrar pending e ocultar do catalogo
+  G->>UI: Conferir e aprovar/reprovar (RF-04)
+  UI->>API: PATCH /api/admin/verifications/:id
+  API->>DB: BEGIN - decisao, perfil e auditoria
+  alt gravacao completa
+    DB-->>API: COMMIT
+    API-->>UI: Status atualizado
+  else falha em qualquer gravacao
+    API->>DB: ROLLBACK
+    API-->>UI: Erro sem confirmar decisao
+  end
+  A->>UI: Buscar treinador (RF-06 RF-07 RF-08)
+  UI->>API: GET /api/coaches
+  API->>DB: Perfis aprovados e compativeis
+  API-->>UI: Pontuacao, criterios e perfis
+  A->>UI: Solicitar vinculo (RF-09)
+  UI->>API: POST /api/contracts
+  API->>DB: Verificar elegibilidade e gravar pending
+  API-->>UI: Aguardando aceite - sem cobranca
+  T->>UI: Decidir solicitacao (RF-10)
+  UI->>API: PATCH /api/contracts/:id
+  API->>DB: Atualizacao transacional do destinatario
+  alt aceita
+    DB-->>API: active
+  else recusa
+    DB-->>API: rejected
+  end
+  API-->>UI: Estado persistido e carteira atualizada (RF-23)

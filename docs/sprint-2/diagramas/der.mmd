@@ -1,0 +1,101 @@
+erDiagram
+  users ||--|| profiles : possui
+  users ||--o{ sessions : autentica
+  users ||--o{ verifications : treinador_submete
+  users |o--o{ verifications : administrador_revisa
+  users ||--o{ verification_audit : administrador_decide
+  verifications ||--o{ verification_audit : audita_decisao
+  users ||--o{ contracts : atleta
+  users ||--o{ contracts : treinador
+  contracts ||--o{ workouts : permite
+  workouts ||--|{ exercise_blocks : contem
+  workouts ||--o| executions : recebe
+  users {
+    uuid id PK
+    text name
+    text email UK
+    text password_hash
+    text role
+    timestamptz created_at
+  }
+  profiles {
+    uuid user_id PK,FK
+    text city
+    text bio
+    text_array sports
+    text_array goals
+    text_array levels
+    text_array availability
+    text mode
+    numeric budget
+    numeric price
+    text cref
+    text verification_status
+    text verification_reason
+  }
+  sessions {
+    text token_hash PK
+    uuid user_id FK
+    timestamptz expires_at
+    timestamptz created_at
+  }
+  verifications {
+    uuid id PK
+    uuid coach_id FK
+    text cref
+    text evidence
+    text status
+    text reason
+    timestamptz submitted_at
+    timestamptz reviewed_at
+    uuid reviewer_id FK
+  }
+  verification_audit {
+    uuid id PK
+    uuid verification_id FK
+    uuid reviewer_id FK
+    text decision
+    text reason
+    timestamptz created_at
+  }
+  contracts {
+    uuid id PK
+    uuid athlete_id FK
+    uuid coach_id FK
+    text status
+    timestamptz created_at
+    timestamptz decided_at
+  }
+  workouts {
+    uuid id PK
+    uuid contract_id FK
+    text title
+    text sport
+    date scheduled_date
+    text instructions
+    text status
+    timestamptz created_at
+  }
+  exercise_blocks {
+    uuid id PK
+    uuid workout_id FK
+    integer position
+    jsonb definition
+  }
+  metric_types {
+    text sport PK
+    text key PK
+    text label
+    text unit
+    float min
+    float max
+  }
+  executions {
+    uuid id PK
+    uuid workout_id FK,UK
+    integer_array completed_blocks
+    integer effort
+    text notes
+    jsonb metrics
+    timestamptz updated_at
+  }

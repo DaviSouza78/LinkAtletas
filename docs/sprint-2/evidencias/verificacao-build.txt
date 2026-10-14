@@ -1,0 +1,18 @@
+
+> linkatletas@0.2.0 build C:\dev\projects\LinkAtletas
+> pnpm typecheck && vite build
+
+
+> linkatletas@0.2.0 typecheck C:\dev\projects\LinkAtletas
+> tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.tests.json
+
+vite v8.2.1 building client environment for production...
+[2K
+transforming...✓ 1813 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.95 kB │ gzip:  0.49 kB
+dist/assets/index-w3sp6DAU.css   94.18 kB │ gzip: 18.21 kB
+dist/assets/index-CcH5l90M.js   294.07 kB │ gzip: 90.44 kB
+
+✓ built in 349ms
