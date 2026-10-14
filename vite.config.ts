@@ -7,7 +7,7 @@ export default defineConfig({
     host: true,
     port: Number(process.env.VITE_PORT || 5173),
     strictPort: true,
-    watch: { ignored: ['**/docs/**', '**/mobile/**', '**/backups/**'] },
+    watch: { ignored: ['**/docs/**', '**/mobile/**', '**/backups/**', '**/tmp/**'] },
     proxy: {
       '/api': {
         target: `http://127.0.0.1:${process.env.API_PORT || 3001}`,

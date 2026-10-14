@@ -1,11 +1,5 @@
 name: Android APK verification
 on:
-  push:
-    branches: [main, evolucao-completa]
-    paths: ['mobile/**', 'shared/**', '.github/workflows/android.yml']
-  pull_request:
-    branches: [main]
-    paths: ['mobile/**', 'shared/**', '.github/workflows/android.yml']
   workflow_dispatch:
 permissions:
   contents: read

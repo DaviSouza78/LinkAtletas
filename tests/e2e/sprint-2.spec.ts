@@ -33,6 +33,8 @@ async function register(
     .getByRole('button', { name: 'Criar minha conta', exact: true })
     .click()
   await expect(page).toHaveURL(role === 'coach' ? /\/treinador$/ : /\/atleta$/)
+  // Complete the initial dashboard before replacing its document with the profile page.
+  await page.waitForLoadState('networkidle')
 }
 async function saveProfile(page: Page, role: 'athlete' | 'coach') {
   await page.goto(role === 'coach' ? '/treinador/perfil' : '/atleta/perfil')
