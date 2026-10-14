@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-14T19:50:49.008Z",
+  "source": "backup_source_c021d68f479c_test",
+  "target": "backup_restore_c021d68f479c_test",
+  "backup": {
+    "backup": "C:\\dev\\projects\\LinkAtletas\\tmp\\backups\\verified-c021d68f479c",
+    "database": "backup_source_c021d68f479c_test",
+    "objects": 1,
+    "tables": 36,
+    "databaseEncrypted": true,
+    "keyIncluded": false
+  },
+  "restore": {
+    "restoredDatabase": "backup_restore_c021d68f479c_test",
+    "objects": 1,
+    "tables": 36,
+    "countsEqual": true,
+    "checksumsEqual": true,
+    "keyMatched": true
+  },
+  "privateFieldRoundtrip": true,
+  "mediaRoundtrip": true,
+  "dumpPlaintextAbsent": true,
+  "encryptedObjectSha256": "e73f0b7bd7334f106ffff60a5afb17f23903276d899d6d7965621214c92f5090",
+  "testDatabasesPreserved": true,
+  "consistency": "Testes isolados sem escritas concorrentes. Produção requer pausar escritas e reaplicar eliminações posteriores."
+}

@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Atleta
+actor Treinador
+actor Administrador
+actor "SMTP / S3" as Servicos
+actor "Asaas" as Gateway
+actor "Google Agenda" as Google
+rectangle LinkAtletas {
+  usecase "UC-01 Conta, perfil e\nrecuperação de acesso" as Conta
+  usecase "UC-02 Conferir e gerir\ncredencial profissional" as Credencial
+  usecase "UC-03 Descobrir e\nsolicitar vínculo" as Descoberta
+  usecase "UC-03 Decidir solicitação\ne gerir carteira" as Carteira
+  usecase "UC-04 Assinar e\nconciliar pagamento" as Financeiro
+  usecase "UC-05 Prescrever e\npublicar treino" as Prescricao
+  usecase "UC-05 Executar treino\ne enviar performance" as Execucao
+  usecase "UC-05 Consultar retorno\ne corrigir mídia" as Correcao
+  usecase "UC-06 Mensagens\ne notificações" as Chat
+  usecase "UC-07 Avaliar e\ndenunciar conteúdo" as Review
+  usecase "UC-07 Responder\navaliação" as Resposta
+  usecase "UC-07 Moderar\navaliação" as Moderacao
+  usecase "UC-08 Agenda e\nconsultoria" as Agenda
+  usecase "UC-09 Encerrar vínculo\ne renovação" as Encerrar
+  usecase "UC-10 Consentir, exportar\ne encerrar conta" as Privacidade
+  usecase "UC-04 Configurar\ncomissão/carência" as Taxa
+}
+Atleta -- Conta
+Treinador -- Conta
+Atleta -- Descoberta
+Treinador -- Carteira
+Treinador -- Credencial
+Administrador -- Credencial
+Atleta -- Financeiro
+Treinador -- Financeiro
+Gateway -- Financeiro
+Administrador -- Taxa
+Treinador -- Prescricao
+Atleta -- Execucao
+Treinador -- Correcao
+Atleta -- Chat
+Treinador -- Chat
+Atleta -- Review
+Treinador -- Resposta
+Administrador -- Moderacao
+Atleta -- Agenda
+Treinador -- Agenda
+Google -- Agenda
+Atleta -- Encerrar
+Treinador -- Encerrar
+Atleta -- Privacidade
+Treinador -- Privacidade
+Servicos -- Conta
+Servicos -- Execucao
+Servicos -- Credencial
+note bottom of Gateway
+  Exige configuração; teste HTTP controlado
+  não comprova sandbox real.
+end note
+@enduml

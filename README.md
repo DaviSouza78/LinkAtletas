@@ -2,17 +2,13 @@
 
 Projeto Integrador Interdisciplinar II — ADS, Faculdade de Tecnologia SENAI Félix Guisard. Plataforma para conectar atletas a treinadores e acompanhar o treinamento esportivo, em resposta à demanda SAGA nº 12871 da Ivi-it.
 
-Na Sprint 2, a base React foi integrada a uma API Node/TypeScript e a PostgreSQL. O fluxo abrange cadastro, perfis, conferência profissional manual, recomendação explicável, solicitação e aceite de vínculo, prescrição, execução e feedback. A entrega usa interface web responsiva; React Native permanece no backlog.
+A ampliação preserva o fluxo da Sprint 2 e acrescenta chat em tempo real, avaliações/moderação, consultorias, arquivos privados cifrados, recuperação de senha, consentimentos/privacidade, ciclos de vínculo, financeiro Asaas e cliente React Native/Expo. A API é Node/TypeScript/Fastify com PostgreSQL; a web usa React. Modo acadêmico é explicitamente sem cobrança. Integrações escritas/testadas localmente e homologações externas são estados separados.
 
-## Equipe
+Consulte o [checklist com referências](docs/evolucao/checklist-sprint-2.md), o [relatório de testes](docs/evolucao/relatorio-testes.md) e o [manual completo](docs/evolucao/manual.md). A entrega inicial continua preservada em [docs/sprint-2](docs/sprint-2/entrega.md).
 
-João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa.
+## Executar localmente
 
-As atribuições do planejamento original não comprovam participação individual. O histórico Git e os registros efetivos de revisão e apresentação devem compor essa evidência.
-
-## Instalação local
-
-Requisitos: Node.js 24, pnpm 10 e Docker Desktop com o engine ativo. Execute na raiz do clone:
+Pré-requisitos: Node.js 24, pnpm 10 e Docker Desktop ativo. Na primeira instalação:
 
 ```powershell
 pnpm install --frozen-lockfile
@@ -23,82 +19,96 @@ pnpm db:seed
 pnpm dev:all
 ```
 
-O arquivo `.env` é opcional para os padrões locais documentados em `.env.example`; copie-o para personalizar o ambiente. Nunca versione credenciais reais.
+Preserve um `.env` já existente. Migrations são cumulativas e não exigem apagar volumes. `docker compose down` para serviços sem remover dados.
 
-- Interface: [localhost:5173](http://localhost:5173).
-- API: [localhost:3001/api](http://localhost:3001/api).
-- Swagger: [localhost:3001/api/docs](http://localhost:3001/api/docs).
-- OpenAPI JSON: [localhost:3001/api/openapi.json](http://localhost:3001/api/openapi.json).
-- PostgreSQL local: porta `54329`, banco `linkatletas`; consulte usuário/senha de desenvolvimento em `compose.yaml`.
+- Web: [localhost:5173](http://localhost:5173).
+- Swagger/API: [localhost:3001/api/docs](http://localhost:3001/api/docs).
+- OpenAPI: [localhost:3001/api/openapi.json](http://localhost:3001/api/openapi.json).
+- E-mails locais: [Mailpit em 127.0.0.1:8025](http://127.0.0.1:8025), SMTP 1025, sem encaminhamento externo.
+- S3 privado SeaweedFS: loopback 8333; PostgreSQL: loopback 54329.
 
-O Compose mantém os dados em volume persistente. `docker compose down` para os serviços sem remover o volume. Não remova volumes para atualizar a aplicação. `pnpm db:migrate` aplica somente migrations ainda não registradas. Seed é explícito e restrito ao desenvolvimento.
+A chave AES é gerada em `.data-key.local` ignorado pelo Git, ou configurada em `DATA_ENCRYPTION_KEY`. Preserve a chave correspondente aos dados, separadamente do backup e fora de relatórios/commits. Produção exige configuração explícita; não use credenciais locais de exemplo em ambiente público.
 
-## Contas de demonstração
-
-Criadas por `pnpm db:seed`, com dados fictícios:
+## Contas fictícias
 
 | Papel | E-mail | Senha local |
 |---|---|---|
 | Atleta | `emailatleta@email.com` | `senhaatleta` |
 | Treinador | `emailtreinador@email.com` | `senhatreinador` |
-| Administrador | `admin@linkatletas.local` | `SenhaAdmin123!` |
+| Admin | `admin@linkatletas.local` | `SenhaAdmin123!` |
 
-Também é possível criar novas contas de atleta e treinador na interface. O cadastro público não cria administradores. A autenticação usa sessão do servidor e cookie HttpOnly, não credenciais no localStorage.
+Seed é explícito e restrito ao desenvolvimento. Cadastro público cria atleta/treinador; para admin próprio configure `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` e execute `pnpm db:admin`. Sessão web usa cookie HttpOnly; cliente nativo usa Bearer opaco com SecureStore. Senhas e chaves privadas não vão para localStorage nem para o bundle.
 
-## Demonstrar o fluxo
+## Fluxos disponíveis
 
-1. Cadastre um treinador, preencha seu perfil e submeta CREF e referência de comprovação. Ele permanece fora das recomendações enquanto pendente.
-2. Em outra sessão de navegador, entre como administrador e aprove ou reprove a solicitação com justificativa. A decisão grava auditoria; não representa consulta automática ao conselho.
-3. Cadastre um atleta, preencha preferências compatíveis e procure o treinador aprovado.
-4. Solicite contratação. O treinador recebe a solicitação e aceita ou recusa. Só o aceite ativa o vínculo; não há cobrança nesta Sprint.
-5. Como treinador, crie um treino para o atleta vinculado e publique a ficha. Rascunhos são privados do treinador.
-6. Como atleta, registre blocos executados, métricas da modalidade, esforço e comentário. O treinador consulta o retorno.
-7. Recarregue para conferir a persistência. Para demonstrar persistência além do processo, encerre e reinicie os serviços mantendo o banco e entre novamente.
+Cadastro/perfil → conferência profissional manual → descoberta compatível → solicitação/aceite → treino publicado → execução/feedback. Além do fluxo principal, a navegação contém mensagens, agenda, financeiro, avaliações, notificações e privacidade. Documentos/vídeos são privados, vinculados a recurso e autorizados; upload de performance exige consentimento. Avaliações exigem vínculo ativo pelo período mínimo configurado, sete dias por padrão. Consulte o roteiro de demonstração e as exceções no manual/ERS.
 
-## Verificação
+`BILLING_MODE=academic` não processa cobranças. `asaas` usa checkout hospedado, carteiras elegíveis, webhook autenticado e conciliação; depende de credenciais e homologação da conta. Redirect não confirma pagamento. Totais de participação são estimados sobre valor líquido; não comprovam repasse bancário. CREF aprovado neste ambiente significa conferência manual auditada com validade, suspensão e expiração; consulta automática oficial permanece pendente de serviço autorizado.
+
+Google Agenda/Meet é opcional mediante Client ID público e ação OAuth explícita do treinador. A API guarda a referência criada; o fluxo integrado não inclui convidados. Alterações locais ainda precisam ser refletidas também na agenda externa. Nenhum teste cria evento ou envia convite real.
+
+## Cliente do atleta
+
+```powershell
+pnpm --dir mobile install --frozen-lockfile
+Copy-Item mobile/.env.example mobile/.env
+pnpm --dir mobile typecheck
+pnpm --dir mobile check
+pnpm --dir mobile export
+pnpm --dir mobile start
+```
+
+Configurar `EXPO_PUBLIC_API_URL` sem segredos de serviço; detalhes em [mobile/README.md](mobile/README.md). Bundles Hermes Android/iOS são distintos de APK/IPA assinado, instalação, teste em aparelho e publicação em loja. Compilação Android depende de JDK/SDK; iOS de Xcode/serviço autorizado. O app usa a mesma API e não tem backend próprio.
+
+## Qualidade e evidências
 
 ```powershell
 pnpm typecheck
-pnpm build
 pnpm test
-pnpm exec playwright install chromium
+pnpm build
+pnpm exec playwright install chromium firefox webkit
 pnpm test:e2e
-pnpm test:smoke
 ```
 
-Os testes usam banco separado `linkatletas_test`; jamais aponte a configuração de testes para uma base com dados importantes. O E2E prepara migrations/seed e usa API 3002/UI 5174, separadas do desenvolvimento 3001/5173. Não execute as duas suítes simultaneamente contra o mesmo banco de teste. Os pré-requisitos e resultados observados estão no [relatório de testes](docs/sprint-2/relatorio-testes.md). Os comandos documentados não constituem por si só evidência de aprovação.
+Integração usa banco isolado `_test`. Não execute Vitest e E2E simultaneamente na mesma base; não aponte testes para dados importantes. [Resultados locais](docs/evolucao/relatorio-testes.md) identificam suíte, data e limites. Chromium/Firefox/WebKit são engines específicos; não presumem homologação Edge/Safari reais. Auditoria axe não substitui revisão com leitor de tela. Carga local não comprova autoescala em nuvem.
 
-## Arquitetura e execução de produção
+## Container, TLS e recuperação
 
-React/TypeScript/Vite no cliente; Fastify, Zod e `pg` na API; PostgreSQL 17 no banco. O cliente chama `/api`; Vite encaminha as chamadas em desenvolvimento. Em produção de demonstração, `pnpm start` serve o frontend compilado e a API no mesmo domínio, depois de `pnpm build`.
+```powershell
+pnpm exec tsx scripts/init-production.ts
+docker compose --env-file .env.production.local -f compose.production.yaml up -d --build --wait
+pnpm exec tsx scripts/verify-tls.ts
+```
 
-Configure `NODE_ENV=production`, `DATABASE_URL` explicitamente e `APP_ORIGIN` com a origem HTTPS real. O modo de produção exige cookies seguros; HTTP local não é uma implantação de produção. O padrão de origem no desenvolvimento é `http://localhost:5173`. Para criar um administrador próprio, configure `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` e execute `pnpm db:admin`; o comando exige os três valores, não habilita senha padrão de produção. Banco hospedado, proxy TLS, backups, gestão de segredos e operação pública precisam de configuração própria; este repositório não comprova implantação em nuvem.
+A configuração gerada é local, com segredos próprios em arquivos ignorados e HTTPS em `https://localhost:8443`. Caddy usa CA local de teste; o script passa a CA explicitamente e não instala confiança no sistema. Não foi publicada URL pública. Proxy público requer domínio/conta/segredos e configuração própria. Migrations precedem o processo da aplicação. Operação, SMTP externo, banco/S3 e autorização de publicação estão descritos no manual.
+
+Backup cifrado de banco/objetos e restauração somente em destinos isolados vazios:
+
+```powershell
+pnpm exec tsx scripts/backup.ts revisao-local
+pnpm exec tsx scripts/verify-backup.ts
+```
+
+O primeiro comando usa `BACKUP_ROOT` (padrão `tmp/backups`), preserva chave separada e requer escritas pausadas para consistência entre SQL/objetos. `restore.ts` recebe diretório, banco vazio com sufixo `_test` e bucket vazio. Confira o manual e o manifesto antes de restaurar. O teste conserva bases isoladas, compara 36 tabelas e checksums de objetos; não apaga sua base. Backups restaurados precisam reaplicar pedidos posteriores de eliminação.
+
+## Estrutura e documentação
 
 ```text
-server/                 API, segurança, migrations SQL e seed
-shared/contracts.ts     contratos públicos TypeScript
-src/services/api.ts     cliente HTTP
-src/pages/              áreas de atleta, treinador e administrador
-tests/                  regras, integração e navegador
-docs/sprint-2/          documentação acadêmica e evidências
+server/              API, segurança, serviços, jobs e migrations
+shared/              contratos web/nativo
+src/                 interface React integrada
+mobile/              cliente Expo atleta, manifesto/lock próprios
+tests/               unidade, PostgreSQL e navegador
+infra/               S3 e proxy TLS
+scripts/             documentação, carga, TLS e backup/restauração
+docs/sprint-2/       entrega inicial e evidências históricas
+docs/evolucao/       ERS v2, API, manual, modelos, checklist e novas evidências
 ```
 
-## Documentação da Sprint 2
+[Índice](docs/evolucao/entrega.md) · [ERS v2](docs/evolucao/ERS-v2.md) · [API](docs/evolucao/api.md) · [Diagramas](docs/evolucao/diagramas.md) · [Backlog](docs/evolucao/backlog.md) · [Rastreabilidade/UCs](docs/evolucao/rastreabilidade.md) · [Decisões](docs/evolucao/decisoes.md).
 
-- [Índice e checklist da entrega](docs/sprint-2/entrega.md).
-- [Checklist detalhado com itens feitos e pendências](docs/sprint-2/checklist-sprint-2.md).
-- [ERS v1.1: requisitos, fluxos e cenários não funcionais](docs/sprint-2/ERS-v1.1.md).
-- [Diagramas e fontes editáveis](docs/sprint-2/diagramas.md).
-- [Backlog priorizado](docs/sprint-2/backlog.md).
-- [Matriz de rastreabilidade e UCs](docs/sprint-2/rastreabilidade.md).
-- [Decisões, dificuldades e mudanças de escopo](docs/sprint-2/decisoes.md).
-- [Guia da API](docs/sprint-2/api.md).
-- [Estado original da base](docs/sprint-2/estado-inicial.md).
+## Equipe e pendências externas
 
-## Limitações declaradas
+João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa. Cada integrante deve registrar sua participação efetiva e realizar sua entrega acadêmica. Autoria Git deste incremento usa o nome/e-mail fornecidos por Lucca, sem presumir participação dos demais.
 
-Pagamentos, split, recorrência, cartão, chat em tempo real, avaliações públicas, cancelamento de assinatura, upload S3 e aplicativo nativo estão reservados para evolução. As rotas de financeiro, mensagens e consultorias exibem aviso de recurso futuro. O código demonstrativo original dessas áreas permanece como referência no repositório e não integra a navegação funcional desta Sprint.
-
-Vídeo de exercício pode ser uma referência HTTPS; não há upload de vídeo. A conferência de CREF é manual e acadêmica. O match é uma regra determinística sobre perfis, sem modelo de IA treinado nem validação estatística. Não há comprovação integral de LGPD, criptografia de métricas em repouso, certificação PCI, escala em nuvem ou compatibilidade nativa iOS/Android. Use somente dados fictícios nesta demonstração.
-
-O código original de integração Google Agenda/Meet foi preservado como referência, fora da navegação integrada e do aceite desta Sprint. Se reativado, configurado e acionado em evolução futura, pode criar eventos e enviar convites reais. Não coloque Client Secret ou tokens no frontend.
+Permanecem dependentes de acesso/homologação: sandbox/produção Asaas e split real, consulta CREF autorizada, SMTP/S3 hospedados, Google OAuth real, domínio público, APK/IPA/dispositivos/stores, política jurídica operacional e revisão docente. IA treinada, broker multi-instância, autoescala, autosave contínuo e catálogo administrativo de novos esportes constam como evolução. Não houve push/PR/merge automático no GitHub nem submissão ao ambiente acadêmico.

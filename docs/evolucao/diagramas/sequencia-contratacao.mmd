@@ -1,0 +1,36 @@
+sequenceDiagram
+  actor A as Atleta
+  actor T as Treinador
+  participant API as API LinkAtletas
+  participant DB as PostgreSQL
+  participant G as Asaas configurado
+  participant J as Jobs
+  A->>API: POST /contracts {coachId}
+  API->>DB: Verificar elegibilidade e ciclo vigente
+  DB-->>API: Ciclo pending
+  API-->>A: Solicitação persistida
+  T->>API: PATCH /contracts/:id active
+  API->>DB: Lock, titularidade, aceite
+  alt Modo acadêmico
+    API-->>T: Vínculo ativo sem cobrança
+  else Modo Asaas configurado
+    API-->>T: Aceito, acesso financeiro pendente
+    A->>API: POST /billing/checkout
+    API->>DB: Intenção única, job e lock
+    API->>G: Checkout hospedado recorrente + split
+    alt Resposta confirmada
+      G-->>API: checkoutId e URL
+      API->>DB: Guardar referência
+      API-->>A: URL checkout
+      A->>G: Concluir no provedor
+      G->>API: Webhook + token autenticado
+      API->>DB: Persistir eventId único
+      API-->>G: Recebido
+      J->>DB: Processar evento e vigência
+      Note over API,DB: Redirect não confirma pagamento
+    else Timeout ou resultado incerto
+      API->>DB: Estado uncertain e conciliação
+      J->>G: Consulta segura por referência
+      Note over API,G: Não repetir criação cegamente
+    end
+  end

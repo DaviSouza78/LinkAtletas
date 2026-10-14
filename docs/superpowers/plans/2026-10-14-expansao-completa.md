@@ -92,4 +92,6 @@ Web: `src/pages/integrated/Expansion.tsx`, App, navegação e CSS. Não editar o
 
 ## Revisão do plano
 
+Execução local concluída em 14/10/2026; consolidação em [checklist ampliado](../../evolucao/checklist-sprint-2.md). Evidências: 75/75 Vitest, 15/15 E2E, nove testes do transporte Expo, bundles Android/iOS, TLS/reinício e restauração cifrada. Etapas de APK/IPA/dispositivo, contas externas, docente/equipe e publicação permanecem condicionadas às dependências especificadas. Não houve push.
+
 As 12 seções da proposta estão cobertas por tarefas 1–11. Testes de novos módulos usam banco com sufixo `_test`, sequenciais para não colidir com TRUNCATE; nunca usar banco da demonstração para limpeza. Integração e commits são controlados pela raiz. Resultados de pagamentos reais, conselho, lojas e hospedagem pública permanecem condicionados ao ambiente externo, conforme escopo aprovado.

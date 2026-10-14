@@ -1,0 +1,234 @@
+erDiagram
+  users ||--|| profiles : possui
+  users ||--o{ sessions : autentica
+  users ||--o{ password_resets : recupera
+  users ||--o{ mail_outbox : recebe
+  users ||--o{ verifications : submete
+  verifications ||--o{ verification_audit : audita
+  media o|--o{ verifications : comprova
+  users ||--o{ contracts : atleta_ou_treinador
+  contracts ||--o{ workouts : contem
+  workouts ||--|{ exercise_blocks : ordena
+  workouts ||--o| executions : executa
+  users ||--o{ media : possui
+  media ||--o{ media_feedback : recebe
+  contracts ||--o{ messages : conversa
+  users ||--o{ messages : envia
+  media o|--o{ messages : anexa
+  users ||--o{ notifications : recebe
+  contracts ||--o| reviews : avalia
+  reviews ||--o{ review_reports : denuncia
+  reviews ||--o{ review_moderation : modera
+  users ||--o{ review_reports : relata
+  contracts ||--o{ consultations : agenda
+  consultations ||--o{ consultation_history : historico
+  users ||--o{ consents : concede
+  users ||--o{ consent_history : registra
+  users ||--o| private_health : cifra
+  users ||--o{ privacy_requests : solicita
+  users ||--o{ administrative_audit : ator_ou_alvo
+  users ||--o| billing_wallets : recebe
+  users ||--o| billing_plans : oferece
+  contracts ||--o| billing_subscriptions : assina
+  billing_subscriptions ||--o{ billing_payments : paga
+  billing_payments ||--o{ billing_splits : reparte
+  billing_subscriptions ||--o{ billing_jobs : concilia
+  contracts ||--o{ billing_audit : audita
+  users {
+    uuid id PK
+    text email UK
+    text role
+    timestamp disabled_at
+  }
+  profiles {
+    uuid user_id PK,FK
+    text verification_status
+    timestamp verification_expires_at
+  }
+  sessions {
+    text token_hash PK
+    uuid user_id FK
+    timestamp expires_at
+  }
+  password_resets {
+    text token_hash PK
+    uuid user_id FK
+    timestamp used_at
+  }
+  mail_outbox {
+    uuid id PK
+    uuid user_id FK
+    text encrypted_body
+    timestamp sent_at
+  }
+  verifications {
+    uuid id PK
+    uuid coach_id FK
+    uuid document_id FK
+    timestamp expires_at
+  }
+  verification_audit {
+    uuid id PK
+    uuid verification_id FK
+    uuid reviewer_id FK
+  }
+  contracts {
+    uuid id PK
+    uuid athlete_id FK
+    uuid coach_id FK
+    text status
+    timestamp ended_at
+  }
+  workouts {
+    uuid id PK
+    uuid contract_id FK
+    text status
+  }
+  exercise_blocks {
+    uuid id PK
+    uuid workout_id FK
+    int position
+    jsonb definition
+  }
+  metric_types {
+    text sport PK
+    text key PK
+    text unit
+    numeric min
+    numeric max
+  }
+  executions {
+    uuid id PK
+    uuid workout_id FK,UK
+    text private_payload
+  }
+  media {
+    uuid id PK
+    uuid owner_id FK
+    uuid resource_id
+    text purpose
+    text object_key UK
+  }
+  media_feedback {
+    uuid id PK
+    uuid media_id FK
+    uuid author_id FK
+    text encrypted_text
+  }
+  messages {
+    uuid id PK
+    uuid contract_id FK
+    uuid sender_id FK
+    uuid media_id FK
+    text body_ciphertext
+  }
+  notifications {
+    uuid id PK
+    uuid user_id FK
+    uuid resource_id
+    timestamp read_at
+  }
+  reviews {
+    uuid id PK
+    uuid contract_id FK,UK
+    uuid athlete_id FK
+    uuid coach_id FK
+    int rating
+    boolean hidden
+  }
+  review_reports {
+    uuid id PK
+    uuid review_id FK
+    uuid reporter_id FK
+  }
+  review_moderation {
+    uuid id PK
+    uuid review_id FK
+    uuid reviewer_id FK
+  }
+  consultations {
+    uuid id PK
+    uuid contract_id FK
+    text description_ciphertext
+    timestamp starts_at
+    text external_event_id
+  }
+  consultation_history {
+    uuid id PK
+    uuid consultation_id FK
+    uuid actor_id FK
+  }
+  consents {
+    uuid user_id PK,FK
+    text purpose PK
+    boolean granted
+    text version
+  }
+  consent_history {
+    uuid id PK
+    uuid user_id FK
+    text purpose
+    boolean granted
+  }
+  private_health {
+    uuid user_id PK,FK
+    text encrypted_data
+  }
+  privacy_requests {
+    uuid id PK
+    uuid user_id FK
+    text status
+  }
+  administrative_audit {
+    uuid id PK
+    uuid actor_id FK
+    uuid subject_id FK
+  }
+  billing_settings {
+    int id PK
+    int commission_bps
+    int grace_days
+  }
+  billing_wallets {
+    uuid coach_id PK,FK
+    text wallet_id UK
+  }
+  billing_plans {
+    uuid coach_id PK,FK
+    int amount_cents
+  }
+  billing_subscriptions {
+    uuid id PK
+    uuid contract_id FK,UK
+    text provider_checkout_id UK
+    text provider_subscription_id UK
+    text provider_customer_id
+    text state
+  }
+  billing_payments {
+    uuid id PK
+    uuid subscription_id FK
+    text provider_payment_id UK
+    int amount_cents
+  }
+  billing_splits {
+    text provider_split_id PK
+    uuid payment_id FK
+    text status
+  }
+  billing_events {
+    text id PK
+    text event
+    jsonb payload
+    timestamp processed_at
+  }
+  billing_jobs {
+    uuid id PK
+    uuid subscription_id FK
+    text state
+  }
+  billing_audit {
+    uuid id PK
+    uuid actor_id FK
+    uuid contract_id FK
+  }

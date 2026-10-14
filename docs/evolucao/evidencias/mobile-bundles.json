@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-10-14T19:55:30.843391+00:00",
+  "os": "Windows-11-10.0.26300-SP0",
+  "scope": "Hermes bundles only; no APK/IPA/device execution",
+  "files": [
+    {
+      "path": "metadata.json",
+      "bytes": 244,
+      "sha256": "ffb36f00f0d72b825697b99fe804df8d195009e9bbd01451c5f25ed565cee306"
+    },
+    {
+      "path": "_expo/static/js/android/index-84b611e4642d9433fc20ee22925104e7.hbc",
+      "bytes": 1591355,
+      "sha256": "70209596782f57537d1eb41aa7f6a154293e88d6063b09b86a8928fe5a635791"
+    },
+    {
+      "path": "_expo/static/js/ios/index-8fde5b693919709200d7280ac308dfd6.hbc",
+      "bytes": 1585796,
+      "sha256": "7a1a721e935c139d62b6e7af551b904e823278a27bf02c934a94277618c32d2b"
+    }
+  ]
+}

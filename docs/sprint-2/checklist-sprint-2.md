@@ -1,5 +1,7 @@
 # Checklist de pendências — Sprint 2 — LinkAtletas
 
+> Registro histórico do incremento inicial. A ampliação aprovada e seus resultados atuais estão no [checklist ampliado](../evolucao/checklist-sprint-2.md).
+
 Conferência: **14/10/2026**. Prazo informado no roteiro: **26/10/2026**. Branch local: `sprint-2`.
 
 **Resposta direta:** os nove entregáveis obrigatórios possuem código, documentos ou evidências locais para o recorte aprovado por Lucca. Isso não significa que toda a ERS original foi implementada, que o professor aprovou as mudanças de escopo ou que a entrega já foi enviada.

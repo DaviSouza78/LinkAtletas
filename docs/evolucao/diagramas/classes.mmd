@@ -1,0 +1,143 @@
+classDiagram
+direction TB
+class Usuario {
+  UUID id
+  string nome
+  string email
+  string papel
+  datetime desativadoEm
+}
+class Perfil {
+  string[] modalidades
+  string[] objetivos
+  string[] disponibilidade
+  decimal preco
+  string statusVerificacao
+}
+class Sessao {
+  string tokenHash
+  datetime expiraEm
+}
+class Verificacao {
+  UUID documentoId
+  string CREF
+  string status
+  string motivo
+  datetime validade
+}
+class Contrato {
+  UUID atletaId
+  UUID treinadorId
+  string status
+  datetime encerradoEm
+}
+class Treino {
+  string modalidade
+  string titulo
+  date data
+  string status
+}
+class Bloco {
+  int ordem
+  JSON definicao
+}
+class Execucao {
+  int[] blocosRealizados
+  int esforco
+  string payloadPrivadoCifrado
+}
+class Metrica {
+  string modalidade
+  string chave
+  string unidade
+  decimal minimo
+  decimal maximo
+}
+class Midia {
+  string finalidade
+  UUID recursoId
+  string chaveS3
+  string MIME
+  int tamanho
+}
+class FeedbackMidia {
+  string textoCifrado
+}
+class Mensagem {
+  string textoCifrado
+  datetime lidaEm
+}
+class Notificacao {
+  string tipo
+  string titulo
+  datetime lidaEm
+}
+class Avaliacao {
+  int nota
+  string texto
+  string resposta
+  bool oculta
+}
+class Moderacao {
+  string motivo
+  bool ocultar
+}
+class Consultoria {
+  datetime inicio
+  int minutos
+  string descricaoCifrada
+  string status
+  string eventoGoogleId
+}
+class Assinatura {
+  int valorCentavos
+  int comissaoBps
+  string estado
+  datetime pagoAte
+  string ambiente
+}
+class Pagamento {
+  string provedorId
+  int liquidoCentavos
+  string status
+}
+class EventoFinanceiro {
+  string provedorEventoId
+  datetime processadoEm
+  int tentativas
+}
+class Consentimento {
+  string finalidade
+  bool concedido
+  string versao
+}
+class SaudePrivada {
+  string payloadCifrado
+}
+class PedidoPrivacidade {
+  string status
+  datetime concluidoEm
+}
+Usuario "1" *-- "1" Perfil
+Usuario "1" -- "0..*" Sessao
+Usuario "1" -- "0..*" Verificacao : treinador
+Usuario "1" -- "0..*" Contrato : participa
+Contrato "1" -- "0..*" Treino
+Treino "1" *-- "1..*" Bloco
+Treino "1" -- "0..1" Execucao
+Execucao ..> Metrica : valida
+Usuario "1" -- "0..*" Midia : titular
+Midia "1" -- "0..*" FeedbackMidia
+Verificacao "0..1" --> "0..1" Midia : documento
+Contrato "1" -- "0..*" Mensagem
+Mensagem "0..*" --> "0..1" Midia : anexo
+Usuario "1" -- "0..*" Notificacao
+Contrato "1" -- "0..1" Avaliacao
+Avaliacao "1" -- "0..*" Moderacao
+Contrato "1" -- "0..*" Consultoria
+Contrato "1" -- "0..1" Assinatura
+Assinatura "1" -- "0..*" Pagamento
+EventoFinanceiro ..> Assinatura : concilia
+Usuario "1" -- "0..*" Consentimento
+Usuario "1" -- "0..1" SaudePrivada
+Usuario "1" -- "0..*" PedidoPrivacidade
