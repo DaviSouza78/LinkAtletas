@@ -1,6 +1,6 @@
 # LinkAtletas — ampliação das funcionalidades pendentes
 
-Data: 14/10/2026. Status: proposta de ampliação aguardando revisão do usuário.
+Data: 14/10/2026. Status: ampliação recomendada aprovada por Lucca em 14/10/2026.
 
 ## Objetivo e referência
 
