@@ -86,6 +86,7 @@ docs/sprint-2/          documentação acadêmica e evidências
 ## Documentação da Sprint 2
 
 - [Índice e checklist da entrega](docs/sprint-2/entrega.md).
+- [Checklist detalhado com itens feitos e pendências](docs/sprint-2/checklist-sprint-2.md).
 - [ERS v1.1: requisitos, fluxos e cenários não funcionais](docs/sprint-2/ERS-v1.1.md).
 - [Diagramas e fontes editáveis](docs/sprint-2/diagramas.md).
 - [Backlog priorizado](docs/sprint-2/backlog.md).

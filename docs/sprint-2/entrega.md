@@ -1,5 +1,7 @@
 # Sprint 2 — índice e conferência da entrega
 
+Para conferir item por item, com checks e referências ao código, documentos e evidências, abra o [checklist detalhado da Sprint 2](checklist-sprint-2.md).
+
 Prazo informado no roteiro: **26/10/2026**. Preparação deste incremento: 14/10/2026. As marcações distinguem artefato preparado de verificação final; não certificam submissão no Classroom, aprovação docente ou publicação remota.
 
 | Entregável obrigatório | Artefato verificável | Conferência antes da submissão |
