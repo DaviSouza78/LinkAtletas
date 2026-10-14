@@ -7,7 +7,8 @@ Atualizado em 14/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] Clone local separado e branch de ampliação; código de [API](../../server/), [web](../../src/) e [app](../../mobile/); base anterior preservada em `sprint-2`.
 - [x] Autor Git definido como Lucca com e-mail fornecido; [decisões](decisoes.md) explicam autoria e limites.
 - [x] Implementação versionada no commit local `fca8a18`, com autoria Lucca; documentação/evidências versionadas na mesma branch. Pacotes ZIP e Git bundle serão gerados a partir do commit de entrega, conforme o [índice](entrega.md).
-- [ ] Push/PR/merge no GitHub: não executados; clone e commits locais não alteram o repositório de Davi.
+- [x] Branch publicada no [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas/tree/evolucao-completa), com commits de Lucca; [pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) aberto após autorização de publicação.
+- [ ] Merge na `main`: aguarda os checks remotos e as regras de integração do repositório.
 
 ## 2. Fluxo principal funcional de ponta a ponta
 

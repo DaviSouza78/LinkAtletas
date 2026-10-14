@@ -1,0 +1,58 @@
+name: Android APK verification
+on:
+  push:
+    branches: [main, evolucao-completa]
+    paths: ['mobile/**', 'shared/**', '.github/workflows/android.yml']
+  pull_request:
+    branches: [main]
+    paths: ['mobile/**', 'shared/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+      EXPO_PUBLIC_API_URL: ${{ vars.EXPO_PUBLIC_API_URL || 'https://api.linkatletas.example/api' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+          cache-dependency-path: mobile/pnpm-lock.yaml
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install locked native dependencies
+        run: pnpm --dir mobile install --frozen-lockfile
+      - name: Native types and transport
+        run: |
+          pnpm --dir mobile typecheck
+          pnpm --dir mobile test
+      - name: Generate Android project
+        run: pnpm --dir mobile exec expo prebuild --platform android --no-install
+      - name: Compile standalone verification APK
+        working-directory: mobile/android
+        run: ./gradlew :app:assembleRelease --no-daemon --max-workers=2 -PreactNativeArchitectures=arm64-v8a,x86_64
+      - name: Record artifact and signing limitations
+        run: |
+          mkdir -p android-artifacts
+          cp mobile/android/app/build/outputs/apk/release/*.apk android-artifacts/LinkAtletas-verificacao.apk
+          sha256sum android-artifacts/*.apk > android-artifacts/SHA256SUMS
+          printf '%s\n' "Commit: $GITHUB_SHA" 'APK para verificação técnica, assinado com chave de desenvolvimento gerada pelo template Expo. Não é distribuição de loja.' 'API: configure a variável pública EXPO_PUBLIC_API_URL do repositório com uma URL HTTPS real e gere nova versão. Na ausência dela, o domínio .example é documental.' 'Compilação não comprova funcionamento do fluxo em aparelho. Homologação real e assinatura de distribuição continuam pendentes.' > android-artifacts/LEIA-ME.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LinkAtletas-APK-verificacao
+          path: android-artifacts/
+          retention-days: 30
