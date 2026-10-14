@@ -17,12 +17,15 @@ import {
   workoutSchema,
 } from '../shared/validation.js'
 import { listContracts } from './contracts.js'
+import { encryptPrivate, decryptPrivate } from '../shared/crypto.js'
+import { assertContractAccess } from './billing.js'
+import { notifyUsers } from './interactions.js'
 
 const select = `SELECT w.id,w.contract_id AS "contractId",w.title,w.sport,to_char(w.scheduled_date,'YYYY-MM-DD') AS "scheduledDate",
  w.instructions,w.status,w.created_at AS "createdAt",c.athlete_id AS "athleteId",c.coach_id AS "coachId",
  a.name AS "athleteName",t.name AS "coachName",
  COALESCE((SELECT jsonb_agg(b.definition ORDER BY b.position) FROM exercise_blocks b WHERE b.workout_id=w.id),'[]'::jsonb) AS blocks,
- CASE WHEN e.id IS NULL THEN NULL ELSE jsonb_build_object('id',e.id,'completedBlocks',e.completed_blocks,'effort',e.effort,'notes',e.notes,'metrics',e.metrics,'updatedAt',e.updated_at) END AS execution
+ CASE WHEN e.id IS NULL THEN NULL ELSE jsonb_build_object('id',e.id,'completedBlocks',e.completed_blocks,'effort',e.effort,'notes',e.notes,'metrics',e.metrics,'privatePayload',e.private_payload,'updatedAt',e.updated_at) END AS execution
  FROM workouts w JOIN contracts c ON c.id=w.contract_id JOIN users a ON a.id=c.athlete_id JOIN users t ON t.id=c.coach_id
  LEFT JOIN executions e ON e.workout_id=w.id`
 export async function listWorkouts(
@@ -34,7 +37,21 @@ export async function listWorkouts(
       `${select} WHERE c.coach_id=$1 OR (c.athlete_id=$1 AND w.status='published') ORDER BY w.scheduled_date DESC,w.created_at DESC`,
       [user.id],
     )
-  ).rows
+  ).rows.map(decodeWorkout)
+}
+function decodeWorkout(workout: Workout): Workout {
+  const execution = workout.execution as
+    | (NonNullable<Workout['execution']> & { privatePayload?: string | null })
+    | null
+  if (execution) {
+    if (execution.privatePayload)
+      Object.assign(
+        execution,
+        JSON.parse(decryptPrivate(execution.privatePayload)),
+      )
+    delete execution.privatePayload
+  }
+  return workout
 }
 async function getWorkout(
   pool: Pool,
@@ -46,7 +63,7 @@ async function getWorkout(
     [id, user.id],
   )
   if (!rows[0]) fail(404, 'NOT_FOUND', 'Treino não encontrado.')
-  return rows[0]
+  return decodeWorkout(rows[0])
 }
 async function validateContract(
   client: PoolClient,
@@ -54,6 +71,7 @@ async function validateContract(
   coachId: string,
   sport: string,
 ) {
+  await assertContractAccess(client, id, coachId)
   const { rows } = await client.query(
     "SELECT athlete_id FROM contracts WHERE id=$1 AND coach_id=$2 AND status='active' FOR SHARE",
     [id, coachId],
@@ -144,7 +162,16 @@ export async function workoutsRoutes(app: FastifyInstance, pool: Pool) {
         await saveBlocks(client, rows[0].id, input)
         return rows[0].id as string
       })
-      return reply.code(201).send({ workout: await getWorkout(pool, id, user) })
+      const saved = await getWorkout(pool, id, user)
+      if (saved.status === 'published')
+        await notifyUsers(
+          pool,
+          [saved.athleteId],
+          'workout',
+          'Um treino foi publicado.',
+          id,
+        )
+      return reply.code(201).send({ workout: saved })
     },
   )
   app.put<{ Params: { id: string } }>(
@@ -218,10 +245,11 @@ export async function workoutsRoutes(app: FastifyInstance, pool: Pool) {
       const input = executionSchema.parse(req.body)
       await transaction(pool, async (client) => {
         const { rows } = await client.query(
-          `SELECT w.sport,c.status FROM workouts w JOIN contracts c ON c.id=w.contract_id WHERE w.id=$1 AND c.athlete_id=$2 AND w.status='published' FOR UPDATE OF w`,
+          `SELECT w.sport,w.contract_id,c.status FROM workouts w JOIN contracts c ON c.id=w.contract_id WHERE w.id=$1 AND c.athlete_id=$2 AND w.status='published' FOR UPDATE OF w`,
           [id, user.id],
         )
         if (!rows[0]) fail(404, 'NOT_FOUND', 'Treino não encontrado.')
+        await assertContractAccess(client, rows[0].contract_id, user.id)
         if (rows[0].status !== 'active')
           fail(
             403,
@@ -263,14 +291,15 @@ export async function workoutsRoutes(app: FastifyInstance, pool: Pool) {
             )
         }
         await client.query(
-          `INSERT INTO executions(workout_id,completed_blocks,effort,notes,metrics) VALUES($1,$2,$3,$4,$5::jsonb)
-        ON CONFLICT(workout_id) DO UPDATE SET completed_blocks=EXCLUDED.completed_blocks,effort=EXCLUDED.effort,notes=EXCLUDED.notes,metrics=EXCLUDED.metrics,updated_at=now()`,
+          `INSERT INTO executions(workout_id,completed_blocks,effort,notes,metrics,private_payload) VALUES($1,$2,$3,'','{}',$4)
+        ON CONFLICT(workout_id) DO UPDATE SET completed_blocks=EXCLUDED.completed_blocks,effort=EXCLUDED.effort,notes='',metrics='{}',private_payload=EXCLUDED.private_payload,updated_at=now()`,
           [
             id,
             input.completedBlocks,
             input.effort,
-            input.notes,
-            JSON.stringify(input.metrics),
+            encryptPrivate(
+              JSON.stringify({ notes: input.notes, metrics: input.metrics }),
+            ),
           ],
         )
       })

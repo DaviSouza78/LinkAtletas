@@ -87,7 +87,7 @@ export async function seed(pool: Pool) {
       }
     }
     const { rows } = await client.query(
-      `INSERT INTO contracts(athlete_id,coach_id,status,decided_at) VALUES($1,$2,'active',now()) ON CONFLICT(athlete_id,coach_id) DO NOTHING RETURNING id`,
+      `INSERT INTO contracts(athlete_id,coach_id,status,decided_at) VALUES($1,$2,'active',now()) ON CONFLICT(athlete_id,coach_id) WHERE status IN ('pending','active','suspended') DO NOTHING RETURNING id`,
       [ids.athlete, ids.coach],
     )
     if (rows[0]) {

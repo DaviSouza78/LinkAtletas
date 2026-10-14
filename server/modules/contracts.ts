@@ -8,6 +8,7 @@ import { requireUser } from '../shared/security.js'
 import { bodySchema, idSchema } from '../shared/validation.js'
 import { profileFor } from './profiles.js'
 import { calculateMatch } from './matching.js'
+import { cancelContractBilling, cancelReasonSchema } from './billing.js'
 const select = `SELECT c.id,c.athlete_id AS "athleteId",c.coach_id AS "coachId",a.name AS "athleteName",t.name AS "coachName",
  c.status,c.created_at AS "createdAt",c.decided_at AS "decidedAt" FROM contracts c JOIN users a ON a.id=c.athlete_id JOIN users t ON t.id=c.coach_id`
 export async function listContracts(
@@ -36,7 +37,7 @@ export async function contractsRoutes(app: FastifyInstance, pool: Pool) {
     {
       schema: {
         tags: ['Vínculos'],
-        summary: 'Solicitar acompanhamento sem cobrança nesta Sprint',
+        summary: 'Solicitar um novo ciclo de acompanhamento',
         body: bodySchema(create),
       },
     },
@@ -78,7 +79,7 @@ export async function contractsRoutes(app: FastifyInstance, pool: Pool) {
           )
         const { rows } = await client.query(
           `INSERT INTO contracts(athlete_id,coach_id) VALUES($1,$2)
-        ON CONFLICT(athlete_id,coach_id) DO UPDATE SET status='pending',created_at=now(),decided_at=NULL WHERE contracts.status='rejected' RETURNING id`,
+        ON CONFLICT(athlete_id,coach_id) WHERE status IN ('pending','active','suspended') DO NOTHING RETURNING id`,
           [user.id, coachId],
         )
         if (!rows[0])
@@ -89,13 +90,10 @@ export async function contractsRoutes(app: FastifyInstance, pool: Pool) {
           )
         return rows[0].id as string
       })
-      return reply
-        .code(201)
-        .send({
-          contract: (
-            await pool.query<Contract>(`${select} WHERE c.id=$1`, [id])
-          ).rows[0],
-        })
+      return reply.code(201).send({
+        contract: (await pool.query<Contract>(`${select} WHERE c.id=$1`, [id]))
+          .rows[0],
+      })
     },
   )
   app.patch<{ Params: { id: string } }>(
@@ -139,6 +137,27 @@ export async function contractsRoutes(app: FastifyInstance, pool: Pool) {
           [status, id],
         )
       })
+      return {
+        contract: (await pool.query<Contract>(`${select} WHERE c.id=$1`, [id]))
+          .rows[0],
+      }
+    },
+  )
+  app.post<{ Params: { id: string } }>(
+    '/contracts/:id/cancel',
+    {
+      schema: {
+        tags: ['Vínculos'],
+        summary: 'Encerrar ciclo ou retirar solicitação com motivo',
+        body: bodySchema(cancelReasonSchema),
+        response: { 200: { type: 'object', additionalProperties: true } },
+      },
+    },
+    async (req) => {
+      const user = requireUser(req),
+        id = idSchema.parse(req.params.id)
+      const { reason } = cancelReasonSchema.parse(req.body)
+      await cancelContractBilling(pool, id, user.id, reason)
       return {
         contract: (await pool.query<Contract>(`${select} WHERE c.id=$1`, [id]))
           .rows[0],

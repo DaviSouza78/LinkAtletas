@@ -1,8 +1,9 @@
 export type Role = 'athlete' | 'coach' | 'admin'
 export type Mode = 'online' | 'presencial' | 'hibrido'
 export type VerificationStatus =
-  'unsubmitted' | 'pending' | 'approved' | 'rejected'
-export type ContractStatus = 'pending' | 'active' | 'rejected'
+  'unsubmitted' | 'pending' | 'approved' | 'rejected' | 'suspended' | 'expired'
+export type ContractStatus =
+  'pending' | 'active' | 'rejected' | 'cancelled' | 'suspended'
 export const SPORTS = [
   'Corrida',
   'Musculação',
@@ -57,6 +58,7 @@ export interface Profile extends ProfileInput {
   cref: string
   verificationStatus: VerificationStatus
   verificationReason: string
+  verificationExpiresAt?: string | null
 }
 export interface CoachCard extends Omit<Profile, 'email' | 'budget' | 'role'> {
   score: number
@@ -73,6 +75,9 @@ export interface Verification {
   submittedAt: string
   reviewedAt: string | null
   reviewerId: string | null
+  documentId?: string | null
+  expiresAt?: string | null
+  source?: string
 }
 export interface Contract {
   id: string

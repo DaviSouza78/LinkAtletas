@@ -10,6 +10,12 @@ import {
   ShieldCheck,
   Users,
   X,
+  Bell,
+  CalendarDays,
+  CreditCard,
+  MessageSquare,
+  Shield,
+  Star,
 } from 'lucide-react'
 import { Logo } from './Logo'
 import { useAuth } from '../context/AuthContext'
@@ -30,6 +36,20 @@ const athleteItems = [
   { to: '/atleta/treino', label: 'Meu treino', icon: Dumbbell },
   { to: '/atleta/perfil', label: 'Perfil', icon: CircleUserRound },
 ]
+function expansionItems(root: string) {
+  return [
+    { to: root + '/mensagens', label: 'Mensagens', icon: MessageSquare },
+    {
+      to: root + (root === '/treinador' ? '/consultorias' : '/agenda'),
+      label: 'Agenda e consultorias',
+      icon: CalendarDays,
+    },
+    { to: root + '/financeiro', label: 'Financeiro', icon: CreditCard },
+    { to: root + '/avaliacoes', label: 'Avaliações', icon: Star },
+    { to: root + '/notificacoes', label: 'Notificações', icon: Bell },
+    { to: root + '/privacidade', label: 'Privacidade', icon: Shield },
+  ]
+}
 export function AppShell({
   children,
   role,
@@ -56,10 +76,30 @@ export function AppShell({
             label: 'Verificações profissionais',
             icon: ShieldCheck,
           },
+          {
+            to: '/admin/avaliacoes',
+            label: 'Moderação de avaliações',
+            icon: Star,
+          },
+          {
+            to: '/admin/financeiro',
+            label: 'Regras financeiras',
+            icon: CreditCard,
+          },
+          {
+            to: '/admin/privacidade',
+            label: 'Pedidos de privacidade',
+            icon: Shield,
+          },
+          { to: '/admin/notificacoes', label: 'Notificações', icon: Bell },
         ]
       : role === 'coach'
-        ? coachItems
-        : athleteItems
+        ? [...coachItems, ...expansionItems('/treinador')]
+        : [
+            ...athleteItems,
+            { to: '/atleta/conexoes', label: 'Minhas conexões', icon: Users },
+            ...expansionItems('/atleta'),
+          ]
   async function exit() {
     setError('')
     try {

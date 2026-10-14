@@ -129,6 +129,28 @@ export function installResponseDocs(app: FastifyInstance) {
       url === '/api/openapi.json'
     )
       return
+    // New modules declare their own schemas; do not serialize them as an old prefix response.
+    if (route.schema?.response) return
+    const legacy =
+      /^\/api\/(auth\/(register|login|logout|session)|profiles\/me|coaches|verifications|admin\/verifications(?:\/[^/]+)?|contracts(?:\/[^/]+)?|workouts(?:\/[^/]+(?:\/execution)?)?|metrics|dashboard|health)$/
+    if (!legacy.test(url)) {
+      route.schema = {
+        ...route.schema,
+        response: {
+          '2xx': { type: 'object', additionalProperties: true },
+          400: error,
+          401: error,
+          403: error,
+          404: error,
+          409: error,
+          429: error,
+          500: error,
+        },
+      }
+      if (/^\/api\/auth\/native\/(login|register)$/.test(url))
+        route.schema.security = []
+      return
+    }
     const method = Array.isArray(route.method) ? route.method[0] : route.method
     let result: Record<string, unknown> = object({ ok: { type: 'boolean' } })
     if (url.endsWith('/auth/session')) result = object({ user: nullable(user) })

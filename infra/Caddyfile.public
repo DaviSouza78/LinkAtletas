@@ -1,0 +1,14 @@
+{
+  admin off
+  email {$TLS_EMAIL}
+}
+
+{$SITE_HOST} {
+  encode zstd gzip
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    X-Content-Type-Options "nosniff"
+    Referrer-Policy "same-origin"
+  }
+  reverse_proxy app:3001
+}

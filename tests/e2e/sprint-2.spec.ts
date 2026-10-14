@@ -3,7 +3,9 @@ import path from 'node:path'
 import { expect, test, type Page } from '@playwright/test'
 
 const password = 'SenhaTeste123!'
-const evidenceDir = path.resolve('docs/sprint-2/evidencias')
+const evidenceDir = path.resolve(
+  process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias',
+)
 async function noHorizontalOverflow(page: Page) {
   expect(
     await page.evaluate(
@@ -135,11 +137,9 @@ test('cadastro → aprovação → contratação → publicação → execução
         .getByRole('button', { name: 'Entrar na plataforma', exact: true })
         .click()
       await expect(admin).toHaveURL(/\/admin$/)
-      const submission = admin
-        .locator('article')
-        .filter({
-          has: admin.getByRole('heading', { name: coachName, exact: true }),
-        })
+      const submission = admin.locator('article').filter({
+        has: admin.getByRole('heading', { name: coachName, exact: true }),
+      })
       await submission
         .getByLabel('Justificativa da análise')
         .fill('Aprovação fictícia registrada pelo teste automatizado.')
@@ -266,14 +266,12 @@ test('cadastro → aprovação → contratação → publicação → execução
         animations: 'disabled',
       })
       await coach.reload()
-      const savedWorkout = coach
-        .locator('article')
-        .filter({
-          has: coach.getByRole('heading', {
-            name: `Treino E2E ${unique}`,
-            exact: true,
-          }),
-        })
+      const savedWorkout = coach.locator('article').filter({
+        has: coach.getByRole('heading', {
+          name: `Treino E2E ${unique}`,
+          exact: true,
+        }),
+      })
       await savedWorkout
         .getByRole('button', { name: 'Ver detalhes e execução', exact: true })
         .click()

@@ -13,3 +13,7 @@ test-results/
 /playwright-report/
 coverage/
 docs/sprint-2/evidencias/playwright-artifacts/
+docs/evolucao/evidencias/playwright-artifacts/
+backups/
+mobile/.expo/
+mobile/dist/

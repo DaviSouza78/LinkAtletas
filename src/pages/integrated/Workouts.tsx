@@ -10,6 +10,8 @@ import type {
 } from '../../../shared/contracts'
 import { SPORTS } from '../../../shared/contracts'
 import { api, json } from '../../services/api'
+import { useAuth } from '../../context/AuthContext'
+import { MediaPanel } from './Expansion'
 import {
   Badge,
   day,
@@ -393,6 +395,7 @@ export function CoachWorkoutsPage() {
   )
 }
 function WorkoutDetails({ workout: w }: { workout: Workout }) {
+  const { user } = useAuth()
   const catalog = useRemote<{ metrics: MetricType[] }>(
     '/metrics?sport=' + encodeURIComponent(w.sport),
   )
@@ -444,6 +447,10 @@ function WorkoutDetails({ workout: w }: { workout: Workout }) {
           </small>
         </section>
       )}
+      <MediaPanel
+        resourceId={w.id}
+        purpose={user?.role === 'coach' ? 'instruction' : 'performance'}
+      />
     </div>
   )
 }

@@ -125,7 +125,9 @@ export function DiscoverPage() {
       <div className="live-card-grid">
         {remote.data?.coaches.map((coach) => {
           const contract = contracts.data?.contracts.find(
-            (c) => c.coachId === coach.userId && c.status !== 'rejected',
+            (c) =>
+              c.coachId === coach.userId &&
+              ['pending', 'active', 'suspended'].includes(c.status),
           )
           return (
             <article className="live-panel live-coach" key={coach.userId}>
@@ -183,18 +185,26 @@ export function DiscoverPage() {
                   </button>
                 )}
               </div>
+              <Link
+                className="live-link"
+                to={'/atleta/avaliacoes?treinador=' + coach.userId}
+              >
+                Ver avaliações deste treinador
+              </Link>
             </article>
           )
         })}
       </div>
       <p className="live-muted">
-        A contratação nesta etapa registra o vínculo entre atleta e treinador.
-        Pagamentos não são processados pela plataforma.
+        A solicitação registra seu interesse. Consulte as condições de
+        assinatura em Financeiro depois que o treinador aceitar.
       </p>
     </>
   )
 }
 export function ContractsPage() {
+  const { user } = useAuth()
+  const coach = user?.role === 'coach'
   const remote = useRemote<{ contracts: Contract[] }>('/contracts')
   const [busy, setBusy] = useState('')
   const [error, setError] = useState('')
@@ -221,25 +231,26 @@ export function ContractsPage() {
     <>
       <PageTitle
         title="Evolução se constrói em conjunto"
-        description="Gerencie suas solicitações de contratação e os atletas com vínculo ativo."
+        description="Gerencie solicitações, vínculos ativos e o histórico do acompanhamento."
       />
       <Notice error={error} success={success} />
       <State {...remote} retry={remote.reload} />
       <div className="live-stack">
         {remote.data && !remote.data.contracts.length && (
           <Empty>
-            Você ainda não recebeu solicitações. Complete seu perfil e envie seu
-            CREF para aparecer na busca.
+            {coach
+              ? 'Você ainda não recebeu solicitações. Complete seu perfil e envie seu CREF para aparecer na busca.'
+              : 'Você ainda não tem conexões. Descubra um treinador para começar.'}
           </Empty>
         )}
         {remote.data?.contracts.map((c) => (
           <article className="live-panel live-contract" key={c.id}>
             <div>
-              <h3>{c.athleteName}</h3>
+              <h3>{coach ? c.athleteName : c.coachName}</h3>
               <p>Solicitação de {day(c.createdAt)}</p>
               <Badge status={c.status} />
             </div>
-            {c.status === 'pending' ? (
+            {c.status === 'pending' && coach ? (
               <div className="live-actions">
                 <button
                   className="button button--dark"
@@ -257,7 +268,8 @@ export function ContractsPage() {
                 </button>
               </div>
             ) : (
-              c.status === 'active' && (
+              c.status === 'active' &&
+              coach && (
                 <Link
                   className="button button--outline"
                   to={'/treinador/treinos?atleta=' + c.id}
@@ -267,10 +279,84 @@ export function ContractsPage() {
                 </Link>
               )
             )}
+            {['pending', 'active', 'suspended'].includes(c.status) && (
+              <ContractEndAction contract={c} onChange={remote.reload} />
+            )}
           </article>
         ))}
       </div>
     </>
+  )
+}
+export function ContractEndAction({
+  contract,
+  onChange,
+}: {
+  contract: Contract
+  onChange: () => unknown
+}) {
+  const [open, setOpen] = useState(false)
+  const [reason, setReason] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  if (!open)
+    return (
+      <button className="button button--outline" onClick={() => setOpen(true)}>
+        {contract.status === 'pending'
+          ? 'Retirar solicitação'
+          : 'Encerrar vínculo'}
+      </button>
+    )
+  return (
+    <form
+      className="live-form exp-contract-end"
+      onSubmit={async (e) => {
+        e.preventDefault()
+        setBusy(true)
+        setError('')
+        try {
+          await api(
+            '/contracts/' + contract.id + '/cancel',
+            json('POST', { reason }),
+          )
+          await onChange()
+          setOpen(false)
+        } catch (e) {
+          setError(message(e))
+        } finally {
+          setBusy(false)
+        }
+      }}
+    >
+      <label>
+        Motivo do encerramento
+        <textarea
+          required
+          minLength={5}
+          maxLength={1000}
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+        />
+      </label>
+      <p className="live-muted">
+        O histórico será preservado. Se houver assinatura, a renovação e o
+        período pago seguem a confirmação do provedor.
+      </p>
+      <Notice error={error} />
+      <div className="live-actions">
+        <button className="button button--outline" disabled={busy}>
+          Confirmar encerramento
+        </button>
+        <button
+          type="button"
+          className="button button--outline"
+          disabled={busy}
+          onClick={() => setOpen(false)}
+        >
+          Voltar
+        </button>
+      </div>
+    </form>
   )
 }
 export function DashboardPage() {
@@ -328,7 +414,7 @@ export function DashboardPage() {
             <section className="live-panel">
               <div className="live-panel-heading">
                 <h3>{coach ? 'Sua equipe' : 'Suas conexões'}</h3>
-                <Link to={coach ? '/treinador/alunos' : '/atleta/descobrir'}>
+                <Link to={coach ? '/treinador/alunos' : '/atleta/conexoes'}>
                   Ver conexões →
                 </Link>
               </div>

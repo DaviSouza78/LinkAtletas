@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 import 'dotenv/config'
+const evidenceDir = process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias'
 
 const testDatabase =
   process.env.TEST_DATABASE_URL ??
@@ -24,16 +25,13 @@ export default defineConfig({
     [
       'html',
       {
-        outputFolder: 'docs/sprint-2/evidencias/playwright-report',
+        outputFolder: `${evidenceDir}/playwright-report`,
         open: 'never',
       },
     ],
-    [
-      'json',
-      { outputFile: 'docs/sprint-2/evidencias/playwright-results.json' },
-    ],
+    ['json', { outputFile: `${evidenceDir}/playwright-results.json` }],
   ],
-  outputDir: 'docs/sprint-2/evidencias/playwright-artifacts',
+  outputDir: `${evidenceDir}/playwright-artifacts`,
   use: {
     baseURL: process.env.E2E_BASE_URL ?? 'http://localhost:5174',
     trace: 'retain-on-failure',
@@ -50,11 +48,26 @@ export default defineConfig({
         viewport: { width: 1440, height: 1000 },
       },
     },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        viewport: { width: 1440, height: 1000 },
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        viewport: { width: 1440, height: 1000 },
+      },
+    },
   ],
   webServer: process.env.E2E_BASE_URL
     ? undefined
     : {
-        command: 'pnpm db:migrate && pnpm db:seed && pnpm dev:all',
+        command:
+          'pnpm db:migrate && pnpm db:seed && pnpm exec concurrently -k -n api,web "pnpm exec tsx server/index.ts" "pnpm dev"',
         url: 'http://localhost:5174',
         reuseExistingServer: false,
         env: {
@@ -62,6 +75,9 @@ export default defineConfig({
           APP_ORIGIN: 'http://localhost:5174',
           API_PORT: '3002',
           VITE_PORT: '5174',
+          BILLING_MODE: 'academic',
+          REVIEW_MIN_DAYS: '0',
+          JOBS_INTERVAL_MS: '1000',
         },
         stdout: 'pipe',
         stderr: 'pipe',

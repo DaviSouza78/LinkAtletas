@@ -8,7 +8,12 @@ export async function api<T>(
     response = await fetch(`/api${path}`, {
       ...options,
       credentials: 'include',
-      headers: { 'Content-Type': 'application/json', ...options.headers },
+      headers: {
+        ...(options.body instanceof FormData
+          ? {}
+          : { 'Content-Type': 'application/json' }),
+        ...options.headers,
+      },
     })
   } catch {
     throw new Error(

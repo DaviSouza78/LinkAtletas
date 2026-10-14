@@ -2251,3 +2251,91 @@ button:disabled { cursor: not-allowed; opacity: .55; transform: none !important;
 @media (max-width: 900px) {
   .sidebar { transition: transform .25s; }
 }
+
+/* Expanded accompaniment: generous work surfaces and quiet private communication. */
+.sidebar__nav { overflow-y: auto; overscroll-behavior: contain; min-height: 0; padding-right: 3px; scrollbar-width: thin; scrollbar-color: #516558 transparent; }
+.sidebar__user { flex-shrink: 0; }
+.exp-chat-layout { display: grid; grid-template-columns: minmax(220px, .65fr) minmax(0, 2fr); gap: 22px; align-items: start; }
+.exp-chat-layout > .live-panel + .live-panel { margin-top: 0; }
+.exp-conversations { padding: 12px; }
+.exp-conversation { width: 100%; display: flex; align-items: center; gap: 12px; padding: 14px 10px; border: 0; border-radius: 11px; background: transparent; text-align: left; color: var(--ink); }
+.exp-conversation > span:last-child { min-width: 0; display: grid; gap: 7px; }
+.exp-conversation strong { font-size: 13px; overflow-wrap: anywhere; }
+.exp-conversation.active { background: #edf4df; box-shadow: inset 3px 0 #95b74c; }
+.exp-conversation:hover { background: #f1f5ec; }
+.exp-conversation .live-badge { justify-self: start; font-size: 10px; }
+.exp-chat { min-width: 0; }
+.exp-chat h3, .exp-media h4, .exp-agenda-layout h3, .exp-recovery h1 { display: flex; gap: 9px; align-items: center; }
+.exp-connection { font-size: 11px; color: #916441; display: inline-flex; align-items: center; gap: 6px; }
+.exp-connection::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.exp-connection.online { color: #497544; }
+.exp-chat-history { display: flex; flex-direction: column; gap: 13px; max-height: 540px; min-height: 260px; padding: 22px 6px 22px 0; overflow-y: auto; overscroll-behavior: contain; border-block: 1px solid var(--line); margin: 20px 0; scrollbar-width: thin; }
+.exp-message { max-width: 86%; align-self: flex-start; background: #eff3ee; border: 1px solid #e3e9df; padding: 15px 18px; border-radius: 15px 15px 15px 3px; overflow-wrap: anywhere; }
+.exp-message strong { display: block; font-size: 11px; color: #5c7464; margin-bottom: 5px; }
+.exp-message p { margin: 0 0 9px; font-size: 13px; color: var(--ink); white-space: pre-wrap; }
+.exp-message small { display: block; color: #5b6e61; font-size: 10px; }
+.exp-message .live-link { display: block; margin: 8px 0; }
+.exp-message--own { align-self: flex-end; background: #e6f1cc; border-color: #d8e6b9; border-radius: 15px 15px 3px 15px; }
+.exp-message-form { gap: 12px; }
+.exp-message-form > .button { justify-self: end; }
+.exp-notification { justify-content: flex-start; }
+.exp-notification > svg { flex-shrink: 0; color: #748b77; }
+.exp-notification > div { flex: 1; }
+.exp-notification.unread > svg { color: #507021; }
+.exp-notification.unread strong { color: #244a2f; }
+.exp-agenda-layout { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.exp-inline-form { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+.exp-policy { white-space: pre-wrap; overflow-wrap: anywhere; margin-block: 16px; line-height: 1.8; }
+.exp-consent { display: flex !important; gap: 14px; align-items: flex-start; padding: 18px 0; border-top: 1px solid var(--line); color: var(--ink); cursor: pointer; }
+.exp-consent input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: #507544; }
+.exp-consent span { display: grid; gap: 5px; }
+.exp-consent small { font-size: 11px; font-weight: 400; color: var(--muted); }
+.exp-danger { border-color: #e4cbc0; }
+.exp-danger h3 { color: #914536; }
+.exp-media { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line); }
+.exp-media-item { border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-block: 15px; background: #fbfcf9; }
+.exp-media-item video { width: 100%; max-height: 350px; border-radius: 10px; background: #18372b; margin-block: 14px; }
+.exp-media-item > .button { margin-top: 14px; }
+.exp-feedback { padding: 16px; background: #edf3e8; border-left: 3px solid #91ac66; border-radius: 0 9px 9px 0; margin-block: 16px; }
+.exp-feedback strong { font-size: 12px; }
+.exp-feedback p { margin: 7px 0 0; white-space: pre-wrap; font-size: 13px; overflow-wrap: anywhere; }
+.exp-upload { margin-top: 20px; }
+.live-form input[type=file] { height: auto; padding: 12px; width: 100%; min-width: 0; font-size: 12px; }
+.exp-review-summary { display: flex; gap: 18px; align-items: center; margin-bottom: 22px; }
+.exp-review-summary svg, .exp-stars { color: #607527; }
+.exp-review-summary strong { font-size: 38px; letter-spacing: -.04em; }
+.exp-review-summary span { color: var(--muted); font-size: 13px; }
+.exp-stars { letter-spacing: 3px; white-space: nowrap; font-size: 21px; }
+.exp-review { margin-top: 22px; }
+.exp-review .live-panel-heading p { font-size: 12px; margin-top: 7px; }
+.exp-billing-environment { display: flex; align-items: flex-start; gap: 14px; padding: 20px; border: 1px solid #d6e3c0; background: #edf4df; border-radius: 14px; margin-bottom: 24px; }
+.exp-billing-environment svg { flex-shrink: 0; margin-top: 2px; color: #557034; }
+.exp-billing-environment strong { font-size: 14px; color: #304e2e; }
+.exp-billing-environment p { margin: 5px 0 0; font-size: 12px; color: #55704d; }
+.exp-subscription { padding: 20px 0; border-top: 1px solid var(--line); margin-top: 20px; }
+.exp-recovery { min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at 10% 15%, #e7eedb 0, transparent 50%), #f6f8f2; padding: 28px; }
+.exp-recovery > .live-panel { width: min(100%, 500px); padding: 38px; }
+.exp-recovery h1 { font-size: 30px; line-height: 1.15; letter-spacing: -.04em; }
+.exp-recovery a { color: #45634e; font-size: 12px; }
+.exp-contract-end { width: min(100%, 400px); }
+.live-coach > .live-link { margin-top: 17px; }
+.live-badge--suspended, .live-badge--expired { color: #8a572d; background: #faf0dd; }
+.live-badge--cancelled, .live-badge--ended, .live-badge--hidden { color: #606e63; background: #edf0eb; }
+.live-badge--regular, .live-badge--completed { color: #356045; background: #e6f2e4; }
+.live-badge--scheduled { color: #21676a; background: #def4f1; }
+@media (max-width: 1100px) { .exp-chat-layout { grid-template-columns: minmax(180px, .7fr) minmax(0, 2fr); gap: 16px; } .exp-agenda-layout { grid-template-columns: minmax(0,1fr); } }
+@media (max-width: 700px) {
+  .exp-chat-layout { grid-template-columns: minmax(0,1fr); }
+  .exp-conversations { display: flex; gap: 8px; overflow-x: auto; }
+  .exp-conversation { min-width: 180px; }
+  .exp-chat-history { max-height: 400px; }
+  .exp-message { max-width: 93%; padding: 12px; }
+  .exp-review-summary { gap: 12px; }
+  .exp-review-summary strong { font-size: 30px; }
+  .exp-review-summary span { font-size: 11px; }
+  .exp-media-item { padding: 14px; }
+  .exp-recovery { padding: 18px; }
+  .exp-recovery > .live-panel { padding: 24px; }
+  .exp-billing-environment { padding: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }

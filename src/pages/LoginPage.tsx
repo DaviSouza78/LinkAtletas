@@ -153,6 +153,11 @@ export function LoginPage() {
               para análise após o cadastro.
             </small>
           )}
+          {!registering && (
+            <Link className="live-link" to="/recuperar-senha">
+              Esqueci minha senha
+            </Link>
+          )}
           {error && (
             <div role="alert" className="form-error">
               {error}

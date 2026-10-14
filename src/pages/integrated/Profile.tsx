@@ -8,6 +8,7 @@ import type {
 import { SPORTS, GOALS, LEVELS, SLOTS } from '../../../shared/contracts'
 import { useAuth } from '../../context/AuthContext'
 import { api, json } from '../../services/api'
+import { uploadFile } from './Expansion'
 import {
   Badge,
   Empty,
@@ -236,27 +237,58 @@ export function ProfilePage() {
             </button>
           </form>
           {user?.role === 'coach' && (
-            <VerificationForm onChange={remote.reload} />
+            <VerificationForm
+              onChange={remote.reload}
+              currentStatus={profile.verificationStatus}
+            />
           )}
         </div>
       )}
     </>
   )
 }
-function VerificationForm({ onChange }: { onChange: () => unknown }) {
-  const remote = useRemote<{ verifications: Verification[] }>('/verifications')
+type ExtendedVerification = Verification & {
+  documentId?: string | null
+  expiresAt?: string | null
+  source?: string
+}
+function VerificationForm({
+  onChange,
+  currentStatus,
+}: {
+  onChange: () => unknown
+  currentStatus: string
+}) {
+  const { user } = useAuth()
+  const remote = useRemote<{ verifications: ExtendedVerification[] }>(
+    '/verifications',
+  )
   const [cref, setCref] = useState('')
   const [evidence, setEvidence] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [file, setFile] = useState<File | null>(null)
+  const [documentId, setDocumentId] = useState<string | null>(null)
   async function submit(e: React.FormEvent) {
     e.preventDefault()
     setBusy(true)
     setError('')
     setSuccess('')
     try {
-      await api('/verifications', json('POST', { cref, evidence }))
+      let document = documentId
+      if (file && !document && user) {
+        document = (await uploadFile(file, 'verification', user.id)).media.id
+        setDocumentId(document)
+      }
+      await api(
+        '/verifications',
+        json('POST', {
+          cref,
+          evidence,
+          ...(document ? { documentId: document } : {}),
+        }),
+      )
       setSuccess('Credenciais enviadas. Aguarde a análise do administrador.')
       await remote.reload()
       onChange()
@@ -267,9 +299,7 @@ function VerificationForm({ onChange }: { onChange: () => unknown }) {
     }
   }
   const pending = remote.data?.verifications.some((v) => v.status === 'pending')
-  const approved = remote.data?.verifications.some(
-    (v) => v.status === 'approved',
-  )
+  const approved = currentStatus === 'approved'
   return (
     <section className="live-panel">
       <div className="live-panel-heading">
@@ -286,6 +316,21 @@ function VerificationForm({ onChange }: { onChange: () => unknown }) {
           <div>
             <strong>{v.cref}</strong>
             <p>{v.reason || 'Solicitação enviada para análise.'}</p>
+            {v.expiresAt && (
+              <small>
+                Validade: {new Date(v.expiresAt).toLocaleDateString('pt-BR')}
+              </small>
+            )}
+            {v.documentId && (
+              <a
+                className="live-link"
+                href={'/api/media/' + v.documentId + '/content'}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Abrir documento privado
+              </a>
+            )}
           </div>
           <Badge status={v.status} />
         </article>
@@ -319,6 +364,17 @@ function VerificationForm({ onChange }: { onChange: () => unknown }) {
             Complete seu perfil antes de enviar. Use apenas informações
             profissionais. A evidência é revisada pelo administrador.
           </p>
+          <label>
+            Documento profissional privado (opcional)
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp,application/pdf"
+              onChange={(e) => {
+                setFile(e.target.files?.[0] || null)
+                setDocumentId(null)
+              }}
+            />
+          </label>
           <Notice error={error} success={success} />
           <button className="button button--dark" disabled={busy || pending}>
             {pending
@@ -333,10 +389,11 @@ function VerificationForm({ onChange }: { onChange: () => unknown }) {
   )
 }
 export function AdminPage() {
-  const remote = useRemote<{ verifications: Verification[] }>(
+  const remote = useRemote<{ verifications: ExtendedVerification[] }>(
     '/admin/verifications',
   )
   const [reasons, setReasons] = useState<Record<string, string>>({})
+  const [expirations, setExpirations] = useState<Record<string, string>>({})
   const [busy, setBusy] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -354,7 +411,17 @@ export function AdminPage() {
     try {
       await api(
         '/admin/verifications/' + id,
-        json('PATCH', { status, reason: reasons[id] || '' }),
+        json('PATCH', {
+          status,
+          reason: reasons[id] || '',
+          ...(status === 'approved' && expirations[id]
+            ? {
+                expiresAt: new Date(
+                  expirations[id] + 'T23:59:59',
+                ).toISOString(),
+              }
+            : {}),
+        }),
       )
       setSuccess(
         status === 'approved'
@@ -362,6 +429,38 @@ export function AdminPage() {
           : 'Solicitação recusada com justificativa.',
       )
       await remote.reload()
+    } catch (e) {
+      setError(message(e))
+    } finally {
+      setBusy('')
+    }
+  }
+  async function suspend(
+    v: ExtendedVerification,
+    status: 'suspended' | 'rejected',
+  ) {
+    if ((reasons[v.id] || '').trim().length < 5) {
+      setError('Informe uma justificativa de pelo menos 5 caracteres.')
+      return
+    }
+    if (
+      !window.confirm(
+        status === 'suspended'
+          ? 'Suspender este profissional e remover seu perfil da descoberta?'
+          : 'Revogar a aprovação deste profissional?',
+      )
+    )
+      return
+    setBusy(v.id)
+    setError('')
+    setSuccess('')
+    try {
+      await api(
+        '/admin/coaches/' + v.coachId + '/verification',
+        json('PATCH', { status, reason: reasons[v.id] }),
+      )
+      await remote.reload()
+      setSuccess('Decisão profissional registrada com auditoria.')
     } catch (e) {
       setError(message(e))
     } finally {
@@ -390,6 +489,25 @@ export function AdminPage() {
               <Badge status={v.status} />
             </div>
             <p className="live-evidence">{v.evidence}</p>
+            {v.documentId && (
+              <a
+                className="button button--outline"
+                href={'/api/media/' + v.documentId + '/content'}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Conferir documento privado
+              </a>
+            )}
+            {v.expiresAt && (
+              <p className="live-muted">
+                Validade: {new Date(v.expiresAt).toLocaleDateString('pt-BR')} ·
+                Origem{' '}
+                {v.source === 'manual'
+                  ? 'conferência manual'
+                  : v.source || 'manual'}
+              </p>
+            )}
             {v.status === 'pending' ? (
               <>
                 <label className="live-field">
@@ -401,6 +519,20 @@ export function AdminPage() {
                     }
                     maxLength={1000}
                     placeholder="Obrigatória para aprovar ou recusar (mínimo 5 caracteres)."
+                  />
+                </label>
+                <label className="live-field">
+                  Validade da aprovação (opcional)
+                  <input
+                    type="date"
+                    value={expirations[v.id] || ''}
+                    min={new Date().toLocaleDateString('en-CA')}
+                    onChange={(e) =>
+                      setExpirations((value) => ({
+                        ...value,
+                        [v.id]: e.target.value,
+                      }))
+                    }
                   />
                 </label>
                 <div className="live-actions">
@@ -422,6 +554,40 @@ export function AdminPage() {
               </>
             ) : (
               <p>{v.reason || 'Registro aprovado.'}</p>
+            )}
+            {v.status === 'approved' && (
+              <div className="live-form exp-inline-form">
+                <label>
+                  Justificativa da suspensão ou revogação
+                  <textarea
+                    minLength={5}
+                    maxLength={1000}
+                    value={reasons[v.id] || ''}
+                    onChange={(e) =>
+                      setReasons((value) => ({
+                        ...value,
+                        [v.id]: e.target.value,
+                      }))
+                    }
+                  />
+                </label>
+                <div className="live-actions">
+                  <button
+                    className="button button--outline"
+                    disabled={!!busy}
+                    onClick={() => void suspend(v, 'suspended')}
+                  >
+                    Suspender profissional
+                  </button>
+                  <button
+                    className="button button--outline"
+                    disabled={!!busy}
+                    onClick={() => void suspend(v, 'rejected')}
+                  >
+                    Revogar aprovação
+                  </button>
+                </div>
+              </div>
             )}
           </article>
         ))}

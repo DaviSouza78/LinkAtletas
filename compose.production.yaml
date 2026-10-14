@@ -1,0 +1,90 @@
+name: linkatletas-production
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: linkatletas
+      POSTGRES_USER: linkatletas
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configure uma senha exclusiva}
+    volumes:
+      - production_database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U linkatletas -d linkatletas"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  storage:
+    image: chrislusf/seaweedfs:4.48
+    restart: unless-stopped
+    command: ["server", "-dir=/data", "-filer", "-s3", "-s3.config=/config/s3.json", "-ip.bind=0.0.0.0", "-master.volumeSizeLimitMB=1024"]
+    volumes:
+      - production_objects:/data
+      - ${S3_CONFIG_FILE:?Configure caminho do JSON de identidades S3}:/config/s3.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:9333/cluster/status"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  mail:
+    image: axllent/mailpit:v1.31.5
+    restart: unless-stopped
+    environment:
+      MP_DATABASE: /data/mailpit.db
+    volumes:
+      - production_mail:/data
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  app:
+    build: .
+    image: linkatletas:local-production
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      API_HOST: 0.0.0.0
+      API_PORT: 3001
+      DATABASE_URL: postgresql://linkatletas:${POSTGRES_PASSWORD:?Configure uma senha exclusiva}@db:5432/linkatletas
+      APP_ORIGIN: ${APP_ORIGIN:?Configure URL HTTPS}
+      DATA_ENCRYPTION_KEY: ${DATA_ENCRYPTION_KEY:?Configure chave AES de 32 bytes em base64}
+      BILLING_MODE: ${BILLING_MODE:?Escolha academic ou asaas explicitamente}
+      ASAAS_ENVIRONMENT: ${ASAAS_ENVIRONMENT:-sandbox}
+      ASAAS_API_KEY: ${ASAAS_API_KEY:-}
+      ASAAS_WEBHOOK_TOKEN: ${ASAAS_WEBHOOK_TOKEN:-}
+      S3_ENDPOINT: http://storage:8333
+      S3_REGION: us-east-1
+      S3_BUCKET: ${S3_BUCKET:?Configure bucket privado}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:?Configure identidade S3}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:?Configure segredo S3}
+      SMTP_HOST: ${SMTP_HOST:?Configure SMTP}
+      SMTP_PORT: ${SMTP_PORT:?Configure porta SMTP}
+      SMTP_FROM: ${SMTP_FROM:?Configure remetente}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+    depends_on:
+      db: { condition: service_healthy }
+      storage: { condition: service_healthy }
+      mail: { condition: service_healthy }
+  proxy:
+    image: caddy:2.11.7-alpine
+    restart: unless-stopped
+    environment:
+      SITE_HOST: ${SITE_HOST:-localhost}
+      TLS_EMAIL: ${TLS_EMAIL:-}
+    ports:
+      - "${PROXY_BIND:-127.0.0.1}:${HTTPS_PORT:-8443}:443"
+    volumes:
+      - ${CADDY_CONFIG_FILE:-./infra/Caddyfile}:/etc/caddy/Caddyfile:ro
+      - production_tls:/data
+      - production_caddy_config:/config
+    depends_on:
+      app: { condition: service_healthy }
+volumes:
+  production_database:
+  production_objects:
+  production_mail:
+  production_tls:
+  production_caddy_config:

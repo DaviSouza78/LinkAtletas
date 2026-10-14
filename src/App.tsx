@@ -15,6 +15,19 @@ import {
   AthleteWorkoutsPage,
   CoachWorkoutsPage,
 } from './pages/integrated/Workouts'
+import {
+  AdminPrivacyPage,
+  PasswordRecoveryPage,
+  PrivacyPage,
+} from './pages/integrated/Expansion'
+import {
+  AdminReviewsPage,
+  AgendaPage,
+  MessagesPage,
+  NotificationsPage,
+  ReviewsPage,
+} from './pages/integrated/InteractionPages'
+import { AdminBillingPage, FinancePage } from './pages/integrated/BillingPages'
 function Protected({ role, children }: { role: Role; children: ReactNode }) {
   const { user, loading, error, refresh } = useAuth()
   if (loading)
@@ -46,23 +59,14 @@ function LoginRoute() {
     )
   return user ? <Navigate to={homeFor(user.role)} replace /> : <LoginPage />
 }
-function FuturePage() {
-  return (
-    <section className="live-panel">
-      <span className="eyebrow">Evolução futura · Sprint 3</span>
-      <h2>Esta funcionalidade ainda não está disponível</h2>
-      <p>
-        Mensagens, consultorias e pagamentos estão fora do fluxo implementado na
-        Sprint 2. Acompanhe suas conexões, treinos e execuções pelo menu.
-      </p>
-    </section>
-  )
-}
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginRoute />} />
+      <Route path="/recuperar-senha" element={<PasswordRecoveryPage />} />
+      <Route path="/redefinir-senha" element={<PasswordRecoveryPage />} />
+      <Route path="/reset-password" element={<PasswordRecoveryPage />} />
       <Route
         path="/cadastro"
         element={<Navigate to="/login?cadastro=1" replace />}
@@ -111,7 +115,7 @@ export default function App() {
         path="/treinador/consultorias"
         element={
           <Protected role="coach">
-            <FuturePage />
+            <AgendaPage />
           </Protected>
         }
       />
@@ -119,7 +123,7 @@ export default function App() {
         path="/treinador/mensagens"
         element={
           <Protected role="coach">
-            <FuturePage />
+            <MessagesPage />
           </Protected>
         }
       />
@@ -127,7 +131,7 @@ export default function App() {
         path="/treinador/financeiro"
         element={
           <Protected role="coach">
-            <FuturePage />
+            <FinancePage />
           </Protected>
         }
       />
@@ -167,7 +171,102 @@ export default function App() {
         path="/atleta/mensagens"
         element={
           <Protected role="athlete">
-            <FuturePage />
+            <MessagesPage />
+          </Protected>
+        }
+      />
+      {(['athlete', 'coach'] as const).flatMap((role) => {
+        const root = role === 'athlete' ? '/atleta' : '/treinador'
+        return [
+          <Route
+            key={root + '/agenda'}
+            path={root + '/agenda'}
+            element={
+              <Protected role={role}>
+                <AgendaPage />
+              </Protected>
+            }
+          />,
+          <Route
+            key={root + '/avaliacoes'}
+            path={root + '/avaliacoes'}
+            element={
+              <Protected role={role}>
+                <ReviewsPage />
+              </Protected>
+            }
+          />,
+          <Route
+            key={root + '/notificacoes'}
+            path={root + '/notificacoes'}
+            element={
+              <Protected role={role}>
+                <NotificationsPage />
+              </Protected>
+            }
+          />,
+          <Route
+            key={root + '/privacidade'}
+            path={root + '/privacidade'}
+            element={
+              <Protected role={role}>
+                <PrivacyPage />
+              </Protected>
+            }
+          />,
+          ...(role === 'athlete'
+            ? [
+                <Route
+                  key="/atleta/financeiro"
+                  path="/atleta/financeiro"
+                  element={
+                    <Protected role="athlete">
+                      <FinancePage />
+                    </Protected>
+                  }
+                />,
+                <Route
+                  key="/atleta/conexoes"
+                  path="/atleta/conexoes"
+                  element={
+                    <Protected role="athlete">
+                      <ContractsPage />
+                    </Protected>
+                  }
+                />,
+              ]
+            : []),
+        ]
+      })}
+      <Route
+        path="/admin/avaliacoes"
+        element={
+          <Protected role="admin">
+            <AdminReviewsPage />
+          </Protected>
+        }
+      />
+      <Route
+        path="/admin/financeiro"
+        element={
+          <Protected role="admin">
+            <AdminBillingPage />
+          </Protected>
+        }
+      />
+      <Route
+        path="/admin/privacidade"
+        element={
+          <Protected role="admin">
+            <AdminPrivacyPage />
+          </Protected>
+        }
+      />
+      <Route
+        path="/admin/notificacoes"
+        element={
+          <Protected role="admin">
+            <NotificationsPage />
           </Protected>
         }
       />

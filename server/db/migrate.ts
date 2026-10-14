@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import type { Pool } from 'pg'
 import { createPool, transaction } from './pool.js'
+import { encryptPrivate } from '../shared/crypto.js'
 
 export async function migrate(pool: Pool) {
   const directory = fileURLToPath(new URL('./migrations/', import.meta.url))
@@ -24,6 +25,19 @@ export async function migrate(pool: Pool) {
         name,
       ])
     }
+    const existing = await client.query(
+      "SELECT id,notes,metrics FROM executions WHERE private_payload IS NULL AND (notes<>'' OR metrics<>'{}'::jsonb) FOR UPDATE",
+    )
+    for (const row of existing.rows)
+      await client.query(
+        "UPDATE executions SET private_payload=$1,notes='',metrics='{}' WHERE id=$2",
+        [
+          encryptPrivate(
+            JSON.stringify({ notes: row.notes, metrics: row.metrics }),
+          ),
+          row.id,
+        ],
+      )
   })
 }
 if (
