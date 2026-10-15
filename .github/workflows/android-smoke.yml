@@ -13,10 +13,6 @@ jobs:
   startup:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
-    env:
-      ANDROID_USER_HOME: ${{ runner.temp }}/linkatletas-android
-      ANDROID_EMULATOR_HOME: ${{ runner.temp }}/linkatletas-android
-      ANDROID_AVD_HOME: ${{ runner.temp }}/linkatletas-android/avd
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
@@ -31,6 +27,9 @@ jobs:
           path: apk
       - name: Boot isolated Android emulator
         run: |
+          export ANDROID_USER_HOME="$RUNNER_TEMP/linkatletas-android"
+          export ANDROID_EMULATOR_HOME="$ANDROID_USER_HOME"
+          export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
           mkdir -p emulator-evidence "$ANDROID_AVD_HOME"
           # The hosted image has Android command-line tools outside PATH.
           sdkmanager_path=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager -print -quit)
