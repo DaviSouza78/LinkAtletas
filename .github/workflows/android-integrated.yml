@@ -1,6 +1,18 @@
 name: Android integrated verification
 on:
   workflow_dispatch:
+    inputs:
+      apk_run_id:
+        description: 'Run de um APK local existente; vazio recompila'
+        required: false
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      apk_run_id:
+        required: false
+        type: string
+        default: ''
 permissions:
   contents: read
 concurrency:
@@ -64,11 +76,14 @@ jobs:
           node --import tsx server/index.ts > emulator-evidence/api.log 2>&1 &
           timeout 60 bash -c 'until curl --fail --silent http://127.0.0.1:3001/api/health; do sleep 1; done'
       - name: Generate standalone local application
+        if: inputs.apk_run_id == ''
         run: pnpm --dir mobile exec expo prebuild --platform android --no-install
       - name: Compile the actual APK
+        if: inputs.apk_run_id == ''
         working-directory: mobile/android
         run: ./gradlew :app:assembleRelease --no-daemon --max-workers=2 -PreactNativeArchitectures=arm64-v8a,x86_64
       - name: Preserve the local APK
+        if: inputs.apk_run_id == ''
         run: |
           mkdir -p android-local
           cp mobile/android/app/build/outputs/apk/release/*.apk android-local/LinkAtletas-local.apk
@@ -76,10 +91,18 @@ jobs:
           sha256sum LinkAtletas-local.apk > SHA256SUMS
           printf '%s\n' "Commit: $GITHUB_SHA" 'APK standalone de demonstracao local, com chave de desenvolvimento.' 'API: http://localhost:3001/api. Inicie a API no computador e use adb reverse tcp:3001 tcp:3001 por USB ou emulador.' 'HTTP permitido somente nos enderecos locais; producao continua exigindo HTTPS.' 'Nenhum Metro ou servidor publico e necessario. Nao usar para dados ou pagamentos reais.' > LEIA-ME.txt
       - uses: actions/upload-artifact@v4
+        if: inputs.apk_run_id == ''
         with:
           name: LinkAtletas-APK-local
           path: android-local/
           retention-days: 30
+      - uses: actions/download-artifact@v4
+        if: inputs.apk_run_id != ''
+        with:
+          name: LinkAtletas-APK-local
+          run-id: ${{ inputs.apk_run_id }}
+          github-token: ${{ github.token }}
+          path: android-local
       - name: Boot emulator
         run: bash scripts/android/start-emulator.sh
       - name: Install and exercise the APK against the real API

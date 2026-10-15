@@ -2,6 +2,16 @@ name: Android emulator smoke
 on:
   workflow_dispatch:
     inputs:
+      integrated:
+        description: 'Executar APK local conectado a API, PostgreSQL, SMTP e S3 reais'
+        type: boolean
+        required: false
+        default: false
+      apk_run_id:
+        description: 'Run de APK local existente; vazio recompila no teste integrado'
+        type: string
+        required: false
+        default: ''
       run_id:
         description: 'Run que gerou o artefato LinkAtletas-APK-verificacao'
         required: true
@@ -10,7 +20,13 @@ permissions:
   contents: read
   actions: read
 jobs:
+  integrated:
+    if: inputs.integrated
+    uses: ./.github/workflows/android-integrated.yml
+    with:
+      apk_run_id: ${{ inputs.apk_run_id }}
   startup:
+    if: '!inputs.integrated'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:

@@ -17,3 +17,5 @@ docs/evolucao/evidencias/playwright-artifacts/
 backups/
 mobile/.expo/
 mobile/dist/
+__pycache__/
+*.pyc
