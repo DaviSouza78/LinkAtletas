@@ -49,10 +49,12 @@ beforeEach(() => {
   native.storage.clear()
   vi.stubGlobal('__DEV__', true)
   vi.stubGlobal('fetch', fetcher)
+  vi.stubEnv('EXPO_PUBLIC_BUILD_PROFILE', undefined)
   delete process.env.EXPO_PUBLIC_API_URL
 })
 afterEach(() => {
   vi.unstubAllGlobals()
+  vi.unstubAllEnvs()
   delete process.env.EXPO_PUBLIC_API_URL
 })
 async function loggedIn() {

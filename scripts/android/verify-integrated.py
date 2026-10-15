@@ -60,12 +60,15 @@ def bounds(node):
 
 
 def find(tree, label, partial=False):
-    for node in tree.iter('node'):
-        x1, y1, x2, y2 = bounds(node)
-        if x2 <= x1 or y2 <= y1:
-            continue
-        if any((label in value if partial else label == value) for value in labels(node)):
-            return node
+    # Accessible input/button labels take precedence over decorative Text labels.
+    for attribute in ('content-desc', 'text'):
+        for node in tree.iter('node'):
+            x1, y1, x2, y2 = bounds(node)
+            if x2 <= x1 or y2 <= y1:
+                continue
+            value = node.get(attribute, '')
+            if label in value if partial else label == value:
+                return node
     return None
 
 
@@ -214,7 +217,7 @@ def test():
         'status': 'published', 'blocks': [{'name': 'Aquecimento APK', 'instructions': 'Corrida leve', 'durationMinutes': 5}],
     }, coach)['workout']
     tab('Treinos')
-    tap('Abrir treino', scroll=True)
+    tap('Abrir Corrida APK integrada', scroll=True)
     tap('Blocos realizados: Aquecimento APK', scroll=True)
     fill('Percepção de esforço (1 a 10)', '7', scroll=True)
     fill('Notas ao treinador', 'Feedback APK integrado', scroll=True)
@@ -264,7 +267,7 @@ def test():
     adb('push', image, '/sdcard/Download/apk-performance.png')
     adb('shell', 'am', 'broadcast', '-a', 'android.intent.action.MEDIA_SCANNER_SCAN_FILE', '-d', 'file:///sdcard/Download/apk-performance.png')
     tab('Treinos')
-    tap('Abrir treino', scroll=True)
+    tap('Abrir Corrida APK integrada', scroll=True)
     tap('Enviar arquivo de performance', scroll=True)
     time.sleep(2)
     picker = dump()
@@ -278,7 +281,7 @@ def test():
     request('POST', '/media/' + performance['id'] + '/feedback', {'text': 'Correcao do treinador no APK'}, coach)
     top()
     tap('Voltar aos treinos')
-    tap('Abrir treino', scroll=True)
+    tap('Abrir Corrida APK integrada', scroll=True)
     locate('Correcao do treinador no APK', scroll=True)
     record('Seletor nativo, upload real S3 e correção do treinador visível no APK')
     capture('midia-feedback')
@@ -291,7 +294,7 @@ def test():
     relaunch()
     locate('Olá, Atleta', partial=True)
     tab('Treinos')
-    tap('Abrir treino', scroll=True)
+    tap('Abrir Corrida APK integrada', scroll=True)
     locate('Feedback APK integrado', scroll=True)
     record('Execução e sessão preservadas após nova inicialização do APK')
 
