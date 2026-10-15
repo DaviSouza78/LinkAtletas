@@ -33,6 +33,17 @@ Imagens/configuração estão em [compose.yaml](../../compose.yaml) e [S3 local]
 
 Consulte [.env.example](../../.env.example). `APP_ORIGIN` deve corresponder exatamente à origem web. `DATABASE_URL` e `TEST_DATABASE_URL` não devem apontar para o mesmo banco. `API_PORT`/`VITE_PORT` permitem portas diferentes; altere a origem junto.
 
+Se a porta 5173 estiver ocupada, confira a execução anterior e encerre-a com `Ctrl+C` no terminal correspondente antes de reiniciar. Para identificar apenas os processos que escutam as portas do projeto, use `Get-NetTCPConnection -State Listen -LocalPort 5173,3001 | Select-Object LocalPort,OwningProcess`; confira o PID com `Get-Process -Id <PID>`. Não finalize processos sem identificar a aplicação. Como alternativa, configure as variáveis no terminal PowerShell em que executará o projeto:
+
+```powershell
+$env:VITE_PORT = '5175'
+$env:API_PORT = '3003'
+$env:APP_ORIGIN = 'http://localhost:5175'
+pnpm dev:all
+```
+
+Vite usa `API_PORT` do ambiente para o proxy e a API verifica a origem exata. Essas variáveis valem para a sessão atual do terminal.
+
 Desenvolvimento gera `.data-key.local`, ignorado pelo Git, caso `DATA_ENCRYPTION_KEY` não esteja definido. Esse arquivo/chave é necessário para decifrar dados existentes. Preserve-o com acesso restrito e em canal separado dos dados de backup; não copie seu conteúdo para relatórios, commits ou chat. Produção exige `DATA_ENCRYPTION_KEY` de 32 bytes em base64 e configurações explícitas do banco/S3/SMTP/modo financeiro. Não troque a chave para resolver falha de decrypt: restaure a chave correspondente aos dados.
 
 `JOBS_INTERVAL_MS` controla tarefas periódicas: outbox SMTP, expiração profissional, eventos/conciliação financeira e acesso vencido, além de sessões/tokens expirados. Execução pontual de jobs:

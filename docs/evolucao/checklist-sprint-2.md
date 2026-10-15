@@ -1,14 +1,14 @@
 # Checklist da Sprint 2 — versão ampliada
 
-Atualizado em 14/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação.
+Atualizado em 15/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
 
 ## 1. Código-fonte atualizado e versionado
 
 - [x] Clone local separado e branch de ampliação; código de [API](../../server/), [web](../../src/) e [app](../../mobile/); base anterior preservada em `sprint-2`.
 - [x] Autor Git definido como Lucca com e-mail fornecido; [decisões](decisoes.md) explicam autoria e limites.
 - [x] Implementação versionada no commit local `fca8a18`, com autoria Lucca; documentação/evidências versionadas na mesma branch. Pacotes ZIP e Git bundle serão gerados a partir do commit de entrega, conforme o [índice](entrega.md).
-- [x] Branch publicada no [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas/tree/evolucao-completa), com commits de Lucca; [pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) aberto após autorização de publicação.
-- [ ] Merge na `main`: aguarda os checks remotos e as regras de integração do repositório.
+- [x] Branch publicada no [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas/tree/evolucao-completa), com commits de Lucca; [pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) integrado após autorização de publicação e aprovação dos checks.
+- [x] Merge na `main`, commit `f6a5a56`: [registro do PR](evidencias/github-pr-1.json) e [CI aprovada na main](evidencias/github-ci-main.json).
 
 ## 2. Fluxo principal funcional de ponta a ponta
 
@@ -34,6 +34,7 @@ Atualizado em 14/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] App: tipos/dependências/Doctor, [9/9 testes de transporte](evidencias/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/mobile-bundles.json); ver [limites](evidencias/mobile-verificacao.md).
 - [x] Firefox e WebKit executados: [resultados](evidencias/playwright-results.json), [axe Firefox](evidencias/firefox-axe.json) e [axe WebKit](evidencias/webkit-axe.json).
 - [x] APK Android de verificação compilado no GitHub, com assinatura de desenvolvimento: [execução e hash](publicacao.md). Ainda requer URL HTTPS real para testar integrações.
+- [x] APK instalado e tela de login aberta no emulador Android API 35: [resultado](evidencias/android-emulator-result.json), [captura](evidencias/android-emulator-startup.png) e [run aprovado](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814). Fluxo integrado e aparelho físico continuam pendentes.
 - [ ] Assinatura de distribuição, IPA e homologação completa em aparelhos Android/iOS; Safari/Edge reais e leitor de tela: não presumidos por compilação, bundles ou viewport.
 
 ## 5. Validações e tratamento básico de erros
@@ -51,7 +52,8 @@ Atualizado em 14/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] [75/75 Vitest](evidencias/vitest-results.json), [15/15 E2E nos três motores](evidencias/playwright-results.json), testes/bundles do app e operação TLS/backup/carga: [relatório](relatorio-testes.md).
 - [x] Corridas de privacidade verificadas com bloqueios reais: [três testes](../../tests/integration/privacy-races.test.ts) de perfil, senha/sessão e feedback eliminado.
 - [x] [TLS 1.3 local](evidencias/production-tls.json) com CA explícita, sem alteração do trust global; [carga](evidencias/carga-matchmaking.json) 200 chamadas/500 perfis sintéticos e p95 97,78 ms.
-- [x] [CI versionada](../../.github/workflows/ci.yml); execução no GitHub não presumida.
+- [x] [CI versionada](../../.github/workflows/ci.yml) e executada com sucesso no GitHub após merge: [run 38656142290](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290), [registro verificável](evidencias/github-ci-main.json).
+- [x] Correção do indicador de chat após evento tardio de socket descartado e regressão no navegador: [CI final aprovada](evidencias/github-ci-finalizacao.json), [cenário de chat](../../tests/e2e/expansion.spec.ts).
 - [x] [Tipos e build final aprovados](evidencias/verificacao-build.txt); engines adicionais incluídos no relatório.
 - [ ] Homologações externas e dispositivos não executadas não recebem check de aprovação.
 
@@ -79,4 +81,4 @@ Atualizado em 14/10/2026. Use este documento para revisar os nove entregáveis o
 
 ## Estado de conclusão
 
-A implementação ampliada pode ser revisada pelos arquivos acima. As verificações locais concluídas têm evidência; acesso externo, homologação em aparelho, aprovação docente, participação e GitHub permanecem abertos até haver registro específico. IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.
+Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado acima, com publicação e CI confirmadas. Acesso externo, homologação completa em aparelho, revisão docente e participação individual permanecem conforme as [pendências](pendencias-lucca.md). IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.

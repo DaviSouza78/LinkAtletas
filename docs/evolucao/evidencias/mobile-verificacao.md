@@ -1,6 +1,6 @@
 # Verificação do cliente React Native/Expo
 
-Data: 14/10/2026. Ambiente: Windows, Node 24.15.0, pnpm 10.33.2. Fonte: [mobile](../../../mobile/README.md), dependências fixadas em manifesto e lockfile independentes.
+Consolidação local: 14/10/2026; compilação e inicialização remotas atualizadas em 15/10/2026. Ambiente local: Windows, Node 24.15.0, pnpm 10.33.2. Build e emulador executados no runner Linux do GitHub. Fonte: [mobile](../../../mobile/README.md), dependências fixadas em manifesto e lockfile independentes.
 
 | Verificação | Resultado | Evidência |
 |---|---|---|
@@ -11,9 +11,11 @@ Data: 14/10/2026. Ambiente: Windows, Node 24.15.0, pnpm 10.33.2. Fonte: [mobile]
 | Exportação Hermes Android | Passou, 612 módulos | [mobile-export.log](mobile-export.log) |
 | Exportação Hermes iOS | Passou, 614 módulos | [mobile-export.log](mobile-export.log) |
 | Tamanho e SHA-256 dos bundles e metadados | Registrados após exportação | [mobile-bundles.json](mobile-bundles.json) |
-| Compilar APK/AAB, instalar e usar em Android | Pendente: Java/Android SDK/emulador não identificados | Não há evidência de execução em dispositivo |
+| Compilar APK Android | Passou no runner GitHub com Java/Android SDK; chave de desenvolvimento | [Build remoto](github-android-build.json), [hash e limites](../publicacao.md) |
+| Instalar e abrir o APK no emulador | Passou, Android API 35 x86_64, tela de login visível e sem crash detectado | [Resultado](android-emulator-result.json), [captura](android-emulator-startup.png), [run aprovado](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814) |
+| Fluxo completo em aparelho Android | Pendente: requer API HTTPS alcançável e aparelho | Não substituído pelo build nem pela inicialização no emulador |
 | Compilar IPA e usar em iPhone/iPad | Pendente: exige Mac/Xcode ou serviço autorizado | Não há evidência de execução em dispositivo |
-| Execução manual em Expo Go/development build | Pendente de dispositivo/emulador compatível | Não foi substituída por teste de navegador |
+| Execução manual dos fluxos em Expo Go/development build | Pendente de dispositivo/emulador compatível e API alcançável | Não foi substituída por teste de navegador |
 | Publicação nas lojas | Não realizada | Não foram criadas contas nem enviados aplicativos |
 
 Versões verificadas: Expo 57.0.29, React Native 0.86.3, React 19.2.3, TypeScript 6.0.3. O SDK foi selecionado conforme [matriz oficial](https://docs.expo.dev/versions/latest/); os módulos nativos foram alinhados por `expo install` e o resultado foi conferido pelo Doctor.

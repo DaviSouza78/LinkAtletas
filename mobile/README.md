@@ -30,6 +30,8 @@ Use sua URL real de HTTPS antes de distribuir. O domínio `.example` acima é ap
 
 O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](../docs/evolucao/evidencias/mobile-verificacao.md).
 
+Há também um APK Android compilado pelo workflow manual `Android APK verification`: [execução e hash](../docs/evolucao/publicacao.md). Ele usa a chave de desenvolvimento do template Expo. Configure a variável de repositório `EXPO_PUBLIC_API_URL` com uma API HTTPS alcançável e gere outro APK para testar integrações; o binário de verificação existente usa um endereço `.example` documental. Distribuição nas lojas e homologação completa em aparelhos permanecem pendentes.
+
 ## Funcionalidades
 
 - Cadastro e login do atleta, restauração de sessão, logout, recuperação e redefinição de senha.

@@ -1,10 +1,10 @@
 # Relatório de testes — ampliação LinkAtletas
 
-Data: 14/10/2026. Este relatório registra evidência efetivamente produzida; testes escritos, aprovação técnica, build, sandbox e homologação de aparelho são estados distintos. As evidências históricas da Sprint 2 inicial permanecem em [docs/sprint-2/evidencias](../sprint-2/evidencias/).
+Data da consolidação local: 14/10/2026; publicação e registros remotos atualizados em 15/10/2026. Este relatório registra evidência efetivamente produzida; testes escritos, aprovação técnica, build, sandbox e homologação de aparelho são estados distintos. As evidências históricas da Sprint 2 inicial permanecem em [docs/sprint-2/evidencias](../sprint-2/evidencias/).
 
 ## Ambiente
 
-Windows, Node 24.15.0, pnpm 10.33.2, PostgreSQL 17 em Docker. API Fastify, React web, SeaweedFS S3 privado e Mailpit SMTP locais. Banco de testes termina em `_test`; migrations sequenciais, sem limpeza da base demonstrativa. Dados fictícios. Cliente Expo tem manifesto e lock próprios. Nenhuma cobrança/conta financeira/publicação pública foi executada durante testes.
+Windows, Node 24.15.0, pnpm 10.33.2, PostgreSQL 17 em Docker; CI reproduzida em runner Ubuntu do GitHub Actions. API Fastify, React web, SeaweedFS S3 privado e Mailpit SMTP locais. Banco de testes termina em `_test`; migrations sequenciais, sem limpeza da base demonstrativa. Dados fictícios. Cliente Expo tem manifesto e lock próprios. Não houve cobrança, abertura de conta financeira ou implantação de site/API públicos. O código foi publicado no GitHub com autorização.
 
 ## Resultados executados e verificações pendentes
 
@@ -21,14 +21,17 @@ Suíte consolidada local: **75/75 Vitest aprovados**, nenhuma falha, conforme [J
 | Concorrência e privacidade | [privacy-races.test.ts](../../tests/integration/privacy-races.test.ts): perfil, sessão e feedback durante eliminação/troca de senha | 3/3 aprovados; bloqueios reais PostgreSQL, sem sleeps usados como prova de ordenação |
 | Tipos web | `pnpm exec tsc -p tsconfig.app.json --noEmit` | Passou após integração das novas telas |
 | Navegador e acessibilidade | Fluxo ampliado, 390/1440, três motores e axe | 15 E2E aprovados; seis telas por motor sem violações nas regras automáticas WCAG 2 A/AA e 2.1 A/AA: [Chromium](evidencias/chromium-axe.json), [Firefox](evidencias/firefox-axe.json), [WebKit](evidencias/webkit-axe.json) |
-| App Expo | Tipos, dependências, Doctor, transporte e Hermes Android/iOS | Passaram: [verificação detalhada](evidencias/mobile-verificacao.md), [9/9 transporte](evidencias/mobile-tests.json), [hashes dos bundles](evidencias/mobile-bundles.json); APK/IPA/aparelho não homologados |
+| App Expo | Tipos, dependências, Doctor, transporte, Hermes Android/iOS e compilação APK | Passaram: [verificação detalhada](evidencias/mobile-verificacao.md), [9/9 transporte](evidencias/mobile-tests.json), [hashes dos bundles](evidencias/mobile-bundles.json) e [build APK remoto](evidencias/github-android-build.json). Integração completa em aparelho e IPA pendentes |
+| APK em emulador | Instalação e abertura da tela de login no Android API 35 x86_64 | [Passou](evidencias/android-emulator-result.json), [captura real](evidencias/android-emulator-startup.png) e [run remoto](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814). Sem crash detectado; fluxo com backend e aparelho físico não executados |
 | TLS local | Container/HTTPS, banco, autenticação, origem e reinício | [TLS 1.3](evidencias/production-tls.json): CA explícita, cookie Secure/HttpOnly, HTTP 200/201, mutation sem Origin 403 e sessão/perfil preservados após reinício da aplicação; sem trust global/domínio público |
 | Backup/restauração | Banco e S3 cifrados em destinos isolados | [36 tabelas e checksums iguais](evidencias/backup-restore.json), roundtrip de campo/mídia e dump sem texto claro; [worker privado](evidencias/private-network-backup.json) |
 | Carga do match | 500 treinadores sintéticos, 200 chamadas HTTP, concorrência 10 | [Medição](evidencias/carga-matchmaking.json): 200 respostas 200, p50 78,54 ms, p95 97,78 ms, p99 132,54 ms; não extrapolar nuvem/escala |
-| CI e build final | Workflow e scripts versionados | [Tipos/build aprovados](evidencias/verificacao-build.txt); [CI](../../.github/workflows/ci.yml) preparada, execução remota não realizada |
+| CI e build final | Instalação, tipos/build, Vitest, backup, browsers/axe, Expo e TLS/reinício | [Tipos/build locais aprovados](evidencias/verificacao-build.txt); [CI completa aprovada na main](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290), [registro remoto](evidencias/github-ci-main.json) |
 | Documentação | Links relativos e OpenAPI runtime | [Conferência reproduzível](evidencias/documentation-check.json), sem links quebrados; ERS/relatório DOCX validados e PDFs renderizados pelo LibreOffice |
 
 Contagens acima foram conferidas em arquivos de resultado, não inferidas apenas da existência de cenários. Falhas de tentativas anteriores não substituem o resultado final; correções e limites permanecem explícitos. O manifesto de backup registra necessidade de pausar escritas em operação, pois não existe transação distribuída banco/objetos.
+
+Na finalização de 15/10, o cenário de chat passou a forçar o fechamento atrasado da conexão descartada pelo StrictMode depois de aberta a conexão válida. O indicador permaneceu conectado e a troca real de mensagens foi verificada nos três motores. A [CI após a correção](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675094079) aprovou novamente todas as etapas; [registro remoto](evidencias/github-ci-finalizacao.json).
 
 No E2E, `REVIEW_MIN_DAYS=0` permite avaliar o vínculo recém-criado; os testes da API verificam a regra padrão de sete dias. SMTP e S3 são serviços locais reais. O teste de transporte Expo controla os módulos nativos e não executa Keychain/Keystore real. A auditoria axe não incluiu telas administrativas ou uma avaliação manual completa de leitores de tela. Os testes de concorrência reproduzem requisições já autenticadas enquanto o banco mantém um bloqueio e confirmam a resposta após a eliminação/troca concorrente.
 
@@ -54,4 +57,4 @@ Não execute integração Vitest e E2E simultaneamente no mesmo banco de teste. 
 
 ## Homologações externas pendentes
 
-Asaas sandbox real, split/repasse de carteira real, CREF autorizado, SMTP externo, S3 hospedado, domínio público, stores e instalação/dispositivo Android/iOS. Google OAuth/Agenda/Meet reais também não foram exercitados. Axe não substitui ensaio com leitor de tela ou revisão integral WCAG. WebKit não comprova Safari real; Chromium não comprova Edge real. Carga local não comprova autoescala em nuvem.
+Asaas sandbox real, split/repasse de carteira real, CREF autorizado, SMTP externo, S3 hospedado, domínio público, stores e fluxo completo em aparelhos Android/iOS. Google OAuth/Agenda/Meet reais também não foram exercitados. Axe não substitui ensaio com leitor de tela ou revisão integral WCAG. WebKit não comprova Safari real; Chromium não comprova Edge real. Carga local não comprova autoescala em nuvem. Veja [publicação e APK](publicacao.md) e [pendências humanas](pendencias-lucca.md).

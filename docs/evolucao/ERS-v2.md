@@ -121,7 +121,7 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 | RNF-09 App responsivo | Web em 390/1440 sem overflow; cliente Expo tipos/bundles | Bundle não equivale a instalação nem teste em dispositivo |
 | RNF-10 Usabilidade | Prescrever/publicar, reabrir rascunho, teclado/foco; instruções e confirmações claras | Rascunho explícito; autosave contínuo ainda não implementado |
 | RNF-11 Feedback visual | Erro de rede/validação, estado de envio e sucesso após resposta positiva; sem falso pagamento | E2E efetivo e capturas conforme relatório |
-| RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | Homologação nativa e distribuição pendentes de SDK/JDK, Xcode/serviço e dispositivos |
+| RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | APK Android compilado na CI; fluxo completo em aparelhos e distribuição pendentes. IPA requer Xcode/serviço e credenciais |
 | RNF-13 Navegadores | Fluxo em Chromium/Firefox/WebKit; registrar versões e axe | Engines testados não são automaticamente Edge/Safari reais; leitor de tela exige avaliação própria |
 | RNF-14 REST/OpenAPI | Swagger runtime e schemas reais; exemplo inválido devolve campo/erro | API compartilhada web/nativo, sem segredos no cliente |
 | RNF-15 Idempotência financeira | Checkout concorrente, webhook repetido/antigo, timeout e cancelamento incerto; conciliar sem duplicar | HTTP controlado; repetir em sandbox real antes da ativação |

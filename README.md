@@ -4,7 +4,7 @@ Projeto Integrador Interdisciplinar II — ADS, Faculdade de Tecnologia SENAI F�
 
 A ampliação preserva o fluxo da Sprint 2 e acrescenta chat em tempo real, avaliações/moderação, consultorias, arquivos privados cifrados, recuperação de senha, consentimentos/privacidade, ciclos de vínculo, financeiro Asaas e cliente React Native/Expo. A API é Node/TypeScript/Fastify com PostgreSQL; a web usa React. Modo acadêmico é explicitamente sem cobrança. Integrações escritas/testadas localmente e homologações externas são estados separados.
 
-Consulte o [checklist com referências](docs/evolucao/checklist-sprint-2.md), o [relatório de testes](docs/evolucao/relatorio-testes.md) e o [manual completo](docs/evolucao/manual.md). A entrega inicial continua preservada em [docs/sprint-2](docs/sprint-2/entrega.md).
+Consulte o [checklist com referências](docs/evolucao/checklist-sprint-2.md), o [relatório de testes](docs/evolucao/relatorio-testes.md), o [manual completo](docs/evolucao/manual.md) e as [pendências de Lucca e do grupo](docs/evolucao/pendencias-lucca.md). A entrega inicial continua preservada em [docs/sprint-2](docs/sprint-2/entrega.md).
 
 ## Executar localmente
 
@@ -20,6 +20,8 @@ pnpm dev:all
 ```
 
 Preserve um `.env` já existente. Migrations são cumulativas e não exigem apagar volumes. `docker compose down` para serviços sem remover dados.
+
+Se aparecer `Port 5173 is already in use`, confira se o projeto já está aberto em outro terminal e acesse o endereço existente. Para reiniciar, encerre a execução anterior com `Ctrl+C` naquele terminal antes de rodar `pnpm dev:all` novamente. A [seção de diagnóstico](docs/evolucao/manual.md) explica portas alternativas.
 
 - Web: [localhost:5173](http://localhost:5173).
 - Swagger/API: [localhost:3001/api/docs](http://localhost:3001/api/docs).
@@ -111,4 +113,6 @@ docs/evolucao/       ERS v2, API, manual, modelos, checklist e novas evidências
 
 João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa. Cada integrante deve registrar sua participação efetiva e realizar sua entrega acadêmica. Autoria Git deste incremento usa o nome/e-mail fornecidos por Lucca, sem presumir participação dos demais.
 
-Permanecem dependentes de acesso/homologação: sandbox/produção Asaas e split real, consulta CREF autorizada, SMTP/S3 hospedados, Google OAuth real, domínio público, APK/IPA/dispositivos/stores, política jurídica operacional e revisão docente. IA treinada, broker multi-instância, autoescala, autosave contínuo e catálogo administrativo de novos esportes constam como evolução. Não houve push/PR/merge automático no GitHub nem submissão ao ambiente acadêmico.
+Os commits foram publicados com autorização de Lucca e integrados à `main` pelo [PR #1](https://github.com/DaviSouza78/LinkAtletas/pull/1). A [CI completa na main](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290) passou. Há [APK Android de verificação compilado](docs/evolucao/publicacao.md), assinado com chave de desenvolvimento e configurado com URL documental; uso integrado requer uma API HTTPS acessível e nova compilação.
+
+Permanecem dependentes de acesso/homologação: sandbox/produção Asaas e split real, consulta CREF autorizada, SMTP/S3 hospedados, Google OAuth real, domínio público, assinatura de distribuição/IPA/aparelhos/stores, política jurídica operacional e revisão docente. IA treinada, broker multi-instância, autoescala, autosave contínuo e catálogo administrativo de novos esportes constam como evolução. A entrega no ambiente acadêmico e o registro de participação cabem a cada integrante; consulte as [pendências detalhadas](docs/evolucao/pendencias-lucca.md).
