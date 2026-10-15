@@ -38,18 +38,24 @@ export function useEvents(onEvent: (event: InteractionEvent) => void) {
       socket = new WebSocket(
         `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}/api/events`,
       )
-      socket.onopen = () => setConnected(true)
+      socket.onopen = () => {
+        if (!stopped) setConnected(true)
+      }
       socket.onmessage = (e) => {
+        if (stopped) return
         try {
           handler.current(JSON.parse(e.data) as InteractionEvent)
         } catch {
           /* Ignore invalid events; persisted data remains authoritative. */
         }
       }
-      socket.onerror = () => socket?.close()
+      socket.onerror = () => {
+        if (!stopped) socket?.close()
+      }
       socket.onclose = () => {
+        if (stopped) return
         setConnected(false)
-        if (!stopped) timer = setTimeout(connect, 3000)
+        timer = setTimeout(connect, 3000)
       }
     }
     connect()

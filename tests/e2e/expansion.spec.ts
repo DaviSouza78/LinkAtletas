@@ -45,6 +45,43 @@ test('chat ao vivo → agenda → avaliação → consentimento e mídia → fin
   const unique = `${info.project.name}-${Date.now()}`,
     email = `expansion-${unique}@e2e.local`
   try {
+    // Deliver StrictMode's discarded connection close after the live socket opens.
+    // The stale event must not change the visible status of the active connection.
+    await coach.addInitScript(() => {
+      const state = window as Window & { lateClosedSocketDelivered?: boolean }
+      const pending: Array<() => void> = []
+      let live = false
+      window.WebSocket = new Proxy(window.WebSocket, {
+        construct(target, args) {
+          const socket = Reflect.construct(target, args) as WebSocket
+          if (!String(args[0]).endsWith('/api/events')) return socket
+          let opened = false
+          let onclose:
+            | ((this: WebSocket, event: CloseEvent) => unknown)
+            | null = null
+          Object.defineProperty(socket, 'onclose', {
+            get: () => onclose,
+            set: (handler) => {
+              onclose = handler
+            },
+          })
+          socket.addEventListener('close', (event) => {
+            const deliver = () => {
+              onclose?.call(socket, event)
+              if (!opened) state.lateClosedSocketDelivered = true
+            }
+            if (!opened && !live) pending.push(deliver)
+            else deliver()
+          })
+          socket.addEventListener('open', () => {
+            opened = true
+            live = true
+            setTimeout(() => pending.splice(0).forEach((deliver) => deliver()), 0)
+          })
+          return socket
+        },
+      })
+    })
     await api(athleteContext, baseURL!, 'POST', '/auth/register', {
       name: `Atleta ${unique}`,
       email,
@@ -91,6 +128,14 @@ test('chat ao vivo → agenda → avaliação → consentimento e mídia → fin
     ).workout
     await athlete.goto(`/atleta/mensagens?vinculo=${contract.id}`)
     await coach.goto(`/treinador/mensagens?vinculo=${contract.id}`)
+    await expect
+      .poll(() =>
+        coach.evaluate(() =>
+          (window as Window & { lateClosedSocketDelivered?: boolean })
+            .lateClosedSocketDelivered,
+        ),
+      )
+      .toBe(true)
     await expect(coach.getByText('Conectado', { exact: true })).toBeVisible()
     await athlete.getByLabel('Sua mensagem').fill(`Mensagem ao vivo ${unique}`)
     await athlete
