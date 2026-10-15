@@ -4,16 +4,17 @@ import * as FileSystem from 'expo-file-system/legacy'
 import * as Sharing from 'expo-sharing'
 import type { DocumentPickerAsset } from 'expo-document-picker'
 import type { AppUser } from '../../shared/contracts'
+import { nativeConfiguration } from './config'
 
-const configured = process.env.EXPO_PUBLIC_API_URL
-export const API_URL = (
-  configured ||
-  `http://${Platform.OS === 'android' ? '10.0.2.2' : 'localhost'}:3001/api`
-).replace(/\/$/, '')
-export const API_CONFIGURATION_ERROR =
-  !__DEV__ && !API_URL.startsWith('https://')
-    ? 'O aplicativo de produção exige EXPO_PUBLIC_API_URL HTTPS. Configure o endereço e gere uma nova versão.'
-    : ''
+const configuration = nativeConfiguration(
+  process.env.EXPO_PUBLIC_API_URL,
+  process.env.EXPO_PUBLIC_BUILD_PROFILE,
+  __DEV__,
+  Platform.OS,
+)
+export const API_URL = configuration.apiUrl
+export const API_CONFIGURATION_ERROR = configuration.error
+export const LOCAL_DEMO = configuration.localDemo
 const TOKEN_KEY = 'linkatletas.session'
 let token: string | null = null
 let expiredListener: (() => void) | null = null
@@ -168,17 +169,18 @@ export interface Media {
 }
 /** Explicit user action writes a decrypted copy to this app's cache and opens the share sheet. */
 export async function shareMedia(media: Media) {
+  if (API_CONFIGURATION_ERROR) throw new Error(API_CONFIGURATION_ERROR)
   if (!FileSystem.cacheDirectory)
     throw new Error('Diretório privado de cache indisponível.')
   const extension =
     media.name.match(/\.(png|jpe?g|webp|pdf|mp4|webm)$/i)?.[0] || ''
   const destination = `${FileSystem.cacheDirectory}linkatletas-${media.id}${extension}`
-  const result = await FileSystem.downloadAsync(
-    `${API_URL}/media/${media.id}/content`,
-    destination,
-    { headers: token ? { Authorization: `Bearer ${token}` } : {} },
-  )
   try {
+    const result = await FileSystem.downloadAsync(
+      `${API_URL}/media/${media.id}/content`,
+      destination,
+      { headers: token ? { Authorization: `Bearer ${token}` } : {} },
+    )
     if (result.status !== 200)
       throw new Error('Arquivo indisponível para esta sessão.')
     if (!(await Sharing.isAvailableAsync()))
@@ -195,12 +197,12 @@ export async function shareExport(data: unknown) {
   if (!FileSystem.cacheDirectory)
     throw new Error('Diretório privado de cache indisponível.')
   const destination = `${FileSystem.cacheDirectory}linkatletas-meus-dados.json`
-  await FileSystem.writeAsStringAsync(
-    destination,
-    JSON.stringify(data, null, 2),
-    { encoding: FileSystem.EncodingType.UTF8 },
-  )
   try {
+    await FileSystem.writeAsStringAsync(
+      destination,
+      JSON.stringify(data, null, 2),
+      { encoding: FileSystem.EncodingType.UTF8 },
+    )
     await Sharing.shareAsync(destination, {
       mimeType: 'application/json',
       dialogTitle: 'Exportar meus dados LinkAtletas',

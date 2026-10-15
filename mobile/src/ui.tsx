@@ -151,7 +151,7 @@ export function Choices({
           <Pressable
             key={option.id}
             accessibilityRole={multiple ? 'checkbox' : 'radio'}
-            accessibilityLabel={option.label}
+            accessibilityLabel={`${label}: ${option.label}`}
             accessibilityState={{ checked: selected.includes(option.id) }}
             onPress={() =>
               onChange(

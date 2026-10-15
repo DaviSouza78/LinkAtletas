@@ -17,6 +17,7 @@ import {
   logout,
   onSessionExpired,
   API_CONFIGURATION_ERROR,
+  LOCAL_DEMO,
 } from './src/api'
 import { AuthScreen } from './src/screens/AuthScreen'
 import {
@@ -141,7 +142,9 @@ export default function App() {
                 Link<Text style={layout.logoAccent}>Atletas</Text>
               </Text>
               <Body muted>
-                {user
+                {LOCAL_DEMO
+                  ? 'Ambiente de demonstração local'
+                  : user
                   ? 'Seu acompanhamento, perto de você'
                   : 'Conecte seu próximo passo'}
               </Body>

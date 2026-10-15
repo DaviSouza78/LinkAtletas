@@ -5,6 +5,7 @@ const native = vi.hoisted(() => ({
   deleted: vi.fn(),
   download: vi.fn(),
   share: vi.fn(),
+  write: vi.fn(),
 }))
 vi.mock('react-native', () => ({ Platform: { OS: 'android' } }))
 vi.mock('expo-secure-store', () => ({
@@ -21,7 +22,7 @@ vi.mock('expo-file-system/legacy', () => ({
   cacheDirectory: 'file:///private/cache/',
   downloadAsync: native.download,
   deleteAsync: native.deleted,
-  writeAsStringAsync: vi.fn(),
+  writeAsStringAsync: native.write,
   EncodingType: { UTF8: 'utf8' },
 }))
 vi.mock('expo-sharing', () => ({
@@ -190,5 +191,27 @@ describe('Transporte do cliente nativo com módulos nativos controlados', () => 
     )
     expect(fetcher).not.toHaveBeenCalled()
     expect(client.connectEvents(() => undefined)).toBeNull()
+    await expect(client.shareMedia({
+      id: athlete.id, ownerId: athlete.id, resourceId: athlete.id,
+      purpose: 'message', name: 'privado.pdf', mimeType: 'application/pdf', size: 10, createdAt: '',
+    })).rejects.toThrow('HTTPS')
+    expect(native.download).not.toHaveBeenCalled()
+  })
+  it('remove cópia parcial de mídia quando o download falha', async () => {
+    const client = await loggedIn()
+    native.download.mockRejectedValueOnce(new Error('download interrompido'))
+    await expect(client.shareMedia({
+      id: athlete.id, ownerId: athlete.id, resourceId: athlete.id,
+      purpose: 'message', name: 'privado.pdf', mimeType: 'application/pdf', size: 10, createdAt: '',
+    })).rejects.toThrow('download interrompido')
+    expect(native.deleted).toHaveBeenCalledOnce()
+    expect(native.share).not.toHaveBeenCalled()
+  })
+  it('remove exportação parcial quando a gravação falha', async () => {
+    const client = await loggedIn()
+    native.write.mockRejectedValueOnce(new Error('disco indisponível'))
+    await expect(client.shareExport({ health: 'dado privado fictício' })).rejects.toThrow('disco indisponível')
+    expect(native.deleted).toHaveBeenCalledOnce()
+    expect(native.share).not.toHaveBeenCalled()
   })
 })
