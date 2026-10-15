@@ -112,10 +112,20 @@ def fill(label, value, scroll=False):
     node = locate(label, scroll=scroll)
     x1, y1, x2, y2 = bounds(node)
     adb('shell', 'input', 'tap', (x1+x2)//2, (y1+y2)//2)
+    time.sleep(.3)
     adb('shell', 'input', 'keycombination', 113, 29)  # Ctrl+A
+    adb('shell', 'input', 'keyevent', 67)  # Explicitly delete the selection before input.
     adb('shell', 'input', 'text', str(value).replace(' ', '%s'))
+    time.sleep(.3)
     adb('shell', 'input', 'keyevent', 111)  # Dismiss IME without navigating back.
     time.sleep(.25)
+    actual = find(dump(), label)
+    assert actual is not None, 'Campo perdeu o foco durante o preenchimento: ' + label
+    entered = actual.get('text', '')
+    if actual.get('password') == 'true':
+        assert len(entered) == len(str(value)), 'Comprimento inesperado no campo protegido: ' + label
+    else:
+        assert entered == str(value), 'Automação não substituiu o valor do campo: ' + label
 
 
 def tab(name):
