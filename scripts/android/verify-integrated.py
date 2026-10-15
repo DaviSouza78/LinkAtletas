@@ -4,6 +4,7 @@ Only companion coach actions and fixture checks use HTTP directly. Athlete actio
 run through the APK. All accounts/data are fictitious in an isolated *_test DB.
 """
 import base64
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -139,6 +140,16 @@ def record(name):
     print('PASS: ' + name, flush=True)
 
 
+def eventually(check, description, timeout=25):
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        value = check()
+        if value:
+            return value
+        time.sleep(.5)
+    raise AssertionError(description)
+
+
 def capture(name):
     tree = dump()
     for node in tree.iter('node'):
@@ -157,7 +168,8 @@ def relaunch():
 
 
 def test():
-    assert request('GET', '/billing/config')['mode'] == 'academic'
+    coach = login('emailtreinador@email.com', 'senhatreinador')
+    assert request('GET', '/billing/config', token=coach)['mode'] == 'academic'
     relaunch()
     locate('E-mail')
     fill('E-mail', 'ausente-apk@e2e.local')
@@ -195,15 +207,14 @@ def test():
     fill('Nome', 'Atleta APK Revisado')
     fill('Cidade', 'Joinville, SC')
     tap('Salvar perfil', scroll=True)
-    profile = request('GET', '/profiles/me', token=athlete)['profile']
-    assert profile['name'] == 'Atleta APK Revisado'
+    eventually(lambda: request('GET', '/profiles/me', token=athlete)['profile']['name'] == 'Atleta APK Revisado', 'Perfil não persistido')
     record('Edição de perfil pelo APK conferida no servidor')
 
     tab('Buscar')
     tap('Solicitar acompanhamento de André Martins', scroll=True)
     coach = login('emailtreinador@email.com', 'senhatreinador')
     coach_id = request('GET', '/auth/session', token=coach)['user']['id']
-    contracts = request('GET', '/contracts', token=athlete)['contracts']
+    contracts = eventually(lambda: request('GET', '/contracts', token=athlete)['contracts'], 'Solicitação não persistida')
     contract = next(c for c in contracts if c['coachId'] == coach_id)
     assert contract['status'] == 'pending'
     request('PATCH', '/contracts/' + contract['id'], {'status': 'active'}, coach)
@@ -222,16 +233,17 @@ def test():
     fill('Percepção de esforço (1 a 10)', '7', scroll=True)
     fill('Notas ao treinador', 'Feedback APK integrado', scroll=True)
     tap('Salvar execução', scroll=True)
-    actual = next(w for w in request('GET', '/workouts', token=coach)['workouts'] if w['id'] == workout['id'])
-    assert actual['execution']['effort'] == 7 and actual['execution']['notes'] == 'Feedback APK integrado'
+    def execution_saved():
+        actual = next(w for w in request('GET', '/workouts', token=coach)['workouts'] if w['id'] == workout['id'])
+        return actual.get('execution') and actual['execution']['effort'] == 7 and actual['execution']['notes'] == 'Feedback APK integrado'
+    eventually(execution_saved, 'Execução não persistida')
     record('Treino publicado pelo treinador e execução gravada pelo APK')
     capture('treino-executado')
 
     tab('Mensagens')
     fill('Mensagem ao treinador', 'Mensagem enviada pelo APK', scroll=True)
     tap('Enviar mensagem', scroll=True)
-    messages = request('GET', '/contracts/' + contract['id'] + '/messages', token=coach)['messages']
-    assert any(m['text'] == 'Mensagem enviada pelo APK' for m in messages)
+    eventually(lambda: any(m['text'] == 'Mensagem enviada pelo APK' for m in request('GET', '/contracts/' + contract['id'] + '/messages', token=coach)['messages']), 'Mensagem não persistida')
     request('POST', '/contracts/' + contract['id'] + '/messages', {'text': 'Resposta ao vivo para o APK'}, coach)
     top()
     locate('Resposta ao vivo para o APK', scroll=True)
@@ -242,9 +254,14 @@ def test():
     fill('Propósito', 'Consultoria APK')
     fill('Descrição', 'Revisao de progresso pelo aplicativo')
     tap('Agendar consultoria', scroll=True)
-    appointments = request('GET', '/consultations', token=athlete)['consultations']
-    assert any(c['title'] == 'Consultoria APK' for c in appointments)
+    eventually(lambda: any(c['title'] == 'Consultoria APK' for c in request('GET', '/consultations', token=athlete)['consultations']), 'Consultoria não persistida')
     record('Consultoria criada no APK e persistida na agenda')
+
+    tab('Avaliações')
+    fill('Sua experiência', 'Acompanhamento avaliado pelo APK', scroll=True)
+    tap('Publicar avaliação', scroll=True)
+    eventually(lambda: any(r['text'] == 'Acompanhamento avaliado pelo APK' for r in request('GET', '/reviews?coachId=' + coach_id, token=athlete)['reviews']), 'Avaliação não persistida')
+    record('Avaliação publicada no APK com elegibilidade de fixture isolada')
 
     tab('Financeiro')
     locate('Demonstração sem cobrança')
@@ -257,8 +274,10 @@ def test():
     fill('Altura (cm, opcional)', '175', scroll=True)
     fill('Peso (kg, opcional)', '70', scroll=True)
     tap('Salvar dados privados', scroll=True)
-    health = request('GET', '/privacy/health', token=athlete)['health']
-    assert health['notes'] == 'Registro privado ficticio APK' and health['heightCm'] == 175
+    def health_saved():
+        health = request('GET', '/privacy/health', token=athlete)['health']
+        return health and health['notes'] == 'Registro privado ficticio APK' and health['heightCm'] == 175
+    eventually(health_saved, 'Dados privados não persistidos')
     record('Consentimentos e dados privados enviados pelo APK')
 
     # Push a real image into the isolated emulator and select it in the OS picker.
@@ -275,8 +294,7 @@ def test():
         tap('Show roots', partial=True)
         tap('Downloads')
     tap('apk-performance.png', partial=True)
-    time.sleep(2)
-    media = request('GET', '/media?resourceId=' + workout['id'], token=athlete)['media']
+    media = eventually(lambda: request('GET', '/media?resourceId=' + workout['id'], token=athlete)['media'], 'Upload não persistido')
     performance = next(m for m in media if m['purpose'] == 'performance')
     request('POST', '/media/' + performance['id'] + '/feedback', {'text': 'Correcao do treinador no APK'}, coach)
     top()
@@ -334,7 +352,7 @@ def test():
 
     tab('Privacidade')
     tap('Arquivos de performance: Não permitir', scroll=True)
-    assert not request('GET', '/media?resourceId=' + workout['id'], token=athlete)['media']
+    eventually(lambda: not request('GET', '/media?resourceId=' + workout['id'], token=athlete)['media'], 'Arquivo não eliminado após revogação')
     record('Revogação no APK elimina o arquivo de performance no servidor')
     fill('Confirme sua senha', password, scroll=True)
     tap('Solicitar exclusão e encerramento', scroll=True)
@@ -351,6 +369,8 @@ try:
     errors = adb('logcat', '-d', '-s', 'AndroidRuntime:E', 'ReactNativeJS:E')
     assert not re.search(r'FATAL EXCEPTION|TypeError:|ReferenceError:|Unhandled JS Exception', errors), 'Crash detectado no log nativo'
     result = {'passed': True, 'environment': 'Android API 35 x86_64 emulator + real PostgreSQL/SMTP/S3/API',
+              'testCommit': os.getenv('GITHUB_SHA'), 'apkSourceRun': os.getenv('APK_SOURCE_RUN'),
+              'apkSha256': hashlib.sha256(Path('android-local/LinkAtletas-local.apk').read_bytes()).hexdigest(),
               'buildProfile': 'local', 'realDeviceValidated': False, 'externalBillingValidated': False,
               'reviewMinimumDaysForIsolatedFixture': 0, 'steps': steps, 'durationSeconds': round(time.time()-started, 2)}
 except Exception as error:

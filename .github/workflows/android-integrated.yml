@@ -2,6 +2,11 @@ name: Android integrated verification
 on:
   workflow_dispatch:
     inputs:
+      build_only:
+        description: 'Somente compilar; executar o ensaio usando apk_run_id depois'
+        required: false
+        type: boolean
+        default: false
       apk_run_id:
         description: 'Run de um APK local existente; vazio recompila'
         required: false
@@ -9,14 +14,19 @@ on:
         default: ''
   workflow_call:
     inputs:
+      build_only:
+        required: false
+        type: boolean
+        default: false
       apk_run_id:
         required: false
         type: string
         default: ''
 permissions:
   contents: read
+  actions: read
 concurrency:
-  group: native-integrated-${{ github.ref_name }}
+  group: native-integrated-${{ github.ref_name }}-${{ inputs.apk_run_id || github.sha }}-${{ inputs.build_only }}
   cancel-in-progress: false
 jobs:
   integrated:
@@ -104,9 +114,14 @@ jobs:
           github-token: ${{ github.token }}
           path: android-local
       - name: Boot emulator
+        if: '!inputs.build_only'
         run: bash scripts/android/start-emulator.sh
       - name: Install and exercise the APK against the real API
+        if: '!inputs.build_only'
+        env:
+          APK_SOURCE_RUN: ${{ inputs.apk_run_id || github.run_id }}
         run: |
+          (cd android-local && sha256sum -c SHA256SUMS)
           adb install android-local/LinkAtletas-local.apk
           adb reverse tcp:3001 tcp:3001
           adb logcat -c

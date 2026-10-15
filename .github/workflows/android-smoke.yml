@@ -2,6 +2,11 @@ name: Android emulator smoke
 on:
   workflow_dispatch:
     inputs:
+      build_only:
+        description: 'No modo integrado, apenas compilar o APK local'
+        type: boolean
+        required: false
+        default: false
       integrated:
         description: 'Executar APK local conectado a API, PostgreSQL, SMTP e S3 reais'
         type: boolean
@@ -25,6 +30,7 @@ jobs:
     uses: ./.github/workflows/android-integrated.yml
     with:
       apk_run_id: ${{ inputs.apk_run_id }}
+      build_only: ${{ inputs.build_only }}
   startup:
     if: '!inputs.integrated'
     runs-on: ubuntu-24.04
