@@ -123,15 +123,16 @@ def tab(name):
     strip = next(n for n in tree.iter('node') if n.get('class') == 'android.widget.HorizontalScrollView')
     x1, y1, x2, y2 = bounds(strip)
     y = (y1+y2)//2
+    left, right = x1 + (x2-x1)//4, x1 + 3*(x2-x1)//4
     for _ in range(3):
-        adb('shell', 'input', 'swipe', x1+70, y, x2-70, y, 200)
+        adb('shell', 'input', 'swipe', left, y, right, y, 200)
     for _ in range(6):
         if find(dump(), name) is not None:
             tap(name)
             time.sleep(.8)
             top()
             return
-        adb('shell', 'input', 'swipe', x2-70, y, x1+70, y, 200)
+        adb('shell', 'input', 'swipe', right, y, left, y, 200)
     raise AssertionError('Aba não encontrada: ' + name)
 
 
@@ -202,6 +203,7 @@ def test():
     relaunch()
     locate('Olá, Atleta', partial=True)
     record('Sessão real restaurada pelo SecureStore após fechar o processo')
+    capture('inicio-restaurado')
 
     tab('Perfil')
     fill('Nome', 'Atleta APK Revisado')

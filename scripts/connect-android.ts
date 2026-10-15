@@ -12,6 +12,8 @@ const executable = candidates.find(existsSync) || 'adb'
 const args = process.argv.slice(2)
 const serial = args[args.indexOf('--serial') + 1]
 const requestedSerial = args.includes('--serial') ? serial : undefined
+if (args.includes('--serial') && (!serial || serial.startsWith('--')))
+  throw new Error('Informe o identificador do aparelho após --serial.')
 const port = Number(process.env.API_PORT || 3001)
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('API_PORT inválida.')
 function adb(parameters: string[]) {
@@ -32,7 +34,10 @@ try {
     if (!file || !existsSync(file)) throw new Error('Informe um arquivo APK existente após --install.')
     adb(['-s', chosen, 'install', '-r', path.resolve(file)])
   }
-  adb(['-s', chosen, 'shell', 'am', 'start', '-W', '-n', 'br.edu.linkatletas.app.local/.MainActivity'])
+  if (!adb(['-s', chosen, 'shell', 'pm', 'path', 'br.edu.linkatletas.app.local']).includes('package:'))
+    throw new Error('O APK local não está instalado. Use --install CAMINHO_DO_APK para instalar.')
+  const launch = adb(['-s', chosen, 'shell', 'am', 'start', '-W', '-n', 'br.edu.linkatletas.app.local/.MainActivity'])
+  if (/Error:|Exception/i.test(launch)) throw new Error('O Android não conseguiu abrir o aplicativo local.')
   console.log(`Aplicativo local conectado à API do computador na porta ${port}. Mantenha a conexão USB e a API em execução.`)
 } catch (error) {
   console.error(error instanceof Error ? error.message : 'Não foi possível conectar o Android.')
