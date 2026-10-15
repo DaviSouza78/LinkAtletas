@@ -35,6 +35,7 @@ jobs:
           sdkmanager_path=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager -print -quit)
           test -n "$sdkmanager_path"
           export PATH="$(dirname "$sdkmanager_path"):$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
+          printf '%s\n' "$(dirname "$sdkmanager_path")" "$ANDROID_HOME/platform-tools" "$ANDROID_HOME/emulator" >> "$GITHUB_PATH"
           sudo chmod 666 /dev/kvm
           sdkmanager 'emulator' 'platform-tools' 'system-images;android-35;google_apis;x86_64'
           echo no | avdmanager create avd -n linkatletas -k 'system-images;android-35;google_apis;x86_64' --device pixel_6 --path "$ANDROID_AVD_HOME/linkatletas.avd" --force
