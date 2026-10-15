@@ -271,7 +271,11 @@ def test():
 
     tab('Privacidade')
     tap('Arquivos de performance: Permitir', scroll=True)
+    eventually(lambda: any(c['purpose'] == 'performance' and c['granted'] for c in request('GET', '/privacy/consents', token=athlete)['consents']), 'Consentimento de performance não persistido')
+    top()
     tap('Dados privados de saúde: Permitir', scroll=True)
+    eventually(lambda: any(c['purpose'] == 'health' and c['granted'] for c in request('GET', '/privacy/consents', token=athlete)['consents']), 'Consentimento de saúde não persistido')
+    top()
     fill('Notas privadas', 'Registro privado ficticio APK', scroll=True)
     fill('Altura (cm, opcional)', '175', scroll=True)
     fill('Peso (kg, opcional)', '70', scroll=True)
