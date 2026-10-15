@@ -27,12 +27,16 @@ jobs:
           path: apk
       - name: Boot isolated Android emulator
         run: |
-          sudo chmod 666 /dev/kvm
-          sdkmanager 'system-images;android-35;google_apis;x86_64'
-          echo no | avdmanager create avd -n linkatletas -k 'system-images;android-35;google_apis;x86_64' --device pixel_6 --force
           mkdir -p emulator-evidence
+          # The hosted image has Android command-line tools outside PATH.
+          sdkmanager_path=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager -print -quit)
+          test -n "$sdkmanager_path"
+          export PATH="$(dirname "$sdkmanager_path"):$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
+          sudo chmod 666 /dev/kvm
+          sdkmanager 'emulator' 'platform-tools' 'system-images;android-35;google_apis;x86_64'
+          echo no | avdmanager create avd -n linkatletas -k 'system-images;android-35;google_apis;x86_64' --device pixel_6 --force
           "$ANDROID_HOME/emulator/emulator" -avd linkatletas -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect > emulator-evidence/emulator.log 2>&1 &
-          adb wait-for-device
+          timeout 180 adb wait-for-device
           timeout 300 bash -c 'until adb shell getprop sys.boot_completed | grep -q 1; do sleep 2; done'
           adb shell input keyevent 82
       - name: Install and launch the actual APK
