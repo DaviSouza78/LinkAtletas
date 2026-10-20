@@ -18,6 +18,8 @@ import xml.etree.ElementTree as ET
 
 PACKAGE = 'br.edu.linkatletas.app.local'
 BASE = 'http://127.0.0.1:3001/api'
+FOCUS = os.getenv('ANDROID_TEST_FOCUS', 'all')
+assert FOCUS in ('all', 'workout'), 'Foco de teste desconhecido'
 OUT = Path('emulator-evidence')
 OUT.mkdir(exist_ok=True)
 steps = []
@@ -56,14 +58,16 @@ def labels(node):
 
 
 def bounds(node):
-    values = list(map(int, re.findall(r'\d+', node.get('bounds', ''))))
+    values = list(map(int, re.findall(r'-?\d+', node.get('bounds', ''))))
     return values if len(values) == 4 else [0, 0, 0, 0]
 
 
-def find(tree, label, partial=False):
+def find(tree, label, partial=False, class_name=None):
     # Accessible input/button labels take precedence over decorative Text labels.
     for attribute in ('content-desc', 'text'):
         for node in tree.iter('node'):
+            if class_name and node.get('class') != class_name:
+                continue
             x1, y1, x2, y2 = bounds(node)
             if x2 <= x1 or y2 <= y1:
                 continue
@@ -87,12 +91,12 @@ def top():
         swipe(False, reset=True)
 
 
-def locate(label, scroll=False, partial=False, timeout=50):
+def locate(label, scroll=False, partial=False, timeout=50, class_name=None):
     deadline = time.time() + timeout
     tries = 0
     while time.time() < deadline:
         tree = dump()
-        node = find(tree, label, partial)
+        node = find(tree, label, partial, class_name)
         if node is not None:
             return node
         if scroll and tries < 18:
@@ -108,23 +112,30 @@ def locate(label, scroll=False, partial=False, timeout=50):
 def tap(label, scroll=False, partial=False):
     node = locate(label, scroll=scroll, partial=partial)
     x1, y1, x2, y2 = bounds(node)
+    print('TAP: ' + label + ' ' + str([x1, y1, x2, y2]), flush=True)
     adb('shell', 'input', 'tap', (x1+x2)//2, (y1+y2)//2)
     time.sleep(.35)
 
 
 def fill(label, value, scroll=False):
-    node = locate(label, scroll=scroll)
+    node = locate(label, scroll=scroll, class_name='android.widget.EditText')
     x1, y1, x2, y2 = bounds(node)
     adb('shell', 'input', 'tap', (x1+x2)//2, (y1+y2)//2)
     time.sleep(.3)
+    focused = next((n for n in dump().iter('node') if n.get('class') == 'android.widget.EditText' and n.get('focused') == 'true'), None)
+    assert focused is not None and focused.get('content-desc') == label, 'Toque não focou o campo esperado: ' + label
+    print('FILL: ' + label + ' ' + str([x1, y1, x2, y2]), flush=True)
+    if label == 'Notas ao treinador':
+        capture('notas-antes-de-digitar')
     adb('shell', 'input', 'keycombination', 113, 29)  # Ctrl+A
     adb('shell', 'input', 'keyevent', 67)  # Explicitly delete the selection before input.
     adb('shell', 'input', 'text', str(value).replace(' ', '%s'))
     time.sleep(.3)
-    adb('shell', 'input', 'keyevent', 111)  # Dismiss IME without navigating back.
-    time.sleep(.25)
-    actual = find(dump(), label)
-    assert actual is not None, 'Campo perdeu o foco durante o preenchimento: ' + label
+    keyboard = adb('shell', 'dumpsys', 'input_method')
+    if re.search(r'(?:mInputShown|mIsInputViewShown|isInputViewShown)=true', keyboard):
+        adb('shell', 'input', 'keyevent', 4)  # Back only when the IME is visible.
+    time.sleep(.6)
+    actual = locate(label, scroll=True, class_name='android.widget.EditText')
     entered = actual.get('text', '')
     if actual.get('password') == 'true':
         assert len(entered) == len(str(value)), 'Comprimento inesperado no campo protegido: ' + label
@@ -180,6 +191,28 @@ def relaunch():
     adb('shell', 'am', 'force-stop', PACKAGE)
     adb('shell', 'am', 'start', '-W', '-n', PACKAGE + '/.MainActivity')
     time.sleep(2)
+
+
+def exercise_workout(coach, contract, athlete):
+    workout = request('POST', '/workouts', {
+        'contractId': contract['id'], 'title': 'Corrida APK integrada', 'sport': 'Corrida',
+        'scheduledDate': time.strftime('%Y-%m-%d'), 'instructions': 'Ensaio com dados ficticios',
+        'status': 'published', 'blocks': [{'name': 'Aquecimento APK', 'instructions': 'Corrida leve', 'durationMinutes': 5}],
+    }, coach)['workout']
+    tab('Treinos')
+    tap('Abrir Corrida APK integrada', scroll=True)
+    tap('Blocos realizados: Aquecimento APK', scroll=True)
+    fill('Percepção de esforço (1 a 10)', '7', scroll=True)
+    fill('Notas ao treinador', 'Feedback APK integrado', scroll=True)
+    tap('Salvar execução', scroll=True)
+    def execution_saved():
+        actual = next(w for w in request('GET', '/workouts', token=coach)['workouts'] if w['id'] == workout['id'])
+        return actual.get('execution') and actual['execution']['effort'] == 7 and actual['execution']['notes'] == 'Feedback APK integrado'
+    eventually(execution_saved, 'Execução não persistida')
+    record('Treino publicado pelo treinador e execução gravada pelo APK')
+    capture('treino-executado')
+
+    return workout
 
 
 def test():
@@ -256,23 +289,7 @@ def test():
     locate('Ativo')
     record('Descoberta e solicitação nativas, aceite do treinador e vínculo ativo')
 
-    workout = request('POST', '/workouts', {
-        'contractId': contract['id'], 'title': 'Corrida APK integrada', 'sport': 'Corrida',
-        'scheduledDate': time.strftime('%Y-%m-%d'), 'instructions': 'Ensaio com dados ficticios',
-        'status': 'published', 'blocks': [{'name': 'Aquecimento APK', 'instructions': 'Corrida leve', 'durationMinutes': 5}],
-    }, coach)['workout']
-    tab('Treinos')
-    tap('Abrir Corrida APK integrada', scroll=True)
-    tap('Blocos realizados: Aquecimento APK', scroll=True)
-    fill('Percepção de esforço (1 a 10)', '7', scroll=True)
-    fill('Notas ao treinador', 'Feedback APK integrado', scroll=True)
-    tap('Salvar execução', scroll=True)
-    def execution_saved():
-        actual = next(w for w in request('GET', '/workouts', token=coach)['workouts'] if w['id'] == workout['id'])
-        return actual.get('execution') and actual['execution']['effort'] == 7 and actual['execution']['notes'] == 'Feedback APK integrado'
-    eventually(execution_saved, 'Execução não persistida')
-    record('Treino publicado pelo treinador e execução gravada pelo APK')
-    capture('treino-executado')
+    workout = exercise_workout(coach, contract, athlete)
 
     tab('Mensagens')
     fill('Mensagem ao treinador', 'Mensagem enviada pelo APK', scroll=True)
@@ -384,15 +401,33 @@ def test():
     capture('conta-encerrada')
 
 
+def test_workout_focus():
+    coach = login('emailtreinador@email.com', 'senhatreinador')
+    athlete = login('emailatleta@email.com', 'senhaatleta')
+    coach_id = request('GET', '/auth/session', token=coach)['user']['id']
+    contracts = request('GET', '/contracts', token=athlete)['contracts']
+    contract = next((c for c in contracts if c['coachId'] == coach_id and c['status'] == 'active'), None)
+    if contract is None:
+        contract = request('POST', '/contracts', {'coachId': coach_id}, athlete)['contract']
+        request('PATCH', '/contracts/' + contract['id'], {'status': 'active'}, coach)
+    relaunch()
+    fill('E-mail', 'emailatleta@email.com')
+    fill('Senha', 'senhaatleta')
+    tap('Entrar')
+    locate('Seu acompanhamento')
+    record('Login nativo de atleta para diagnóstico isolado de treino')
+    exercise_workout(coach, contract, athlete)
+
+
 size = list(map(int, re.findall(r'\d+', adb('shell', 'wm', 'size'))))[-2:]
 try:
-    test()
+    (test_workout_focus if FOCUS == 'workout' else test)()
     errors = adb('logcat', '-d', '-s', 'AndroidRuntime:E', 'ReactNativeJS:E')
     assert not re.search(r'FATAL EXCEPTION|TypeError:|ReferenceError:|Unhandled JS Exception', errors), 'Crash detectado no log nativo'
     result = {'passed': True, 'environment': 'Android API 35 x86_64 emulator + real PostgreSQL/SMTP/S3/API',
               'testCommit': os.getenv('GITHUB_SHA'), 'apkSourceRun': os.getenv('APK_SOURCE_RUN'),
               'apkSha256': hashlib.sha256(Path('android-local/LinkAtletas-local.apk').read_bytes()).hexdigest(),
-              'buildProfile': 'local', 'realDeviceValidated': False, 'externalBillingValidated': False,
+              'buildProfile': 'local', 'testFocus': FOCUS, 'realDeviceValidated': False, 'externalBillingValidated': False,
               'reviewMinimumDaysForIsolatedFixture': 0, 'steps': steps, 'durationSeconds': round(time.time()-started, 2)}
 except Exception as error:
     try:

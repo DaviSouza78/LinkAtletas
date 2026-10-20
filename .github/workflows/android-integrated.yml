@@ -2,6 +2,9 @@ name: Android integrated verification
 on:
   workflow_dispatch:
     inputs:
+      test_focus:
+        type: string
+        default: all
       build_only:
         description: 'Somente compilar; executar o ensaio usando apk_run_id depois'
         required: false
@@ -14,6 +17,9 @@ on:
         default: ''
   workflow_call:
     inputs:
+      test_focus:
+        type: string
+        default: all
       build_only:
         required: false
         type: boolean
@@ -120,6 +126,7 @@ jobs:
         if: '!inputs.build_only'
         env:
           APK_SOURCE_RUN: ${{ inputs.apk_run_id || github.run_id }}
+          ANDROID_TEST_FOCUS: ${{ inputs.test_focus }}
         run: |
           (cd android-local && sha256sum -c SHA256SUMS)
           adb install android-local/LinkAtletas-local.apk

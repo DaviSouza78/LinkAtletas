@@ -2,6 +2,10 @@ name: Android emulator smoke
 on:
   workflow_dispatch:
     inputs:
+      test_focus:
+        description: 'all para ensaio completo; workout para diagnosticar a ficha'
+        type: string
+        default: all
       build_only:
         description: 'No modo integrado, apenas compilar o APK local'
         type: boolean
@@ -29,6 +33,7 @@ jobs:
     if: inputs.integrated
     uses: ./.github/workflows/android-integrated.yml
     with:
+      test_focus: ${{ inputs.test_focus }}
       apk_run_id: ${{ inputs.apk_run_id }}
       build_only: ${{ inputs.build_only }}
   startup:
