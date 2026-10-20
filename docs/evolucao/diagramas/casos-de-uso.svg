@@ -1,98 +1,108 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1340" height="1040" viewBox="0 0 1340 1040" role="img" aria-labelledby="title desc">
-<title id="title">Casos de uso UML — LinkAtletas ampliado</title>
-<desc id="desc">Atores atleta, treinador, administrador e serviços externos associados a dezesseis casos de uso dentro do limite do sistema.</desc>
-<rect width="1340" height="1040" fill="#ffffff"/>
-<style>text{font-family:Arial,sans-serif;fill:#17362b}.case{fill:#f4f8ed;stroke:#58734d;stroke-width:1.5}.assoc{stroke:#82948a;stroke-width:1.1;fill:none;opacity:.65}.actor{stroke:#284d3a;stroke-width:2.5;fill:none}</style>
+<title id="title">Casos de uso UML — LinkAtletas</title><desc id="desc">Gerado da fonte PlantUML, com dezesseis casos identificados e suas associações.</desc>
+<rect width="1340" height="1040" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#17362b}.assoc{stroke:#82948a;stroke-width:1;fill:none;opacity:.6}.actor{stroke:#284d3a;stroke-width:2.5;fill:none}.case{fill:#f4f8ed;stroke:#58734d;stroke-width:1.5}</style>
 <text x="670" y="34" text-anchor="middle" font-size="22" font-weight="700">LinkAtletas — casos de uso UML</text>
-<rect x="165" y="65" width="840" height="900" rx="3" fill="none" stroke="#254736" stroke-width="2"/>
-<text x="186" y="89" font-size="13" font-weight="700">Sistema LinkAtletas · web e aplicativo, mesma API</text>
-<g class="actor"><circle cx="75" cy="283" r="14"/><path d="M75,297v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g>
-<text x="75" y="394" text-anchor="middle" font-size="14" font-weight="700">Atleta</text>
-<g class="actor"><circle cx="75" cy="638" r="14"/><path d="M75,652v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g>
-<text x="75" y="749" text-anchor="middle" font-size="14" font-weight="700">Treinador</text>
-<g class="actor"><circle cx="1135" cy="753" r="14"/><path d="M1135,767v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g>
-<text x="1135" y="864" text-anchor="middle" font-size="14" font-weight="700">Administrador</text>
-<g class="actor"><circle cx="1185" cy="213" r="14"/><path d="M1185,227v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g>
-<text x="1185" y="324" text-anchor="middle" font-size="14" font-weight="700">SMTP / S3</text>
-<g class="actor"><circle cx="1185" cy="428" r="14"/><path d="M1185,442v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g>
-<text x="1185" y="539" text-anchor="middle" font-size="14" font-weight="700">Asaas</text>
-<g class="actor"><circle cx="1185" cy="568" r="14"/><path d="M1185,582v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g>
-<text x="1185" y="679" text-anchor="middle" font-size="14" font-weight="700">Google Agenda</text>
+<rect x="165" y="65" width="840" height="900" fill="none" stroke="#254736" stroke-width="2"/>
+<text x="186" y="89" font-size="13">Sistema LinkAtletas · web e aplicativo, mesma API</text>
+<g class="actor"><circle cx="75" cy="283" r="14"/><path d="M75,297v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g><text x="75" y="394" text-anchor="middle" font-size="14" font-weight="700">Atleta</text>
+<g class="actor"><circle cx="75" cy="638" r="14"/><path d="M75,652v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g><text x="75" y="749" text-anchor="middle" font-size="14" font-weight="700">Treinador</text>
+<g class="actor"><circle cx="1135" cy="753" r="14"/><path d="M1135,767v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g><text x="1135" y="864" text-anchor="middle" font-size="14" font-weight="700">Administrador</text>
+<g class="actor"><circle cx="1185" cy="213" r="14"/><path d="M1185,227v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g><text x="1185" y="324" text-anchor="middle" font-size="14" font-weight="700">SMTP / S3</text>
+<g class="actor"><circle cx="1185" cy="428" r="14"/><path d="M1185,442v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g><text x="1185" y="539" text-anchor="middle" font-size="14" font-weight="700">Asaas</text>
+<g class="actor"><circle cx="1185" cy="568" r="14"/><path d="M1185,582v43m-27,-30h54m-27,30l-23,33m23,-33l23,33"/></g><text x="1185" y="679" text-anchor="middle" font-size="14" font-weight="700">Google Agenda</text>
 <path class="assoc" d="M103,320 L205,150"/>
-<path class="assoc" d="M103,320 L205,255"/>
-<path class="assoc" d="M103,320 L205,360"/>
-<path class="assoc" d="M103,320 L205,465"/>
-<path class="assoc" d="M103,320 L205,570"/>
-<path class="assoc" d="M103,320 L205,675"/>
-<path class="assoc" d="M103,320 L205,780"/>
-<path class="assoc" d="M103,320 L205,885"/>
 <path class="assoc" d="M103,675 L205,150"/>
-<path class="assoc" d="M103,675 L205,255"/>
-<path class="assoc" d="M103,675 L205,675"/>
-<path class="assoc" d="M103,675 L205,885"/>
-<path class="assoc" d="M103,675 L645,150"/>
+<path class="assoc" d="M1107,790 L515,150"/>
+<path class="assoc" d="M103,320 L205,255"/>
 <path class="assoc" d="M103,675 L645,255"/>
-<path class="assoc" d="M103,675 L645,360"/>
-<path class="assoc" d="M103,675 L645,465"/>
-<path class="assoc" d="M103,675 L645,570"/>
-<path class="assoc" d="M103,675 L645,675"/>
-<path class="assoc" d="M103,675 L645,780"/>
+<path class="assoc" d="M103,675 L645,150"/>
 <path class="assoc" d="M1107,790 L955,150"/>
-<path class="assoc" d="M1107,790 L955,780"/>
+<path class="assoc" d="M103,320 L205,360"/>
+<path class="assoc" d="M103,675 L205,360"/>
+<path class="assoc" d="M1157,465 L515,360"/>
 <path class="assoc" d="M1107,790 L955,885"/>
+<path class="assoc" d="M103,675 L645,360"/>
+<path class="assoc" d="M103,320 L205,465"/>
+<path class="assoc" d="M103,675 L645,465"/>
+<path class="assoc" d="M103,320 L205,570"/>
+<path class="assoc" d="M103,675 L205,570"/>
+<path class="assoc" d="M103,320 L205,675"/>
+<path class="assoc" d="M103,675 L645,570"/>
+<path class="assoc" d="M1107,790 L955,675"/>
+<path class="assoc" d="M103,320 L205,780"/>
+<path class="assoc" d="M103,675 L205,780"/>
+<path class="assoc" d="M1157,605 L515,780"/>
+<path class="assoc" d="M103,320 L645,780"/>
+<path class="assoc" d="M103,675 L645,780"/>
+<path class="assoc" d="M103,320 L205,885"/>
+<path class="assoc" d="M103,675 L205,885"/>
+<path class="assoc" d="M1107,790 L515,885"/>
+<path class="assoc" d="M1157,250 L515,150"/>
+<path class="assoc" d="M1157,250 L515,465"/>
 <path class="assoc" d="M1157,250 L955,150"/>
-<path class="assoc" d="M1157,250 L515,255"/>
-<path class="assoc" d="M1157,250 L515,570"/>
-<path class="assoc" d="M1157,465 L515,465"/>
-<path class="assoc" d="M1157,605 L955,570"/>
 <ellipse class="case" cx="360" cy="150" rx="155" ry="38"/>
-<text x="360" y="146" text-anchor="middle" font-size="12.5" font-weight="700">Conta e perfil</text>
-<text x="360" y="166" text-anchor="middle" font-size="10.5">UC-01 · RF-01,02,05</text>
-<ellipse class="case" cx="360" cy="255" rx="155" ry="38"/>
-<text x="360" y="251" text-anchor="middle" font-size="12.5" font-weight="700">Recuperar acesso</text>
-<text x="360" y="271" text-anchor="middle" font-size="10.5">UC-01 · RF-A01</text>
-<ellipse class="case" cx="360" cy="360" rx="155" ry="38"/>
-<text x="360" y="356" text-anchor="middle" font-size="12.5" font-weight="700">Descobrir e solicitar vínculo</text>
-<text x="360" y="376" text-anchor="middle" font-size="10.5">UC-03 · RF-06–09</text>
-<ellipse class="case" cx="360" cy="465" rx="155" ry="38"/>
-<text x="360" y="461" text-anchor="middle" font-size="12.5" font-weight="700">Assinar e acompanhar pagamento</text>
-<text x="360" y="481" text-anchor="middle" font-size="10.5">UC-04 · RF-11–13,24</text>
-<ellipse class="case" cx="360" cy="570" rx="155" ry="38"/>
-<text x="360" y="566" text-anchor="middle" font-size="12.5" font-weight="700">Executar treino e enviar mídia</text>
-<text x="360" y="586" text-anchor="middle" font-size="10.5">UC-05 · RF-16–18</text>
-<ellipse class="case" cx="360" cy="675" rx="155" ry="38"/>
-<text x="360" y="671" text-anchor="middle" font-size="12.5" font-weight="700">Mensagens e notificações</text>
-<text x="360" y="691" text-anchor="middle" font-size="10.5">UC-06 · RF-19,A02</text>
-<ellipse class="case" cx="360" cy="780" rx="155" ry="38"/>
-<text x="360" y="776" text-anchor="middle" font-size="12.5" font-weight="700">Avaliar e denunciar</text>
-<text x="360" y="796" text-anchor="middle" font-size="10.5">UC-07 · RF-20,A08</text>
-<ellipse class="case" cx="360" cy="885" rx="155" ry="38"/>
-<text x="360" y="881" text-anchor="middle" font-size="12.5" font-weight="700">Consentir, exportar e encerrar conta</text>
-<text x="360" y="901" text-anchor="middle" font-size="10.5">UC-10 · RF-A04</text>
+<text x="360" y="137" text-anchor="middle" font-size="12" font-weight="700">Conta, perfil e</text>
+<text x="360" y="152" text-anchor="middle" font-size="12" font-weight="700">recuperação de acesso</text>
+<text x="360" y="172" text-anchor="middle" font-size="11">UC-01</text>
 <ellipse class="case" cx="800" cy="150" rx="155" ry="38"/>
-<text x="800" y="146" text-anchor="middle" font-size="12.5" font-weight="700">Submeter e conferir credenciais</text>
-<text x="800" y="166" text-anchor="middle" font-size="10.5">UC-02 · RF-03,04,A05</text>
+<text x="800" y="137" text-anchor="middle" font-size="12" font-weight="700">Conferir e gerir</text>
+<text x="800" y="152" text-anchor="middle" font-size="12" font-weight="700">credencial profissional</text>
+<text x="800" y="172" text-anchor="middle" font-size="11">UC-02</text>
+<ellipse class="case" cx="360" cy="255" rx="155" ry="38"/>
+<text x="360" y="242" text-anchor="middle" font-size="12" font-weight="700">Descobrir e</text>
+<text x="360" y="257" text-anchor="middle" font-size="12" font-weight="700">solicitar vínculo</text>
+<text x="360" y="277" text-anchor="middle" font-size="11">UC-03.1</text>
 <ellipse class="case" cx="800" cy="255" rx="155" ry="38"/>
-<text x="800" y="251" text-anchor="middle" font-size="12.5" font-weight="700">Decidir solicitação e gerir carteira</text>
-<text x="800" y="271" text-anchor="middle" font-size="10.5">UC-03 · RF-10,23</text>
+<text x="800" y="242" text-anchor="middle" font-size="12" font-weight="700">Decidir solicitação</text>
+<text x="800" y="257" text-anchor="middle" font-size="12" font-weight="700">e gerir carteira</text>
+<text x="800" y="277" text-anchor="middle" font-size="11">UC-03.2</text>
+<ellipse class="case" cx="360" cy="360" rx="155" ry="38"/>
+<text x="360" y="347" text-anchor="middle" font-size="12" font-weight="700">Assinar e</text>
+<text x="360" y="362" text-anchor="middle" font-size="12" font-weight="700">conciliar pagamento</text>
+<text x="360" y="382" text-anchor="middle" font-size="11">UC-04.1</text>
 <ellipse class="case" cx="800" cy="360" rx="155" ry="38"/>
-<text x="800" y="356" text-anchor="middle" font-size="12.5" font-weight="700">Prescrever e publicar treino</text>
-<text x="800" y="376" text-anchor="middle" font-size="10.5">UC-05 · RF-14,15</text>
+<text x="800" y="347" text-anchor="middle" font-size="12" font-weight="700">Prescrever e</text>
+<text x="800" y="362" text-anchor="middle" font-size="12" font-weight="700">publicar treino</text>
+<text x="800" y="382" text-anchor="middle" font-size="11">UC-05.1</text>
+<ellipse class="case" cx="360" cy="465" rx="155" ry="38"/>
+<text x="360" y="452" text-anchor="middle" font-size="12" font-weight="700">Executar treino</text>
+<text x="360" y="467" text-anchor="middle" font-size="12" font-weight="700">e enviar performance</text>
+<text x="360" y="487" text-anchor="middle" font-size="11">UC-05.2</text>
 <ellipse class="case" cx="800" cy="465" rx="155" ry="38"/>
-<text x="800" y="461" text-anchor="middle" font-size="12.5" font-weight="700">Consultar retorno e corrigir mídia</text>
-<text x="800" y="481" text-anchor="middle" font-size="10.5">UC-05 · RF-17,18</text>
+<text x="800" y="452" text-anchor="middle" font-size="12" font-weight="700">Consultar retorno</text>
+<text x="800" y="467" text-anchor="middle" font-size="12" font-weight="700">e corrigir mídia</text>
+<text x="800" y="487" text-anchor="middle" font-size="11">UC-05.3</text>
+<ellipse class="case" cx="360" cy="570" rx="155" ry="38"/>
+<text x="360" y="557" text-anchor="middle" font-size="12" font-weight="700">Mensagens</text>
+<text x="360" y="572" text-anchor="middle" font-size="12" font-weight="700">e notificações</text>
+<text x="360" y="592" text-anchor="middle" font-size="11">UC-06</text>
+<ellipse class="case" cx="360" cy="675" rx="155" ry="38"/>
+<text x="360" y="662" text-anchor="middle" font-size="12" font-weight="700">Avaliar e</text>
+<text x="360" y="677" text-anchor="middle" font-size="12" font-weight="700">denunciar conteúdo</text>
+<text x="360" y="697" text-anchor="middle" font-size="11">UC-07.1</text>
 <ellipse class="case" cx="800" cy="570" rx="155" ry="38"/>
-<text x="800" y="566" text-anchor="middle" font-size="12.5" font-weight="700">Agenda e consultoria</text>
-<text x="800" y="586" text-anchor="middle" font-size="10.5">UC-08 · RF-A03</text>
+<text x="800" y="557" text-anchor="middle" font-size="12" font-weight="700">Responder</text>
+<text x="800" y="572" text-anchor="middle" font-size="12" font-weight="700">avaliação</text>
+<text x="800" y="592" text-anchor="middle" font-size="11">UC-07.2</text>
 <ellipse class="case" cx="800" cy="675" rx="155" ry="38"/>
-<text x="800" y="671" text-anchor="middle" font-size="12.5" font-weight="700">Encerrar vínculo e renovação</text>
-<text x="800" y="691" text-anchor="middle" font-size="10.5">UC-09 · RF-22</text>
+<text x="800" y="662" text-anchor="middle" font-size="12" font-weight="700">Moderar</text>
+<text x="800" y="677" text-anchor="middle" font-size="12" font-weight="700">avaliação</text>
+<text x="800" y="697" text-anchor="middle" font-size="11">UC-07.3</text>
+<ellipse class="case" cx="360" cy="780" rx="155" ry="38"/>
+<text x="360" y="767" text-anchor="middle" font-size="12" font-weight="700">Agenda e</text>
+<text x="360" y="782" text-anchor="middle" font-size="12" font-weight="700">consultoria</text>
+<text x="360" y="802" text-anchor="middle" font-size="11">UC-08</text>
 <ellipse class="case" cx="800" cy="780" rx="155" ry="38"/>
-<text x="800" y="776" text-anchor="middle" font-size="12.5" font-weight="700">Responder e moderar avaliação</text>
-<text x="800" y="796" text-anchor="middle" font-size="10.5">UC-07 · RF-21,A08</text>
+<text x="800" y="767" text-anchor="middle" font-size="12" font-weight="700">Encerrar vínculo</text>
+<text x="800" y="782" text-anchor="middle" font-size="12" font-weight="700">e renovação</text>
+<text x="800" y="802" text-anchor="middle" font-size="11">UC-09</text>
+<ellipse class="case" cx="360" cy="885" rx="155" ry="38"/>
+<text x="360" y="872" text-anchor="middle" font-size="12" font-weight="700">Consentir, exportar</text>
+<text x="360" y="887" text-anchor="middle" font-size="12" font-weight="700">e encerrar conta</text>
+<text x="360" y="907" text-anchor="middle" font-size="11">UC-10</text>
 <ellipse class="case" cx="800" cy="885" rx="155" ry="38"/>
-<text x="800" y="881" text-anchor="middle" font-size="12.5" font-weight="700">Configurar comissão e carência</text>
-<text x="800" y="901" text-anchor="middle" font-size="10.5">UC-04 · RN-05</text>
-<text x="170" y="995" font-size="12">Associações: linhas contínuas. Atores secundários dependem de configuração; conferência CREF oficial não presumida.</text>
-<text x="170" y="1016" font-size="11">Fonte editável equivalente: casos-de-uso.puml · ERS v2 · 14/10/2026 · testes locais e homologações externas são distintos.</text>
-</svg>
+<text x="800" y="872" text-anchor="middle" font-size="12" font-weight="700">Configurar</text>
+<text x="800" y="887" text-anchor="middle" font-size="12" font-weight="700">comissão/carência</text>
+<text x="800" y="907" text-anchor="middle" font-size="11">UC-04.2</text>
+<text x="170" y="995" font-size="12">Atores secundários dependem de configuração; testes HTTP não comprovam sandbox real.</text><text x="170" y="1016" font-size="11">Fonte: casos-de-uso.puml · ERS v2.1 · 15/10/2026 · gerado por scripts/generate-use-cases.ts</text></svg>

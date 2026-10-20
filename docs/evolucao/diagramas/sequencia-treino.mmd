@@ -15,9 +15,9 @@ sequenceDiagram
   A->>API: PUT /workouts/:id/execution
   API->>DB: Validar catálogo, cifrar notes/metrics
   API-->>A: Execução persistida
-  A->>API: PUT consent performance=true
+  A->>API: PUT /privacy/consents purpose=performance, granted=true
   API->>DB: Versão, finalidade e histórico
-  A->>API: Upload performance multipart
+  A->>API: POST /media?purpose=performance multipart
   API->>DB: Verificar usuário, ciclo e consentimento
   API->>API: MIME, assinatura, extensão e limite
   API->>S3: AES-256-GCM ciphertext
@@ -29,7 +29,7 @@ sequenceDiagram
   API-->>T: Bytes decifrados
   T->>API: POST /media/:id/feedback
   API->>DB: Correção técnica cifrada
-  A->>API: POST mensagem do vínculo
+  A->>API: POST /contracts/:id/messages
   API->>DB: Commit mensagem cifrada
   API->>WS: Publicar depois do commit
   WS-->>T: Mensagem em tempo real
