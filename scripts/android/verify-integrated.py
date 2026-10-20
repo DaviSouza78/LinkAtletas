@@ -73,16 +73,18 @@ def find(tree, label, partial=False):
     return None
 
 
-def swipe(up=True):
+def swipe(up=True, reset=False):
     width, height = size
-    adb('shell', 'input', 'swipe', width // 2, int(height * (.78 if up else .30)),
-        width // 2, int(height * (.28 if up else .83)), 220)
+    start, end = ((.32, .87) if reset else ((.72, .46) if up else (.46, .72)))
+    # Slow drags retain overlap between viewports; a fast fling can skip a card.
+    adb('shell', 'input', 'swipe', width // 2, int(height * start),
+        width // 2, int(height * end), 750)
     time.sleep(.2)
 
 
 def top():
     for _ in range(5):
-        swipe(False)
+        swipe(False, reset=True)
 
 
 def locate(label, scroll=False, partial=False, timeout=50):
@@ -217,6 +219,24 @@ def test():
     record('Sessão real restaurada pelo SecureStore após fechar o processo')
     capture('inicio-restaurado')
 
+    tab('Privacidade')
+    tap('Arquivos de performance: Permitir', scroll=True)
+    eventually(lambda: any(c['purpose'] == 'performance' and c['granted'] for c in request('GET', '/privacy/consents', token=athlete)['consents']), 'Consentimento de performance não persistido')
+    top()
+    tap('Dados privados de saúde: Permitir', scroll=True)
+    eventually(lambda: any(c['purpose'] == 'health' and c['granted'] for c in request('GET', '/privacy/consents', token=athlete)['consents']), 'Consentimento de saúde não persistido')
+    top()
+    fill('Notas privadas', 'Registro privado ficticio APK', scroll=True)
+    fill('Altura (cm, opcional)', '175', scroll=True)
+    fill('Peso (kg, opcional)', '70', scroll=True)
+    tap('Salvar dados privados', scroll=True)
+    def health_saved():
+        health = request('GET', '/privacy/health', token=athlete)['health']
+        return health and health['notes'] == 'Registro privado ficticio APK' and health['heightCm'] == 175
+    eventually(health_saved, 'Dados privados não persistidos')
+    record('Consentimentos e dados privados enviados pelo APK')
+
+
     tab('Perfil')
     fill('Nome', 'Atleta APK Revisado')
     fill('Cidade', 'Joinville, SC')
@@ -280,23 +300,6 @@ def test():
     tab('Financeiro')
     locate('Demonstração sem cobrança')
     record('Financeiro acadêmico identificado sem acionar cobrança externa')
-
-    tab('Privacidade')
-    tap('Arquivos de performance: Permitir', scroll=True)
-    eventually(lambda: any(c['purpose'] == 'performance' and c['granted'] for c in request('GET', '/privacy/consents', token=athlete)['consents']), 'Consentimento de performance não persistido')
-    top()
-    tap('Dados privados de saúde: Permitir', scroll=True)
-    eventually(lambda: any(c['purpose'] == 'health' and c['granted'] for c in request('GET', '/privacy/consents', token=athlete)['consents']), 'Consentimento de saúde não persistido')
-    top()
-    fill('Notas privadas', 'Registro privado ficticio APK', scroll=True)
-    fill('Altura (cm, opcional)', '175', scroll=True)
-    fill('Peso (kg, opcional)', '70', scroll=True)
-    tap('Salvar dados privados', scroll=True)
-    def health_saved():
-        health = request('GET', '/privacy/health', token=athlete)['health']
-        return health and health['notes'] == 'Registro privado ficticio APK' and health['heightCm'] == 175
-    eventually(health_saved, 'Dados privados não persistidos')
-    record('Consentimentos e dados privados enviados pelo APK')
 
     # Push a real image into the isolated emulator and select it in the OS picker.
     image = OUT / 'apk-performance.png'
