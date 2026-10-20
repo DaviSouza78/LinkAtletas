@@ -1,6 +1,7 @@
 import { Platform } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import * as FileSystem from 'expo-file-system/legacy'
+import { File } from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
 import type { DocumentPickerAsset } from 'expo-document-picker'
 import type { AppUser } from '../../shared/contracts'
@@ -127,6 +128,16 @@ export async function logout() {
     await forgetSession()
   }
 }
+// Expo's global fetch serializes File/Blob bytes, not the old RN URI objects.
+// Keep the selected name instead of exposing DocumentPicker's cache filename.
+class SelectedFile extends File {
+  constructor(uri: string, private readonly selectedName: string) {
+    super(uri)
+  }
+  override get name() {
+    return this.selectedName
+  }
+}
 export async function upload(
   asset: DocumentPickerAsset,
   purpose: 'performance' | 'message',
@@ -134,11 +145,7 @@ export async function upload(
 ) {
   if (API_CONFIGURATION_ERROR) throw new Error(API_CONFIGURATION_ERROR)
   const form = new FormData()
-  form.append('file', {
-    uri: asset.uri,
-    name: asset.name,
-    type: asset.mimeType || 'application/octet-stream',
-  } as unknown as Blob)
+  form.append('file', new SelectedFile(asset.uri, asset.name), asset.name)
   const controller = new AbortController(),
     timeout = setTimeout(() => controller.abort(), 120_000)
   try {

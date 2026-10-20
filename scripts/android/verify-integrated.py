@@ -23,6 +23,7 @@ assert FOCUS in ('all', 'workout', 'media'), 'Foco de teste desconhecido'
 OUT = Path('emulator-evidence')
 OUT.mkdir(exist_ok=True)
 steps = []
+infrastructure_events = []
 started = time.time()
 
 
@@ -50,7 +51,18 @@ def login(email, password):
 
 def dump():
     adb('shell', 'uiautomator', 'dump', '/sdcard/linkatletas-window.xml')
-    return ET.fromstring(adb('shell', 'cat', '/sdcard/linkatletas-window.xml'))
+    tree = ET.fromstring(adb('shell', 'cat', '/sdcard/linkatletas-window.xml'))
+    # The runner's launcher can show an ANR over a healthy foreground app.
+    # Dismiss only this identified system dialog, never a LinkAtletas ANR.
+    if any(n.get('text') == "Pixel Launcher isn't responding" for n in tree.iter('node')):
+        button = next((n for n in tree.iter('node') if n.get('text') == 'Close app'), None)
+        if button is not None:
+            x1, y1, x2, y2 = bounds(button)
+            adb('shell', 'input', 'tap', (x1+x2)//2, (y1+y2)//2)
+            infrastructure_events.append('Closed unresponsive Pixel Launcher system dialog')
+            time.sleep(1)
+            return dump()
+    return tree
 
 
 def labels(node):
@@ -382,7 +394,7 @@ def test():
 def exercise_media(coach, athlete, workout):
     # Push a real image into the isolated emulator and select it in the OS picker.
     image = OUT / 'apk-performance.png'
-    image.write_bytes(base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6COsAAAAASUVORK5CYII='))
+    image.write_bytes(base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEUlEQVR4nGOIWNCAFTEMLQkAsOReAbP0kfEAAAAASUVORK5CYII='))
     adb('push', image, '/sdcard/Download/apk-performance.png')
     adb('shell', 'am', 'broadcast', '-a', 'android.intent.action.MEDIA_SCANNER_SCAN_FILE', '-d', 'file:///sdcard/Download/apk-performance.png')
     tab('Treinos')
@@ -457,7 +469,7 @@ try:
     result = {'passed': True, 'environment': 'Android API 35 x86_64 emulator + real PostgreSQL/SMTP/S3/API',
               'testCommit': os.getenv('GITHUB_SHA'), 'apkSourceRun': os.getenv('APK_SOURCE_RUN'),
               'apkSha256': hashlib.sha256(Path('android-local/LinkAtletas-local.apk').read_bytes()).hexdigest(),
-              'buildProfile': 'local', 'testFocus': FOCUS, 'realDeviceValidated': False, 'externalBillingValidated': False,
+              'buildProfile': 'local', 'testFocus': FOCUS, 'infrastructureEvents': infrastructure_events, 'realDeviceValidated': False, 'externalBillingValidated': False,
               'reviewMinimumDaysForIsolatedFixture': 0, 'steps': steps, 'durationSeconds': round(time.time()-started, 2)}
 except Exception as error:
     try:
