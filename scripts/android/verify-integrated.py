@@ -19,7 +19,7 @@ import xml.etree.ElementTree as ET
 PACKAGE = 'br.edu.linkatletas.app.local'
 BASE = 'http://127.0.0.1:3001/api'
 FOCUS = os.getenv('ANDROID_TEST_FOCUS', 'all')
-assert FOCUS in ('all', 'workout'), 'Foco de teste desconhecido'
+assert FOCUS in ('all', 'workout', 'media'), 'Foco de teste desconhecido'
 OUT = Path('emulator-evidence')
 OUT.mkdir(exist_ok=True)
 steps = []
@@ -318,33 +318,7 @@ def test():
     locate('Demonstração sem cobrança')
     record('Financeiro acadêmico identificado sem acionar cobrança externa')
 
-    # Push a real image into the isolated emulator and select it in the OS picker.
-    image = OUT / 'apk-performance.png'
-    image.write_bytes(base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6COsAAAAASUVORK5CYII='))
-    adb('push', image, '/sdcard/Download/apk-performance.png')
-    adb('shell', 'am', 'broadcast', '-a', 'android.intent.action.MEDIA_SCANNER_SCAN_FILE', '-d', 'file:///sdcard/Download/apk-performance.png')
-    tab('Treinos')
-    tap('Abrir Corrida APK integrada', scroll=True)
-    tap('Enviar arquivo de performance', scroll=True)
-    time.sleep(2)
-    picker = dump()
-    if find(picker, 'apk-performance.png', True) is None:
-        tap('Show roots', partial=True)
-        tap('Downloads')
-    capture('seletor-de-arquivo')
-    # DocumentsUI also labels its quick-preview icon with the file name. That
-    # icon opens Photos instead of returning the document to the application.
-    # Select the filename TextView, which activates the document row itself.
-    tap('apk-performance.png', partial=True, class_name='android.widget.TextView')
-    media = eventually(lambda: request('GET', '/media?resourceId=' + workout['id'], token=athlete)['media'], 'Upload não persistido')
-    performance = next(m for m in media if m['purpose'] == 'performance')
-    request('POST', '/media/' + performance['id'] + '/feedback', {'text': 'Correcao do treinador no APK'}, coach)
-    top()
-    tap('Voltar aos treinos')
-    tap('Abrir Corrida APK integrada', scroll=True)
-    locate('Correcao do treinador no APK', scroll=True)
-    record('Seletor nativo, upload real S3 e correção do treinador visível no APK')
-    capture('midia-feedback')
+    exercise_media(coach, athlete, workout)
 
     tab('Avisos')
     locate('Notificações', partial=True)
@@ -405,6 +379,38 @@ def test():
     capture('conta-encerrada')
 
 
+def exercise_media(coach, athlete, workout):
+    # Push a real image into the isolated emulator and select it in the OS picker.
+    image = OUT / 'apk-performance.png'
+    image.write_bytes(base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6COsAAAAASUVORK5CYII='))
+    adb('push', image, '/sdcard/Download/apk-performance.png')
+    adb('shell', 'am', 'broadcast', '-a', 'android.intent.action.MEDIA_SCANNER_SCAN_FILE', '-d', 'file:///sdcard/Download/apk-performance.png')
+    tab('Treinos')
+    tap('Abrir Corrida APK integrada', scroll=True)
+    tap('Enviar arquivo de performance', scroll=True)
+    time.sleep(2)
+    picker = dump()
+    if find(picker, 'apk-performance.png', True) is None:
+        tap('Show roots', partial=True)
+        tap('Downloads')
+    capture('seletor-de-arquivo')
+    # DocumentsUI also labels its quick-preview icon with the file name. That
+    # icon opens Photos instead of returning the document to the application.
+    # Select the filename TextView, which activates the document row itself.
+    tap('apk-performance.png', partial=True, class_name='android.widget.TextView')
+    top()
+    capture('retorno-do-seletor')
+    media = eventually(lambda: request('GET', '/media?resourceId=' + workout['id'], token=athlete)['media'], 'Upload não persistido')
+    performance = next(m for m in media if m['purpose'] == 'performance')
+    request('POST', '/media/' + performance['id'] + '/feedback', {'text': 'Correcao do treinador no APK'}, coach)
+    top()
+    tap('Voltar aos treinos')
+    tap('Abrir Corrida APK integrada', scroll=True)
+    locate('Correcao do treinador no APK', scroll=True)
+    record('Seletor nativo, upload real S3 e correção do treinador visível no APK')
+    capture('midia-feedback')
+
+
 def test_workout_focus():
     coach = login('emailtreinador@email.com', 'senhatreinador')
     athlete = login('emailatleta@email.com', 'senhaatleta')
@@ -423,9 +429,29 @@ def test_workout_focus():
     exercise_workout(coach, contract, athlete)
 
 
+def test_media_focus():
+    coach = login('emailtreinador@email.com', 'senhatreinador')
+    athlete = login('emailatleta@email.com', 'senhaatleta')
+    coach_id = request('GET', '/auth/session', token=coach)['user']['id']
+    contracts = request('GET', '/contracts', token=athlete)['contracts']
+    contract = next((c for c in contracts if c['coachId'] == coach_id and c['status'] == 'active'), None)
+    if contract is None:
+        contract = request('POST', '/contracts', {'coachId': coach_id}, athlete)['contract']
+        request('PATCH', '/contracts/' + contract['id'], {'status': 'active'}, coach)
+    relaunch()
+    fill('E-mail', 'emailatleta@email.com')
+    fill('Senha', 'senhaatleta')
+    tap('Entrar')
+    locate('Seu acompanhamento')
+    record('Login nativo de atleta para diagnóstico isolado de arquivo')
+    request('PUT', '/privacy/consents', {'purpose': 'performance', 'granted': True}, athlete)
+    workout = request('POST', '/workouts', {'contractId': contract['id'], 'title': 'Corrida APK integrada', 'sport': 'Corrida', 'scheduledDate': time.strftime('%Y-%m-%d'), 'instructions': 'Arquivo ficticio no ensaio', 'status': 'published', 'blocks': [{'name': 'Bloco', 'instructions': 'Leve', 'durationMinutes': 5}]}, coach)['workout']
+    exercise_media(coach, athlete, workout)
+
+
 size = list(map(int, re.findall(r'\d+', adb('shell', 'wm', 'size'))))[-2:]
 try:
-    (test_workout_focus if FOCUS == 'workout' else test)()
+    {'all': test, 'workout': test_workout_focus, 'media': test_media_focus}[FOCUS]()
     errors = adb('logcat', '-d', '-s', 'AndroidRuntime:E', 'ReactNativeJS:E')
     assert not re.search(r'FATAL EXCEPTION|TypeError:|ReferenceError:|Unhandled JS Exception', errors), 'Crash detectado no log nativo'
     result = {'passed': True, 'environment': 'Android API 35 x86_64 emulator + real PostgreSQL/SMTP/S3/API',
