@@ -1,6 +1,6 @@
 # Modelos atualizados da solução
 
-Revisado em 15/10/2026. Fontes editáveis abaixo refletem API/migrations cumulativas e [ERS v2](ERS-v2.md). Modelo conceitual de classes não equivale à declaração de classes ORM: o backend usa módulos e SQL explícito. O adaptador contém as classes reais `AsaasClient` e `AsaasError`, identificadas no modelo.
+Revisado em 20/10/2026. Fontes editáveis abaixo refletem API/migrations cumulativas e [ERS v2](ERS-v2.md). Modelo conceitual de classes não equivale à declaração de classes ORM: o backend usa módulos e SQL explícito. O adaptador contém as classes reais `AsaasClient` e `AsaasError`, identificadas no modelo.
 
 | Modelo | Fonte | Visualização |
 |---|---|---|

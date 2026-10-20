@@ -1,12 +1,12 @@
 {
   "config": {
     "argv": [
-      "C:\\Program Files\\nodejs\\node.exe",
-      "C:\\dev\\projects\\LinkAtletas\\node_modules\\.pnpm\\@playwright+test@1.64.0\\node_modules\\@playwright\\test\\cli.js",
+      "/opt/hostedtoolcache/node/24.15.0/x64/bin/node",
+      "/home/runner/work/LinkAtletas/LinkAtletas/node_modules/@playwright/test/cli.js",
       "test"
     ],
-    "configFile": "C:\\dev\\projects\\LinkAtletas\\playwright.config.ts",
-    "rootDir": "C:/dev/projects/LinkAtletas/tests/e2e",
+    "configFile": "/home/runner/work/LinkAtletas/LinkAtletas/playwright.config.ts",
+    "rootDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
     "failOnFlakyTests": false,
     "forbidOnly": false,
     "fullyParallel": false,
@@ -17,20 +17,64 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/DaviSouza78/LinkAtletas/commit/92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+        "commitHash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+        "buildHref": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529"
+      },
+      "gitCommit": {
+        "shortHash": "92813ff",
+        "hash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+        "subject": "estabiliza a navegacao dos testes e aguarda a api ficar pronta",
+        "body": "estabiliza a navegacao dos testes e aguarda a api ficar pronta\n",
+        "author": {
+          "name": "Lucca",
+          "email": "luccacc.contato@gmail.com",
+          "time": 1792534377000
+        },
+        "committer": {
+          "name": "Lucca",
+          "email": "luccacc.contato@gmail.com",
+          "time": 1792534377000
+        },
+        "branch": "revisao-sprint-2"
+      },
       "actualWorkers": 1
     },
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "C:/dev/projects/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
+        "outputDir": "/home/runner/work/LinkAtletas/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/DaviSouza78/LinkAtletas/commit/92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "commitHash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "buildHref": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529"
+          },
+          "gitCommit": {
+            "shortHash": "92813ff",
+            "hash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "subject": "estabiliza a navegacao dos testes e aguarda a api ficar pronta",
+            "body": "estabiliza a navegacao dos testes e aguarda a api ficar pronta\n",
+            "author": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "committer": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "branch": "revisao-sprint-2"
+          },
           "actualWorkers": 1
         },
         "id": "chromium",
         "name": "chromium",
-        "testDir": "C:/dev/projects/LinkAtletas/tests/e2e",
+        "testDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -38,15 +82,37 @@
         "timeout": 90000
       },
       {
-        "outputDir": "C:/dev/projects/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
+        "outputDir": "/home/runner/work/LinkAtletas/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/DaviSouza78/LinkAtletas/commit/92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "commitHash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "buildHref": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529"
+          },
+          "gitCommit": {
+            "shortHash": "92813ff",
+            "hash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "subject": "estabiliza a navegacao dos testes e aguarda a api ficar pronta",
+            "body": "estabiliza a navegacao dos testes e aguarda a api ficar pronta\n",
+            "author": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "committer": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "branch": "revisao-sprint-2"
+          },
           "actualWorkers": 1
         },
         "id": "firefox",
         "name": "firefox",
-        "testDir": "C:/dev/projects/LinkAtletas/tests/e2e",
+        "testDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -54,15 +120,37 @@
         "timeout": 90000
       },
       {
-        "outputDir": "C:/dev/projects/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
+        "outputDir": "/home/runner/work/LinkAtletas/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/DaviSouza78/LinkAtletas/commit/92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "commitHash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "buildHref": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529"
+          },
+          "gitCommit": {
+            "shortHash": "92813ff",
+            "hash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "subject": "estabiliza a navegacao dos testes e aguarda a api ficar pronta",
+            "body": "estabiliza a navegacao dos testes e aguarda a api ficar pronta\n",
+            "author": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "committer": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "branch": "revisao-sprint-2"
+          },
           "actualWorkers": 1
         },
         "id": "webkit",
         "name": "webkit",
-        "testDir": "C:/dev/projects/LinkAtletas/tests/e2e",
+        "testDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -74,15 +162,37 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\dev\\projects\\LinkAtletas\\docs\\evolucao\\evidencias\\playwright-artifacts",
+        "outputDir": "/home/runner/work/LinkAtletas/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/DaviSouza78/LinkAtletas/commit/92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "commitHash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "buildHref": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529"
+          },
+          "gitCommit": {
+            "shortHash": "92813ff",
+            "hash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "subject": "estabiliza a navegacao dos testes e aguarda a api ficar pronta",
+            "body": "estabiliza a navegacao dos testes e aguarda a api ficar pronta\n",
+            "author": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "committer": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "branch": "revisao-sprint-2"
+          },
           "actualWorkers": 1
         },
         "name": "chromium",
-        "testDir": "C:\\dev\\projects\\LinkAtletas\\tests\\e2e",
-        "snapshotDir": "C:\\dev\\projects\\LinkAtletas\\tests\\e2e",
+        "testDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
+        "snapshotDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 90000,
@@ -113,15 +223,37 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\dev\\projects\\LinkAtletas\\docs\\evolucao\\evidencias\\playwright-artifacts",
+        "outputDir": "/home/runner/work/LinkAtletas/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/DaviSouza78/LinkAtletas/commit/92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "commitHash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "buildHref": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529"
+          },
+          "gitCommit": {
+            "shortHash": "92813ff",
+            "hash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "subject": "estabiliza a navegacao dos testes e aguarda a api ficar pronta",
+            "body": "estabiliza a navegacao dos testes e aguarda a api ficar pronta\n",
+            "author": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "committer": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "branch": "revisao-sprint-2"
+          },
           "actualWorkers": 1
         },
         "name": "firefox",
-        "testDir": "C:\\dev\\projects\\LinkAtletas\\tests\\e2e",
-        "snapshotDir": "C:\\dev\\projects\\LinkAtletas\\tests\\e2e",
+        "testDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
+        "snapshotDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 90000,
@@ -152,15 +284,37 @@
       {
         "grep": {},
         "grepInvert": null,
-        "outputDir": "C:\\dev\\projects\\LinkAtletas\\docs\\evolucao\\evidencias\\playwright-artifacts",
+        "outputDir": "/home/runner/work/LinkAtletas/LinkAtletas/docs/evolucao/evidencias/playwright-artifacts",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/DaviSouza78/LinkAtletas/commit/92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "commitHash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "buildHref": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529"
+          },
+          "gitCommit": {
+            "shortHash": "92813ff",
+            "hash": "92813ffada8bc571bcb9a67a090b9cffb8cfd7b9",
+            "subject": "estabiliza a navegacao dos testes e aguarda a api ficar pronta",
+            "body": "estabiliza a navegacao dos testes e aguarda a api ficar pronta\n",
+            "author": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "committer": {
+              "name": "Lucca",
+              "email": "luccacc.contato@gmail.com",
+              "time": 1792534377000
+            },
+            "branch": "revisao-sprint-2"
+          },
           "actualWorkers": 1
         },
         "name": "webkit",
-        "testDir": "C:\\dev\\projects\\LinkAtletas\\tests\\e2e",
-        "snapshotDir": "C:\\dev\\projects\\LinkAtletas\\tests\\e2e",
+        "testDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
+        "snapshotDir": "/home/runner/work/LinkAtletas/LinkAtletas/tests/e2e",
         "testIgnore": [],
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 90000,
@@ -221,7 +375,7 @@
     "workers": 1,
     "webServer": {
       "command": "pnpm db:migrate && pnpm db:seed && pnpm exec concurrently -k -n api,web \"pnpm exec tsx server/index.ts\" \"pnpm dev\"",
-      "url": "http://localhost:5174",
+      "url": "http://localhost:5174/api/health",
       "reuseExistingServer": false,
       "env": {
         "DATABASE_URL": "postgresql://linkatletas:linkatletas_dev@127.0.0.1:54329/linkatletas_test",
@@ -260,12 +414,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5885,
+                  "duration": 6410,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:57:12.183Z",
+                  "startTime": "2026-10-20T22:15:02.032Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -275,7 +429,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-ca7118cafe08ae9fa0be",
           "file": "expansion.spec.ts",
-          "line": 16,
+          "line": 34,
           "column": 1
         },
         {
@@ -294,12 +448,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1910,
+                  "duration": 2657,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:57:18.192Z",
+                  "startTime": "2026-10-20T22:15:08.782Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -309,7 +463,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-578f9218ec08ba4a9628",
           "file": "expansion.spec.ts",
-          "line": 65,
+          "line": 288,
           "column": 1
         },
         {
@@ -328,12 +482,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 8526,
+                  "duration": 8687,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:57:20.117Z",
+                  "startTime": "2026-10-20T22:15:11.452Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -343,7 +497,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-3b6bc3fbae2c4dd17a2e",
           "file": "expansion.spec.ts",
-          "line": 82,
+          "line": 338,
           "column": 1
         },
         {
@@ -362,12 +516,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 13140,
+                  "duration": 7767,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:57:38.106Z",
+                  "startTime": "2026-10-20T22:15:30.411Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -377,7 +531,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-105f92967c89da49b5ba",
           "file": "expansion.spec.ts",
-          "line": 16,
+          "line": 34,
           "column": 1
         },
         {
@@ -396,12 +550,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2967,
+                  "duration": 2782,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:57:51.848Z",
+                  "startTime": "2026-10-20T22:15:39.012Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -411,7 +565,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-094cd3593b5adb13358b",
           "file": "expansion.spec.ts",
-          "line": 65,
+          "line": 288,
           "column": 1
         },
         {
@@ -430,12 +584,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 10922,
+                  "duration": 10571,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:57:54.830Z",
+                  "startTime": "2026-10-20T22:15:41.805Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -445,7 +599,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-00f88d1079d0df5f4123",
           "file": "expansion.spec.ts",
-          "line": 82,
+          "line": 338,
           "column": 1
         },
         {
@@ -464,12 +618,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 16373,
+                  "duration": 10002,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:58:18.018Z",
+                  "startTime": "2026-10-20T22:16:05.173Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -479,7 +633,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-d51f8e862dd211f7df9a",
           "file": "expansion.spec.ts",
-          "line": 16,
+          "line": 34,
           "column": 1
         },
         {
@@ -498,12 +652,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2664,
+                  "duration": 3031,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:58:34.573Z",
+                  "startTime": "2026-10-20T22:16:15.766Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -513,7 +667,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-bd89331511d889bee045",
           "file": "expansion.spec.ts",
-          "line": 65,
+          "line": 288,
           "column": 1
         },
         {
@@ -532,12 +686,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 13729,
+                  "duration": 9922,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:58:37.249Z",
+                  "startTime": "2026-10-20T22:16:18.809Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -547,7 +701,7 @@
           ],
           "id": "de5dd86fe8d99c93f505-9a140082b6d45ae77222",
           "file": "expansion.spec.ts",
-          "line": 82,
+          "line": 338,
           "column": 1
         }
       ]
@@ -574,12 +728,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 715,
+                  "duration": 682,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:57:28.675Z",
+                  "startTime": "2026-10-20T22:15:20.160Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -589,7 +743,7 @@
           ],
           "id": "06a3b78a70619f6f7e99-8ea620f5de269b0a4a47",
           "file": "sprint-2.spec.ts",
-          "line": 52,
+          "line": 56,
           "column": 1
         },
         {
@@ -608,7 +762,7 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 8107,
+                  "duration": 9110,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
@@ -616,22 +770,22 @@
                   "steps": [
                     {
                       "title": "Novas contas e perfis são gravados pela interface",
-                      "duration": 3415
+                      "duration": 4170
                     },
                     {
                       "title": "Administrador confere credenciais antes da descoberta",
-                      "duration": 849
+                      "duration": 778
                     },
                     {
                       "title": "Atleta solicita e treinador aceita o vínculo",
-                      "duration": 617
+                      "duration": 777
                     },
                     {
                       "title": "Treinador publica uma ficha e atleta registra seu retorno",
-                      "duration": 2834
+                      "duration": 3045
                     }
                   ],
-                  "startTime": "2026-10-14T19:57:29.400Z",
+                  "startTime": "2026-10-20T22:15:20.851Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -641,7 +795,7 @@
           ],
           "id": "06a3b78a70619f6f7e99-d4f871f3c13bd47c70d2",
           "file": "sprint-2.spec.ts",
-          "line": 73,
+          "line": 77,
           "column": 1
         },
         {
@@ -660,12 +814,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 860,
+                  "duration": 957,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:58:05.790Z",
+                  "startTime": "2026-10-20T22:15:52.397Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -675,7 +829,7 @@
           ],
           "id": "06a3b78a70619f6f7e99-72d87a8d2dd0ed6ee7aa",
           "file": "sprint-2.spec.ts",
-          "line": 52,
+          "line": 56,
           "column": 1
         },
         {
@@ -694,7 +848,7 @@
                   "workerIndex": 1,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 10435,
+                  "duration": 11027,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
@@ -702,22 +856,22 @@
                   "steps": [
                     {
                       "title": "Novas contas e perfis são gravados pela interface",
-                      "duration": 3566
+                      "duration": 4454
                     },
                     {
                       "title": "Administrador confere credenciais antes da descoberta",
-                      "duration": 924
+                      "duration": 871
                     },
                     {
                       "title": "Atleta solicita e treinador aceita o vínculo",
-                      "duration": 1229
+                      "duration": 1035
                     },
                     {
                       "title": "Treinador publica uma ficha e atleta registra seu retorno",
-                      "duration": 3722
+                      "duration": 3590
                     }
                   ],
-                  "startTime": "2026-10-14T19:58:06.660Z",
+                  "startTime": "2026-10-20T22:15:53.363Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -727,7 +881,7 @@
           ],
           "id": "06a3b78a70619f6f7e99-3da9a2e6eff68c079762",
           "file": "sprint-2.spec.ts",
-          "line": 73,
+          "line": 77,
           "column": 1
         },
         {
@@ -746,12 +900,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 997,
+                  "duration": 912,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-14T19:58:51.008Z",
+                  "startTime": "2026-10-20T22:16:28.752Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -761,7 +915,7 @@
           ],
           "id": "06a3b78a70619f6f7e99-9ac421c44a381aadeb39",
           "file": "sprint-2.spec.ts",
-          "line": 52,
+          "line": 56,
           "column": 1
         },
         {
@@ -780,7 +934,7 @@
                   "workerIndex": 2,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 55365,
+                  "duration": 13361,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
@@ -788,22 +942,22 @@
                   "steps": [
                     {
                       "title": "Novas contas e perfis são gravados pela interface",
-                      "duration": 26324
+                      "duration": 4927
                     },
                     {
                       "title": "Administrador confere credenciais antes da descoberta",
-                      "duration": 5405
+                      "duration": 1569
                     },
                     {
                       "title": "Atleta solicita e treinador aceita o vínculo",
-                      "duration": 3479
+                      "duration": 844
                     },
                     {
                       "title": "Treinador publica uma ficha e atleta registra seu retorno",
-                      "duration": 19347
+                      "duration": 4828
                     }
                   ],
-                  "startTime": "2026-10-14T19:58:52.017Z",
+                  "startTime": "2026-10-20T22:16:29.674Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -813,7 +967,7 @@
           ],
           "id": "06a3b78a70619f6f7e99-14ea4d84b1c3c22a597b",
           "file": "sprint-2.spec.ts",
-          "line": 73,
+          "line": 77,
           "column": 1
         }
       ]
@@ -821,8 +975,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-14T19:57:08.558Z",
-    "duration": 159146.581,
+    "startTime": "2026-10-20T22:14:58.577Z",
+    "duration": 104619.73700000001,
     "expected": 15,
     "skipped": 0,
     "unexpected": 0,

@@ -12,7 +12,7 @@ Copy-Item .env.example .env
 pnpm start
 ```
 
-Configure `EXPO_PUBLIC_API_URL` com a URL completa terminada em `/api`. Android em emulador pode alcançar o host em `http://10.0.2.2:3001/api`; iOS no simulador do Mac pode usar `http://localhost:3001/api`. Dispositivo físico precisa de endereço de rede alcançável e API ligada à interface apropriada, com firewall configurado pelo responsável. A API local normalmente escuta somente `127.0.0.1`; para acesso de emulador/dispositivo, inicie-a com `API_HOST=0.0.0.0` em rede de desenvolvimento controlada. Não exponha a base de demonstração à internet.
+Configure `EXPO_PUBLIC_API_URL` com a URL completa terminada em `/api`. Android em emulador pode alcançar o host em `http://10.0.2.2:3001/api`; iOS no simulador do Mac pode usar `http://localhost:3001/api`. Para o APK local standalone, prefira USB/ADB: `pnpm mobile:connect` na raiz verifica a API, cria o túnel e abre o aplicativo. O [manual do APK](../docs/evolucao/manual-apk-local.md) mostra instalação e configuração. Não é necessário expor API/banco à rede. Acesso direto por LAN exige configuração de rede pelo responsável e não é o perfil local restrito.
 
 Abra com um cliente Expo compatível com SDK 57 ou development build. A compilação nativa local usa `pnpm android` (JDK/Android SDK) ou `pnpm ios` (Mac/Xcode). Estes comandos não foram executados neste ambiente sem SDK/JDK/Xcode. Compilação/distribuição EAS depende de conta, credenciais e autorização; nenhum aplicativo foi enviado às lojas.
 
@@ -30,7 +30,7 @@ Use sua URL real de HTTPS antes de distribuir. O domínio `.example` acima é ap
 
 O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](../docs/evolucao/evidencias/mobile-verificacao.md).
 
-Há também um APK Android compilado pelo workflow manual `Android APK verification`: [execução e hash](../docs/evolucao/publicacao.md). Ele usa a chave de desenvolvimento do template Expo. Configure a variável de repositório `EXPO_PUBLIC_API_URL` com uma API HTTPS alcançável e gere outro APK para testar integrações; o binário de verificação existente usa um endereço `.example` documental. Distribuição nas lojas e homologação completa em aparelhos permanecem pendentes.
+Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/emulador e conexão por USB, compilado com Expo 57.0.30: [manual](../docs/evolucao/manual-apk-local.md), [evidências e limites](../docs/evolucao/evidencias/mobile-verificacao.md). O APK antigo com domínio `.example` permanece histórico. O perfil normal exige HTTPS real e assinatura de distribuição para lojas.
 
 ## Funcionalidades
 

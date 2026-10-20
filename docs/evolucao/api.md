@@ -20,6 +20,8 @@ Entrada JSON validada no servidor; upload usa multipart. Falhas devolvem `code`,
 | POST `/auth/logout` | `{}` | Invalida sessão cookie/Bearer |
 | POST `/auth/forgot-password` | `{email}` | Resposta genérica, outbox SMTP se conta ativa |
 | POST `/auth/reset-password` | `{token,password}` | Token de uso único, 30 min; invalida sessões |
+| POST `/auth/native/forgot-password` | `{email}` | Mesma recuperação por SMTP para o cliente nativo; resposta genérica |
+| POST `/auth/native/reset-password` | `{token,password}` | Mesma validação de uso único; não inicia sessão automaticamente |
 | GET/PUT `/profiles/me` | PUT: perfil esportivo `ProfileInput` | `{profile}`; campos/limites em contracts/runtime |
 | GET `/coaches` | `sport`, `query`, `maxPrice`, `mode` opcionais | `{coaches}` aprovados, elegíveis e com motivos da nota |
 

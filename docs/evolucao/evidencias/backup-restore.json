@@ -1,17 +1,17 @@
 {
-  "date": "2026-10-14T19:50:49.008Z",
-  "source": "backup_source_c021d68f479c_test",
-  "target": "backup_restore_c021d68f479c_test",
+  "date": "2026-10-20T22:14:08.730Z",
+  "source": "backup_source_e5e444e24a61_test",
+  "target": "backup_restore_e5e444e24a61_test",
   "backup": {
-    "backup": "C:\\dev\\projects\\LinkAtletas\\tmp\\backups\\verified-c021d68f479c",
-    "database": "backup_source_c021d68f479c_test",
+    "backup": "/home/runner/work/LinkAtletas/LinkAtletas/tmp/backups/verified-e5e444e24a61",
+    "database": "backup_source_e5e444e24a61_test",
     "objects": 1,
     "tables": 36,
     "databaseEncrypted": true,
     "keyIncluded": false
   },
   "restore": {
-    "restoredDatabase": "backup_restore_c021d68f479c_test",
+    "restoredDatabase": "backup_restore_e5e444e24a61_test",
     "objects": 1,
     "tables": 36,
     "countsEqual": true,
@@ -21,7 +21,7 @@
   "privateFieldRoundtrip": true,
   "mediaRoundtrip": true,
   "dumpPlaintextAbsent": true,
-  "encryptedObjectSha256": "e73f0b7bd7334f106ffff60a5afb17f23903276d899d6d7965621214c92f5090",
+  "encryptedObjectSha256": "2910326be0c3372ee145176f2758b9c65daca9f293a27a0ee69f782ae3ade603",
   "testDatabasesPreserved": true,
   "consistency": "Testes isolados sem escritas concorrentes. Produção requer pausar escritas e reaplicar eliminações posteriores."
 }

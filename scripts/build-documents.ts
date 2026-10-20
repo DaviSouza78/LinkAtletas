@@ -51,7 +51,7 @@ function runs(text: string): Array<TextRun | ExternalHyperlink> {
 }
 function parse(markdown: string) {
   const children: Array<Paragraph | Table> = [],
-    lines = markdown.split(/\r?\n/)
+    lines = markdown.trimEnd().split(/\r?\n/)
   let code = false
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
@@ -250,7 +250,7 @@ for (const name of ['ERS-v2', 'relatorio-testes']) {
                 alignment: AlignmentType.RIGHT,
                 children: [
                   new TextRun({
-                    text: 'LinkAtletas · 14/10/2026     ',
+                    text: 'LinkAtletas · 20/10/2026     ',
                     size: 17,
                     color: '5F7168',
                   }),

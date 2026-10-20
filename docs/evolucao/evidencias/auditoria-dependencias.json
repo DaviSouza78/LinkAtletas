@@ -1,0 +1,78 @@
+{
+  "executedAt": "2026-10-20",
+  "scope": "production and development dependency lockfiles",
+  "packages": {
+    "raiz": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 2,
+        "high": 1,
+        "critical": 0
+      },
+      "advisories": [
+        {
+          "package": "vite",
+          "severity": "moderate",
+          "id": "GHSA-698v-4r3x-3vcv",
+          "affected": ">=8.2.0 <=8.2.3",
+          "patched": ">=8.2.4",
+          "paths": [
+            ".>vite"
+          ]
+        },
+        {
+          "package": "vite",
+          "severity": "moderate",
+          "id": "GHSA-r825-w8mm-5pxw",
+          "affected": ">=8.2.0 <=8.2.3",
+          "patched": ">=8.2.4",
+          "paths": [
+            ".>vite"
+          ]
+        },
+        {
+          "package": "vite",
+          "severity": "high",
+          "id": "GHSA-587h-7wmj-h5pm",
+          "affected": ">=8.2.0 <=8.2.3",
+          "patched": ">=8.2.4",
+          "paths": [
+            ".>vite"
+          ]
+        }
+      ]
+    },
+    "mobile": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 2,
+        "critical": 0
+      },
+      "advisories": [
+        {
+          "package": "node-forge",
+          "severity": "high",
+          "id": "GHSA-86w9-cpqp-85rv",
+          "affected": "<=1.4.0",
+          "patched": "<0.0.0",
+          "paths": [
+            ".>expo>@expo/cli>node-forge"
+          ]
+        },
+        {
+          "package": "braces",
+          "severity": "high",
+          "id": "GHSA-vfj7-8cjw-p6xm",
+          "affected": "<=3.0.3",
+          "patched": "<0.0.0",
+          "paths": [
+            ".>expo>@expo/metro>metro-file-map>micromatch>braces"
+          ]
+        }
+      ]
+    }
+  }
+}

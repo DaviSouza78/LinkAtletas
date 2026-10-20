@@ -1,36 +1,41 @@
 # Pendências de Lucca e do grupo
 
-Atualizado em 15/10/2026. Os nove entregáveis técnicos da Sprint 2 possuem referências no [checklist](checklist-sprint-2.md). O código está publicado na `main`; [PR #1 integrado](https://github.com/DaviSouza78/LinkAtletas/pull/1) e [CI completa aprovada](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290). Os itens abaixo dependem de pessoas, acessos ou ambientes externos.
+Revisão de 20/10/2026. Os nove entregáveis têm referências no [checklist](checklist-sprint-2.md); a [publicação](publicacao.md) identifica os commits e resultados. Os artefatos não substituem aceite docente, homologação de terceiros ou envio acadêmico.
 
-## Para a entrega acadêmica
+## Resolvido nesta revisão
 
-- [ ] Revisar com o grupo a ERS, diagramas, backlog e demonstração, seguindo o [manual](manual.md); registrar eventuais ajustes solicitados pelo professor.
-- [ ] Informar o nome e as competências da Eletiva I para completar a [matriz de UCs](rastreabilidade.md), sem inventar conteúdo curricular.
-- [ ] Cada integrante registrar sua participação efetiva e realizar sua própria entrega no ambiente acadêmico. O enunciado exige entrega individual de todos.
-- [ ] Conferir prazo, formato de anexos e exigências adicionais no ambiente da disciplina. Não foi efetuada submissão acadêmica automática.
+- [x] Recuperar Docker Desktop sem apagar bancos, volumes ou chave; PostgreSQL, SMTP e S3 saudáveis, migrations e API verificadas: [ambiente](evidencias/ambiente-local-revisado.json).
+- [x] Corrigir a exigência indevida de elevação do `cmd.exe` que bloqueava scripts pnpm; configuração anterior salva fora do repositório.
+- [x] Revisar todos os oito arquivos originais e registrar divergências: [revisão](revisao-materiais.md).
+- [x] Criar checklist por serviço externo com necessidade na Sprint 2, alternativa local e homologação: [serviços](servicos-externos-sprint-2.md).
+- [x] Gerar APK standalone conectado à API local por USB, sem depender de contratar hospedagem: [manual](manual-apk-local.md). Ensaios e limites estão na [verificação móvel](evidencias/mobile-verificacao.md).
+- [x] Corrigir limpeza de cópias privadas, uso da chave existente pelo backup e dependências web/API; manter explícitos os alertas móveis sem correção oficial: [auditoria](seguranca-dependencias.md).
 
-## Para executar no computador de Lucca
+## Antes de entregar ao professor
 
-- [ ] Iniciar o Docker Desktop e confirmar `Engine running` antes dos comandos do README. Na retomada de 15/10, o Desktop falhou na inicialização do Inference manager porque o Windows não permitiu acessar o socket `dockerInference`. A tentativa de preservá-lo por renomeação também foi recusada pelo sistema. Reabra o Docker Desktop; se o erro persistir, reinicie o Windows e tente novamente. Nenhum banco ou volume foi apagado. A validação final completa foi executada e aprovada no ambiente isolado do GitHub.
+- [ ] Conferir com o professor a contingência de **CREF manual**, pois a ERS original previa automatização na Sprint 2. A proposta admite risco de indisponibilidade de API, mas o aceite dessa mudança não foi fornecido.
+- [ ] Alinhar a diferença entre **IA solicitada na proposta e o match atual por regras**, além do recorte Android/iOS, nuvem e PostgreSQL único. Registrar a decisão docente.
+- [ ] Informar nome e competências da **Eletiva I** para completar a [matriz de UCs](rastreabilidade.md).
+- [ ] Cada integrante revisar a demonstração, registrar sua participação real e fazer sua própria entrega no ambiente acadêmico. O documento de convivência exige anexar **e concluir o envio**. Prazo do roteiro: **26/10/2026**; conferir eventuais atualizações na disciplina.
 
-## Para usar serviços externos ou publicar a aplicação
+## Quando houver homologação externa ou operação pública
 
-- [ ] Disponibilizar domínio/infraestrutura e configurar banco, armazenamento privado, SMTP, chave de cifra e HTTPS conforme o [manual de operação](manual.md). O ambiente Docker/TLS local já foi verificado; não há site/API públicos implantados.
-- [ ] Configurar conta e credenciais Asaas de sandbox, carteira/split e webhook, executar uma cobrança de teste e conferir cancelamento e conciliação. O adaptador possui testes HTTP controlados; nenhum pagamento real foi realizado. Ativar produção só após homologação e decisão do responsável.
-- [ ] Obter acesso autorizado ao serviço oficial de CREF se a integração automática for exigida. A conferência manual com auditoria já está implementada.
-- [ ] Configurar Google OAuth/Agenda/Meet se exigido. Abrir um link de calendário/reunião não equivale a sincronização bidirecional.
-- [ ] Validar os textos e procedimentos operacionais de privacidade/retenção com o responsável pelo projeto antes de receber dados reais.
+- [ ] Fornecer conta sandbox Asaas/carteira/webhook e conferir cobrança de teste, split, cancelamento e conciliação. Hoje os testes financeiros usam servidor HTTP controlado; o modo acadêmico não cobra.
+- [ ] Obter acesso autorizado para CREF automático, se mantido no aceite.
+- [ ] Fornecer infraestrutura/domínio, SMTP externo e S3 privado hospedado se a entrega acordada exigir URL pública/nuvem. TLS local testado não equivale a site implantado.
+- [ ] Configurar Google OAuth/Agenda/Meet se exigido; agenda própria já funciona sem ele. Sincronização bidirecional permanece evolução.
+- [ ] Validar procedimentos/textos de privacidade e retenção com o responsável antes de receber dados reais.
 
-Credenciais devem ser configuradas em variáveis de ambiente ou secrets do provedor. Não colocar chaves no repositório, nos anexos ou no chat.
+O [checklist de serviços](servicos-externos-sprint-2.md) detalha critérios e variáveis. Configurar secrets no servidor/provedor, nunca no chat, código ou aplicativo. Não é necessário contratar todos esses serviços para a demonstração local.
 
-## Para homologar e distribuir o aplicativo
+## Hardware e distribuição
 
-- [x] APK Android de verificação compilado: [run e SHA-256](publicacao.md), [registro do build](evidencias/github-android-build.json).
-- [x] Instalação e abertura da tela de login no emulador Android API 35: [resultado](evidencias/android-emulator-result.json) e [captura real](evidencias/android-emulator-startup.png).
-- [ ] Definir uma API HTTPS acessível ao aparelho, configurar a variável pública de repositório `EXPO_PUBLIC_API_URL` e executar novamente o workflow manual `Android APK verification`. O APK existente aponta para `https://api.linkatletas.example/api`, um endereço documental sem backend real.
-- [ ] Executar o [roteiro completo em aparelho](evidencias/mobile-verificacao.md), incluindo sessão, uploads, chat, recuperação, privacidade, conectividade e TalkBack/VoiceOver; registrar modelo/versão e evidências.
-- [ ] Para lojas: fornecer conta e chave de assinatura de distribuição Android; para IPA/iOS, conta/certificados Apple e ambiente Mac/Xcode ou serviço de build autorizado. A chave de desenvolvimento do APK existente serve para verificação.
+- [ ] Conectar aparelho Android autorizado para homologação física, incluindo TalkBack, texto ampliado, rede intermitente e compartilhamento do sistema. Não havia aparelho físico conectado; emulador não comprova todos os fabricantes.
+- [ ] Para iOS, disponibilizar Mac/Xcode ou serviço autorizado e dispositivo; fonte/bundle não comprovam IPA nem uso em iPhone.
+- [ ] Para lojas, fornecer contas, certificados e chave de distribuição. O APK usa assinatura de desenvolvimento e não foi enviado às lojas.
 
-## Evoluções registradas
+## Manutenção acompanhada
 
-IA treinada, autosave contínuo, novas modalidades administrativas, broker/autoescala e sincronização Google bidirecional permanecem no [backlog](backlog.md). São evoluções declaradas; não devem ser apresentadas como implementadas nem confundidas com ausência dos nove artefatos obrigatórios da Sprint 2.
+- [ ] Atualizar `node-forge`/`braces` transitivos do Expo quando os fornecedores publicarem correções; dois alertas altos permanecem no tooling de build, com exposição delimitada na [auditoria](seguranca-dependencias.md). Nenhum alerta foi suprimido.
+
+Autosave contínuo, biblioteca pública de mídia, modelo treinado, broker/autoescala e sincronização Google bidirecional continuam no [backlog](backlog.md). Commits de Lucca não comprovam participação de outros colegas nem aprovação docente.

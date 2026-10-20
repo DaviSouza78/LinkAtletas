@@ -35,3 +35,9 @@ UCs do roteiro original. Esta matriz relaciona conteúdo técnico, sem atribuir 
 ## Participação e submissão
 
 Equipe informada: João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa. Planejamento original não comprova execução individual desta Sprint. Cada integrante deve associar commit/revisão/ensaio/apresentação real com data e descrição e realizar sua própria entrega. A identidade Git configurada para o incremento é Lucca; não se distribui essa autoria automaticamente aos colegas.
+
+## Conferência com os materiais originais — 15/10/2026
+
+A [revisão documental](revisao-materiais.md) compara ERS, proposta, roteiro, portaria, convivência e templates. O [dicionário](dicionario-dados.md) e os [diagramas](diagramas.md) demonstram 36 tabelas e 45 chaves estrangeiras reais. O diagrama de classes inclui os módulos de integração financeira existentes; não representa um ORM inexistente.
+
+CREF automático previsto na Sprint 2, evolução de IA solicitada na proposta, nuvem quando prevista e suporte Android/iOS dependem de alinhamento de escopo com o docente. O match atual é por regras, a validação profissional é manual e o APK local não comprova operação pública ou iOS. A Eletiva I continua sem denominação/competências fornecidas; somente o grupo pode completar essa informação. Os commits de Lucca não comprovam participação dos demais integrantes.

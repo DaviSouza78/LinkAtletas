@@ -4,16 +4,34 @@
 
 Starting Metro Bundler
 
-| (node:24228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 | (Use `node --trace-warnings ...` to show where the warning was created)
-Android Bundled 5410ms index.ts (612 modules)
-iOS Bundled 9402ms index.ts (614 modules)
-
-› android bundles (1):
-_expo/static/js/android/index-84b611e4642d9433fc20ee22925104e7.hbc (1.6MB)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:29640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+iOS Bundled 7893ms index.ts (599 modules)
+Android Bundled 11550ms index.ts (613 modules)
 
 › ios bundles (1):
-_expo/static/js/ios/index-8fde5b693919709200d7280ac308dfd6.hbc (1.6MB)
+_expo/static/js/ios/index-31cde108bc6337f1ef145689e4a4795a.hbc (1.6MB)
+
+› android bundles (1):
+_expo/static/js/android/index-121d3ea6582c94330536ccdd6670653d.hbc (1.6MB)
 
 › Files (1):
 metadata.json (244B)
