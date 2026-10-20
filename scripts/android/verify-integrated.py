@@ -109,8 +109,8 @@ def locate(label, scroll=False, partial=False, timeout=50, class_name=None):
     raise AssertionError('Elemento não encontrado no APK: ' + label)
 
 
-def tap(label, scroll=False, partial=False):
-    node = locate(label, scroll=scroll, partial=partial)
+def tap(label, scroll=False, partial=False, class_name=None):
+    node = locate(label, scroll=scroll, partial=partial, class_name=class_name)
     x1, y1, x2, y2 = bounds(node)
     print('TAP: ' + label + ' ' + str([x1, y1, x2, y2]), flush=True)
     adb('shell', 'input', 'tap', (x1+x2)//2, (y1+y2)//2)
@@ -331,7 +331,11 @@ def test():
     if find(picker, 'apk-performance.png', True) is None:
         tap('Show roots', partial=True)
         tap('Downloads')
-    tap('apk-performance.png', partial=True)
+    capture('seletor-de-arquivo')
+    # DocumentsUI also labels its quick-preview icon with the file name. That
+    # icon opens Photos instead of returning the document to the application.
+    # Select the filename TextView, which activates the document row itself.
+    tap('apk-performance.png', partial=True, class_name='android.widget.TextView')
     media = eventually(lambda: request('GET', '/media?resourceId=' + workout['id'], token=athlete)['media'], 'Upload não persistido')
     performance = next(m for m in media if m['purpose'] == 'performance')
     request('POST', '/media/' + performance['id'] + '/feedback', {'text': 'Correcao do treinador no APK'}, coach)
