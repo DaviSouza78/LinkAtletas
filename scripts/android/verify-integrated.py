@@ -85,7 +85,7 @@ def top():
         swipe(False)
 
 
-def locate(label, scroll=False, partial=False, timeout=25):
+def locate(label, scroll=False, partial=False, timeout=50):
     deadline = time.time() + timeout
     tries = 0
     while time.time() < deadline:
@@ -93,8 +93,10 @@ def locate(label, scroll=False, partial=False, timeout=25):
         node = find(tree, label, partial)
         if node is not None:
             return node
-        if scroll and tries < 9:
-            swipe()
+        if scroll and tries < 18:
+            # A screen can retain a previous offset while async content loads.
+            # Search both directions instead of assuming the target is below.
+            swipe(up=tries < 9)
         else:
             time.sleep(.6)
         tries += 1
