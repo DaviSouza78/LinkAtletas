@@ -26,12 +26,12 @@
 - [x] Separar configuração nativa em `mobile/src/config.ts`; testar recusa de HTTP em produção, recusa de domínio documental e limitação de HTTP local aos endereços autorizados.
 - [x] Criar configuração Expo/plugin de demonstração local: identificador Android próprio, tráfego claro restrito aos domínios locais, sem permissões novas ou segredo no bundle.
 - [x] Criar workflow manual com PostgreSQL, SMTP e S3 reais, API e emulador isolados; compilar APK standalone e conectar por `adb reverse tcp:3001 tcp:3001`.
-- [ ] Automatizar ações no APK real: validação de acesso, autenticação, perfil, vínculo/treino, chat, agenda e privacidade; conferir persistência no servidor. Capturar XML, telas e logs, sem senhas/tokens nos relatórios.
-- [ ] Corrigir falhas encontradas, repetir somente os cenários necessários e depois executar a suíte final. Distribuir o APK local com instruções de conexão e limites explícitos de dispositivos/iOS.
+- [x] Automatizar ações no APK real: validação de acesso, autenticação, perfil, vínculo/treino, chat, agenda e privacidade; conferir persistência no servidor. Capturar XML, telas e logs, sem senhas/tokens nos relatórios.
+- [x] Corrigir falhas encontradas, repetir somente os cenários necessários e depois executar a suíte final. Distribuir o APK local com instruções de conexão e limites explícitos de dispositivos/iOS.
 
 ## 4. Entrega revisada
 
 - [x] Atualizar documentos, ERS/relatório Word e PDF e renderizar para inspeção.
-- [ ] Executar tipos/build, testes de API/web/nativo, links/OpenAPI e ensaio Android real; guardar evidências com data e ambiente.
-- [ ] Publicar commits de `Lucca <luccacc.contato@gmail.com>` com mensagens em português, diretas, minúsculas e sem acentos; conferir CI e atualizar pacote de verificação.
-- [ ] Relatar somente dependências que realmente não puderem ser resolvidas nesta sessão; não presumir aprovação docente, participação de colegas ou entrega acadêmica.
+- [x] Executar tipos/build, testes de API/web/nativo, links/OpenAPI e ensaio Android real; guardar evidências com data e ambiente.
+- [x] Publicar commits de `Lucca <luccacc.contato@gmail.com>` com mensagens em português, diretas, minúsculas e sem acentos; conferir CI e atualizar pacote de verificação.
+- [x] Relatar somente dependências que realmente não puderem ser resolvidas nesta sessão; não presumir aprovação docente, participação de colegas ou entrega acadêmica.

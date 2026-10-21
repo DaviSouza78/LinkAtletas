@@ -1,6 +1,6 @@
 # Pendências de Lucca e do grupo
 
-Revisão de 20/10/2026. Os nove entregáveis têm referências no [checklist](checklist-sprint-2.md); a [publicação](publicacao.md) identifica os commits e resultados. Os artefatos não substituem aceite docente, homologação de terceiros ou envio acadêmico.
+Revisão de 21/10/2026. Os nove entregáveis têm referências no [checklist](checklist-sprint-2.md); a [publicação](publicacao.md) identifica os commits e resultados. Os artefatos não substituem aceite docente, homologação de terceiros ou envio acadêmico.
 
 ## Resolvido nesta revisão
 

@@ -26,6 +26,8 @@ $env:EXPO_PUBLIC_API_URL = 'https://api.seu-dominio.example/api'
 pnpm export
 ```
 
+`pnpm check` confere as versões exatas instaladas e a matriz nativa do SDK fixado no lockfile. `pnpm check:updates` consulta as recomendações online do Expo; um patch novo deve ser avaliado, recompilado e testado antes de substituir o APK validado. A consulta de atualizações é separada da checagem reproduzível de compatibilidade.
+
 Use sua URL real de HTTPS antes de distribuir. O domínio `.example` acima é apenas documentação. Builds de produção recusam chamadas HTTP e mostram o erro de configuração; builds de desenvolvimento podem usar a rede local. O Metro precisa do arquivo `metro.config.cjs` para resolver o catálogo compartilhado em `../shared`.
 
 O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](../docs/evolucao/evidencias/mobile-verificacao.md).

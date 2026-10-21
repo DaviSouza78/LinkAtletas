@@ -36,6 +36,7 @@
   "factoryResetUsed": false,
   "recovery": "Transient Docker sockets preserved by renaming their runtime directories; runtime regenerated. Removed backed-up per-user RUNASADMIN compatibility entry for cmd.exe. No data/key reset.",
   "physicalAndroidAttached": false,
-  "recheckedAt": "2026-10-20",
-  "recoveryRepeated": "Invalid transient sockets recurred after the Windows session changed; preserved both runtime directories again on 2026-10-20 and restarted Desktop, without deleting volumes."
+  "recheckedAt": "2026-10-21T17:25:07.531829+00:00",
+  "recoveryRepeated": "Invalid transient sockets recurred after the Windows session changed; preserved both runtime directories again on 2026-10-20 and restarted Desktop, without deleting volumes.",
+  "physicalAndroidCheck": "adb devices -l on 2026-10-21: no attached devices"
 }

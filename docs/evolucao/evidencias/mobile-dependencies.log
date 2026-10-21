@@ -1,5 +1,58 @@
 
 > linkatletas-mobile@0.3.0 check C:\dev\projects\LinkAtletas\mobile
-> expo install --check
+> node scripts/check-dependencies.cjs
 
-Dependencies are up to date
+{
+  "executedAt": "2026-10-21T17:32:20.123Z",
+  "sdk": "57.0.30",
+  "matrix": "expo/bundledNativeModules.json from the installed locked SDK",
+  "scope": "installed runtime dependencies; latest online recommendations are checked separately",
+  "passed": true,
+  "dependencies": [
+    {
+      "name": "expo",
+      "installed": "57.0.30",
+      "expectedByInstalledSdk": "57.0.30"
+    },
+    {
+      "name": "expo-document-picker",
+      "installed": "57.0.3",
+      "expectedByInstalledSdk": "~57.0.3"
+    },
+    {
+      "name": "expo-file-system",
+      "installed": "57.0.7",
+      "expectedByInstalledSdk": "~57.0.7"
+    },
+    {
+      "name": "expo-secure-store",
+      "installed": "57.0.4",
+      "expectedByInstalledSdk": "~57.0.4"
+    },
+    {
+      "name": "expo-sharing",
+      "installed": "57.0.23",
+      "expectedByInstalledSdk": "~57.0.23"
+    },
+    {
+      "name": "expo-status-bar",
+      "installed": "57.0.1",
+      "expectedByInstalledSdk": "~57.0.1"
+    },
+    {
+      "name": "react",
+      "installed": "19.2.3",
+      "expectedByInstalledSdk": "19.2.3"
+    },
+    {
+      "name": "react-native",
+      "installed": "0.86.3",
+      "expectedByInstalledSdk": "0.86.3"
+    },
+    {
+      "name": "react-native-safe-area-context",
+      "installed": "5.7.0",
+      "expectedByInstalledSdk": "~5.7.0"
+    }
+  ]
+}

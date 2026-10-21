@@ -1,6 +1,6 @@
 # APK Android conectado ao computador
 
-Revisão de 20/10/2026. O perfil `local` gera **LinkAtletas Local**, pacote `br.edu.linkatletas.app.local`, com JavaScript incluído no APK. Não precisa de Metro/Expo Go, conta Expo, domínio público ou pagamento para demonstrar o fluxo acadêmico.
+Revisão de 21/10/2026. O perfil `local` gera **LinkAtletas Local**, pacote `br.edu.linkatletas.app.local`, com JavaScript incluído no APK. Não precisa de Metro/Expo Go, conta Expo, domínio público ou pagamento para demonstrar o fluxo acadêmico.
 
 ## Executar no Windows e conectar por USB
 
@@ -18,7 +18,7 @@ pnpm dev:all
 
 ```powershell
 cd C:\dev\projects\LinkAtletas
-pnpm mobile:connect --install "C:\dev\output\LinkAtletas-APK-local-sdk30\LinkAtletas-local.apk"
+pnpm mobile:connect --install "C:\dev\output\LinkAtletas-APK-local-revisado\LinkAtletas-local.apk"
 ```
 
 O comando verifica a saúde da API, encontra o ADB instalado, confirma o aparelho autorizado, instala o arquivo indicado, configura `adb reverse tcp:3001 tcp:3001` e abre o aplicativo. Se houver vários dispositivos, acrescentar `--serial <identificador>`; se o APK já estiver instalado, omitir `--install`. Para outra porta da API, definir `API_PORT` antes do comando. Ao reconectar/reiniciar o aparelho, executar `pnpm mobile:connect` novamente.

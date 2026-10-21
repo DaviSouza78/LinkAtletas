@@ -1,6 +1,6 @@
 # Checklist da Sprint 2 — versão ampliada
 
-Atualizado em 20/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
+Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
 
 ## 1. Código-fonte atualizado e versionado
 
@@ -31,7 +31,7 @@ Atualizado em 20/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] Formulários novos com rótulos/erro/espera/sucesso e layout responsivo: [CSS](../../src/styles.css) e páginas integradas.
 - [x] Fonte do app Expo com a mesma API e SecureStore: [app](../../mobile/App.tsx), [cliente](../../mobile/src/api.ts).
 - [x] Evidências Chromium 390/1440 e seis telas sem violações axe: [E2E](evidencias/playwright-results.json), [axe](evidencias/chromium-axe.json), [chat desktop](evidencias/chromium-chat.png) e [privacidade mobile](evidencias/chromium-privacidade-mobile.png).
-- [x] App: tipos/dependências/Doctor, [21/21 testes de transporte/configuração](evidencias/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/mobile-bundles.json); ver [limites](evidencias/mobile-verificacao.md).
+- [x] App: tipos/dependências/Doctor, [21/22 testes de transporte/configuração](evidencias/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/mobile-bundles.json); ver [limites](evidencias/mobile-verificacao.md).
 - [x] Firefox e WebKit executados: [resultados](evidencias/playwright-results.json), [axe Firefox](evidencias/firefox-axe.json) e [axe WebKit](evidencias/webkit-axe.json).
 - [x] APK Android de verificação compilado no GitHub, com assinatura de desenvolvimento: [execução e hash](publicacao.md). O perfil local permite backend por USB: [manual](manual-apk-local.md); o APK documental antigo permanece histórico.
 - [x] APK instalado e tela de login aberta no emulador Android API 35: [resultado](evidencias/android-emulator-result.json), [captura](evidencias/android-emulator-startup.png) e [run aprovado](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814). O ensaio integrado do APK local é registrado separadamente na [verificação móvel](evidencias/mobile-verificacao.md); aparelho físico continua pendente.
@@ -90,6 +90,8 @@ Os nove entregáveis obrigatórios possuem implementação ou artefato referenci
 - [x] DER e sequências conferidos automaticamente contra 36 tabelas/257 colunas/45 FKs e OpenAPI: [dicionário](dicionario-dados.md), [verificador](../../scripts/check-docs.ts).
 - [x] Docker reiniciado com dados preservados, migrations e saúde: [ambiente](evidencias/ambiente-local-revisado.json).
 - [x] Correções de limpeza de arquivos privados, backup com variável vazia e bibliotecas: [decisões](decisoes.md), [auditoria](seguranca-dependencias.md).
+- [x] Página pública com informações coerentes, menu móvel e layout sem overflow em 320/390/1440: [Chrome](evidencias/chrome-landing-revisada.json); contraste corrigido e [axe sem violações nas regras verificadas](evidencias/chrome-landing-axe.json).
+- [x] APK corrigido conectado à API/PostgreSQL/SMTP/S3: [18/18 etapas aprovadas](evidencias/android-integrated-result.json), [execução remota](evidencias/github-android-integrated.json), [upload e correção](evidencias/android-integrated-midia-feedback.png), [encerramento](evidencias/android-integrated-conta-encerrada.png).
 - [ ] Validar com professor as diferenças de escopo frente à ERS/proposta originais; completar Eletiva I e entregas individuais.
 
-- [x] CI completa da revisão, com tipos/build, 82 testes, backup, 15 E2E, nativo e TLS: [run 39506459529](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39506459529), [registro](evidencias/github-ci-revisao.json).
+- [x] CI completa da revisão, com tipos/build, 82 testes, backup, 15 E2E, nativo e TLS: [run 39645457806](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806), [registro](evidencias/github-ci-pr-2.json).

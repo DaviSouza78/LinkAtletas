@@ -14,10 +14,14 @@ Instalação e abertura desse APK aprovadas no emulador Android API 35 x86_64, [
 
 Pendências humanas: revisar a demonstração com o grupo/professor; identificar a Eletiva I e eventuais formatos/anexos acadêmicos; registrar contribuição individual e realizar a entrega. Serviços externos, domínio e assinatura/distribuição nativa dependem dos acessos do responsável; confira a [lista para Lucca e o grupo](pendencias-lucca.md).
 
-## Revisão de 15–20/10/2026
+## Revisão de 15–21/10/2026
 
 Os registros acima identificam a publicação anterior. A revisão na branch `revisao-sprint-2` recuperou os serviços locais com os dados preservados, corrigiu backup e limpeza de arquivos privados, atualizou dependências e confrontou os materiais originais com banco, OpenAPI e modelos. A [CI no commit b931e44](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39508144201) aprovou tipos/build, 82 testes, 15 E2E, backup, verificações nativas e TLS. Os resultados consolidados estão no [relatório](relatorio-testes.md).
 
-O novo APK **LinkAtletas Local** foi compilado no [run 38769851031](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38769851031), fonte `bd0b5dd00887c6a8aaa4b89b93b27b37d2ac5d56`, SHA-256 `fce589848735ca13ab176090f3bc92997e2c8cbb6f30e741c1b40d0c168d6bd1`. Ele substitui o APK documental para a demonstração conectada: pacote separado, API via USB e assinatura de desenvolvimento. [Manual de instalação](manual-apk-local.md) e [evidências nativas](evidencias/mobile-verificacao.md) distinguem compilação, ensaio integrado e homologação física.
+O novo APK **LinkAtletas Local** foi compilado no [run 39518119323](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39518119323), fonte `e3393fa3b85afae32842894fc9ba1c67b7470b2e`, SHA-256 `5e8365264c329bbb5539b0ab3b5affb664440705c3fe12ec9eb833dbf39fdc0b`. Ele substitui o APK documental para a demonstração conectada: pacote separado, API via USB e assinatura de desenvolvimento. [Manual de instalação](manual-apk-local.md) e [evidências nativas](evidencias/mobile-verificacao.md) distinguem compilação, ensaio integrado e homologação física.
 
 Durante a pausa, o formulário concluído pelo grupo foi publicado sem alterar seu conteúdo no commit `3e56cac`, em [docs/acompanhamento](../acompanhamento/README.md). Esse documento é independente dos resultados técnicos desta revisão.
+
+Em 21/10, o APK local corrigido aprovou as **18 etapas integradas**, incluindo envio S3, recuperação SMTP, revogação de mídia e encerramento: [run 39522996463, tentativa 2](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39522996463/attempts/2), [resultado completo](evidencias/android-integrated-result.json), [registro remoto](evidencias/github-android-integrated.json). O roteiro usou `588071d`; o binário permanece identificado pela fonte e hash acima. A tentativa anterior desse run perdeu o ADB; somente a repetição integral aprovada foi consolidada.
+
+A revisão está no [PR #2](https://github.com/DaviSouza78/LinkAtletas/pull/2). O pacote correspondente será identificado na [release v0.3.0-sprint-2-revisao-1](https://github.com/DaviSouza78/LinkAtletas/releases/tag/v0.3.0-sprint-2-revisao-1), com fonte/documentos, histórico Git, APK e manifesto de checksums. A release anterior permanece histórica.

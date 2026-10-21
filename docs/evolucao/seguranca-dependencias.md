@@ -1,8 +1,10 @@
-# Auditoria de dependências — 20/10/2026
+# Auditoria de dependências — 21/10/2026
 
 Executada com os lockfiles da revisão, por `pnpm audit --json` na raiz e `pnpm --dir mobile audit --json`, incluindo dependências de produção e desenvolvimento. [Resultado resumido](evidencias/auditoria-dependencias.json). O parâmetro `--prod` inclui ferramentas que o Expo declara como dependências do pacote, mesmo quando usadas para compilar/configurar o projeto.
 
 ## Correções aplicadas
+
+- [x] Vite 8.2.1 → 8.2.4 em 21/10, corrigindo três avisos relacionados ao `launch-editor` incorporado: [GHSA-698v-4r3x-3vcv](https://github.com/advisories/GHSA-698v-4r3x-3vcv), [GHSA-r825-w8mm-5pxw](https://github.com/advisories/GHSA-r825-w8mm-5pxw) e [GHSA-587h-7wmj-h5pm](https://github.com/advisories/GHSA-587h-7wmj-h5pm). A auditoria completa da raiz foi repetida e retornou zero alertas. Build e 82 testes passaram novamente. O servidor web de desenvolvimento e a API foram conferidos em loopback, sem escuta na LAN por padrão.
 
 - [x] `@fastify/static` 8.3.0 → 10.1.6 e `@fastify/swagger-ui` 5.2.6 → 6.1.2. Eliminadas versões transitivas antigas do plugin; ambas são compatíveis com Fastify 5 conforme a [matriz oficial](https://github.com/fastify/fastify-static#compatibility).
 - [x] Atualizadas as resoluções de `brace-expansion` e `source-map-js`. A auditoria da raiz retornou **zero alertas conhecidos**; isso não equivale a garantia de ausência de falhas.

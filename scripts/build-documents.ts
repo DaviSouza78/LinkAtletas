@@ -250,7 +250,7 @@ for (const name of ['ERS-v2', 'relatorio-testes']) {
                 alignment: AlignmentType.RIGHT,
                 children: [
                   new TextRun({
-                    text: 'LinkAtletas · 20/10/2026     ',
+                    text: 'LinkAtletas · 21/10/2026     ',
                     size: 17,
                     color: '5F7168',
                   }),

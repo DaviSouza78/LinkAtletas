@@ -6,6 +6,8 @@ A ampliação preserva o fluxo da Sprint 2 e acrescenta chat em tempo real, aval
 
 Consulte o [checklist com referências](docs/evolucao/checklist-sprint-2.md), o [relatório de testes](docs/evolucao/relatorio-testes.md), o [manual completo](docs/evolucao/manual.md) e as [pendências de Lucca e do grupo](docs/evolucao/pendencias-lucca.md). A entrega inicial continua preservada em [docs/sprint-2](docs/sprint-2/entrega.md).
 
+Revisão de 21/10/2026: APK local aprovado em [18 etapas integradas](docs/evolucao/evidencias/android-integrated-result.json), com PostgreSQL, SMTP e S3 reais de desenvolvimento. [Instalação por USB](docs/evolucao/manual-apk-local.md), [necessidade dos serviços externos na Sprint 2](docs/evolucao/servicos-externos-sprint-2.md) e [pacote da revisão](https://github.com/DaviSouza78/LinkAtletas/releases/tag/v0.3.0-sprint-2-revisao-1). Aparelho físico, iOS e homologações externas conservam seus próprios estados de validação.
+
 ## Executar localmente
 
 Pré-requisitos: Node.js 24, pnpm 10 e Docker Desktop ativo. Na primeira instalação:

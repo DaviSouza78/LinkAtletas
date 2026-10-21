@@ -1,6 +1,6 @@
 # Serviços externos e exigências da Sprint 2
 
-Revisão de 20/10/2026, com base no [roteiro dos professores, seção 9, página 9](../referencias/Roteiro-professores-original.pdf#page=9), na [ERS original, página 39](../referencias/ERS-Sprint-1-original.pdf#page=39), na [proposta inicial, página 4](../referencias/Proposta-inicial-original.pdf#page=4) e na [ERS atual](ERS-v2.md).
+Revisão de 21/10/2026, com base no [roteiro dos professores, seção 9, página 9](../referencias/Roteiro-professores-original.pdf#page=9), na [ERS original, página 39](../referencias/ERS-Sprint-1-original.pdf#page=39), na [proposta inicial, página 4](../referencias/Proposta-inicial-original.pdf#page=4) e na [ERS atual](ERS-v2.md).
 
 ## O que é necessário para a próxima entrega
 

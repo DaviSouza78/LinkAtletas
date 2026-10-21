@@ -1,6 +1,6 @@
 # ERS v2.1 — LinkAtletas — ampliação da Sprint 2
 
-Data da revisão: 20/10/2026. Responsável pelo incremento: Lucca, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. A aprovação técnica de Lucca não representa aprovação docente ou submissão acadêmica.
+Data da revisão: 21/10/2026. Responsável pelo incremento: Lucca, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. A aprovação técnica de Lucca não representa aprovação docente ou submissão acadêmica.
 
 ## Histórico e fontes
 
@@ -122,7 +122,7 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 | RNF-09 App responsivo | Web em 390/1440 sem overflow; cliente Expo tipos/bundles | Bundle não equivale a instalação nem teste em dispositivo |
 | RNF-10 Usabilidade | Prescrever/publicar, reabrir rascunho, teclado/foco; instruções e confirmações claras | Rascunho explícito; autosave contínuo ainda não implementado |
 | RNF-11 Feedback visual | Erro de rede/validação, estado de envio e sucesso após resposta positiva; sem falso pagamento | E2E efetivo e capturas conforme relatório |
-| RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | APK Android compilado na CI; fluxo completo em aparelhos e distribuição pendentes. IPA requer Xcode/serviço e credenciais |
+| RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | APK local compilado e 18 etapas integradas aprovadas no emulador Android API 35; aparelho físico, distribuição e IPA pendentes |
 | RNF-13 Navegadores | Fluxo em Chromium/Firefox/WebKit; registrar versões e axe | Engines testados não são automaticamente Edge/Safari reais; leitor de tela exige avaliação própria |
 | RNF-14 REST/OpenAPI | Swagger runtime e schemas reais; exemplo inválido devolve campo/erro | API compartilhada web/nativo, sem segredos no cliente |
 | RNF-15 Idempotência financeira | Checkout concorrente, webhook repetido/antigo, timeout e cancelamento incerto; conciliar sem duplicar | HTTP controlado; repetir em sandbox real antes da ativação |
@@ -157,7 +157,7 @@ Verificação: `unsubmitted`, `pending`, `approved`, `rejected`, `suspended`, `e
 
 Consultas parametrizadas, validação Zod e autorização por usuário/recurso/estado. Erros: 400 entrada inválida, 401 sessão/credencial, 403 papel/ação, 404 recurso privado alheio, 409 conflito, 413 arquivo, 429 limite, 503 serviço não configurado. Mensagem pública de falha inesperada é genérica. Os [diagramas](diagramas.md), [backlog](backlog.md), [rastreabilidade](rastreabilidade.md), [API](api.md), [manual](manual.md) e [checklist](checklist-sprint-2.md) integram esta ERS.
 
-## Revisão de escopo e execução de 15–20/10/2026
+## Revisão de escopo e execução de 15–21/10/2026
 
 O roteiro docente define a Sprint 2 entre 21/09 e 26/10/2026. A ERS original previa CREF automático nesta Sprint; a proposta também solicita evolução de IA. A contingência manual auditada e o match por regras são decisões implementadas e aprovadas por Lucca, mas exigem alinhamento docente para substituir esses compromissos originais. PostgreSQL substitui a menção a dois SGBDs; nuvem, iOS/lojas e autosave contínuo têm limites descritos na [revisão dos materiais](revisao-materiais.md). Os nove artefatos não comprovam aceitação integral de cada requisito original.
 
