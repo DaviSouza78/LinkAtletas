@@ -2036,7 +2036,12 @@ h1, h2, h3, h4, h5, .brand { font-family: 'Manrope', sans-serif; }
 .toast button { border: 0; background: transparent; color: rgba(255,255,255,.6); cursor: pointer; }
 
 /* Responsive adjustments */
+.landing .proof-strip span { color: #53625d; }
+.landing .benefit-card__number { color: #6b8177; }
+.landing .steps li > b { color: #48645a; }
+.landing .mini-stats i { color: #33735e; }
 @media (max-width: 900px) {
+  .landing .public-header { width: 100%; padding-inline: 22px; background: rgba(10, 17, 15, .9); }
   .landing .public-header nav { display: none; }
   .landing .public-header nav.open { display: grid; position: absolute; top: 82px; left: 0; right: 0; margin: 0; padding: 18px; gap: 0; background: var(--ink); border: 1px solid var(--line); border-radius: 12px; }
   .landing .public-header nav a { display: flex; align-items: center; min-height: 44px; }

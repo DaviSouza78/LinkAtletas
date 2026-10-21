@@ -1,0 +1,52 @@
+{
+  "executedAt": "2026-10-21T17:23:30.882Z",
+  "browser": "installed Chrome on Windows",
+  "scope": "automated WCAG 2 A/AA and 2.1 A/AA rules on public landing; not a full manual WCAG audit",
+  "results": [
+    {
+      "width": 1440,
+      "violations": [],
+      "passes": 21,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "violations": [],
+      "passes": 20,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "violations": [],
+      "passes": 20,
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious"
+        }
+      ]
+    }
+  ]
+}
