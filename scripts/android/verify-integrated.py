@@ -384,7 +384,8 @@ def test():
     record('Revogação no APK elimina o arquivo de performance no servidor')
     fill('Confirme sua senha', password, scroll=True)
     tap('Solicitar exclusão e encerramento', scroll=True)
-    tap('Confirmar encerramento')
+    # Android Alert renders its native action label in uppercase.
+    tap('CONFIRMAR ENCERRAMENTO', class_name='android.widget.Button')
     locate('E-mail')
     assert request('GET', '/auth/session', token=athlete)['user'] is None
     record('Encerramento pelo APK elimina a conta e revoga a sessão')
