@@ -9,7 +9,8 @@
     "ios": "expo run:ios",
     "typecheck": "tsc --noEmit",
     "export": "expo export --platform android --platform ios",
-    "check": "expo install --check",
+    "check": "node scripts/check-dependencies.cjs",
+    "check:updates": "expo install --check",
     "test": "vitest run"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/react": "19.2.18",
+    "semver": "7.8.5",
     "typescript": "6.0.3",
     "vitest": "4.1.11"
   },

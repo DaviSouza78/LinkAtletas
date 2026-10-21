@@ -42,6 +42,9 @@ importers:
       '@types/react':
         specifier: 19.2.18
         version: 19.2.18
+      semver:
+        specifier: 7.8.5
+        version: 7.8.5
       typescript:
         specifier: 6.0.3
         version: 6.0.3
