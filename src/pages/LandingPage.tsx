@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Check, ChevronDown, Dumbbell, Menu, MessageSquare, ShieldCheck, Sparkles, Star, Target, X } from 'lucide-react'
 import { Logo } from '../components/Logo'
+import { SPORTS } from '../../shared/contracts'
 
 const benefits = [
   { icon: Target, title: 'Matches que fazem sentido', text: 'Modalidade, objetivos, orçamento e disponibilidade cruzados para indicar o profissional certo.' },
-  { icon: ShieldCheck, title: 'Profissionais verificados', text: 'O perfil só é liberado após validação obrigatória do CREF ou certificação equivalente.' },
+  { icon: ShieldCheck, title: 'Profissionais verificados', text: 'O perfil só é liberado após a conferência do CREF e da documentação pela administração.' },
   { icon: Dumbbell, title: 'Treino em um só lugar', text: 'Planejamento, vídeos, feedbacks e métricas organizados em uma experiência contínua.' },
 ]
 
@@ -17,14 +18,14 @@ export function LandingPage() {
   return <div className="landing">
     <header className="public-header">
       <Link to="/" aria-label="Página inicial"><Logo light /></Link>
-      <nav className={open ? 'open' : ''}>
+      <nav id="public-navigation" className={open ? 'open' : ''}>
         <a href="#como-funciona" onClick={() => setOpen(false)}>Como funciona</a>
         <a href="#recursos" onClick={() => setOpen(false)}>Recursos</a>
         <a href="#seguranca" onClick={() => setOpen(false)}>Segurança</a>
         <a href="#perguntas" onClick={() => setOpen(false)}>Perguntas</a>
         <Link className="button button--ghost-light nav-mobile-login" to="/login">Entrar</Link>
       </nav>
-      <div className="public-header__actions"><Link className="header-login" to="/login">Entrar</Link><Link className="button button--accent" to="/login">Começar agora <ArrowRight size={17} /></Link><button className="menu-toggle" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></div>
+      <div className="public-header__actions"><Link className="header-login" to="/login">Entrar</Link><Link className="button button--accent" to="/login">Começar agora <ArrowRight size={17} /></Link><button className="menu-toggle" aria-label={open ? 'Fechar menu' : 'Abrir menu'} aria-expanded={open} aria-controls="public-navigation" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></div>
     </header>
 
     <main>
@@ -36,12 +37,12 @@ export function LandingPage() {
           <h1>O treinador certo.<br /><em>Seu próximo nível.</em></h1>
           <p>Conectamos atletas a profissionais verificados e reunimos toda a jornada de treino em uma plataforma simples, segura e humana.</p>
           <div className="hero__buttons"><Link className="button button--accent button--large" to="/login?perfil=atleta">Encontrar treinador <ArrowRight size={19} /></Link><Link className="button button--glass button--large" to="/login?perfil=treinador">Sou treinador</Link></div>
-          <div className="hero__trust"><div className="avatar-stack"><i>MC</i><i>RN</i><i>BL</i></div><div><span><b>4,9</b> <Star size={13} fill="currentColor" /> avaliação média</span><small>Treinos mais inteligentes, todos os dias.</small></div></div>
+          <div className="hero__trust"><div className="avatar-stack"><i>MC</i><i>RN</i><i>BL</i></div><div><span><Star size={13} fill="currentColor" /> Avaliações por vínculo</span><small>Treinos mais inteligentes, todos os dias.</small></div></div>
         </div>
-        <div className="hero__metric"><span>Esta semana</span><strong>92%</strong><small>dos treinos concluídos</small><div><i style={{ height: '43%' }} /><i style={{ height: '65%' }} /><i style={{ height: '51%' }} /><i style={{ height: '78%' }} /><i style={{ height: '87%' }} /><i style={{ height: '94%' }} /><i className="current" style={{ height: '72%' }} /></div></div>
+        <div className="hero__metric"><span>Exemplo de acompanhamento</span><strong>92%</strong><small>dados ilustrativos de conclusão</small><div><i style={{ height: '43%' }} /><i style={{ height: '65%' }} /><i style={{ height: '51%' }} /><i style={{ height: '78%' }} /><i style={{ height: '87%' }} /><i style={{ height: '94%' }} /><i className="current" style={{ height: '72%' }} /></div></div>
       </section>
 
-      <section className="proof-strip"><div className="container"><span>Feito para quem leva a evolução a sério</span><div><b>+12</b> modalidades</div><div><b>100%</b> profissionais verificados</div><div><b>Online</b> ou híbrido</div><div><b>LGPD</b> desde a base</div></div></section>
+      <section className="proof-strip"><div className="container"><span>Feito para quem leva a evolução a sério</span><div><b>{SPORTS.length}</b> modalidades</div><div><b>CREF</b> conferência documental</div><div><b>Online</b> ou híbrido</div><div><b>Privacidade</b> por finalidade</div></div></section>
 
       <section className="section section--light" id="recursos"><div className="container">
         <div className="section-intro"><span className="eyebrow">Uma conexão completa</span><h2>Do primeiro match à melhor performance.</h2><p>Menos ferramentas desconectadas. Mais tempo para treinar, orientar e acompanhar o que realmente importa.</p></div>
@@ -63,7 +64,7 @@ export function LandingPage() {
 
       <section className="section faq" id="perguntas"><div className="container faq__grid"><div><span className="eyebrow">Perguntas frequentes</span><h2>Antes de começar, vale saber.</h2><p>A LinkAtletas foi desenhada para deixar a jornada clara desde o primeiro acesso.</p></div><div>{[
         ['Preciso ser atleta profissional?', 'Não. A plataforma atende desde quem está começando até atletas de alto rendimento. O match considera seu nível atual e seu objetivo.'],
-        ['Como os treinadores são verificados?', 'O cadastro profissional exige CREF ou certificação equivalente. O perfil permanece bloqueado até a validação da documentação.'],
+        ['Como os treinadores são verificados?', 'O cadastro profissional exige CREF e documentação. A administração faz a conferência manual, e o perfil permanece bloqueado até a aprovação.'],
         ['Posso ter acompanhamento 100% remoto?', 'Sim. Você pode filtrar entre atendimento online, presencial ou híbrido, conforme sua rotina e localização.'],
         ['Meus dados de saúde ficam seguros?', 'O produto foi estruturado com minimização, controle de acesso e transparência de dados, seguindo princípios da LGPD.'],
       ].map(([q, a], i) => <article className={`faq-item ${faq === i ? 'open' : ''}`} key={q}><button onClick={() => setFaq(faq === i ? null : i)}><span>{q}</span><ChevronDown /></button><div><p>{a}</p></div></article>)}</div></div></section>
@@ -71,7 +72,7 @@ export function LandingPage() {
       <section className="cta"><div className="container"><span className="eyebrow">Seu próximo passo começa agora</span><h2>Uma conexão pode mudar<br />toda a sua trajetória.</h2><p>Seja para encontrar direção ou ampliar seu impacto, há um lugar para você na LinkAtletas.</p><div><Link className="button button--accent button--large" to="/login?perfil=atleta">Quero evoluir <ArrowRight size={18} /></Link><Link className="button button--ghost-light button--large" to="/login?perfil=treinador">Quero treinar atletas</Link></div></div></section>
     </main>
 
-    <footer className="footer"><div className="container"><div className="footer__brand"><Logo light /><p>Conexões que transformam esforço em evolução.</p></div><div><strong>Plataforma</strong><a href="#como-funciona">Como funciona</a><a href="#recursos">Recursos</a><Link to="/login">Entrar</Link></div><div><strong>Confiança</strong><a href="#seguranca">Segurança</a><a href="#seguranca">Privacidade</a><a href="#seguranca">LGPD</a></div><div><strong>Projeto</strong><span>SENAI Félix Guisard</span><span>Equipe LinkAtletas</span><span>Joinville, SC</span></div></div><div className="footer__bottom container"><span>© 2026 LinkAtletas. Projeto acadêmico.</span><span>Feito para conectar movimento e propósito.</span></div></footer>
+    <footer className="footer"><div className="container"><div className="footer__brand"><Logo light /><p>Conexões que transformam esforço em evolução.</p></div><div><strong>Plataforma</strong><a href="#como-funciona">Como funciona</a><a href="#recursos">Recursos</a><Link to="/login">Entrar</Link></div><div><strong>Confiança</strong><a href="#seguranca">Segurança</a><a href="#seguranca">Privacidade</a><a href="#seguranca">LGPD</a></div><div><strong>Projeto</strong><span>SENAI Félix Guisard</span><span>Equipe LinkAtletas</span><span>Projeto Integrador II</span></div></div><div className="footer__bottom container"><span>© 2026 LinkAtletas. Projeto acadêmico.</span><span>Feito para conectar movimento e propósito.</span></div></footer>
     <a className="whatsapp" href="#perguntas" aria-label="Fale conosco"><MessageSquare size={21} /></a>
   </div>
 }

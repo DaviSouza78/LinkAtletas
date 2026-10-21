@@ -1,0 +1,34 @@
+{
+  "executedAt": "2026-10-21T17:15:39.911Z",
+  "browser": "installed Google Chrome on Windows",
+  "scope": "public landing copy, responsive rendering and mobile navigation, no account mutations",
+  "results": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "pageErrors": [],
+      "supportedSports": 5,
+      "mobileMenu": null,
+      "illustrativeChartLabeled": true,
+      "illustrativeChartVisible": true
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "pageErrors": [],
+      "supportedSports": 5,
+      "mobileMenu": "opened and closed after navigating to section",
+      "illustrativeChartLabeled": true,
+      "illustrativeChartVisible": false
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "pageErrors": [],
+      "supportedSports": 5,
+      "mobileMenu": "opened and closed after navigating to section",
+      "illustrativeChartLabeled": true,
+      "illustrativeChartVisible": false
+    }
+  ]
+}
