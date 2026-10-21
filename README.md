@@ -124,3 +124,5 @@ Permanecem dependentes de acesso/homologação: sandbox/produção Asaas e split
 ## Revisão de 15–20/10/2026
 
 Docker local recuperado com volumes preservados; Expo atualizado para 57.0.30, perfil de APK local conectado por USB, correções de privacidade e backup, dependências web/API corrigidas e documentação confrontada com os materiais originais do grupo. Consulte o [checklist de serviços externos](docs/evolucao/servicos-externos-sprint-2.md), a [revisão dos materiais](docs/evolucao/revisao-materiais.md), o [manual do APK local](docs/evolucao/manual-apk-local.md), o [dicionário do banco](docs/evolucao/dicionario-dados.md) e as [pendências reais](docs/evolucao/pendencias-lucca.md).
+
+A revisao de 21/10 foi integrada pelo [PR #2](https://github.com/DaviSouza78/LinkAtletas/pull/2), commit `1e5f8fa`, com [CI completa aprovada na main](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39648179775). Confira [publicacao e proveniencia dos artefatos](docs/evolucao/publicacao.md).

@@ -16,7 +16,7 @@ Consolidação revisada em 21/10/2026; cada build conserva fonte e hash próprio
 | Jornada integrada do APK local corrigido | 18/18 etapas aprovadas contra API/PostgreSQL/SMTP/S3 reais no emulador | [Resultado completo](android-integrated-result.json), [GitHub](github-android-integrated.json), [upload](android-integrated-midia-feedback.png) |
 | Fluxo completo em aparelho Android físico | Pendente: não havia dispositivo físico autorizado conectado | O APK local permite conexão USB sem domínio público; emulador e hardware são evidências distintas |
 | Compilar IPA e usar em iPhone/iPad | Pendente: exige Mac/Xcode ou serviço autorizado | Não há evidência de execução em dispositivo |
-| Execução manual dos fluxos em Expo Go/development build | Pendente de dispositivo/emulador compatível e API alcançável | Não foi substituída por teste de navegador |
+| Alternativa Expo Go/development build | Não utilizada no ensaio; o APK standalone dispensa esse cliente | É uma alternativa de desenvolvimento, não uma exigência para executar o APK entregue |
 | Publicação nas lojas | Não realizada | Não foram criadas contas nem enviados aplicativos |
 
 Versões verificadas: Expo 57.0.30, React Native 0.86.3, React 19.2.3, TypeScript 6.0.3. O SDK foi selecionado conforme [matriz oficial](https://docs.expo.dev/versions/latest/); os módulos nativos foram alinhados por `expo install` e o resultado foi conferido pelo Doctor.
@@ -41,7 +41,7 @@ Na versão anterior do APK local, o [diagnóstico isolado de treino](android-wor
 
 ## Roteiro para a homologação em dispositivo
 
-1. Executar serviços e API, configurar URL alcançável e abrir o aplicativo com Expo compatível ou development build.
+1. Executar serviços e API e instalar o APK local com o túnel USB conforme o manual. Expo Go/development build é uma alternativa de desenvolvimento.
 2. Cadastrar atleta, fechar/reabrir para conferir restauração segura da sessão e entrar com perfil inválido para confirmar recusa.
 3. Completar perfil, buscar treinador compatível e solicitar vínculo; aceitar na interface web do treinador.
 4. Prescrever treino pela web, registrar blocos/esforço/métricas no aparelho e conferir na conta do treinador.
