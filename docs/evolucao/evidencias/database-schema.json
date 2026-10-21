@@ -1,0 +1,3673 @@
+{
+  "tables": [
+    "administrative_audit",
+    "billing_audit",
+    "billing_events",
+    "billing_jobs",
+    "billing_payments",
+    "billing_plans",
+    "billing_settings",
+    "billing_splits",
+    "billing_subscriptions",
+    "billing_wallets",
+    "consent_history",
+    "consents",
+    "consultation_history",
+    "consultations",
+    "contracts",
+    "executions",
+    "exercise_blocks",
+    "mail_outbox",
+    "media",
+    "media_feedback",
+    "messages",
+    "metric_types",
+    "notifications",
+    "password_resets",
+    "privacy_requests",
+    "private_health",
+    "profiles",
+    "review_moderation",
+    "review_reports",
+    "reviews",
+    "schema_migrations",
+    "sessions",
+    "users",
+    "verification_audit",
+    "verifications",
+    "workouts"
+  ],
+  "columns": [
+    {
+      "table_name": "administrative_audit",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "administrative_audit",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "administrative_audit",
+      "column_name": "subject_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "administrative_audit",
+      "column_name": "action",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "administrative_audit",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "administrative_audit",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_audit",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "billing_audit",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_audit",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_audit",
+      "column_name": "action",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_audit",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "billing_audit",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "event",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "event_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "received_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "processed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "attempts",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "next_attempt_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "processing_note",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "subscription_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "kind",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "state",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "attempts",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "note",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "subscription_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "provider_payment_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "amount_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "net_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "paid_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "due_date",
+      "data_type": "date",
+      "udt_name": "date",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "event_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "coach_share_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "platform_share_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "billing_plans",
+      "column_name": "coach_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_plans",
+      "column_name": "name",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_plans",
+      "column_name": "amount_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_plans",
+      "column_name": "active",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "billing_settings",
+      "column_name": "id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_settings",
+      "column_name": "commission_bps",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "1000"
+    },
+    {
+      "table_name": "billing_settings",
+      "column_name": "grace_days",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "3"
+    },
+    {
+      "table_name": "billing_splits",
+      "column_name": "provider_split_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_splits",
+      "column_name": "payment_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_splits",
+      "column_name": "wallet_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_splits",
+      "column_name": "amount_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_splits",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_splits",
+      "column_name": "event_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "plan_name",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "amount_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "commission_bps",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "environment",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "state",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'awaiting_payment'::text"
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "provider_checkout_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "provider_subscription_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "provider_customer_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "checkout_url",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "paid_until",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "grace_until",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "cancellation_confirmed",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "cancellation_reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "cancellation_started_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "last_event_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_wallets",
+      "column_name": "coach_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_wallets",
+      "column_name": "wallet_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_wallets",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "purpose",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "granted",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "version",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "consents",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consents",
+      "column_name": "purpose",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consents",
+      "column_name": "granted",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consents",
+      "column_name": "version",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consents",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "consultation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "action",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "previous_starts_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "new_starts_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "title",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "description_ciphertext",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "starts_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "duration_minutes",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'scheduled'::text"
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "meeting_url",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "external_event_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "athlete_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "coach_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "decided_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "ended_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "contracts",
+      "column_name": "cancellation_reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "executions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "executions",
+      "column_name": "workout_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "executions",
+      "column_name": "completed_blocks",
+      "data_type": "ARRAY",
+      "udt_name": "_int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "executions",
+      "column_name": "effort",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "executions",
+      "column_name": "notes",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "executions",
+      "column_name": "metrics",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "executions",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "executions",
+      "column_name": "private_payload",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "exercise_blocks",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "exercise_blocks",
+      "column_name": "workout_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "exercise_blocks",
+      "column_name": "position",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "exercise_blocks",
+      "column_name": "definition",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "recipient",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "subject",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "encrypted_body",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "attempts",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "sent_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "next_attempt_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "last_error",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "owner_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "purpose",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "name",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "mime_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "size",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "object_key",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "media",
+      "column_name": "deleted_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media_feedback",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "media_feedback",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_feedback",
+      "column_name": "author_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_feedback",
+      "column_name": "encrypted_text",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_feedback",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "messages",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "messages",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "messages",
+      "column_name": "sender_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "messages",
+      "column_name": "body_ciphertext",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "messages",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "messages",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "messages",
+      "column_name": "read_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "metric_types",
+      "column_name": "sport",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "metric_types",
+      "column_name": "key",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "metric_types",
+      "column_name": "label",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "metric_types",
+      "column_name": "unit",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "metric_types",
+      "column_name": "min",
+      "data_type": "double precision",
+      "udt_name": "float8",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "metric_types",
+      "column_name": "max",
+      "data_type": "double precision",
+      "udt_name": "float8",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "kind",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "title",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "read_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "password_resets",
+      "column_name": "token_hash",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "password_resets",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "password_resets",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "password_resets",
+      "column_name": "used_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "password_resets",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "privacy_requests",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "privacy_requests",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "privacy_requests",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "privacy_requests",
+      "column_name": "requested_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "privacy_requests",
+      "column_name": "completed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "private_health",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "private_health",
+      "column_name": "encrypted_data",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "private_health",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "city",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "bio",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "sports",
+      "data_type": "ARRAY",
+      "udt_name": "_text",
+      "is_nullable": "NO",
+      "column_default": "'{}'::text[]"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "goals",
+      "data_type": "ARRAY",
+      "udt_name": "_text",
+      "is_nullable": "NO",
+      "column_default": "'{}'::text[]"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "levels",
+      "data_type": "ARRAY",
+      "udt_name": "_text",
+      "is_nullable": "NO",
+      "column_default": "'{}'::text[]"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "availability",
+      "data_type": "ARRAY",
+      "udt_name": "_text",
+      "is_nullable": "NO",
+      "column_default": "'{}'::text[]"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "mode",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'online'::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "budget",
+      "data_type": "numeric",
+      "udt_name": "numeric",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "price",
+      "data_type": "numeric",
+      "udt_name": "numeric",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "cref",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "verification_status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'unsubmitted'::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "verification_reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "verification_expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "review_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "reviewer_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "hidden",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "review_reports",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "review_reports",
+      "column_name": "review_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_reports",
+      "column_name": "reporter_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_reports",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_reports",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "athlete_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "coach_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "rating",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "body",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "reply",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "replied_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "hidden",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "schema_migrations",
+      "column_name": "version",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "schema_migrations",
+      "column_name": "applied_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "sessions",
+      "column_name": "token_hash",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sessions",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sessions",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "sessions",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "name",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "email",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "password_hash",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "role",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "disabled_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "verification_audit",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "verification_audit",
+      "column_name": "verification_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "verification_audit",
+      "column_name": "reviewer_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "verification_audit",
+      "column_name": "decision",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "verification_audit",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "verification_audit",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "coach_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "cref",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "evidence",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "submitted_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "reviewed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "reviewer_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "document_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "source",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'manual'::text"
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "title",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "sport",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "scheduled_date",
+      "data_type": "date",
+      "udt_name": "date",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "instructions",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "administrative_audit",
+      "name": "administrative_audit_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES users(id)",
+      "columns": [
+        "actor_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "administrative_audit",
+      "name": "administrative_audit_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "administrative_audit",
+      "name": "administrative_audit_subject_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (subject_id) REFERENCES users(id)",
+      "columns": [
+        "subject_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "billing_audit",
+      "name": "billing_audit_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES users(id) ON DELETE SET NULL",
+      "columns": [
+        "actor_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "billing_audit",
+      "name": "billing_audit_contract_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contract_id) REFERENCES contracts(id) ON DELETE CASCADE",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": "contracts"
+    },
+    {
+      "table_name": "billing_audit",
+      "name": "billing_audit_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_events",
+      "name": "billing_events_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "name": "billing_jobs_kind_check",
+      "type": "c",
+      "definition": "CHECK ((kind = ANY (ARRAY['checkout'::text, 'cancellation'::text, 'reconciliation'::text])))",
+      "columns": [
+        "kind"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "name": "billing_jobs_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "name": "billing_jobs_state_check",
+      "type": "c",
+      "definition": "CHECK ((state = ANY (ARRAY['running'::text, 'uncertain'::text, 'confirmed'::text, 'failed'::text])))",
+      "columns": [
+        "state"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "name": "billing_jobs_subscription_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (subscription_id) REFERENCES billing_subscriptions(id) ON DELETE CASCADE",
+      "columns": [
+        "subscription_id"
+      ],
+      "foreign_table": "billing_subscriptions"
+    },
+    {
+      "table_name": "billing_payments",
+      "name": "billing_payments_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_payments",
+      "name": "billing_payments_provider_payment_id_key",
+      "type": "u",
+      "definition": "UNIQUE (provider_payment_id)",
+      "columns": [
+        "provider_payment_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_payments",
+      "name": "billing_payments_subscription_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (subscription_id) REFERENCES billing_subscriptions(id) ON DELETE CASCADE",
+      "columns": [
+        "subscription_id"
+      ],
+      "foreign_table": "billing_subscriptions"
+    },
+    {
+      "table_name": "billing_plans",
+      "name": "billing_plans_amount_cents_check",
+      "type": "c",
+      "definition": "CHECK (((amount_cents >= 100) AND (amount_cents <= 10000000)))",
+      "columns": [
+        "amount_cents"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_plans",
+      "name": "billing_plans_coach_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (coach_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "coach_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "billing_plans",
+      "name": "billing_plans_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (coach_id)",
+      "columns": [
+        "coach_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_settings",
+      "name": "billing_settings_commission_bps_check",
+      "type": "c",
+      "definition": "CHECK (((commission_bps >= 0) AND (commission_bps <= 5000)))",
+      "columns": [
+        "commission_bps"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_settings",
+      "name": "billing_settings_grace_days_check",
+      "type": "c",
+      "definition": "CHECK (((grace_days >= 0) AND (grace_days <= 30)))",
+      "columns": [
+        "grace_days"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_settings",
+      "name": "billing_settings_id_check",
+      "type": "c",
+      "definition": "CHECK ((id = 1))",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_settings",
+      "name": "billing_settings_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_splits",
+      "name": "billing_splits_payment_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (payment_id) REFERENCES billing_payments(id) ON DELETE CASCADE",
+      "columns": [
+        "payment_id"
+      ],
+      "foreign_table": "billing_payments"
+    },
+    {
+      "table_name": "billing_splits",
+      "name": "billing_splits_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (provider_split_id)",
+      "columns": [
+        "provider_split_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_amount_cents_check",
+      "type": "c",
+      "definition": "CHECK ((amount_cents > 0))",
+      "columns": [
+        "amount_cents"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_contract_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contract_id) REFERENCES contracts(id) ON DELETE CASCADE",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": "contracts"
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_contract_id_key",
+      "type": "u",
+      "definition": "UNIQUE (contract_id)",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_environment_check",
+      "type": "c",
+      "definition": "CHECK ((environment = ANY (ARRAY['sandbox'::text, 'production'::text])))",
+      "columns": [
+        "environment"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_provider_checkout_id_key",
+      "type": "u",
+      "definition": "UNIQUE (provider_checkout_id)",
+      "columns": [
+        "provider_checkout_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_provider_subscription_id_key",
+      "type": "u",
+      "definition": "UNIQUE (provider_subscription_id)",
+      "columns": [
+        "provider_subscription_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "name": "billing_subscriptions_state_check",
+      "type": "c",
+      "definition": "CHECK ((state = ANY (ARRAY['awaiting_payment'::text, 'regular'::text, 'grace'::text, 'suspended'::text, 'cancellation_requested'::text, 'ended'::text, 'uncertain'::text])))",
+      "columns": [
+        "state"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_wallets",
+      "name": "billing_wallets_coach_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (coach_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "coach_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "billing_wallets",
+      "name": "billing_wallets_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (coach_id)",
+      "columns": [
+        "coach_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "billing_wallets",
+      "name": "billing_wallets_wallet_id_key",
+      "type": "u",
+      "definition": "UNIQUE (wallet_id)",
+      "columns": [
+        "wallet_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consent_history",
+      "name": "consent_history_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consent_history",
+      "name": "consent_history_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "consents",
+      "name": "consents_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (user_id, purpose)",
+      "columns": [
+        "user_id",
+        "purpose"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consents",
+      "name": "consents_purpose_check",
+      "type": "c",
+      "definition": "CHECK ((purpose = ANY (ARRAY['performance'::text, 'health'::text, 'communications'::text])))",
+      "columns": [
+        "purpose"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consents",
+      "name": "consents_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "consultation_history",
+      "name": "consultation_history_actor_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES users(id)",
+      "columns": [
+        "actor_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "consultation_history",
+      "name": "consultation_history_consultation_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (consultation_id) REFERENCES consultations(id) ON DELETE CASCADE",
+      "columns": [
+        "consultation_id"
+      ],
+      "foreign_table": "consultations"
+    },
+    {
+      "table_name": "consultation_history",
+      "name": "consultation_history_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consultations",
+      "name": "consultations_contract_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contract_id) REFERENCES contracts(id) ON DELETE CASCADE",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": "contracts"
+    },
+    {
+      "table_name": "consultations",
+      "name": "consultations_duration_minutes_check",
+      "type": "c",
+      "definition": "CHECK (((duration_minutes >= 15) AND (duration_minutes <= 180)))",
+      "columns": [
+        "duration_minutes"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consultations",
+      "name": "consultations_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consultations",
+      "name": "consultations_status_check",
+      "type": "c",
+      "definition": "CHECK ((status = ANY (ARRAY['scheduled'::text, 'cancelled'::text, 'completed'::text])))",
+      "columns": [
+        "status"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "consultations",
+      "name": "consultations_title_check",
+      "type": "c",
+      "definition": "CHECK (((char_length(title) >= 3) AND (char_length(title) <= 120)))",
+      "columns": [
+        "title"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "contracts",
+      "name": "contracts_athlete_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (athlete_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "athlete_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "contracts",
+      "name": "contracts_check",
+      "type": "c",
+      "definition": "CHECK ((athlete_id <> coach_id))",
+      "columns": [
+        "athlete_id",
+        "coach_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "contracts",
+      "name": "contracts_coach_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (coach_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "coach_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "contracts",
+      "name": "contracts_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "contracts",
+      "name": "contracts_status_check",
+      "type": "c",
+      "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'active'::text, 'rejected'::text, 'cancelled'::text, 'suspended'::text])))",
+      "columns": [
+        "status"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "executions",
+      "name": "executions_effort_check",
+      "type": "c",
+      "definition": "CHECK (((effort >= 1) AND (effort <= 10)))",
+      "columns": [
+        "effort"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "executions",
+      "name": "executions_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "executions",
+      "name": "executions_workout_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (workout_id) REFERENCES workouts(id) ON DELETE CASCADE",
+      "columns": [
+        "workout_id"
+      ],
+      "foreign_table": "workouts"
+    },
+    {
+      "table_name": "executions",
+      "name": "executions_workout_id_key",
+      "type": "u",
+      "definition": "UNIQUE (workout_id)",
+      "columns": [
+        "workout_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "exercise_blocks",
+      "name": "exercise_blocks_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "exercise_blocks",
+      "name": "exercise_blocks_position_check",
+      "type": "c",
+      "definition": "CHECK ((\"position\" >= 0))",
+      "columns": [
+        "position"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "exercise_blocks",
+      "name": "exercise_blocks_workout_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (workout_id) REFERENCES workouts(id) ON DELETE CASCADE",
+      "columns": [
+        "workout_id"
+      ],
+      "foreign_table": "workouts"
+    },
+    {
+      "table_name": "exercise_blocks",
+      "name": "exercise_blocks_workout_id_position_key",
+      "type": "u",
+      "definition": "UNIQUE (workout_id, \"position\")",
+      "columns": [
+        "workout_id",
+        "position"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "name": "mail_outbox_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "name": "mail_outbox_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "media",
+      "name": "media_object_key_key",
+      "type": "u",
+      "definition": "UNIQUE (object_key)",
+      "columns": [
+        "object_key"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media",
+      "name": "media_owner_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "owner_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "media",
+      "name": "media_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media",
+      "name": "media_purpose_check",
+      "type": "c",
+      "definition": "CHECK ((purpose = ANY (ARRAY['verification'::text, 'instruction'::text, 'performance'::text, 'message'::text])))",
+      "columns": [
+        "purpose"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media",
+      "name": "media_size_check",
+      "type": "c",
+      "definition": "CHECK ((size > 0))",
+      "columns": [
+        "size"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_feedback",
+      "name": "media_feedback_author_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (author_id) REFERENCES users(id)",
+      "columns": [
+        "author_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "media_feedback",
+      "name": "media_feedback_media_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE CASCADE",
+      "columns": [
+        "media_id"
+      ],
+      "foreign_table": "media"
+    },
+    {
+      "table_name": "media_feedback",
+      "name": "media_feedback_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "messages",
+      "name": "messages_contract_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contract_id) REFERENCES contracts(id) ON DELETE CASCADE",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": "contracts"
+    },
+    {
+      "table_name": "messages",
+      "name": "messages_media_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE SET NULL",
+      "columns": [
+        "media_id"
+      ],
+      "foreign_table": "media"
+    },
+    {
+      "table_name": "messages",
+      "name": "messages_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "messages",
+      "name": "messages_sender_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "sender_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "metric_types",
+      "name": "metric_types_check",
+      "type": "c",
+      "definition": "CHECK ((min <= max))",
+      "columns": [
+        "min",
+        "max"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "metric_types",
+      "name": "metric_types_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (sport, key)",
+      "columns": [
+        "sport",
+        "key"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "notifications",
+      "name": "notifications_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "notifications",
+      "name": "notifications_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "password_resets",
+      "name": "password_resets_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (token_hash)",
+      "columns": [
+        "token_hash"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "password_resets",
+      "name": "password_resets_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "privacy_requests",
+      "name": "privacy_requests_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "privacy_requests",
+      "name": "privacy_requests_status_check",
+      "type": "c",
+      "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'completed'::text, 'retained-financial'::text])))",
+      "columns": [
+        "status"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "privacy_requests",
+      "name": "privacy_requests_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id)",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "private_health",
+      "name": "private_health_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (user_id)",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "private_health",
+      "name": "private_health_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "profiles",
+      "name": "profiles_budget_check",
+      "type": "c",
+      "definition": "CHECK ((budget >= (0)::numeric))",
+      "columns": [
+        "budget"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "profiles",
+      "name": "profiles_mode_check",
+      "type": "c",
+      "definition": "CHECK ((mode = ANY (ARRAY['online'::text, 'presencial'::text, 'hibrido'::text])))",
+      "columns": [
+        "mode"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "profiles",
+      "name": "profiles_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (user_id)",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "profiles",
+      "name": "profiles_price_check",
+      "type": "c",
+      "definition": "CHECK ((price >= (0)::numeric))",
+      "columns": [
+        "price"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "profiles",
+      "name": "profiles_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "profiles",
+      "name": "profiles_verification_status_check",
+      "type": "c",
+      "definition": "CHECK ((verification_status = ANY (ARRAY['unsubmitted'::text, 'pending'::text, 'approved'::text, 'rejected'::text, 'suspended'::text, 'expired'::text])))",
+      "columns": [
+        "verification_status"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "review_moderation",
+      "name": "review_moderation_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "review_moderation",
+      "name": "review_moderation_reason_check",
+      "type": "c",
+      "definition": "CHECK (((char_length(reason) >= 5) AND (char_length(reason) <= 1000)))",
+      "columns": [
+        "reason"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "review_moderation",
+      "name": "review_moderation_review_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE",
+      "columns": [
+        "review_id"
+      ],
+      "foreign_table": "reviews"
+    },
+    {
+      "table_name": "review_moderation",
+      "name": "review_moderation_reviewer_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (reviewer_id) REFERENCES users(id)",
+      "columns": [
+        "reviewer_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "review_reports",
+      "name": "review_reports_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "review_reports",
+      "name": "review_reports_reason_check",
+      "type": "c",
+      "definition": "CHECK (((char_length(reason) >= 5) AND (char_length(reason) <= 1000)))",
+      "columns": [
+        "reason"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "review_reports",
+      "name": "review_reports_reporter_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "reporter_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "review_reports",
+      "name": "review_reports_review_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE",
+      "columns": [
+        "review_id"
+      ],
+      "foreign_table": "reviews"
+    },
+    {
+      "table_name": "review_reports",
+      "name": "review_reports_review_id_reporter_id_key",
+      "type": "u",
+      "definition": "UNIQUE (review_id, reporter_id)",
+      "columns": [
+        "review_id",
+        "reporter_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_athlete_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (athlete_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "athlete_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_body_check",
+      "type": "c",
+      "definition": "CHECK (((char_length(body) >= 5) AND (char_length(body) <= 2000)))",
+      "columns": [
+        "body"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_coach_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (coach_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "coach_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_contract_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contract_id) REFERENCES contracts(id) ON DELETE CASCADE",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": "contracts"
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_contract_id_key",
+      "type": "u",
+      "definition": "UNIQUE (contract_id)",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_rating_check",
+      "type": "c",
+      "definition": "CHECK (((rating >= 1) AND (rating <= 5)))",
+      "columns": [
+        "rating"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "reviews",
+      "name": "reviews_reply_check",
+      "type": "c",
+      "definition": "CHECK (((char_length(reply) >= 5) AND (char_length(reply) <= 2000)))",
+      "columns": [
+        "reply"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "schema_migrations",
+      "name": "schema_migrations_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (version)",
+      "columns": [
+        "version"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "sessions",
+      "name": "sessions_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (token_hash)",
+      "columns": [
+        "token_hash"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "sessions",
+      "name": "sessions_user_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "user_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "users",
+      "name": "users_email_check",
+      "type": "c",
+      "definition": "CHECK ((email = lower(email)))",
+      "columns": [
+        "email"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "users",
+      "name": "users_email_key",
+      "type": "u",
+      "definition": "UNIQUE (email)",
+      "columns": [
+        "email"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "users",
+      "name": "users_name_check",
+      "type": "c",
+      "definition": "CHECK (((length(name) >= 2) AND (length(name) <= 100)))",
+      "columns": [
+        "name"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "users",
+      "name": "users_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "users",
+      "name": "users_role_check",
+      "type": "c",
+      "definition": "CHECK ((role = ANY (ARRAY['athlete'::text, 'coach'::text, 'admin'::text])))",
+      "columns": [
+        "role"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "verification_audit",
+      "name": "verification_audit_decision_check",
+      "type": "c",
+      "definition": "CHECK ((decision = ANY (ARRAY['approved'::text, 'rejected'::text])))",
+      "columns": [
+        "decision"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "verification_audit",
+      "name": "verification_audit_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "verification_audit",
+      "name": "verification_audit_reviewer_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (reviewer_id) REFERENCES users(id)",
+      "columns": [
+        "reviewer_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "verification_audit",
+      "name": "verification_audit_verification_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (verification_id) REFERENCES verifications(id) ON DELETE CASCADE",
+      "columns": [
+        "verification_id"
+      ],
+      "foreign_table": "verifications"
+    },
+    {
+      "table_name": "verifications",
+      "name": "verification_document",
+      "type": "f",
+      "definition": "FOREIGN KEY (document_id) REFERENCES media(id)",
+      "columns": [
+        "document_id"
+      ],
+      "foreign_table": "media"
+    },
+    {
+      "table_name": "verifications",
+      "name": "verifications_coach_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (coach_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "coach_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "verifications",
+      "name": "verifications_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "verifications",
+      "name": "verifications_reviewer_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (reviewer_id) REFERENCES users(id)",
+      "columns": [
+        "reviewer_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "verifications",
+      "name": "verifications_status_check",
+      "type": "c",
+      "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'approved'::text, 'rejected'::text])))",
+      "columns": [
+        "status"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "workouts",
+      "name": "workouts_contract_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (contract_id) REFERENCES contracts(id) ON DELETE CASCADE",
+      "columns": [
+        "contract_id"
+      ],
+      "foreign_table": "contracts"
+    },
+    {
+      "table_name": "workouts",
+      "name": "workouts_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "workouts",
+      "name": "workouts_status_check",
+      "type": "c",
+      "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'published'::text])))",
+      "columns": [
+        "status"
+      ],
+      "foreign_table": null
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "administrative_audit",
+      "indexname": "administrative_audit_pkey",
+      "indexdef": "CREATE UNIQUE INDEX administrative_audit_pkey ON public.administrative_audit USING btree (id)"
+    },
+    {
+      "tablename": "billing_audit",
+      "indexname": "billing_audit_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_audit_pkey ON public.billing_audit USING btree (id)"
+    },
+    {
+      "tablename": "billing_events",
+      "indexname": "billing_events_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_events_pkey ON public.billing_events USING btree (id)"
+    },
+    {
+      "tablename": "billing_jobs",
+      "indexname": "billing_jobs_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_jobs_pkey ON public.billing_jobs USING btree (id)"
+    },
+    {
+      "tablename": "billing_payments",
+      "indexname": "billing_payments_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_payments_pkey ON public.billing_payments USING btree (id)"
+    },
+    {
+      "tablename": "billing_payments",
+      "indexname": "billing_payments_provider_payment_id_key",
+      "indexdef": "CREATE UNIQUE INDEX billing_payments_provider_payment_id_key ON public.billing_payments USING btree (provider_payment_id)"
+    },
+    {
+      "tablename": "billing_plans",
+      "indexname": "billing_plans_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_plans_pkey ON public.billing_plans USING btree (coach_id)"
+    },
+    {
+      "tablename": "billing_settings",
+      "indexname": "billing_settings_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_settings_pkey ON public.billing_settings USING btree (id)"
+    },
+    {
+      "tablename": "billing_splits",
+      "indexname": "billing_splits_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_splits_pkey ON public.billing_splits USING btree (provider_split_id)"
+    },
+    {
+      "tablename": "billing_subscriptions",
+      "indexname": "billing_subscriptions_contract_id_key",
+      "indexdef": "CREATE UNIQUE INDEX billing_subscriptions_contract_id_key ON public.billing_subscriptions USING btree (contract_id)"
+    },
+    {
+      "tablename": "billing_subscriptions",
+      "indexname": "billing_subscriptions_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_subscriptions_pkey ON public.billing_subscriptions USING btree (id)"
+    },
+    {
+      "tablename": "billing_subscriptions",
+      "indexname": "billing_subscriptions_provider_checkout_id_key",
+      "indexdef": "CREATE UNIQUE INDEX billing_subscriptions_provider_checkout_id_key ON public.billing_subscriptions USING btree (provider_checkout_id)"
+    },
+    {
+      "tablename": "billing_subscriptions",
+      "indexname": "billing_subscriptions_provider_subscription_id_key",
+      "indexdef": "CREATE UNIQUE INDEX billing_subscriptions_provider_subscription_id_key ON public.billing_subscriptions USING btree (provider_subscription_id)"
+    },
+    {
+      "tablename": "billing_wallets",
+      "indexname": "billing_wallets_pkey",
+      "indexdef": "CREATE UNIQUE INDEX billing_wallets_pkey ON public.billing_wallets USING btree (coach_id)"
+    },
+    {
+      "tablename": "billing_wallets",
+      "indexname": "billing_wallets_wallet_id_key",
+      "indexdef": "CREATE UNIQUE INDEX billing_wallets_wallet_id_key ON public.billing_wallets USING btree (wallet_id)"
+    },
+    {
+      "tablename": "consent_history",
+      "indexname": "consent_history_pkey",
+      "indexdef": "CREATE UNIQUE INDEX consent_history_pkey ON public.consent_history USING btree (id)"
+    },
+    {
+      "tablename": "consents",
+      "indexname": "consents_pkey",
+      "indexdef": "CREATE UNIQUE INDEX consents_pkey ON public.consents USING btree (user_id, purpose)"
+    },
+    {
+      "tablename": "consultation_history",
+      "indexname": "consultation_history_pkey",
+      "indexdef": "CREATE UNIQUE INDEX consultation_history_pkey ON public.consultation_history USING btree (id)"
+    },
+    {
+      "tablename": "consultations",
+      "indexname": "consultations_calendar",
+      "indexdef": "CREATE INDEX consultations_calendar ON public.consultations USING btree (starts_at) WHERE (status = 'scheduled'::text)"
+    },
+    {
+      "tablename": "consultations",
+      "indexname": "consultations_pkey",
+      "indexdef": "CREATE UNIQUE INDEX consultations_pkey ON public.consultations USING btree (id)"
+    },
+    {
+      "tablename": "contracts",
+      "indexname": "contracts_coach",
+      "indexdef": "CREATE INDEX contracts_coach ON public.contracts USING btree (coach_id, status)"
+    },
+    {
+      "tablename": "contracts",
+      "indexname": "contracts_pkey",
+      "indexdef": "CREATE UNIQUE INDEX contracts_pkey ON public.contracts USING btree (id)"
+    },
+    {
+      "tablename": "contracts",
+      "indexname": "one_current_contract",
+      "indexdef": "CREATE UNIQUE INDEX one_current_contract ON public.contracts USING btree (athlete_id, coach_id) WHERE (status = ANY (ARRAY['pending'::text, 'active'::text, 'suspended'::text]))"
+    },
+    {
+      "tablename": "executions",
+      "indexname": "executions_pkey",
+      "indexdef": "CREATE UNIQUE INDEX executions_pkey ON public.executions USING btree (id)"
+    },
+    {
+      "tablename": "executions",
+      "indexname": "executions_workout_id_key",
+      "indexdef": "CREATE UNIQUE INDEX executions_workout_id_key ON public.executions USING btree (workout_id)"
+    },
+    {
+      "tablename": "exercise_blocks",
+      "indexname": "exercise_blocks_pkey",
+      "indexdef": "CREATE UNIQUE INDEX exercise_blocks_pkey ON public.exercise_blocks USING btree (id)"
+    },
+    {
+      "tablename": "exercise_blocks",
+      "indexname": "exercise_blocks_workout_id_position_key",
+      "indexdef": "CREATE UNIQUE INDEX exercise_blocks_workout_id_position_key ON public.exercise_blocks USING btree (workout_id, \"position\")"
+    },
+    {
+      "tablename": "mail_outbox",
+      "indexname": "mail_outbox_pkey",
+      "indexdef": "CREATE UNIQUE INDEX mail_outbox_pkey ON public.mail_outbox USING btree (id)"
+    },
+    {
+      "tablename": "media",
+      "indexname": "media_object_key_key",
+      "indexdef": "CREATE UNIQUE INDEX media_object_key_key ON public.media USING btree (object_key)"
+    },
+    {
+      "tablename": "media",
+      "indexname": "media_pkey",
+      "indexdef": "CREATE UNIQUE INDEX media_pkey ON public.media USING btree (id)"
+    },
+    {
+      "tablename": "media",
+      "indexname": "media_resource",
+      "indexdef": "CREATE INDEX media_resource ON public.media USING btree (resource_id) WHERE (deleted_at IS NULL)"
+    },
+    {
+      "tablename": "media_feedback",
+      "indexname": "media_feedback_pkey",
+      "indexdef": "CREATE UNIQUE INDEX media_feedback_pkey ON public.media_feedback USING btree (id)"
+    },
+    {
+      "tablename": "messages",
+      "indexname": "messages_history",
+      "indexdef": "CREATE INDEX messages_history ON public.messages USING btree (contract_id, created_at DESC, id DESC)"
+    },
+    {
+      "tablename": "messages",
+      "indexname": "messages_pkey",
+      "indexdef": "CREATE UNIQUE INDEX messages_pkey ON public.messages USING btree (id)"
+    },
+    {
+      "tablename": "metric_types",
+      "indexname": "metric_types_pkey",
+      "indexdef": "CREATE UNIQUE INDEX metric_types_pkey ON public.metric_types USING btree (sport, key)"
+    },
+    {
+      "tablename": "notifications",
+      "indexname": "notifications_pkey",
+      "indexdef": "CREATE UNIQUE INDEX notifications_pkey ON public.notifications USING btree (id)"
+    },
+    {
+      "tablename": "notifications",
+      "indexname": "notifications_user",
+      "indexdef": "CREATE INDEX notifications_user ON public.notifications USING btree (user_id, created_at DESC)"
+    },
+    {
+      "tablename": "password_resets",
+      "indexname": "password_resets_pkey",
+      "indexdef": "CREATE UNIQUE INDEX password_resets_pkey ON public.password_resets USING btree (token_hash)"
+    },
+    {
+      "tablename": "privacy_requests",
+      "indexname": "privacy_requests_pkey",
+      "indexdef": "CREATE UNIQUE INDEX privacy_requests_pkey ON public.privacy_requests USING btree (id)"
+    },
+    {
+      "tablename": "private_health",
+      "indexname": "private_health_pkey",
+      "indexdef": "CREATE UNIQUE INDEX private_health_pkey ON public.private_health USING btree (user_id)"
+    },
+    {
+      "tablename": "profiles",
+      "indexname": "profiles_pkey",
+      "indexdef": "CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (user_id)"
+    },
+    {
+      "tablename": "review_moderation",
+      "indexname": "review_moderation_pkey",
+      "indexdef": "CREATE UNIQUE INDEX review_moderation_pkey ON public.review_moderation USING btree (id)"
+    },
+    {
+      "tablename": "review_reports",
+      "indexname": "review_reports_pkey",
+      "indexdef": "CREATE UNIQUE INDEX review_reports_pkey ON public.review_reports USING btree (id)"
+    },
+    {
+      "tablename": "review_reports",
+      "indexname": "review_reports_review_id_reporter_id_key",
+      "indexdef": "CREATE UNIQUE INDEX review_reports_review_id_reporter_id_key ON public.review_reports USING btree (review_id, reporter_id)"
+    },
+    {
+      "tablename": "reviews",
+      "indexname": "reviews_coach",
+      "indexdef": "CREATE INDEX reviews_coach ON public.reviews USING btree (coach_id, created_at DESC)"
+    },
+    {
+      "tablename": "reviews",
+      "indexname": "reviews_contract_id_key",
+      "indexdef": "CREATE UNIQUE INDEX reviews_contract_id_key ON public.reviews USING btree (contract_id)"
+    },
+    {
+      "tablename": "reviews",
+      "indexname": "reviews_pkey",
+      "indexdef": "CREATE UNIQUE INDEX reviews_pkey ON public.reviews USING btree (id)"
+    },
+    {
+      "tablename": "schema_migrations",
+      "indexname": "schema_migrations_pkey",
+      "indexdef": "CREATE UNIQUE INDEX schema_migrations_pkey ON public.schema_migrations USING btree (version)"
+    },
+    {
+      "tablename": "sessions",
+      "indexname": "sessions_expiry",
+      "indexdef": "CREATE INDEX sessions_expiry ON public.sessions USING btree (expires_at)"
+    },
+    {
+      "tablename": "sessions",
+      "indexname": "sessions_pkey",
+      "indexdef": "CREATE UNIQUE INDEX sessions_pkey ON public.sessions USING btree (token_hash)"
+    },
+    {
+      "tablename": "users",
+      "indexname": "users_email_key",
+      "indexdef": "CREATE UNIQUE INDEX users_email_key ON public.users USING btree (email)"
+    },
+    {
+      "tablename": "users",
+      "indexname": "users_pkey",
+      "indexdef": "CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id)"
+    },
+    {
+      "tablename": "verification_audit",
+      "indexname": "verification_audit_pkey",
+      "indexdef": "CREATE UNIQUE INDEX verification_audit_pkey ON public.verification_audit USING btree (id)"
+    },
+    {
+      "tablename": "verifications",
+      "indexname": "one_pending_verification",
+      "indexdef": "CREATE UNIQUE INDEX one_pending_verification ON public.verifications USING btree (coach_id) WHERE (status = 'pending'::text)"
+    },
+    {
+      "tablename": "verifications",
+      "indexname": "verifications_pkey",
+      "indexdef": "CREATE UNIQUE INDEX verifications_pkey ON public.verifications USING btree (id)"
+    },
+    {
+      "tablename": "workouts",
+      "indexname": "workouts_contract",
+      "indexdef": "CREATE INDEX workouts_contract ON public.workouts USING btree (contract_id)"
+    },
+    {
+      "tablename": "workouts",
+      "indexname": "workouts_pkey",
+      "indexdef": "CREATE UNIQUE INDEX workouts_pkey ON public.workouts USING btree (id)"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+# Serviços externos e exigências da Sprint 2
+
+Revisão de 21/10/2026, com base no [roteiro dos professores, seção 9, página 9](../referencias/Roteiro-professores-original.pdf#page=9), na [ERS original, página 39](../referencias/ERS-Sprint-1-original.pdf#page=39), na [proposta inicial, página 4](../referencias/Proposta-inicial-original.pdf#page=4) e na [ERS atual](ERS-v2.md).
+
+## O que é necessário para a próxima entrega
+
+Os nove entregáveis gerais exigem código versionado, fluxo integrado de ponta a ponta, banco, interface responsiva, validações, testes com evidências, API documentada, ERS/modelos/backlog atualizados e registro das decisões. A demonstração precisa executar o sistema; slides não substituem a execução. O prazo informado pelo roteiro é 26/10/2026.
+
+Essa lista não obriga, por nome, contratar Asaas, AWS, Google, domínio ou publicar nas lojas. Entretanto, o roteiro também pede integração com nuvem quando prevista, e o escopo assumido pelo grupo pode ampliar as obrigações. **A ERS original incluiu CREF automático na Sprint 2; a conferência manual atual é uma mudança de escopo que precisa ser apresentada e validada com o professor.** A aprovação técnica de Lucca não substitui a aprovação docente.
+
+O modo acadêmico permite demonstrar o fluxo esportivo sem cobrar dinheiro. Ele não deve ser apresentado como prova de pagamento, repasse bancário, validação oficial de CREF ou hospedagem pública. Os serviços locais abaixo são implementações reais de desenvolvimento; testes de contrato HTTP usam respostas controladas, claramente identificadas no relatório.
+
+## Checklist por serviço
+
+| Serviço | Necessidade na Sprint 2 | Estado e evidência | O que depende de acesso externo |
+|---|---|---|---|
+| PostgreSQL | **Sim:** o banco criado e integrado é obrigatório. Não exige banco gerenciado pago na lista geral. | [Compose](../../compose.yaml), migrations, [dicionário](dicionario-dados.md) e [testes](relatorio-testes.md); banco local preservado e serviços saudáveis. | Conta de hospedagem somente para operação pública/gerenciada. |
+| API e interface próprias | **Sim:** fluxo principal integrado e responsivo. Não é obrigatório comprar uma API de terceiros. | Fastify/React com autenticação, perfis, aprovação, vínculo e treino; [OpenAPI](openapi.json), testes de API e web. | Hospedagem/domínio se a demonstração acordada exigir URL pública. |
+| S3/armazenamento privado | Necessário para os uploads incluídos no escopo ampliado. A implementação local permite verificar envio, cifra e acesso; não comprova nuvem pública. | SeaweedFS privado, arquivos reais cifrados, correção e backup; [módulo](../../server/modules/media.ts) e [testes](../../tests/integration/platform.test.ts). | Bucket/provedor, região/endpoint, credenciais e política de retenção para hospedagem. Confirmar com o professor se o serviço remoto é exigido já nesta Sprint. |
+| SMTP/recuperação de senha | Necessário para demonstrar recuperação já implementada; envio à caixa pessoal do usuário não consta como exigência específica da lista geral. | Mailpit captura e-mail real do servidor, outbox persistida e token de uso único; [testes](../../tests/integration/platform.test.ts). | Provedor SMTP, domínio/remetente autorizado e autenticação para entregar mensagens externas. |
+| CREF/conselho profissional | **Condicional com compromisso explícito:** a ERS original planejou a consulta automática nesta Sprint. A validação profissional antes da descoberta permanece obrigatória no fluxo atual. | Administrador confere evidência/documento, motivo, validade e auditoria. A proposta original já registra risco de indisponibilidade de API e alternativa manual. | API/documentação/acesso autorizado do conselho, ou aceite docente documentado da contingência manual. Não há aprovação automática oficial implementada. |
+| Asaas/recorrência/split | Não é nomeado na lista geral; o cronograma da ERS original concentra regras avançadas na Sprint 3. Se escolhido como critério de aceite da Sprint 2, é preciso homologar em sandbox. **Cobrança real não é necessária para teste acadêmico.** | Adaptador, checkout, webhook autenticado, cancelamento e conciliação; [14 testes HTTP controlados](../../tests/integration/billing.test.ts). Modo acadêmico não cobra. | Conta sandbox, API key, carteira elegível para split e webhook HTTPS acessível; depois executar o roteiro abaixo. |
+| Google Agenda/Meet | Integração complementar da ampliação; não consta por nome como obrigação geral da Sprint 2. A agenda própria funciona sem ela. | Consultorias locais com conflitos e histórico; criação externa condicionada a configuração e ação do treinador. | Projeto Google, OAuth/client ID, origem autorizada e API de calendário habilitada; sincronização bidirecional é evolução futura. |
+| GitHub e CI | Código versionado é obrigatório. GitHub é o repositório escolhido pelo grupo; participação individual precisa ser verdadeira. | Código publicado, [CI](../../.github/workflows/ci.yml) e [registros](publicacao.md). | Acesso de cada colega para suas contribuições; nenhum commit de Lucca comprova trabalho de outro integrante. |
+| Hospedagem pública/TLS/domínio | Não aparece como contratação obrigatória entre os nove itens. A UC de nuvem e o escopo acordado precisam de evidência compatível; arquitetura/roteiro reproduzível são evidências previstas no roteiro. | Docker, proxy TLS local, reinício e restauração testados. CI em runner de nuvem não equivale a backend público implantado. | Conta de hospedagem, domínio e secrets somente quando a publicação for exigida/aprovada. |
+| Android/lojas | O app faz parte da proposta do grupo. APK conectado demonstra Android; a lista geral não obriga publicar na Play Store nesta Sprint. | Perfil de APK local, API compartilhada e automação em emulador; resultados reais em [verificação nativa](evidencias/mobile-verificacao.md). | Aparelho físico para ensaio de hardware/TalkBack. Loja exige conta e chave de distribuição próprias. |
+| iOS/Apple | A ERS inclui compatibilidade Android/iOS. Bundles iOS não encerram esse requisito. A homologação depende do recorte acordado para a Sprint. | Fonte compartilhada, tipos e bundle Hermes; sem alegação de IPA, aparelho ou App Store homologados. | Mac/Xcode ou build autorizado; para distribuição, conta/certificados Apple e aparelhos. |
+
+## Configuração e critérios de homologação
+
+- [x] Ambiente local sem dependência de conta paga: PostgreSQL, SMTP de captura e S3 privado por Docker; API e web via `pnpm dev:all`.
+- [x] Credenciais de terceiros ficam no servidor e fora do Git; o app recebe somente o endereço da API e seu token de sessão.
+- [x] Demonstração local do app tem identificador separado e HTTP restrito a loopback/emulador; a versão de produção continua exigindo HTTPS e rejeita o domínio documental `.example`.
+- [ ] Professor/grupo confirmar a contingência manual de CREF e a evidência de nuvem esperada para a Sprint 2; registrar o resultado da conversa nas decisões.
+- [ ] Responsável fornecer acessos reais somente aos serviços que serão homologados; preencher as variáveis do [.env.example](../../.env.example) em arquivo ignorado/secrets do ambiente. Não enviar chaves no chat.
+- [ ] Para Asaas sandbox: cadastrar carteira/plano de teste, configurar `BILLING_MODE=asaas`, ambiente sandbox, API key e token do webhook; disponibilizar endpoint HTTPS, criar checkout pelo fluxo da aplicação, concluir com os dados de teste do provedor e conferir webhook, pagamento, split, idempotência e cancelamento. Registrar IDs e estados sem expor chaves ou cartão.
+- [ ] Para SMTP externo: confirmar remetente/domínio, enviar recuperação para conta de teste, conferir expiração/uso único e invalidação de sessões. Mailpit não envia à internet.
+- [ ] Para S3 hospedado: configurar bucket privado, negar acesso anônimo, enviar/baixar arquivo pelo usuário autorizado, verificar terceiro negado e exercitar restauração com a chave de cifra preservada separadamente.
+- [ ] Para Google: autorizar conta de teste, criar evento por ação explícita do treinador e conferir o ID/link. Alteração/cancelamento externos ainda exigem acompanhamento manual.
+- [ ] Para publicação pública: configurar HTTPS confiável, banco/S3 privados, secrets, backup, recuperação e contas administrativas próprias; testar a versão implantada antes de usar dados reais.
+
+Referências técnicas dos provedores: [Asaas — documentação oficial](https://docs.asaas.com/), [Google Calendar API](https://developers.google.com/workspace/calendar/api/guides/overview), [Android — configuração de segurança de rede](https://developer.android.com/privacy-and-security/security-config) e [ADB](https://developer.android.com/tools/adb). Custos e condições de cada provedor devem ser conferidos na conta escolhida; nenhum serviço pago foi contratado nesta revisão.
+
+## O que levar para a demonstração
+
+Use os serviços locais e contas fictícias do README para executar o fluxo. Mostre que uploads e recuperação passam por serviços reais de desenvolvimento. Apresente o modo financeiro como acadêmico e o CREF como conferência manual. Mostre evidências de testes e as limitações. Se o professor exigir gateway, consulta oficial ou serviço remoto nesta Sprint, o item correspondente fica aberto até haver acesso e evidência externa; um checkbox de implementação não resolve essa condição.

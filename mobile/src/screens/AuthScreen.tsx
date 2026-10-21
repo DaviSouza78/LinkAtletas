@@ -77,6 +77,7 @@ export function AuthScreen({
         {mode === 'reset' && (
           <Field
             label="Token do link de recuperação"
+            secure
             value={token}
             onChange={setToken}
             hint="Copie o valor após token= no link recebido por e-mail."

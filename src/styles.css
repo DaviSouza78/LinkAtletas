@@ -2036,6 +2036,45 @@ h1, h2, h3, h4, h5, .brand { font-family: 'Manrope', sans-serif; }
 .toast button { border: 0; background: transparent; color: rgba(255,255,255,.6); cursor: pointer; }
 
 /* Responsive adjustments */
+.landing .proof-strip span { color: #53625d; }
+.landing .benefit-card__number { color: #6b8177; }
+.landing .steps li > b { color: #48645a; }
+.landing .mini-stats i { color: #33735e; }
+@media (max-width: 900px) {
+  .landing .public-header { width: 100%; padding-inline: 22px; background: rgba(10, 17, 15, .9); }
+  .landing .public-header nav { display: none; }
+  .landing .public-header nav.open { display: grid; position: absolute; top: 82px; left: 0; right: 0; margin: 0; padding: 18px; gap: 0; background: var(--ink); border: 1px solid var(--line); border-radius: 12px; }
+  .landing .public-header nav a { display: flex; align-items: center; min-height: 44px; }
+  .landing .public-header__actions > .button { display: none; }
+  .landing .menu-toggle { display: grid; place-items: center; min-width: 44px; min-height: 44px; border: 0; background: transparent; color: inherit; }
+  .landing .benefit-grid, .landing .journey__grid, .landing .coach-band__grid, .landing .faq__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .landing .security .container { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .landing .proof-strip .container { flex-wrap: wrap; justify-content: flex-start; padding-block: 24px; gap: 18px; }
+  .landing .proof-strip .container > span { flex-basis: 100%; }
+  .landing .footer > .container:not(.footer__bottom) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+}
+@media (max-width: 640px) {
+  .landing .hero { min-height: 760px; }
+  .landing .hero__content { padding-block: 120px 60px; }
+  .landing .hero h1 { font-size: clamp(38px, 10vw, 48px); }
+  .landing .hero__content > p { font-size: 16px; }
+  .landing .hero__buttons { flex-direction: column; }
+  .landing .hero__trust { margin-top: 32px; }
+  .landing .hero__trust > div:last-child { min-width: 0; }
+  .landing .proof-strip .container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .landing .proof-strip .container > span { grid-column: 1 / -1; }
+  .landing .section { padding-block: 64px; }
+  .landing .section-intro { margin-bottom: 32px; }
+  .landing .benefit-card { padding: 26px; }
+  .landing .coach-visual { min-height: 0; }
+  .landing .mini-stats { flex-wrap: wrap; gap: 24px; }
+  .landing .mini-top { flex-wrap: wrap; gap: 10px; }
+  .landing .faq-item button { gap: 12px; }
+  .landing .faq-item button svg { flex-shrink: 0; }
+  .landing .cta { padding-block: 64px; }
+  .landing .cta .container > div { flex-wrap: wrap; }
+  .landing .footer__bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
 @media (max-width: 1100px) {
   .public-header nav { gap: 19px; margin-right: 20px; }
   .hero__metric { display: none; }

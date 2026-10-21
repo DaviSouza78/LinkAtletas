@@ -19,10 +19,10 @@ export const sha256 = (bytes: Buffer | string) =>
   createHash('sha256').update(bytes).digest('hex')
 export async function backupKey() {
   const encoded =
-    process.env.DATA_ENCRYPTION_KEY ??
+    process.env.DATA_ENCRYPTION_KEY?.trim() ||
     (
       await readFile(
-        resolve(process.env.DATA_KEY_FILE ?? '.data-key.local'),
+        resolve(process.env.DATA_KEY_FILE || '.data-key.local'),
         'utf8',
       )
     ).trim()

@@ -128,7 +128,7 @@ Treino "1" -- "0..1" Execucao
 Execucao ..> Metrica : valida
 Usuario "1" -- "0..*" Midia : titular
 Midia "1" -- "0..*" FeedbackMidia
-Verificacao "0..1" --> "0..1" Midia : documento
+Verificacao "0..*" --> "0..1" Midia : documento
 Contrato "1" -- "0..*" Mensagem
 Mensagem "0..*" --> "0..1" Midia : anexo
 Usuario "1" -- "0..*" Notificacao
@@ -141,3 +141,19 @@ EventoFinanceiro ..> Assinatura : concilia
 Usuario "1" -- "0..*" Consentimento
 Usuario "1" -- "0..1" SaudePrivada
 Usuario "1" -- "0..*" PedidoPrivacidade
+class AsaasClient {
+  -string base
+  +createCheckout(input)
+  +cancelSubscription(id)
+  +cancelCheckout(id)
+  +getSubscription(id)
+  +checkoutSubscriptions(checkoutId)
+}
+class AsaasError {
+  +bool uncertain
+  +number status
+}
+AsaasClient ..> Assinatura : integra quando configurado
+AsaasClient ..> AsaasError : sinaliza falha ou incerteza
+
+Error <|-- AsaasError

@@ -1,6 +1,6 @@
 # Manual de instalação, execução e demonstração
 
-Data: 14/10/2026. Para desenvolvimento local use dados fictícios. Integrações de cobrança/publicação ficam desligadas até configuração explícita do responsável. [API](api.md), [limitações](backlog.md) e [resultados de testes](relatorio-testes.md) complementam este manual.
+Revisão: 20/10/2026. Para desenvolvimento local use dados fictícios. Integrações de cobrança/publicação ficam desligadas até configuração explícita do responsável. [API](api.md), [limitações](backlog.md) e [resultados de testes](relatorio-testes.md) complementam este manual.
 
 ## Instalação local
 
@@ -139,3 +139,11 @@ Antes de backup operacional, pause escritas: o snapshot SQL e a enumeração S3 
 Restauração: `pnpm exec tsx scripts/restore.ts <diretorio-backup> <banco_vazio_test> <bucket_vazio>`. O diretório precisa ficar estritamente dentro de `BACKUP_ROOT`; banco deve existir, estar vazio e terminar em `_test`; bucket precisa estar vazio. Script valida chave/checksums antes das alterações e compara contagens/objetos ao final; não apaga destino ocupado. A chave AES original deve estar disponível por canal protegido. `verify-backup.ts` cria/preserva bases isoladas próprias e testa SQL privado e S3, sem limpar a demonstração.
 
 Medição reproduzível do match: [load-matching.ts](../../scripts/load-matching.ts), comando `pnpm exec tsx scripts/load-matching.ts`; usa dataset sintético e banco de teste isolado. Confirme o relatório/destinos antes de executar em ambiente compartilhado. Resultado real local em [carga-matchmaking.json](evidencias/carga-matchmaking.json) não comprova autoescala.
+
+## APK local e ambiente recuperado
+
+Para demonstrar o aplicativo com esta API sem hospedagem pública, usar o [manual do APK conectado por USB](manual-apk-local.md). O perfil local tem pacote e política de rede próprios; o perfil normal exige HTTPS. Consulte o [checklist de serviços](servicos-externos-sprint-2.md) antes de ativar fornecedores.
+
+Nesta revisão, Docker Desktop voltou a iniciar após preservar os diretórios transitórios de sockets inválidos e permitir sua recriação. Os mesmos containers/volumes PostgreSQL, Mailpit e S3 permaneceram saudáveis; migrations foram reaplicadas sem apagar dados. Um ajuste de compatibilidade `RUNASADMIN` definido no Windows para `cmd.exe` impedia os scripts pnpm; a entrada específica foi salva e removida. Não é necessário executar pnpm como administrador nem redefinir o Docker de fábrica. [Registro do ambiente](evidencias/ambiente-local-revisado.json).
+
+A rotina de backup passou a interpretar a variável AES vazia do exemplo como uso da chave local existente, preservando a recusa de chave não vazia inválida. Nunca trocar ou apagar uma chave para fazer o backup passar.

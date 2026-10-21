@@ -1,22 +1,24 @@
 {
-  "generatedAt": "2026-10-14T19:55:30.843391+00:00",
+  "generatedAt": "2026-10-20T23:56:35.783671+00:00",
   "os": "Windows-11-10.0.26300-SP0",
-  "scope": "Hermes bundles only; no APK/IPA/device execution",
+  "expo": "57.0.30",
+  "sourceCommit": "e3393fa",
+  "scope": "Hermes bundles only; no IPA/device certification",
   "files": [
+    {
+      "path": "_expo/static/js/android/index-108390438fa9f13f618932c0acd14084.hbc",
+      "bytes": 1643759,
+      "sha256": "3b712ba65d11966381a96675d55a6e6638d9fdb31867f8fd0e9877c5d1c4c8ed"
+    },
+    {
+      "path": "_expo/static/js/ios/index-c94fa84d69cb4c2ee0df0c6f8577d84d.hbc",
+      "bytes": 1638221,
+      "sha256": "9d330183b357abc5f82a1bdc8c67efedfc1481803f43effb11a432ec1a9a8154"
+    },
     {
       "path": "metadata.json",
       "bytes": 244,
-      "sha256": "ffb36f00f0d72b825697b99fe804df8d195009e9bbd01451c5f25ed565cee306"
-    },
-    {
-      "path": "_expo/static/js/android/index-84b611e4642d9433fc20ee22925104e7.hbc",
-      "bytes": 1591355,
-      "sha256": "70209596782f57537d1eb41aa7f6a154293e88d6063b09b86a8928fe5a635791"
-    },
-    {
-      "path": "_expo/static/js/ios/index-8fde5b693919709200d7280ac308dfd6.hbc",
-      "bytes": 1585796,
-      "sha256": "7a1a721e935c139d62b6e7af551b904e823278a27bf02c934a94277618c32d2b"
+      "sha256": "6921dfa8f11dd7df01514e4cf2daf05a6fd017b48737bb5a2a0179e6a1ec735a"
     }
   ]
 }

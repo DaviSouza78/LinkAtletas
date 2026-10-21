@@ -6,6 +6,8 @@ A ampliação preserva o fluxo da Sprint 2 e acrescenta chat em tempo real, aval
 
 Consulte o [checklist com referências](docs/evolucao/checklist-sprint-2.md), o [relatório de testes](docs/evolucao/relatorio-testes.md), o [manual completo](docs/evolucao/manual.md) e as [pendências de Lucca e do grupo](docs/evolucao/pendencias-lucca.md). A entrega inicial continua preservada em [docs/sprint-2](docs/sprint-2/entrega.md).
 
+Revisão de 21/10/2026: APK local aprovado em [18 etapas integradas](docs/evolucao/evidencias/android-integrated-result.json), com PostgreSQL, SMTP e S3 reais de desenvolvimento. [Instalação por USB](docs/evolucao/manual-apk-local.md), [necessidade dos serviços externos na Sprint 2](docs/evolucao/servicos-externos-sprint-2.md) e [pacote da revisão](https://github.com/DaviSouza78/LinkAtletas/releases/tag/v0.3.0-sprint-2-revisao-1). Aparelho físico, iOS e homologações externas conservam seus próprios estados de validação.
+
 ## Executar localmente
 
 Pré-requisitos: Node.js 24, pnpm 10 e Docker Desktop ativo. Na primeira instalação:
@@ -50,6 +52,8 @@ Cadastro/perfil → conferência profissional manual → descoberta compatível 
 Google Agenda/Meet é opcional mediante Client ID público e ação OAuth explícita do treinador. A API guarda a referência criada; o fluxo integrado não inclui convidados. Alterações locais ainda precisam ser refletidas também na agenda externa. Nenhum teste cria evento ou envia convite real.
 
 ## Cliente do atleta
+
+Para instalar o APK standalone e conectar por USB, siga o [manual do APK local](docs/evolucao/manual-apk-local.md). Ele usa o backend deste computador sem exigir Metro/Expo Go nem hospedagem pública. Os comandos abaixo são para trabalhar no código Expo.
 
 ```powershell
 pnpm --dir mobile install --frozen-lockfile
@@ -113,6 +117,10 @@ docs/evolucao/       ERS v2, API, manual, modelos, checklist e novas evidências
 
 João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa. Cada integrante deve registrar sua participação efetiva e realizar sua entrega acadêmica. Autoria Git deste incremento usa o nome/e-mail fornecidos por Lucca, sem presumir participação dos demais.
 
-Os commits foram publicados com autorização de Lucca e integrados à `main` pelo [PR #1](https://github.com/DaviSouza78/LinkAtletas/pull/1). A [CI completa na main](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290) passou. Há [APK Android de verificação compilado](docs/evolucao/publicacao.md), assinado com chave de desenvolvimento e configurado com URL documental; uso integrado requer uma API HTTPS acessível e nova compilação.
+Os commits foram publicados com autorização de Lucca e integrados à `main` pelo [PR #1](https://github.com/DaviSouza78/LinkAtletas/pull/1). A [CI completa na main](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290) passou. O APK documental anterior é histórico. A revisão acrescenta **LinkAtletas Local**, standalone, conectado por USB à API local: [instalação](docs/evolucao/manual-apk-local.md), [resultado e limites](docs/evolucao/evidencias/mobile-verificacao.md). O perfil normal continua exigindo HTTPS e nova compilação para outra URL.
 
 Permanecem dependentes de acesso/homologação: sandbox/produção Asaas e split real, consulta CREF autorizada, SMTP/S3 hospedados, Google OAuth real, domínio público, assinatura de distribuição/IPA/aparelhos/stores, política jurídica operacional e revisão docente. IA treinada, broker multi-instância, autoescala, autosave contínuo e catálogo administrativo de novos esportes constam como evolução. A entrega no ambiente acadêmico e o registro de participação cabem a cada integrante; consulte as [pendências detalhadas](docs/evolucao/pendencias-lucca.md).
+
+## Revisão de 15–20/10/2026
+
+Docker local recuperado com volumes preservados; Expo atualizado para 57.0.30, perfil de APK local conectado por USB, correções de privacidade e backup, dependências web/API corrigidas e documentação confrontada com os materiais originais do grupo. Consulte o [checklist de serviços externos](docs/evolucao/servicos-externos-sprint-2.md), a [revisão dos materiais](docs/evolucao/revisao-materiais.md), o [manual do APK local](docs/evolucao/manual-apk-local.md), o [dicionário do banco](docs/evolucao/dicionario-dados.md) e as [pendências reais](docs/evolucao/pendencias-lucca.md).

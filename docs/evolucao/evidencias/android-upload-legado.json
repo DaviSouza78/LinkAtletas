@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "steps": [
+    {
+      "name": "Login nativo de atleta para diagnóstico isolado de arquivo",
+      "passed": true,
+      "elapsedSeconds": 35.18
+    }
+  ],
+  "error": "Upload não persistido",
+  "durationSeconds": 109.32,
+  "runUrl": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/39518135631",
+  "apkSourceRun": 38769851031,
+  "apkSha256": "fce589848735ca13ab176090f3bc92997e2c8cbb6f30e741c1b40d0c168d6bd1",
+  "visibleApplicationError": "Unsupported FormDataPart implementation",
+  "scope": "Historical reproduction of the old APK upload failure; not a passing integration test"
+}

@@ -1,0 +1,23 @@
+{
+  "checkedOn": "2026-10-20",
+  "environment": "Chrome instalado no Windows, interface e API locais",
+  "browserVersion": "155.0.8059.41",
+  "results": [
+    {
+      "width": 1440,
+      "loginVisible": true,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "loginVisible": true,
+      "horizontalOverflow": false
+    }
+  ],
+  "apiHealth": {
+    "ok": true,
+    "database": "postgresql"
+  },
+  "runtimeErrors": [],
+  "scope": "Renderizacao de login e saude da API; sem alteracao de contas ou dados."
+}

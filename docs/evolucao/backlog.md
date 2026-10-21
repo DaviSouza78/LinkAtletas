@@ -1,10 +1,10 @@
 # Backlog consolidado — ampliação
 
-Data: 14/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Estados separam desenvolvimento de homologação; resultado executado está no [relatório](relatorio-testes.md). Não é planejamento de contribuições presumidas de colegas.
+Revisado em 20/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Estados separam desenvolvimento de homologação; resultado executado está no [relatório](relatorio-testes.md). [Revisão dos materiais](revisao-materiais.md) e [dependências externas](servicos-externos-sprint-2.md) registram diferenças em relação à proposta/ERS originais. Não é planejamento de contribuições presumidas de colegas.
 
 | Item | Prioridade | Resultado da ampliação | Verificação/dependência |
 |---|---|---|---|
-| F01 App atleta React Native | P1 | Fonte Expo, API compartilhada e armazenamento seguro | Tipos, Doctor 21/21, transporte 9/9 e bundles Android/iOS aprovados; APK/IPA/dispositivo/lojas pendentes |
+| F01 App atleta React Native | P1 | Fonte Expo, API compartilhada, armazenamento seguro e perfil de APK local | APK Android compilado e inicializado em emulador; testes de transporte/configuração atualizados para 21. Ensaios integrados têm resultado próprio no relatório; aparelho físico, IPA e lojas não são presumidos |
 | F02 CREF, validade e revogação | P0 | Documento privado, prazo, suspensão/revogação e job | Testes plataforma; consulta oficial automatizada depende contrato/acesso |
 | F03 Recorrência/split/financeiro | P1 | Adaptador Asaas e regras persistidas, checkout, webhook e conciliação | Servidor HTTP controlado; sandbox real/carteiras/repasse pendentes |
 | F04 Cancelamento e ciclos | P1 | Retirada, encerramento e período pago, unicidade de ciclo vigente | Testes financeiro/contrato e tela; preservar histórico |
@@ -12,7 +12,7 @@ Data: 14/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Estados se
 | F06 Chat/notificações | P1 | WS autenticado, histórico paginado/cifrado, leitura e notificações persistidas | Testes duas sessões/isolações/persistência; broker multi-instância futuro |
 | F07 Reviews/respostas/moderação | P1 | Período mínimo de sete dias, uma por ciclo, edição/resposta, denúncia/ocultação | Testes interação; não gerar reputação fictícia |
 | F08 Privacidade/recuperação | P0 | Consentimento versionado, saúde cifrada, exportação/exclusão e SMTP/outbox/reset | Testes SMTP Mailpit e autorização; política jurídica operacional futura |
-| F09 Implantação/recuperação | P1 | Containers/TLS/backup/CI e scripts | TLS 1.3, reinício da aplicação e restauração SQL/S3 aprovados localmente; CI não executada no GitHub; publicação pública requer acessos |
+| F09 Implantação/recuperação | P1 | Containers/TLS/backup/CI e scripts | TLS 1.3, reinício da aplicação, restauração SQL/S3 e CI executados com aprovação; [registros de publicação](publicacao.md). Docker local recuperado sem apagar volumes; publicação pública requer acessos |
 | F10 Match e ciência de dados | P2 | Regra explicável e carga HTTP com 500 perfis/200 chamadas | Percentis medidos; dataset representativo, retroalimentação e IA treinada futuros |
 | F11 Compatibilidade/acessibilidade | P1 | Web responsiva e correções de foco/estados; três motores e axe | 15/15 E2E e seis telas por motor sem violações axe; aparelhos/Edge/Safari/leitor de tela reais pendentes |
 | F12 Documentação acadêmica | P0 | ERSv2, fluxos, modelos UML, checklist, API/manual/matriz | DOCX/PDF gerados, validados/renderizados; revisão docente/Eletiva I/entrega individual pendentes |

@@ -1,0 +1,23 @@
+{
+  "checkedOn": "2026-10-20",
+  "source": "mobile/app.config.ts and mobile/plugins/withLocalNetwork.cjs",
+  "production": {
+    "prebuildSucceeded": true,
+    "usesCleartextTraffic": false,
+    "localNetworkSecurityAttributePresent": false,
+    "localNetworkSecurityFilePresent": false
+  },
+  "local": {
+    "prebuildSucceeded": true,
+    "usesCleartextTrafficGlobally": false,
+    "networkSecurityConfig": "@xml/linkatletas_local_network",
+    "cleartextDomainsOnly": [
+      "localhost",
+      "127.0.0.1",
+      "10.0.2.2"
+    ],
+    "includeSubdomains": false
+  },
+  "gradleCachePreserved": "C:/dev/tmp/LinkAtletas-android-cache-20261020",
+  "scope": "Manifest/resource generation only; APK runtime has its own emulator result."
+}

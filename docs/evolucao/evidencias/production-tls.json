@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-14T22:07:46.241Z",
+  "date": "2026-10-21T17:44:19.348Z",
   "url": "https://localhost:8443",
   "localOnly": true,
   "caExplicit": true,
@@ -7,7 +7,7 @@
   "untrustedConnectionRefused": true,
   "tlsProtocol": "TLSv1.3",
   "cipher": "TLS_AES_128_GCM_SHA256",
-  "caFingerprint": "DD:F9:77:AF:63:ED:80:59:A7:96:3A:12:A2:15:03:23:AE:80:8F:6C:32:05:CE:49:8C:10:18:F3:FB:8E:43:55",
+  "caFingerprint": "E3:E0:2E:B2:30:AC:AF:09:82:F4:CD:65:1E:F3:14:26:FD:1F:30:06:65:6E:9E:6E:8B:2F:80:B4:18:82:53:EC",
   "healthStatus": 200,
   "frontendStatus": 200,
   "registrationStatus": 201,

@@ -78,6 +78,10 @@ test('cadastro → aprovação → contratação → publicação → execução
   browser,
   baseURL,
 }) => {
+  // Windows WebKit spends several seconds per interaction across three contexts.
+  // Keep the individual action/assertion limits, but allow the complete journey.
+  if (process.platform === 'win32' && browser.browserType().name() === 'webkit')
+    test.setTimeout(180_000)
   const unique = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
   const coachName = `Treinador E2E ${unique}`
   const athleteName = `Atleta E2E ${unique}`

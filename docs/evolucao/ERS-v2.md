@@ -1,6 +1,6 @@
-# ERS v2.0 — LinkAtletas — ampliação da Sprint 2
+# ERS v2.1 — LinkAtletas — ampliação da Sprint 2
 
-Data: 14/10/2026. Responsável pelo incremento: Lucca, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. A aprovação técnica de Lucca não representa aprovação docente ou submissão acadêmica.
+Data da revisão: 21/10/2026. Responsável pelo incremento: Lucca, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. A aprovação técnica de Lucca não representa aprovação docente ou submissão acadêmica.
 
 ## Histórico e fontes
 
@@ -9,6 +9,7 @@ Data: 14/10/2026. Responsável pelo incremento: Lucca, com autoria Git `Lucca <l
 | 1.0 | [ERS original entregue na Sprint 1](../referencias/ERS-Sprint-1-original.pdf), de 21/08/2026: 24 RF especificados, 16 RNF e 16 RN |
 | 1.1 | [Incremento web inicial](../sprint-2/ERS-v1.1.md): API, PostgreSQL e fluxo esportivo completo; evidências históricas preservadas |
 | 2.0 | [Ampliação aprovada](../superpowers/specs/2026-10-14-expansao-completa-design.md): comunicação, mídia, privacidade, recuperação, ciclos, financeiro e cliente nativo |
+| 2.1 | Revisão dos materiais originais, DER conferido contra 36 tabelas/257 colunas/45 FKs, perfil Android local e correções de privacidade/backup; [revisão e divergências](revisao-materiais.md) |
 
 Outras fontes: [proposta da demanda](../referencias/Proposta-inicial-original.pdf), [roteiro dos professores](../referencias/Roteiro-professores-original.pdf), [plano de execução](../superpowers/plans/2026-10-14-expansao-completa.md). O cronograma da ERS original cita RF-25–32 sem detalhá-los; esta revisão mantém RF-01–24 e identifica novos requisitos com prefixo RF-A, sem inventar o conteúdo original ausente. PostgreSQL é o único banco relacional desta implementação.
 
@@ -121,7 +122,7 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 | RNF-09 App responsivo | Web em 390/1440 sem overflow; cliente Expo tipos/bundles | Bundle não equivale a instalação nem teste em dispositivo |
 | RNF-10 Usabilidade | Prescrever/publicar, reabrir rascunho, teclado/foco; instruções e confirmações claras | Rascunho explícito; autosave contínuo ainda não implementado |
 | RNF-11 Feedback visual | Erro de rede/validação, estado de envio e sucesso após resposta positiva; sem falso pagamento | E2E efetivo e capturas conforme relatório |
-| RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | APK Android compilado na CI; fluxo completo em aparelhos e distribuição pendentes. IPA requer Xcode/serviço e credenciais |
+| RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | APK local compilado e 18 etapas integradas aprovadas no emulador Android API 35; aparelho físico, distribuição e IPA pendentes |
 | RNF-13 Navegadores | Fluxo em Chromium/Firefox/WebKit; registrar versões e axe | Engines testados não são automaticamente Edge/Safari reais; leitor de tela exige avaliação própria |
 | RNF-14 REST/OpenAPI | Swagger runtime e schemas reais; exemplo inválido devolve campo/erro | API compartilhada web/nativo, sem segredos no cliente |
 | RNF-15 Idempotência financeira | Checkout concorrente, webhook repetido/antigo, timeout e cancelamento incerto; conciliar sem duplicar | HTTP controlado; repetir em sandbox real antes da ativação |
@@ -155,3 +156,9 @@ Migrações cumulativas [001–005](../../server/db/migrations/): usuário/perfi
 Verificação: `unsubmitted`, `pending`, `approved`, `rejected`, `suspended`, `expired`. Contrato: `pending`, `active`, `rejected`, `cancelled`, `suspended`; índice parcial permite um vigente por par. Treino: `draft`/`published`. Financeiro: `awaiting_payment`, `regular`, `grace`, `suspended`, `cancellation_requested`, `ended`, `uncertain`. Agenda: `scheduled`, `cancelled`, `completed`. Uso de estados não implica comprovação de transação externa.
 
 Consultas parametrizadas, validação Zod e autorização por usuário/recurso/estado. Erros: 400 entrada inválida, 401 sessão/credencial, 403 papel/ação, 404 recurso privado alheio, 409 conflito, 413 arquivo, 429 limite, 503 serviço não configurado. Mensagem pública de falha inesperada é genérica. Os [diagramas](diagramas.md), [backlog](backlog.md), [rastreabilidade](rastreabilidade.md), [API](api.md), [manual](manual.md) e [checklist](checklist-sprint-2.md) integram esta ERS.
+
+## Revisão de escopo e execução de 15–21/10/2026
+
+O roteiro docente define a Sprint 2 entre 21/09 e 26/10/2026. A ERS original previa CREF automático nesta Sprint; a proposta também solicita evolução de IA. A contingência manual auditada e o match por regras são decisões implementadas e aprovadas por Lucca, mas exigem alinhamento docente para substituir esses compromissos originais. PostgreSQL substitui a menção a dois SGBDs; nuvem, iOS/lojas e autosave contínuo têm limites descritos na [revisão dos materiais](revisao-materiais.md). Os nove artefatos não comprovam aceitação integral de cada requisito original.
+
+O APK de demonstração tem pacote separado e aceita HTTP somente em loopback/endereço do emulador; o perfil normal continua exigindo HTTPS. O túnel USB permite testar o backend local sem publicá-lo. [Manual Android](manual-apk-local.md), [dependências externas](servicos-externos-sprint-2.md) e [auditoria de bibliotecas](seguranca-dependencias.md) registram estados e restrições. A API e os modelos foram confrontados com OpenAPI e metadados reais do banco, sem exportar dados pessoais: [dicionário completo](dicionario-dados.md).

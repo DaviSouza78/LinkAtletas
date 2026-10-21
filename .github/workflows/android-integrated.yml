@@ -1,0 +1,152 @@
+name: Android integrated verification
+on:
+  workflow_dispatch:
+    inputs:
+      test_focus:
+        type: string
+        default: all
+      build_only:
+        description: 'Somente compilar; executar o ensaio usando apk_run_id depois'
+        required: false
+        type: boolean
+        default: false
+      apk_run_id:
+        description: 'Run de um APK local existente; vazio recompila'
+        required: false
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      test_focus:
+        type: string
+        default: all
+      build_only:
+        required: false
+        type: boolean
+        default: false
+      apk_run_id:
+        required: false
+        type: string
+        default: ''
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: native-integrated-${{ github.ref_name }}-${{ inputs.apk_run_id || github.sha }}-${{ inputs.build_only }}-${{ inputs.test_focus }}
+  cancel-in-progress: false
+jobs:
+  integrated:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+      EXPO_PUBLIC_BUILD_PROFILE: local
+      EXPO_PUBLIC_API_URL: http://localhost:3001/api
+      DATABASE_URL: postgresql://linkatletas:linkatletas_dev@127.0.0.1:54329/linkatletas_test
+      S3_ENDPOINT: http://127.0.0.1:8333
+      S3_ACCESS_KEY: linkatletas-local
+      S3_SECRET_KEY: local-only-change-in-production
+      S3_BUCKET: linkatletas-private
+      SMTP_HOST: 127.0.0.1
+      SMTP_PORT: 1025
+      SMTP_FROM: no-reply@linkatletas.local
+      APP_ORIGIN: http://localhost:5173
+      BILLING_MODE: academic
+      REVIEW_MIN_DAYS: '0'
+      JOBS_INTERVAL_MS: '1000'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            mobile/pnpm-lock.yaml
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: android-local-${{ runner.os }}-${{ hashFiles('mobile/pnpm-lock.yaml') }}
+          restore-keys: |
+            android-local-${{ runner.os }}-
+      - name: Install and verify native source
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --dir mobile install --frozen-lockfile
+          pnpm --dir mobile typecheck
+          pnpm --dir mobile test
+      - name: Start isolated real services and API
+        run: |
+          docker compose up -d --wait
+          pnpm db:migrate
+          pnpm db:seed
+          mkdir -p emulator-evidence
+          node --import tsx server/index.ts > emulator-evidence/api.log 2>&1 &
+          timeout 60 bash -c 'until curl --fail --silent http://127.0.0.1:3001/api/health; do sleep 1; done'
+      - name: Generate standalone local application
+        if: inputs.apk_run_id == ''
+        run: pnpm --dir mobile exec expo prebuild --platform android --no-install
+      - name: Compile the actual APK
+        if: inputs.apk_run_id == ''
+        working-directory: mobile/android
+        run: ./gradlew :app:assembleRelease --no-daemon --max-workers=2 -PreactNativeArchitectures=arm64-v8a,x86_64
+      - name: Preserve the local APK
+        if: inputs.apk_run_id == ''
+        run: |
+          mkdir -p android-local
+          cp mobile/android/app/build/outputs/apk/release/*.apk android-local/LinkAtletas-local.apk
+          cd android-local
+          sha256sum LinkAtletas-local.apk > SHA256SUMS
+          printf '%s\n' "Commit: $GITHUB_SHA" 'APK standalone de demonstracao local, com chave de desenvolvimento.' 'API: http://localhost:3001/api. Inicie a API no computador e use adb reverse tcp:3001 tcp:3001 por USB ou emulador.' 'HTTP permitido somente nos enderecos locais; producao continua exigindo HTTPS.' 'Nenhum Metro ou servidor publico e necessario. Nao usar para dados ou pagamentos reais.' > LEIA-ME.txt
+      - uses: actions/upload-artifact@v4
+        if: inputs.apk_run_id == ''
+        with:
+          name: LinkAtletas-APK-local
+          path: android-local/
+          retention-days: 30
+      - uses: actions/download-artifact@v4
+        if: inputs.apk_run_id != ''
+        with:
+          name: LinkAtletas-APK-local
+          run-id: ${{ inputs.apk_run_id }}
+          github-token: ${{ github.token }}
+          path: android-local
+      - name: Boot emulator
+        if: '!inputs.build_only'
+        run: bash scripts/android/start-emulator.sh
+      - name: Install and exercise the APK against the real API
+        if: '!inputs.build_only'
+        env:
+          APK_SOURCE_RUN: ${{ inputs.apk_run_id || github.run_id }}
+          ANDROID_TEST_FOCUS: ${{ inputs.test_focus }}
+        run: |
+          (cd android-local && sha256sum -c SHA256SUMS)
+          adb install android-local/LinkAtletas-local.apk
+          adb reverse tcp:3001 tcp:3001
+          adb logcat -c
+          python3 scripts/android/verify-integrated.py
+      - name: Capture runtime diagnostics
+        if: always()
+        run: |
+          if command -v adb >/dev/null && adb get-state >/dev/null 2>&1; then
+            adb logcat -d -s AndroidRuntime:E ReactNativeJS:E > emulator-evidence/runtime-errors.log
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LinkAtletas-Android-integrated-evidence
+          path: emulator-evidence/
+          retention-days: 30
+      - name: Stop isolated services
+        if: always()
+        run: docker compose down

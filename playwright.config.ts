@@ -68,7 +68,7 @@ export default defineConfig({
     : {
         command:
           'pnpm db:migrate && pnpm db:seed && pnpm exec concurrently -k -n api,web "pnpm exec tsx server/index.ts" "pnpm dev"',
-        url: 'http://localhost:5174',
+        url: 'http://localhost:5174/api/health',
         reuseExistingServer: false,
         env: {
           DATABASE_URL: testDatabase,

@@ -50,12 +50,15 @@ test('chat ao vivo → agenda → avaliação → consentimento e mídia → fin
     await coach.addInitScript(() => {
       const state = window as Window & { lateClosedSocketDelivered?: boolean }
       const pending: Array<() => void> = []
-      let live = false
+      let first: WebSocket | undefined
+      let live: WebSocket | undefined
       window.WebSocket = new Proxy(window.WebSocket, {
         construct(target, args) {
           const socket = Reflect.construct(target, args) as WebSocket
           if (!String(args[0]).endsWith('/api/events')) return socket
-          let opened = false
+          const discarded = !first
+          if (discarded) first = socket
+          let queued = false
           let onclose:
             | ((this: WebSocket, event: CloseEvent) => unknown)
             | null = null
@@ -65,18 +68,28 @@ test('chat ao vivo → agenda → avaliação → consentimento e mídia → fin
               onclose = handler
             },
           })
-          socket.addEventListener('close', (event) => {
-            const deliver = () => {
-              onclose?.call(socket, event)
-              if (!opened) state.lateClosedSocketDelivered = true
+          const close = socket.close.bind(socket)
+          socket.close = (...parameters: Parameters<WebSocket['close']>) => {
+            if (discarded && !queued) {
+              queued = true
+              // WebKit may omit `close` when CONNECTING is aborted. Inject the
+              // stale callback explicitly while keeping both real connections.
+              const deliver = () => {
+                onclose?.call(socket, new CloseEvent('close', { code: 1000 }))
+                state.lateClosedSocketDelivered = true
+              }
+              if (live && live !== socket) setTimeout(deliver, 0)
+              else pending.push(deliver)
             }
-            if (!opened && !live) pending.push(deliver)
-            else deliver()
+            close(...parameters)
+          }
+          socket.addEventListener('close', (event) => {
+            if (!discarded) onclose?.call(socket, event)
           })
           socket.addEventListener('open', () => {
-            opened = true
-            live = true
-            setTimeout(() => pending.splice(0).forEach((deliver) => deliver()), 0)
+            live = socket
+            if (!discarded)
+              setTimeout(() => pending.splice(0).forEach((deliver) => deliver()), 0)
           })
           return socket
         },
