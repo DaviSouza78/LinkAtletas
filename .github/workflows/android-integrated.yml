@@ -77,6 +77,8 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: android-local-${{ runner.os }}-${{ hashFiles('mobile/pnpm-lock.yaml') }}
+          restore-keys: |
+            android-local-${{ runner.os }}-
       - name: Install and verify native source
         run: |
           pnpm install --frozen-lockfile
