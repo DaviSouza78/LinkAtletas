@@ -81,6 +81,8 @@ Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis o
 
 ## Estado de conclusão
 
+Conferência de 22/10/2026: [diferenças em relação aos originais, Eletiva I e obrigação de homologações](aceite-escopo-sprint-2.md). CREF automático e integração com nuvem prevista precisam de resolução específica; a existência dos nove artefatos não equivale a aceite integral do escopo original.
+
 Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado acima, com publicação e CI confirmadas. Acesso externo, homologação completa em aparelho, revisão docente e participação individual permanecem conforme as [pendências](pendencias-lucca.md). IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.
 
 ## Revisão complementar de 15–20/10/2026

@@ -4,6 +4,8 @@ Revisão de 21/10/2026, com base no [roteiro dos professores, seção 9, página
 
 ## O que é necessário para a próxima entrega
 
+A [conferência de 22/10](aceite-escopo-sprint-2.md) distingue compromissos explícitos desta Sprint de homologações sem prazo específico. Em particular, nuvem prevista exige resolução conforme a seção 9; arquitetura e serviços locais não comprovam integração remota. O cronograma original reserva o financeiro avançado para a Sprint 3.
+
 Os nove entregáveis gerais exigem código versionado, fluxo integrado de ponta a ponta, banco, interface responsiva, validações, testes com evidências, API documentada, ERS/modelos/backlog atualizados e registro das decisões. A demonstração precisa executar o sistema; slides não substituem a execução. O prazo informado pelo roteiro é 26/10/2026.
 
 Essa lista não obriga, por nome, contratar Asaas, AWS, Google, domínio ou publicar nas lojas. Entretanto, o roteiro também pede integração com nuvem quando prevista, e o escopo assumido pelo grupo pode ampliar as obrigações. **A ERS original incluiu CREF automático na Sprint 2; a conferência manual atual é uma mudança de escopo que precisa ser apresentada e validada com o professor.** A aprovação técnica de Lucca não substitui a aprovação docente.
