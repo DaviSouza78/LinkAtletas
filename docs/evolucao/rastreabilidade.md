@@ -19,7 +19,7 @@ Data: 14/10/2026. Mantém os IDs da ERS original. Referência de implementação
 
 ## Integração das unidades curriculares
 
-UCs do roteiro original. Esta matriz relaciona conteúdo técnico, sem atribuir avaliação ou participação não registradas. Em 23/10/2026, Lucca confirmou que a Eletiva I corresponde a Projeto Integrador Interdisciplinar. A aplicação abaixo relaciona as atividades e entregáveis do roteiro; não transcreve uma ementa adicional nem presume aprovação docente.
+UCs do roteiro original. Esta matriz relaciona conteúdo técnico, sem atribuir avaliação ou participação não registradas.
 
 | UC | Aplicação concreta | Artefato/limite |
 |---|---|---|
@@ -29,7 +29,7 @@ UCs do roteiro original. Esta matriz relaciona conteúdo técnico, sem atribuir 
 | Computação em Nuvem | Serviços isolados, objetos S3 privados, configuração, container, TLS e recuperação | Compose/infra/scripts; nuvem/autoescala pública dependem implantação real |
 | Automação Industrial | Aquisição manual e validação de métricas, tarefas periódicas e fluxo de eventos | Execuções/catálogos/jobs; sem sensores, PLC ou IoT físico conectado |
 | Relações Humanas e Cidadania | Consentimento, privacidade, transparência profissional, acessibilidade e moderação | Política, revisão de dados, papéis, denúncias e limitações; sem certificação jurídica presumida |
-| Eletiva I — Projeto Integrador Interdisciplinar | Integrar conhecimentos das UCs, organizar o desenvolvimento por Sprints, especificar requisitos, implementar e verificar a solução e comunicar resultados | [ERS](ERS-v2.md), [backlog](backlog.md), [diagramas](diagramas.md), [testes](relatorio-testes.md), [decisões](decisoes.md) e [checklist](checklist-sprint-2.md); identificação confirmada por Lucca em 23/10/2026, sem atribuir aprovação ou participação individual presumida |
+| Eletiva I | Integrar conhecimentos das UCs, organizar o desenvolvimento por Sprints, especificar requisitos, implementar e verificar a solução e comunicar resultados | [ERS](ERS-v2.md), [backlog](backlog.md), [diagramas](diagramas.md), [testes](relatorio-testes.md), [decisões](decisoes.md) e [checklist](checklist-sprint-2.md) |
 | Conhecimentos anteriores | Requisitos, modelagem relacional/UML, qualidade e versionamento | ERS, modelos, SQL, testes e histórico Git |
 
 ## Participação e submissão
@@ -40,4 +40,4 @@ Equipe informada: João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lu
 
 A [revisão documental](revisao-materiais.md) compara ERS, proposta, roteiro, portaria, convivência e templates. O [dicionário](dicionario-dados.md) e os [diagramas](diagramas.md) demonstram 36 tabelas e 45 chaves estrangeiras reais. O diagrama de classes inclui os módulos de integração financeira existentes; não representa um ORM inexistente.
 
-CREF automático previsto na Sprint 2, evolução de IA solicitada na proposta, nuvem quando prevista e suporte Android/iOS dependem de alinhamento de escopo com o docente. O match atual é por regras, a validação profissional é manual e o APK local não comprova operação pública ou iOS. A identificação da Eletiva I foi resolvida pela confirmação de Lucca em 23/10/2026 e sua aplicação está relacionada acima. Os commits de Lucca não comprovam participação dos demais integrantes.
+CREF automático previsto na Sprint 2, evolução de IA solicitada na proposta, nuvem quando prevista e suporte Android/iOS dependem de alinhamento de escopo com o docente. O match atual é por regras, a validação profissional é manual e o APK local não comprova operação pública ou iOS. Os commits de Lucca não comprovam participação dos demais integrantes.

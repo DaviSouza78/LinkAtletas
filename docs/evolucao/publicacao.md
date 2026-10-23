@@ -12,7 +12,7 @@ APK compilado com sucesso no [run 38654092520](https://github.com/DaviSouza78/Li
 
 Instalação e abertura desse APK aprovadas no emulador Android API 35 x86_64, [run 38675093814](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814), em 15/10/2026: campos E-mail/Senha e botão Entrar encontrados, sem crash detectado nos logs examinados. Evidências: [registro remoto](evidencias/github-android-emulator.json), [resultado](evidencias/android-emulator-result.json), [captura real](evidencias/android-emulator-startup.png), [árvore da interface](evidencias/android-emulator-window.xml) e [log de erros](evidencias/android-emulator-errors.log). O ensaio cobre instalação/inicialização; não executou login contra backend real, demais fluxos ou aparelho físico.
 
-Pendências humanas: revisar a demonstração com o grupo/professor; conferir eventuais formatos/anexos acadêmicos; registrar contribuição individual e realizar a entrega. A Eletiva I foi identificada por Lucca como Projeto Integrador Interdisciplinar em 23/10/2026 e relacionada na matriz. Serviços externos, domínio e assinatura/distribuição nativa dependem dos acessos do responsável; confira a [lista para Lucca e o grupo](pendencias-lucca.md).
+Pendências humanas: revisar a demonstração com o grupo/professor; conferir eventuais formatos/anexos acadêmicos; registrar contribuição individual e realizar a entrega. Serviços externos, domínio e assinatura/distribuição nativa dependem dos acessos do responsável; confira a [lista para Lucca e o grupo](pendencias-lucca.md).
 
 ## Revisão de 15–21/10/2026
 

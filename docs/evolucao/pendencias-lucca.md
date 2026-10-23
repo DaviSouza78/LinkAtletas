@@ -15,7 +15,7 @@ Revisão de 21/10/2026. Os nove entregáveis têm referências no [checklist](ch
 
 - [ ] Conferir com o professor a contingência de **CREF manual**, pois a ERS original previa automatização na Sprint 2. A proposta admite risco de indisponibilidade de API, mas o aceite dessa mudança não foi fornecido.
 - [ ] Alinhar a diferença entre **IA solicitada na proposta e o match atual por regras**, além do recorte Android/iOS, nuvem e PostgreSQL único. Registrar a decisão docente.
-- [x] Identificar a **Eletiva I — Projeto Integrador Interdisciplinar**, conforme confirmação de Lucca em 23/10/2026, e relacionar atividades/evidências na [matriz de UCs](rastreabilidade.md). A descrição se baseia no roteiro, sem inventar ementa ou aprovação docente.
+- [x] Relacionar a contribuição da **Eletiva I** e suas evidências na [matriz de UCs](rastreabilidade.md).
 - [ ] Cada integrante revisar a demonstração, registrar sua participação real e fazer sua própria entrega no ambiente acadêmico. O documento de convivência exige anexar **e concluir o envio**. Prazo do roteiro: **26/10/2026**; conferir eventuais atualizações na disciplina.
 
 ## Quando houver homologação externa ou operação pública

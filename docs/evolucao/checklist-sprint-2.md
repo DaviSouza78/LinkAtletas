@@ -69,7 +69,7 @@ Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] [Backlog](backlog.md), [matriz de UCs/rastreabilidade](rastreabilidade.md) e [diagramas](diagramas.md) com fontes editáveis.
 - [x] Casos de uso UML: atores, elipses e limite de sistema, [PlantUML](diagramas/casos-de-uso.puml) e [SVG](diagramas/casos-de-uso.svg).
 - [x] ERS em [Word](ERS-v2.docx) e [PDF](ERS-v2.pdf); relatório em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf), com [renderização para inspeção](evidencias/documentos/render.json).
-- [x] Identificar a Eletiva I como Projeto Integrador Interdisciplinar, conforme confirmação de Lucca em 23/10/2026, e relacionar atividades/evidências na [matriz](rastreabilidade.md).
+- [x] Relacionar a contribuição da Eletiva I e suas evidências na [matriz](rastreabilidade.md).
 - [ ] Realizar revisão coletiva/docente e conferir anexos acadêmicos específicos quando solicitados.
 
 ## 9. Registro de dificuldades, decisões e mudanças de escopo
@@ -95,6 +95,6 @@ Os nove entregáveis obrigatórios possuem implementação ou artefato referenci
 - [x] Correções de limpeza de arquivos privados, backup com variável vazia e bibliotecas: [decisões](decisoes.md), [auditoria](seguranca-dependencias.md).
 - [x] Página pública com informações coerentes, menu móvel e layout sem overflow em 320/390/1440: [Chrome](evidencias/chrome-landing-revisada.json); contraste corrigido e [axe sem violações nas regras verificadas](evidencias/chrome-landing-axe.json).
 - [x] APK corrigido conectado à API/PostgreSQL/SMTP/S3: [18/18 etapas aprovadas](evidencias/android-integrated-result.json), [execução remota](evidencias/github-android-integrated.json), [upload e correção](evidencias/android-integrated-midia-feedback.png), [encerramento](evidencias/android-integrated-conta-encerrada.png).
-- [ ] Validar com professor as diferenças de escopo frente à ERS/proposta originais e concluir entregas individuais. A identificação da Eletiva I foi resolvida em 23/10/2026 na matriz.
+- [ ] Validar com professor as diferenças de escopo frente à ERS/proposta originais e concluir entregas individuais.
 
 - [x] CI completa da revisão, com tipos/build, 82 testes, backup, 15 E2E, nativo e TLS: [run 39645457806](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806), [registro](evidencias/github-ci-pr-2.json).

@@ -15,11 +15,9 @@ Os nove entregáveis gerais possuem artefatos e evidências no [checklist](check
 | Banco de dados | Os documentos iniciais citam MySQL e PostgreSQL. A solução usa somente PostgreSQL, com persistência, migrações e recuperação verificadas. O requisito geral exige banco integrado; não exige dois SGBDs. | A simplificação para PostgreSQL único pode ser mantida como decisão de arquitetura documentada? |
 | Demais reduções funcionais | Autosave contínuo, sincronização Google bidirecional e regras mais amplas de disponibilidade não estão concluídos. Não devem ser presumidos pelo funcionamento de rascunho manual, agenda própria ou match por disponibilidade. | Quais dessas funções permanecem obrigatórias para o MVP final e quais podem ser retiradas ou tratadas como evolução? |
 
-## Eletiva I: identificação resolvida em 23/10/2026
+## Eletiva I
 
-O [roteiro, seção 4.1, página 5](../referencias/Roteiro-professores-original.pdf#page=5) traz apenas o rótulo **Eletiva I**, aplicação dos conhecimentos da eletiva ofertada e artefato aprovado pelo docente responsável. Não informa a denominação específica da disciplina nem enumera suas competências. Os demais materiais originais consultados também não fornecem essa identificação. A ERS descreve requisitos do software e não substitui o plano de ensino da disciplina.
-
-Em 23/10/2026, Lucca informou ter verificado que a Eletiva I corresponde a **Projeto Integrador Interdisciplinar**. A [matriz](rastreabilidade.md) foi completada com essa identificação e com atividades/evidências do roteiro: integração das UCs, planejamento por Sprints, requisitos, implementação, testes e comunicação de resultados. Não permanece pendência de identificação da disciplina. Essa descrição registra a aplicação no projeto; não é transcrição de competências oficiais de uma ementa não recebida nem aprovação docente.
+A contribuição da **Eletiva I** está relacionada na [matriz](rastreabilidade.md), com atividades e evidências de integração das UCs, planejamento por Sprints, requisitos, implementação, testes e comunicação de resultados, conforme o [roteiro, seção 4.1, página 5](../referencias/Roteiro-professores-original.pdf#page=5).
 
 ## O que testar agora e o que não está comprovado
 

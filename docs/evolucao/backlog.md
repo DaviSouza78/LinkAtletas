@@ -15,7 +15,7 @@ Revisado em 20/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Esta
 | F09 Implantação/recuperação | P1 | Containers/TLS/backup/CI e scripts | TLS 1.3, reinício da aplicação, restauração SQL/S3 e CI executados com aprovação; [registros de publicação](publicacao.md). Docker local recuperado sem apagar volumes; publicação pública requer acessos |
 | F10 Match e ciência de dados | P2 | Regra explicável e carga HTTP com 500 perfis/200 chamadas | Percentis medidos; dataset representativo, retroalimentação e IA treinada futuros |
 | F11 Compatibilidade/acessibilidade | P1 | Web responsiva e correções de foco/estados; três motores e axe | 15/15 E2E e seis telas por motor sem violações axe; aparelhos/Edge/Safari/leitor de tela reais pendentes |
-| F12 Documentação acadêmica | P0 | ERSv2, fluxos, modelos UML, checklist, API/manual/matriz | DOCX/PDF gerados, validados/renderizados; Eletiva I identificada e relacionada na matriz em 23/10/2026; revisão docente e entrega individual pendentes |
+| F12 Documentação acadêmica | P0 | ERSv2, fluxos, modelos UML, checklist, API/manual/matriz | DOCX/PDF gerados, validados/renderizados; Eletiva I relacionada na matriz; revisão docente e entrega individual pendentes |
 | A01 Agenda/consultorias | P1 | Persistência, conflitos, histórico, reagendamento/cancelamento/conclusão | Google OAuth real não executado; sincronização bidirecional externa futura |
 | A02 Catálogo ampliado | P2 | Métricas dinâmicas dos esportes atuais preservadas | Administração de novas modalidades e migração sem código futuro |
 | A03 Edição com autosave | P2 | Rascunho explícito preservado | Autosave contínuo e conflito colaborativo futuro |
