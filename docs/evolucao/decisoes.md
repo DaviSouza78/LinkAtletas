@@ -33,6 +33,12 @@ Ambiente não forneceu conta Asaas, provedor oficial CREF, SMTP externo, S3 hosp
 
 ## Mudanças em relação à proposta original
 
+Atualização de 23/10/2026: a equipe informou que o professor aceita a conferência manual de CREF e solicitou adequar a ERS. A versão 2.2 redefine RF-04, UC-02 e RN-02 para consulta humana na fonte oficial e decisão administrativa auditada. Não há consulta automática implementada; ela passa a evolução futura, sem condição de API para concluir o requisito atual. O registro do aceite decorre da informação da equipe, sem assinatura ou ata fabricada, e não aprova outros recortes de escopo.
+
+A pesquisa consultou a [orientação oficial do CONFEF](https://faq.confef.org.br/faq/pdf.php?artlang=pt-br&cat=12&id=8) e a [consulta pública do CREF/SP](https://cref-sp.implanta.net.br/servicosOnline/Publico/ConsultaInscritos). Não foi localizada API pública documentada adequada à integração; não se afirma inexistência de serviço restrito. Consulta pública em formulário não é, por si só, documentação de API. Aprovação exige conferir titularidade e situação, não apenas formato de número.
+
+A ERS atual conserva o histórico com data, versão, descrição e autor para posterior transferência ao template obrigatório. A ERS original da Sprint 1 permanece inalterada. A matriz mantém a denominação Eletiva I, conforme o padrão solicitado.
+
 Disponibilidade compõe nota e não é filtro rígido/reserva; a agenda de consultorias faz a reserva efetiva. Match usa regras explicáveis, sem IA treinada. Contratação inicia vínculo e depois checkout, em vez de pré-autorização de cartão antes do aceite. Documento profissional é opcional no formulário implementado, com texto/evidência obrigatórios; política de exigir documento real pode ser revisada antes da operação pública. Aprovação sem prazo informado usa validade padrão do servidor, visível no registro. Autosave contínuo, biblioteca pública de mídia e escala distribuída ainda não estão homologados.
 
 ## Publicação e participação

@@ -5,7 +5,7 @@ Revisado em 20/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Esta
 | Item | Prioridade | Resultado da ampliação | Verificação/dependência |
 |---|---|---|---|
 | F01 App atleta React Native | P1 | Fonte Expo, API compartilhada, armazenamento seguro e perfil de APK local | APK Android compilado e inicializado em emulador; testes de transporte/configuração atualizados para 21. Ensaios integrados têm resultado próprio no relatório; aparelho físico, IPA e lojas não são presumidos |
-| F02 CREF, validade e revogação | P0 | Documento privado, prazo, suspensão/revogação e job | Testes plataforma; consulta oficial automatizada depende contrato/acesso |
+| F02 CREF, validade e revogação | P0 | Conferência manual, evidência privada, prazo, suspensão/revogação e job | Fluxo manual e auditoria testados; aceite informado pela equipe registrado na ERS v2.2; consulta automática é evolução futura |
 | F03 Recorrência/split/financeiro | P1 | Adaptador Asaas e regras persistidas, checkout, webhook e conciliação | Servidor HTTP controlado; sandbox real/carteiras/repasse pendentes |
 | F04 Cancelamento e ciclos | P1 | Retirada, encerramento e período pago, unicidade de ciclo vigente | Testes financeiro/contrato e tela; preservar histórico |
 | F05 Upload S3 e correção | P1 | S3 privado, cifra, assinatura MIME/extensão, finalidade, consentimento e feedback | Testes S3 local/SQL; nuvem depende configuração |

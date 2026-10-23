@@ -13,7 +13,7 @@ Revisão de 21/10/2026. Os nove entregáveis têm referências no [checklist](ch
 
 ## Antes de entregar ao professor
 
-- [ ] Conferir com o professor a contingência de **CREF manual**, pois a ERS original previa automatização na Sprint 2. A proposta admite risco de indisponibilidade de API, mas o aceite dessa mudança não foi fornecido.
+- [x] Registrar a conferência **manual de CREF** como requisito atual na [ERS v2.2](ERS-v2.md), conforme aceite do professor informado pela equipe. A automação permanece como evolução futura.
 - [ ] Alinhar a diferença entre **IA solicitada na proposta e o match atual por regras**, além do recorte Android/iOS, nuvem e PostgreSQL único. Registrar a decisão docente.
 - [x] Relacionar a contribuição da **Eletiva I** e suas evidências na [matriz de UCs](rastreabilidade.md).
 - [ ] Cada integrante revisar a demonstração, registrar sua participação real e fazer sua própria entrega no ambiente acadêmico. O documento de convivência exige anexar **e concluir o envio**. Prazo do roteiro: **26/10/2026**; conferir eventuais atualizações na disciplina.
@@ -21,7 +21,7 @@ Revisão de 21/10/2026. Os nove entregáveis têm referências no [checklist](ch
 ## Quando houver homologação externa ou operação pública
 
 - [ ] Fornecer conta sandbox Asaas/carteira/webhook e conferir cobrança de teste, split, cancelamento e conciliação. Hoje os testes financeiros usam servidor HTTP controlado; o modo acadêmico não cobra.
-- [ ] Obter acesso autorizado para CREF automático, se mantido no aceite.
+- [ ] Se a automação de CREF for retomada como evolução, confirmar fonte oficial e condições de integração; ela não é requisito do aceite atual do RF-04.
 - [ ] Fornecer infraestrutura/domínio, SMTP externo e S3 privado hospedado se a entrega acordada exigir URL pública/nuvem. TLS local testado não equivale a site implantado.
 - [ ] Configurar Google OAuth/Agenda/Meet se exigido; agenda própria já funciona sem ele. Sincronização bidirecional permanece evolução.
 - [ ] Validar procedimentos/textos de privacidade e retenção com o responsável antes de receber dados reais.

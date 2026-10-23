@@ -5,7 +5,7 @@ Data: 14/10/2026. Mantém os IDs da ERS original. Referência de implementação
 | Requisitos | Implementação | Cenário/evidência |
 |---|---|---|
 | RF-01,02,05,A01 | [auth](../../server/modules/auth.ts), [profiles](../../server/modules/profiles.ts), [platform](../../server/modules/platform.ts); login/perfil/reset/privacy | [API original](../../tests/integration/api.test.ts), [plataforma](../../tests/integration/platform.test.ts); conta, sessão, Bearer, reset SMTP e invalidação |
-| RF-03,04,A05; RN-01–03 | [verification](../../server/modules/verification.ts), [media](../../server/modules/media.ts), jobs | Plataforma: documento/propriedade, aprovação, suspensão, expiração e auditoria; API original: papéis/descoberta |
+| RF-03,04,A05; RN-01–03 | [verification](../../server/modules/verification.ts), [media](../../server/modules/media.ts), jobs | Conferência manual de CREF conforme ERS v2.2; plataforma: documento/propriedade, aprovação, suspensão, expiração e auditoria; API original: papéis/descoberta |
 | RF-06,07,08; RN-08–10 | [matching](../../server/modules/matching.ts), descoberta e reviews | [Matching](../../tests/unit/matching.test.ts), API/filtros e interação/reviews; IA treinada e dataset representativo futuros |
 | RF-09,10,22,23 | [contracts](../../server/modules/contracts.ts), [billing](../../server/modules/billing.ts), conexões | [Financeiro](../../tests/integration/billing.test.ts): ciclos, encerramento, terceiros e vigência; API: aceite/conflito |
 | RF-11–13,24; RN-04–07,16 | [asaas](../../server/services/asaas.ts), billing, migrações 004/005 | Financeiro: contrato HTTP, timeout, webhook, duplicata, ordem, conciliação e bloqueio; sandbox real pendente |
@@ -40,4 +40,4 @@ Equipe informada: João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lu
 
 A [revisão documental](revisao-materiais.md) compara ERS, proposta, roteiro, portaria, convivência e templates. O [dicionário](dicionario-dados.md) e os [diagramas](diagramas.md) demonstram 36 tabelas e 45 chaves estrangeiras reais. O diagrama de classes inclui os módulos de integração financeira existentes; não representa um ORM inexistente.
 
-CREF automático previsto na Sprint 2, evolução de IA solicitada na proposta, nuvem quando prevista e suporte Android/iOS dependem de alinhamento de escopo com o docente. O match atual é por regras, a validação profissional é manual e o APK local não comprova operação pública ou iOS. Os commits de Lucca não comprovam participação dos demais integrantes.
+A conferência manual de CREF substitui a automação no RF-04 atual, conforme aceite docente informado pela equipe e registrado na ERS v2.2. Evolução de IA solicitada na proposta, nuvem quando prevista e suporte Android/iOS continuam sujeitos aos respectivos recortes de escopo. O match atual é por regras e o APK local não comprova operação pública ou iOS. Os commits de Lucca não comprovam participação dos demais integrantes.

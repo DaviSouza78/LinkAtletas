@@ -89,7 +89,9 @@ function parse(markdown: string) {
       const count = Math.max(...matrix.map((row) => row.length)),
         columnWidths =
           count === 4
-            ? [900, 2200, 1000, 5538]
+            ? matrix[0][0] === 'Data' && matrix[0][1] === 'Vers\u00e3o'
+              ? [1300, 700, 5700, 1938]
+              : [900, 2200, 1000, 5538]
             : Array.from(
                 { length: count },
                 (_, j) =>
@@ -171,7 +173,10 @@ function parse(markdown: string) {
 }
 await mkdir(root, { recursive: true })
 for (const name of ['ERS-v2', 'relatorio-testes']) {
+  if (process.argv[2] && process.argv[2] !== name) continue
   const source = await readFile(path.join(root, `${name}.md`), 'utf8')
+  const revisionDate = source.match(/\b(?:Data da revis\u00e3o:|Consolida\u00e7\u00e3o revisada em) (\d{2}\/\d{2}\/\d{4})/)?.[1]
+  if (!revisionDate) throw new Error(`Data de revisao ausente: ${name}`)
   const doc = new Document({
     creator: 'Lucca',
     title:
@@ -250,7 +255,7 @@ for (const name of ['ERS-v2', 'relatorio-testes']) {
                 alignment: AlignmentType.RIGHT,
                 children: [
                   new TextRun({
-                    text: 'LinkAtletas · 21/10/2026     ',
+                    text: `LinkAtletas - ${revisionDate}     `,
                     size: 17,
                     color: '5F7168',
                   }),

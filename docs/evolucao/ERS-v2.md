@@ -1,15 +1,18 @@
-# ERS v2.1 — LinkAtletas — ampliação da Sprint 2
+# ERS v2.2 — LinkAtletas — ampliação da Sprint 2
 
-Data da revisão: 21/10/2026. Responsável pelo incremento: Lucca, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. A aprovação técnica de Lucca não representa aprovação docente ou submissão acadêmica.
+Data da revisão: 23/10/2026. Responsável pela revisão: Lucca Castilho Costa, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. O aceite docente da conferência manual de CREF foi informado pela equipe nesta revisão; não se estende automaticamente a outros ajustes de escopo nem comprova submissão acadêmica.
 
 ## Histórico e fontes
 
-| Versão | Referência e mudança |
-|---|---|
-| 1.0 | [ERS original entregue na Sprint 1](../referencias/ERS-Sprint-1-original.pdf), de 21/08/2026: 24 RF especificados, 16 RNF e 16 RN |
-| 1.1 | [Incremento web inicial](../sprint-2/ERS-v1.1.md): API, PostgreSQL e fluxo esportivo completo; evidências históricas preservadas |
-| 2.0 | [Ampliação aprovada](../superpowers/specs/2026-10-14-expansao-completa-design.md): comunicação, mídia, privacidade, recuperação, ciclos, financeiro e cliente nativo |
-| 2.1 | Revisão dos materiais originais, DER conferido contra 36 tabelas/257 colunas/45 FKs, perfil Android local e correções de privacidade/backup; [revisão e divergências](revisao-materiais.md) |
+| Data | Versão | Descrição da revisão | Autor |
+|---|---|---|---|
+| 21/08/2026 | 1.0 | [ERS original da Sprint 1](../referencias/ERS-Sprint-1-original.pdf): 24 RF especificados, 16 RNF e 16 RN; documento e template preservados | Equipe LinkAtletas |
+| 14/10/2026 | 1.1 | [Incremento web inicial](../sprint-2/ERS-v1.1.md): API, PostgreSQL, fluxo esportivo integrado e cenários de verificação | Lucca Castilho Costa |
+| 14/10/2026 | 2.0 | [Ampliação](../superpowers/specs/2026-10-14-expansao-completa-design.md): comunicação, mídia, privacidade, recuperação, ciclos, financeiro e cliente nativo | Lucca Castilho Costa |
+| 21/10/2026 | 2.1 | Consolidação das revisões de 15–21/10: modelos físicos conferidos, correções de privacidade/backup/upload, perfil Android local, 18 etapas do APK, publicação e evidências de testes | Lucca Castilho Costa |
+| 23/10/2026 | 2.2 | RF-04 e UC-02 adequados à conferência manual de CREF aceita pelo professor, conforme informação da equipe; atualização de critérios, limites externos, Eletiva I, publicação e histórico de revisões | Lucca Castilho Costa |
+
+As datas históricas seguem as versões preservadas e a consolidação registrada no Git. O autor da versão original permanece coletivo, sem atribuir individualmente alterações não identificadas. Esta fonte mantém o conteúdo atualizado; a adaptação ao template obrigatório será realizada posteriormente, preservando este histórico.
 
 Outras fontes: [proposta da demanda](../referencias/Proposta-inicial-original.pdf), [roteiro dos professores](../referencias/Roteiro-professores-original.pdf), [plano de execução](../superpowers/plans/2026-10-14-expansao-completa.md). O cronograma da ERS original cita RF-25–32 sem detalhá-los; esta revisão mantém RF-01–24 e identifica novos requisitos com prefixo RF-A, sem inventar o conteúdo original ausente. PostgreSQL é o único banco relacional desta implementação.
 
@@ -28,7 +31,7 @@ Prioridades: P0, essencial ao fluxo; P1, complemento do acompanhamento; P2, vali
 | RF-01 | Cadastro e edição de perfil do atleta | P0 | Conta, preferências e perfil; informações privadas de saúde opcionais com consentimento |
 | RF-02 | Cadastro e edição de perfil do treinador | P0 | Perfil profissional, modalidades, objetivos, níveis, atendimento, horários e preço |
 | RF-03 | Submissão de registro profissional | P0 | CREF, evidência textual e documento privado opcional, imagem/PDF validado |
-| RF-04 | Validação automatizada com alternativa manual | P0/P2 | Conferência manual, motivo, documento, prazo e auditoria; automação oficial depende de contrato/acesso ainda não recebido |
+| RF-04 | Verificação manual de registro profissional | P0 | Administrador consulta a fonte oficial e confere CREF, titularidade e situação profissional; registra decisão, motivo, evidência e validade com auditoria. Consulta automática não integra o aceite atual deste requisito; eventual integração é evolução futura |
 | RF-05 | Autenticação e controle de acesso | P0 | Cookie HttpOnly web, Bearer opaco nativo, logout, recuperação por SMTP e invalidação de sessões |
 | RF-06 | Processamento de matchmaking | P0 | Nota explicável sobre perfil; aprendizado automático/validação estatística continuam futuros |
 | RF-07 | Busca e filtros de treinadores | P0 | Somente perfis aprovados, elegíveis e não vencidos/suspensos; filtros de modalidade, preço, nome e atendimento |
@@ -59,7 +62,7 @@ Prioridades: P0, essencial ao fluxo; P1, complemento do acompanhamento; P2, vali
 | RF-A03 | Consultorias e agenda | P1 | Criar, reagendar, cancelar, concluir; bloquear sobreposição das agendas dos participantes; histórico e referência Google opcional |
 | RF-A04 | Consentimento, exportação e encerramento | P0 | Finalidades versionadas, dados próprios em JSON, senha para encerramento, anonimização e controle de retenção |
 | RF-A05 | Expirar/suspender credenciais profissionais | P0 | Prazo, job de expiração, suspensão/revogação motivada e remoção da descoberta |
-| RF-A06 | App do atleta | P1/P2 | React Native/Expo, mesma API, token em SecureStore; tipos/bundles e homologação Android/iOS são evidências distintas |
+| RF-A06 | App do atleta | P1/P2 | React Native/Expo, mesma API e token em SecureStore; APK Android integrado aprovado em emulador. Aparelho físico, IPA e execução em iPhone não homologados |
 | RF-A07 | Operação e recuperação | P1 | Container, proxy TLS, configuração de segredos, migrations, tarefas, backup/restauração e CI conforme artefatos e testes efetivos |
 | RF-A08 | Moderação de conteúdo | P1 | Denúncia de avaliação, ocultação/restauração pelo administrador e histórico motivado |
 
@@ -71,7 +74,9 @@ Pré-condição: visitante sem sessão ou titular autenticado. Fluxo principal: 
 
 ### UC-02 — Credenciais profissionais (RF-03,04,A05)
 
-Treinador com perfil completo informa CREF/evidência e pode anexar documento privado validado → submissão pendente → administrador confere evidência → decide com motivo e prazo → grava decisão/auditoria → perfil aprovado entra na descoberta. Alternativa: recusa e nova submissão; prazo expira em job ou administrador suspende/revoga. Exceções: terceiro/atleta não submete; treinador não decide; documento alheio inválido; decisão repetida gera conflito. Somente titular e administrador autorizado veem documento. Consulta oficial automática permanece dependente de serviço autorizado.
+Pré-condições: treinador autenticado com perfil completo; administrador autorizado para decidir. Fluxo principal: treinador informa CREF/evidência e pode anexar documento privado validado → submissão fica pendente → administrador consulta o portal oficial do conselho competente e compara registro, nome do titular e situação profissional → registra evidência da conferência, decisão, motivo e prazo → servidor persiste decisão/auditoria → perfil aprovado e elegível entra na descoberta. A consulta externa é uma atividade humana; o sistema não a executa nem atesta automaticamente a resposta do conselho.
+
+Alternativas: recusa motivada e nova submissão; expiração por job; suspensão/revogação administrativa. Se a consulta oficial estiver indisponível ou os dados forem insuficientes/divergentes, a análise deve aguardar esclarecimento, sem aprovar somente pelo formato do número. Exceções: terceiro/atleta não submete; treinador não decide; documento alheio é inválido; decisão repetida gera conflito. Somente titular e administrador autorizado veem documento. Pós-condição: decisão rastreável e visibilidade condicionada a aprovação vigente. Consulta automática é evolução futura, fora do aceite atual do RF-04.
 
 ### UC-03 — Descoberta, contratação e ciclo (RF-06–10,23)
 
@@ -113,13 +118,13 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 |---|---|---|
 | RNF-01 LGPD | Conceder/revogar, exportar só dados próprios, reautenticar exclusão, negar terceiros; conferir SQL/objetos | Controles de privacidade locais; parecer jurídico e operação pública não homologados |
 | RNF-02 Criptografia saúde/biometria | Consultar SQL/S3: ausência de texto em claro; decrypt roundtrip; IV/tag íntegros; executar TLS local | AES-256-GCM e gestão de chave implementados; relatório deve distinguir TLS local de domínio público |
-| RNF-03 Auditoria profissional | Decidir/suspender/expirar; conferir revisor, motivo, prazo e referência; decisão/auditoria transacionais | Administrador direto do banco continua fora da garantia de imutabilidade |
+| RNF-03 Auditoria profissional | Conferir registro/titular/situação na fonte oficial; decidir/suspender/expirar e verificar revisor, motivo, prazo e referência; decisão/auditoria transacionais | Testes locais comprovam o fluxo e a persistência, não consulta automática nem habilitação de dados fictícios; administrador direto do banco fora da garantia de imutabilidade |
 | RNF-04 Ocultar não validados | Pendentes, suspensos/vencidos/rejeitados fora da busca e ações protegidas | Regra no servidor; uma lista já aberta precisa ser consultada novamente |
 | RNF-05 Cartão/PCI | Conferir checkout hospedado, ausência de PAN/CVV SQL/logs e minimização do webhook | Adaptador e teste HTTP controlado; não certifica PCI ou conta gateway real |
 | RNF-06 Match até 2 s | Dataset/ambiente declarados; aquecer, medir concorrência e p50/p95/p99; p95 ≤2 s no cenário | Resultado somente após execução de carga, sem extrapolar base sintética |
 | RNF-07 Métricas extensíveis | Consultar catálogo, gravar chaves válidas e rejeitar desconhecidas/fora de limite; tela dinâmica | Modalidades principais fixadas em contratos; catálogo administrativo/novos esportes ainda podem exigir código/migração |
 | RNF-08 Escala/70% | Testar expansão/balanceamento em nuvem e medir recursos | Não homologado; Docker/TLS e carga local não provam autoescala |
-| RNF-09 App responsivo | Web em 390/1440 sem overflow; cliente Expo tipos/bundles | Bundle não equivale a instalação nem teste em dispositivo |
+| RNF-09 App responsivo | Web autenticada em 390/1440 e página pública em 320/390/1440 sem overflow; cliente Expo com tipos/bundles e fluxo Android | Capturas e verificações conforme relatório; bundle não equivale a execução em aparelho físico |
 | RNF-10 Usabilidade | Prescrever/publicar, reabrir rascunho, teclado/foco; instruções e confirmações claras | Rascunho explícito; autosave contínuo ainda não implementado |
 | RNF-11 Feedback visual | Erro de rede/validação, estado de envio e sucesso após resposta positiva; sem falso pagamento | E2E efetivo e capturas conforme relatório |
 | RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | APK local compilado e 18 etapas integradas aprovadas no emulador Android API 35; aparelho físico, distribuição e IPA pendentes |
@@ -133,7 +138,7 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 | ID | Regra e implementação |
 |---|---|
 | RN-01 | Somente treinador aprovado/elegível aparece na descoberta |
-| RN-02 | Aprovação registra administrador, horário, origem manual, motivo, prazo e documento quando fornecido |
+| RN-02 | Administrador confere registro, titularidade e situação na fonte oficial; aprovação registra administrador, horário, origem manual, motivo/evidência, prazo e documento quando fornecido. Formato válido do número não substitui conferência profissional |
 | RN-03 | Expiração, suspensão e revogação retiram visibilidade e bloqueiam novas ações protegidas |
 | RN-04 | Mensalidade em modo Asaas solicita split para carteira elegível; só evento autenticado confirma estado financeiro |
 | RN-05 | Administrador configura comissão 0–50% (basis points) e carência 0–30 dias |
@@ -157,8 +162,16 @@ Verificação: `unsubmitted`, `pending`, `approved`, `rejected`, `suspended`, `e
 
 Consultas parametrizadas, validação Zod e autorização por usuário/recurso/estado. Erros: 400 entrada inválida, 401 sessão/credencial, 403 papel/ação, 404 recurso privado alheio, 409 conflito, 413 arquivo, 429 limite, 503 serviço não configurado. Mensagem pública de falha inesperada é genérica. Os [diagramas](diagramas.md), [backlog](backlog.md), [rastreabilidade](rastreabilidade.md), [API](api.md), [manual](manual.md) e [checklist](checklist-sprint-2.md) integram esta ERS.
 
-## Revisão de escopo e execução de 15–21/10/2026
+## Situação da versão e evidências
 
-O roteiro docente define a Sprint 2 entre 21/09 e 26/10/2026. A ERS original previa CREF automático nesta Sprint; a proposta também solicita evolução de IA. A contingência manual auditada e o match por regras são decisões implementadas e aprovadas por Lucca, mas exigem alinhamento docente para substituir esses compromissos originais. PostgreSQL substitui a menção a dois SGBDs; nuvem, iOS/lojas e autosave contínuo têm limites descritos na [revisão dos materiais](revisao-materiais.md). Os nove artefatos não comprovam aceitação integral de cada requisito original.
+A implementação ampliada e sua revisão estão publicadas na `main` do repositório do grupo; a revisão técnica foi integrada pelo [PR #2](https://github.com/DaviSouza78/LinkAtletas/pull/2). Os registros de execução comprovam 82 testes de API/unidade, 15 cenários E2E em três motores, 22 testes móveis e 18 etapas do APK Android integrado em emulador. Docker/PostgreSQL/SMTP/S3 locais, build, backup e TLS têm evidências no [relatório](relatorio-testes.md). Esta revisão é documental; não representa nova execução desses testes em 23/10/2026.
+
+A [matriz curricular](rastreabilidade.md) inclui a Eletiva I e suas evidências. Permanecem pendentes a integração remota/nuvem prevista, o alinhamento dos demais recortes do MVP, homologações externas aplicáveis, revisão coletiva e submissões individuais. Financeiro avançado foi planejado originalmente para a Sprint 3; o código atual e seus testes controlados não comprovam operação no provedor. A automação de CREF deixa de ser pendência do aceite atual do RF-04 e fica como evolução condicionada à viabilidade de uma fonte oficial.
+
+## Revisão de escopo e decisões
+
+O roteiro docente define a Sprint 2 entre 21/09 e 26/10/2026. A ERS original previa CREF automático nesta Sprint e admitia alternativa manual na indisponibilidade da API. A pesquisa não localizou API pública documentada adequada à integração; isso não comprova inexistência de acesso restrito. A equipe informou em 23/10/2026 que o professor aceita a conferência manual e solicitou sua formalização. Esta revisão incorpora esse aceite ao RF-04, UC-02 e RN-02; o registro é baseado na informação da equipe, sem fabricar assinatura, ata ou comprovação externa.
+
+A proposta também solicita evolução de IA; o match atual segue por regras e não deve ser apresentado como modelo treinado. PostgreSQL substitui a menção a dois SGBDs; nuvem, iOS/lojas e autosave contínuo têm limites descritos na [revisão dos materiais](revisao-materiais.md). O aceite de CREF manual não resolve esses assuntos nem comprova aceitação integral de cada requisito original.
 
 O APK de demonstração tem pacote separado e aceita HTTP somente em loopback/endereço do emulador; o perfil normal continua exigindo HTTPS. O túnel USB permite testar o backend local sem publicá-lo. [Manual Android](manual-apk-local.md), [dependências externas](servicos-externos-sprint-2.md) e [auditoria de bibliotecas](seguranca-dependencias.md) registram estados e restrições. A API e os modelos foram confrontados com OpenAPI e metadados reais do banco, sem exportar dados pessoais: [dicionário completo](dicionario-dados.md).

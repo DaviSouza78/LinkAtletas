@@ -16,7 +16,7 @@ Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] Funcionalidades antes abertas agora possuem código e telas: [mensagens/agenda/reviews/notificações](../../src/pages/integrated/InteractionPages.tsx), [financeiro](../../src/pages/integrated/BillingPages.tsx), [privacidade/mídia/reset](../../src/pages/integrated/Expansion.tsx).
 - [x] Cancelamento, novos ciclos, carência e conciliação: [billing](../../server/modules/billing.ts), [contratos](../../server/modules/contracts.ts), [testes de financeiro](../../tests/integration/billing.test.ts).
 - [x] Fluxo ampliado em Chromium, Firefox e WebKit: [15/15 E2E](evidencias/playwright-results.json) e [relatório](relatorio-testes.md).
-- [ ] Cobrança e split em sandbox real/produção; consulta CREF oficial e Google OAuth real: exigem configuração/acessos e evidências externas.
+- [ ] Cobrança e split em sandbox real/produção e Google OAuth real: exigem configuração/acessos e evidências externas. CREF automático é evolução futura; o requisito atual é conferência manual.
 
 ## 3. Banco de dados criado e integrado
 
@@ -82,7 +82,7 @@ Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis o
 
 ## Estado de conclusão
 
-Conferência de 22/10/2026: [diferenças em relação aos originais, Eletiva I e obrigação de homologações](aceite-escopo-sprint-2.md). CREF automático e integração com nuvem prevista precisam de resolução específica; a existência dos nove artefatos não equivale a aceite integral do escopo original.
+Conferência atualizada em 23/10/2026: [diferenças em relação aos originais, Eletiva I e obrigação de homologações](aceite-escopo-sprint-2.md). O aceite do CREF manual informado pela equipe foi incorporado à ERS v2.2. Integração com nuvem prevista e demais recortes mantêm seus limites; a existência dos nove artefatos não equivale a aceite integral do escopo original.
 
 Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado acima, com publicação e CI confirmadas. Acesso externo, homologação completa em aparelho, revisão docente e participação individual permanecem conforme as [pendências](pendencias-lucca.md). IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.
 
