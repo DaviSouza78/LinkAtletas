@@ -44,7 +44,7 @@ Inventário com hashes e contagem de páginas/partes: [materiais-originais.json]
 
 ## Pendências que não podem ser preenchidas por suposição
 
-- [ ] Nome e competências da Eletiva I, para completar a integração específica da UC.
+- [x] Identificação da Eletiva I resolvida por confirmação de Lucca em 23/10/2026: Projeto Integrador Interdisciplinar. Atividades do roteiro e evidências relacionadas na [matriz](rastreabilidade.md), sem atribuir ementa ou aceite docente não recebidos.
 - [ ] Aceite do professor para as mudanças de escopo e o recorte de serviços externos/compatibilidade nesta Sprint.
 - [ ] Registro da participação efetiva de cada integrante, com contribuição verificável; não atribuir os commits de Lucca aos colegas.
 - [ ] Entrega individual no ambiente acadêmico, conferindo anexos e confirmação de envio.
