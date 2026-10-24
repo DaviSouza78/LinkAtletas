@@ -81,6 +81,8 @@ Correção para o erro `unused_function` observado na CLI 65.1.0: o bloco `funct
 
 Verificação adicional de 24/10/2026: execução local do builder oficial `@vercel/fastify@22.0.0`, com as dependências já instaladas, identificou `server.ts` e gerou uma função Node com 1.223 arquivos, incluindo `dist/index.html`, assets e limite de duração de 300 segundos declarado na entrada. Isso verifica o empacotamento local, não autenticação ou acesso aos serviços em produção. Os 35 testes locais também foram reexecutados e aprovados.
 
+Diagnóstico do primeiro Preview pronto: a função foi exposta em `/package.json`. Foi acrescentada uma rota explícita de todos os caminhos para essa função, preservando o caminho original da requisição por transformação `request.path`. Sem essa rota, `/api/health` retornava o 404 da plataforma antes de chegar ao Fastify. A chamada direta da função também revelou nos logs a falta de `APP_ORIGIN` HTTPS. Não promover um Preview com erro de inicialização para o domínio de produção. Estar Ready comprova a conclusão do build, não a configuração dos serviços.
+
 - [x] Entrada do servidor e configuração versionável preparadas.
 - [x] Rota agendada autenticada e trava implementadas.
 - [x] Consulta periódica de dados persistidos na interface implementada.
