@@ -83,10 +83,17 @@ Verificação adicional de 24/10/2026: execução local do builder oficial `@ver
 
 Diagnóstico do primeiro Preview pronto: a função foi exposta em `/package.json`. Foi acrescentada uma rota explícita de todos os caminhos para essa função, preservando o caminho original da requisição por transformação `request.path`. Sem essa rota, `/api/health` retornava o 404 da plataforma antes de chegar ao Fastify. A chamada direta da função também revelou nos logs a falta de `APP_ORIGIN` HTTPS. Não promover um Preview com erro de inicialização para o domínio de produção. Estar Ready comprova a conclusão do build, não a configuração dos serviços.
 
+Conferência no painel em 24/10/2026: o Preview do commit `283d5d4` está Ready. A chamada real a `/api/health` chegou à função e retornou 500; os logs confirmaram que o bloqueio atual é a ausência da chave privada, armazenamento e SMTP exigidos na inicialização. `APP_ORIGIN` e `BILLING_MODE=academic` foram configurados separadamente para Production e Preview. A integração Neon está conectada; as migrações na nuvem ainda não foram executadas nesta preparação. O domínio `link-atletas.vercel.app` permanece na versão `main` anterior, que contém apenas a interface.
+
+A conexão Tigris foi preparada no painel, limitada ao projeto LinkAtletas. A instalação exige autorização de leitura/escrita em instalação, projeto e variáveis pertencentes à integração; a conexão não foi confirmada. Nenhum plano pago foi contratado. SMTP e agendador continuam sem configuração externa. Não declarar a API saudável nem promover o Preview enquanto as dependências não forem configuradas e verificadas.
+
 - [x] Entrada do servidor e configuração versionável preparadas.
 - [x] Rota agendada autenticada e trava implementadas.
 - [x] Consulta periódica de dados persistidos na interface implementada.
-- [ ] Neon conectado e migrações executadas na nuvem.
+- [x] Neon conectado ao projeto para Production e Preview, com `DATABASE_URL` disponível no painel.
+- [x] `APP_ORIGIN` e modo acadêmico configurados em Production e Preview.
+- [x] Roteamento do Preview confirmado em requisição real: `/api/health` alcança a função.
+- [ ] Migrações executadas na nuvem.
 - [ ] Bucket privado S3 e SMTP configurados e verificados.
 - [ ] Agendador frequente configurado.
 - [ ] Upload de vídeos grandes adaptado e testado na nuvem.
