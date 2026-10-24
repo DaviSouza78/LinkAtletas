@@ -75,7 +75,11 @@ WebSockets exigem Fluid Compute habilitado. Conexões podem terminar e o cliente
 
 Após configurar serviços, migrações e agendador, integrar a branch de preparação e sincronizar o fork conectado à Vercel. Confirmar preset Fastify, remover override antigo de Output Directory `dist` e manter Node 24. `vercel.json` já define build e instalação. Criar Preview isolado antes de promover a produção.
 
-No painel Build and Deployment, selecionar Fastify e desativar os overrides de Build Command, Output Directory e Install Command para usar a configuração versionada. Manter a raiz `./`. A entrada `server.ts` importa Fastify diretamente para que a detecção do backend reconheça a função; um arquivo que apenas importa outra entrada não atende a essa detecção. O erro `unused_function` em `server.ts` indica que a função não foi reconhecida; não resolver apagando a inclusão de `dist`, necessária para servir a interface.
+No painel Build and Deployment, selecionar Fastify e desativar os overrides de Build Command, Output Directory e Install Command para usar a configuração versionada. Manter a raiz `./`. A entrada `server.ts` importa Fastify diretamente para que a detecção do backend reconheça a função; um arquivo que apenas importa outra entrada não atende a essa detecção.
+
+Correção para o erro `unused_function` observado na CLI 65.1.0: o bloco `functions.server.ts` foi substituído por `builds` com o builder explícito `@vercel/fastify@22.0.0`, origem `package.json` e inclusão de `dist/**` na configuração do builder. Esse builder instala dependências, executa o build do pacote e encontra a entrada Fastify. A configuração explícita evita a validação de padrões limitada a funções em `api` que estava rejeitando a implantação antes do build. A Vercel pode avisar que as configurações de build do painel são ignoradas quando há `builds`; nesse caso, a definição versionada é a referência. O projeto continua usando Vite para gerar a interface e Fastify para executar a API.
+
+Verificação adicional de 24/10/2026: execução local do builder oficial `@vercel/fastify@22.0.0`, com as dependências já instaladas, identificou `server.ts` e gerou uma função Node com 1.223 arquivos, incluindo `dist/index.html`, assets e limite de duração de 300 segundos declarado na entrada. Isso verifica o empacotamento local, não autenticação ou acesso aos serviços em produção. Os 35 testes locais também foram reexecutados e aprovados.
 
 - [x] Entrada do servidor e configuração versionável preparadas.
 - [x] Rota agendada autenticada e trava implementadas.

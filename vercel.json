@@ -4,10 +4,13 @@
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": null,
-  "functions": {
-    "server.ts": {
-      "includeFiles": "dist/**",
-      "maxDuration": 300
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/fastify@22.0.0",
+      "config": {
+        "includeFiles": ["dist/**"]
+      }
     }
-  }
+  ]
 }
