@@ -5,7 +5,7 @@ Revisado em 20/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Esta
 | Item | Prioridade | Resultado da ampliação | Verificação/dependência |
 |---|---|---|---|
 | F01 App atleta React Native | P1 | Fonte Expo, API compartilhada, armazenamento seguro e perfil de APK local | APK Android compilado e inicializado em emulador; testes de transporte/configuração atualizados para 21. Ensaios integrados têm resultado próprio no relatório; aparelho físico, IPA e lojas não são presumidos |
-| F02 CREF, validade e revogação | P0 | Conferência manual, evidência privada, prazo, suspensão/revogação e job | Fluxo manual e auditoria testados; aceite informado pela equipe registrado na ERS v2.2; consulta automática é evolução futura |
+| F02 CREF, validade e revogação | P0 | Conferência manual, evidência privada, prazo, suspensão/revogação e job | Fluxo manual e auditoria testados; decisão da equipe registrada na ERS; consulta automática é evolução futura |
 | F03 Recorrência/split/financeiro | P1 | Adaptador Asaas e regras persistidas, checkout, webhook e conciliação | Servidor HTTP controlado; sandbox real/carteiras/repasse pendentes |
 | F04 Cancelamento e ciclos | P1 | Retirada, encerramento e período pago, unicidade de ciclo vigente | Testes financeiro/contrato e tela; preservar histórico |
 | F05 Upload S3 e correção | P1 | S3 privado, cifra, assinatura MIME/extensão, finalidade, consentimento e feedback | Testes S3 local/SQL; nuvem depende configuração |
@@ -15,7 +15,7 @@ Revisado em 20/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Esta
 | F09 Implantação/recuperação | P1 | Containers/TLS/backup/CI e scripts | TLS 1.3, reinício da aplicação, restauração SQL/S3 e CI executados com aprovação; [registros de publicação](publicacao.md). Docker local recuperado sem apagar volumes; publicação pública requer acessos |
 | F10 Match e ciência de dados | P2 | Regra explicável e carga HTTP com 500 perfis/200 chamadas | Percentis medidos; dataset representativo, retroalimentação e IA treinada futuros |
 | F11 Compatibilidade/acessibilidade | P1 | Web responsiva e correções de foco/estados; três motores e axe | 15/15 E2E e seis telas por motor sem violações axe; aparelhos/Edge/Safari/leitor de tela reais pendentes |
-| F12 Documentação acadêmica | P0 | ERSv2, fluxos, modelos UML, checklist, API/manual/matriz | DOCX/PDF gerados, validados/renderizados; Eletiva I relacionada na matriz; revisão docente e entrega individual pendentes |
+| F12 Documentação acadêmica | P0 | ERSv2, fluxos, modelos UML, checklist, API/manual/matriz | DOCX/PDF gerados, validados/renderizados; Eletiva I relacionada na matriz; revisão coletiva e entrega individual pendentes |
 | A01 Agenda/consultorias | P1 | Persistência, conflitos, histórico, reagendamento/cancelamento/conclusão | Google OAuth real não executado; sincronização bidirecional externa futura |
 | A02 Catálogo ampliado | P2 | Métricas dinâmicas dos esportes atuais preservadas | Administração de novas modalidades e migração sem código futuro |
 | A03 Edição com autosave | P2 | Rascunho explícito preservado | Autosave contínuo e conflito colaborativo futuro |

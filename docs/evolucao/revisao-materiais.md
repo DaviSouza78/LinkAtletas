@@ -34,19 +34,18 @@ Inventário com hashes e contagem de páginas/partes: [materiais-originais.json]
 
 | Assunto | Texto anterior | Versão implementada e tratamento |
 |---|---|---|
-| CREF | A ERS original planejou automação na Sprint 2 | Conferência manual com auditoria, validade e suspensão. Atualização de 23/10: a equipe informou aceite do professor; RF-04, UC-02 e RN-02 adequados na ERS v2.2. Automação é evolução futura; não foi localizada API pública documentada adequada à integração. |
+| CREF | A ERS original planejou automação na Sprint 2 | Conferência manual com auditoria, validade e suspensão definida pela equipe; RF-04, UC-02 e RN-02 adequados na ERS. Automação é evolução futura; não foi localizada API pública documentada adequada à integração. |
 | Banco | Proposta/ERS mencionam MySQL e PostgreSQL simultaneamente | PostgreSQL único; migrations, transações, índices e backup testados. Evita duplicar persistência sem necessidade demonstrada. |
 | IA | A proposta classifica recomendação mais sofisticada como obrigatória | Match determinístico e explicável; não há modelo treinado, dataset representativo ou validação de eficácia. Registrar como redução/evolução a validar, nunca como IA concluída. O roteiro exige dados/métricas para justificar IA. |
 | Pagamento | Pré-autorização/recorrência/split no escopo completo | Aceite do ciclo antes do checkout; modo acadêmico sem cobrança e adaptador Asaas com testes HTTP controlados. Homologação financeira real continua aberta. |
 | Android/iOS e lojas | Compatibilidade e instalação pelas lojas na ERS original | APK Android local e ensaio em emulador são evidências próprias; iOS, hardware e stores não são presumidos pelos bundles. Confirmar o recorte da próxima entrega. |
-| Nuvem | Hospedagem/armazenamento em nuvem previstos | Arquitetura, containers, TLS, S3 local e CI em runner de nuvem verificáveis. Não existe URL pública do produto; alinhar a evidência exigida pelo docente. |
+| Nuvem | Hospedagem/armazenamento em nuvem previstos | Arquitetura, containers, TLS, S3 local e CI em runner de nuvem verificáveis. Implantação e testes do produto remoto ainda pendentes. |
 | Disponibilidade e rascunhos | Texto anterior prevê regras mais amplas | Horários compõem afinidade, agenda reserva consultorias; rascunho é salvo por ação explícita. Autosave contínuo e sincronização Google bidirecional permanecem no backlog. |
 
 ## Pendências que não podem ser preenchidas por suposição
 
 - [x] Contribuição da Eletiva I e evidências relacionadas na [matriz](rastreabilidade.md).
-- [x] Registrar na ERS v2.2 o aceite do CREF manual informado pela equipe.
-- [ ] Alinhar os demais ajustes de escopo e o recorte de serviços externos/compatibilidade nesta Sprint.
+- [x] Registrar na ERS o CREF manual e os demais recortes de escopo definidos pela equipe.
 - [ ] Registro da participação efetiva de cada integrante, com contribuição verificável; não atribuir os commits de Lucca aos colegas.
 - [ ] Entrega individual no ambiente acadêmico, conferindo anexos e confirmação de envio.
 - [ ] Contas e acessos externos que o grupo escolher homologar; ver [checklist específico](servicos-externos-sprint-2.md).

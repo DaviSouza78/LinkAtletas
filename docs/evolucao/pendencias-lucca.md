@@ -1,6 +1,6 @@
 # Pendências de Lucca e do grupo
 
-Revisão de 21/10/2026. Os nove entregáveis têm referências no [checklist](checklist-sprint-2.md); a [publicação](publicacao.md) identifica os commits e resultados. Os artefatos não substituem aceite docente, homologação de terceiros ou envio acadêmico.
+Revisão de 23/10/2026. Os nove entregáveis têm referências no [checklist](checklist-sprint-2.md); a [publicação](publicacao.md) identifica os commits e resultados. As decisões de escopo são da equipe; homologações de terceiros e envio acadêmico têm seus próprios registros.
 
 ## Resolvido nesta revisão
 
@@ -13,8 +13,8 @@ Revisão de 21/10/2026. Os nove entregáveis têm referências no [checklist](ch
 
 ## Antes de entregar ao professor
 
-- [x] Registrar a conferência **manual de CREF** como requisito atual na [ERS v2.2](ERS-v2.md), conforme aceite do professor informado pela equipe. A automação permanece como evolução futura.
-- [ ] Alinhar a diferença entre **IA solicitada na proposta e o match atual por regras**, além do recorte Android/iOS, nuvem e PostgreSQL único. Registrar a decisão docente.
+- [x] Registrar a conferência **manual de CREF** como requisito atual na [ERS](ERS-v2.md), conforme decisão da equipe. A automação permanece como evolução futura.
+- [x] Documentar os recortes definidos pela equipe: match por regras, PostgreSQL único e limites de Android/iOS e nuvem; manter evoluções no backlog sem apresentá-las como implementadas.
 - [x] Relacionar a contribuição da **Eletiva I** e suas evidências na [matriz de UCs](rastreabilidade.md).
 - [ ] Cada integrante revisar a demonstração, registrar sua participação real e fazer sua própria entrega no ambiente acadêmico. O documento de convivência exige anexar **e concluir o envio**. Prazo do roteiro: **26/10/2026**; conferir eventuais atualizações na disciplina.
 
@@ -38,4 +38,4 @@ O [checklist de serviços](servicos-externos-sprint-2.md) detalha critérios e v
 
 - [ ] Atualizar `node-forge`/`braces` transitivos do Expo quando os fornecedores publicarem correções; dois alertas altos permanecem no tooling de build, com exposição delimitada na [auditoria](seguranca-dependencias.md). Nenhum alerta foi suprimido.
 
-Autosave contínuo, biblioteca pública de mídia, modelo treinado, broker/autoescala e sincronização Google bidirecional continuam no [backlog](backlog.md). Commits de Lucca não comprovam participação de outros colegas nem aprovação docente.
+Autosave contínuo, biblioteca pública de mídia, modelo treinado, broker/autoescala e sincronização Google bidirecional continuam no [backlog](backlog.md). Commits de Lucca não comprovam participação de outros colegas.

@@ -1,30 +1,28 @@
-# Conferência de escopo e homologações da Sprint 2
+# Escopo atual e homologações da Sprint 2
 
-Conferência atualizada em 23/10/2026. O aceite docente do CREF manual foi informado pela equipe e registrado na ERS v2.2; os demais pontos não recebem aprovação presumida. Esta revisão não representa nova execução de testes.
+Revisão de 23/10/2026. As mudanças da ERS são decisões da equipe, consolidadas nesta versão. Este registro distingue escopo atual, evidências de implementação e evoluções; não representa nova execução de testes.
 
-## Implementação e compromissos originais
+## Decisões de escopo
 
-Os nove entregáveis gerais possuem artefatos e evidências no [checklist](checklist-sprint-2.md). Isso não significa que todos os compromissos da proposta e da ERS original estejam concluídos. A ERS atual registra mudanças; atualizar o documento não obtém automaticamente o aceite dessas mudanças.
-
-| Assunto | Por que alinhar com o professor | Pergunta objetiva |
+| Assunto | Escopo atual | Estado e continuidade |
 |---|---|---|
-| CREF | A [ERS original, página 39](../referencias/ERS-Sprint-1-original.pdf#page=39) previa automação. A [proposta, página 4](../referencias/Proposta-inicial-original.pdf#page=4) e o fluxo alternativo da ERS admitem conferência manual. | Resolvido no requisito atual: equipe informou aceite docente do fluxo manual, incorporado à ERS v2.2. Consulta oficial é feita pelo administrador; automação é evolução futura. |
-| Nuvem | O [roteiro, seção 9, página 9](../referencias/Roteiro-professores-original.pdf#page=9) pede integração com serviço em nuvem quando prevista, e a proposta prevê hospedagem/armazenamento. Docker/S3/TLS locais não comprovam essa integração remota. A matriz curricular aceita diferentes tipos de evidência, mas isso não revoga a seção 9. | Qual integração remota e evidência devem funcionar nesta Sprint? O recorte local atual é aceito ou é necessário implantar um serviço remoto? |
-| IA | A proposta classifica recomendação mais sofisticada como obrigatória para o projeto. O match atual pontua atributos por regras explicáveis; não é modelo treinado. A proposta não estabelece, nesse item, uma data específica para a IA avançada. | O algoritmo inicial atende à Sprint 2? Qual será o critério de aceite da IA na Sprint 3 ou da sua retirada formal do escopo? |
-| Android/iOS | A proposta contempla ambos, e a ERS prevê interface mobile e web na Sprint 2. Android foi testado com APK integrado em emulador. Bundle iOS não comprova execução em iPhone. A publicação em lojas não aparece como exigência específica nos nove itens da Sprint 2. | O Android demonstrado atende ao recorte mobile desta Sprint? Quando serão exigidos iOS, aparelho físico e distribuição? |
-| Banco de dados | Os documentos iniciais citam MySQL e PostgreSQL. A solução usa somente PostgreSQL, com persistência, migrações e recuperação verificadas. O requisito geral exige banco integrado; não exige dois SGBDs. | A simplificação para PostgreSQL único pode ser mantida como decisão de arquitetura documentada? |
-| Demais reduções funcionais | Autosave contínuo, sincronização Google bidirecional e regras mais amplas de disponibilidade não estão concluídos. Não devem ser presumidos pelo funcionamento de rascunho manual, agenda própria ou match por disponibilidade. | Quais dessas funções permanecem obrigatórias para o MVP final e quais podem ser retiradas ou tratadas como evolução? |
+| CREF | Conferência humana na fonte oficial, com decisão administrativa motivada, validade e auditoria | Fluxo manual implementado. RF-04 atualizado; automação é evolução futura condicionada a fonte oficial viável |
+| Nuvem | Implantação remota da aplicação e dos serviços necessários ao fluxo | Pendente de implantação e testes remotos. Docker/S3/TLS locais e CI hospedada não comprovam o produto implantado |
+| IA | Match determinístico por modalidade, objetivos, nível, orçamento e disponibilidade | Implementado e testado por regras explicáveis. Modelo treinado permanece evolução futura |
+| Android/iOS | Cliente Expo e APK Android integrado em emulador | Android com 18 etapas aprovadas; aparelho físico, IPA/iPhone e lojas sem homologação. Bundle não comprova execução em iOS |
+| Banco de dados | PostgreSQL único | Migrações, persistência e recuperação verificadas. A menção inicial a dois SGBDs foi substituída por decisão de arquitetura |
+| Demais evoluções | Rascunho salvo por ação explícita, agenda própria e disponibilidade usada no match | Autosave contínuo, sincronização Google bidirecional e outras evoluções estão no backlog; não são apresentados como concluídos |
+
+A [ERS](ERS-v2.md), o [backlog](backlog.md) e as [decisões](decisoes.md) documentam o recorte. Os [materiais originais](revisao-materiais.md) são preservados como histórico e referência da evolução.
 
 ## Eletiva I
 
-A contribuição da **Eletiva I** está relacionada na [matriz](rastreabilidade.md), com atividades e evidências de integração das UCs, planejamento por Sprints, requisitos, implementação, testes e comunicação de resultados, conforme o [roteiro, seção 4.1, página 5](../referencias/Roteiro-professores-original.pdf#page=5).
+A contribuição da **Eletiva I** está relacionada na [matriz](rastreabilidade.md), com atividades e evidências de integração das UCs, planejamento por Sprints, requisitos, implementação, testes e comunicação de resultados.
 
-## O que testar agora e o que não está comprovado
+## Verificação e entrega
 
-- **Exigido agora:** fluxo integrado, banco, interface responsiva, validações e testes iniciais com evidências. Já existem os testes de API/unidade, navegador, aplicativo e APK integrado detalhados no [relatório](relatorio-testes.md). Não houve alteração de código nesta conferência; não se apresenta a evidência anterior como nova execução em 22/10.
-- **CREF resolvido no requisito atual:** conferência manual aceita pelo professor conforme informação da equipe, registrada na ERS v2.2. Os testes comprovam a persistência/auditoria da decisão; não comprovam consulta automática ao conselho.
-- **Nuvem prevista:** confirmar a integração remota exigida pela seção 9. Não dar este item por atendido somente por containers locais ou CI hospedada. Implantação e teste remoto precisam de infraestrutura/configuração disponíveis, ou de aceite docente do recorte.
-- **Financeiro avançado:** a [ERS original, página 40](../referencias/ERS-Sprint-1-original.pdf#page=40) o planeja para a Sprint 3. Homologação Asaas não é obrigação nominal dos nove itens da Sprint 2; se o financeiro for mantido no MVP final, o adaptador testado com respostas controladas não substitui homologação com o provedor. Não é necessário cobrar dinheiro real para homologar em sandbox.
-- **Google, lojas e hardware:** não foram encontrados como homologações específicas obrigatórias nesta Sprint. Não declarar dispensa definitiva da Sprint 3: a necessidade depende dos requisitos mantidos no MVP. Execução em aparelho físico e iOS continua sem evidência; publicação em loja depende de contas e assinatura de distribuição.
+Os nove entregáveis gerais possuem artefatos e evidências no [checklist](checklist-sprint-2.md). O [roteiro, seção 9, página 9](../referencias/Roteiro-professores-original.pdf#page=9) estabelece fluxo principal integrado e demonstração real. O fluxo manual de CREF é o requisito vigente; os testes comprovam persistência e auditoria, sem alegar consulta automática.
 
-Credenciais externas, infraestrutura remota e dispositivos não são substituídos por testes simulados. O [checklist de serviços](servicos-externos-sprint-2.md) especifica acessos e procedimentos; as [pendências do grupo](pendencias-lucca.md) continuam abertas até haver evidência ou decisão docente registrada.
+O financeiro avançado foi planejado na [ERS original, página 40](../referencias/ERS-Sprint-1-original.pdf#page=40) para a Sprint 3. Se mantido no MVP, a homologação em sandbox deverá comprovar a integração com o provedor; testes HTTP controlados não equivalem a pagamento/repasse externo. Google, aparelhos e lojas seguem os estados específicos do [checklist de serviços](servicos-externos-sprint-2.md).
+
+Permanecem a implantação em nuvem, a revisão coletiva e as entregas individuais. Credenciais externas, infraestrutura remota e dispositivos não são substituídos por testes simulados; ver [pendências do grupo](pendencias-lucca.md).

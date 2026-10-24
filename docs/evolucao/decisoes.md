@@ -33,7 +33,7 @@ Ambiente não forneceu conta Asaas, provedor oficial CREF, SMTP externo, S3 hosp
 
 ## Mudanças em relação à proposta original
 
-Atualização de 23/10/2026: a equipe informou que o professor aceita a conferência manual de CREF e solicitou adequar a ERS. A versão 2.2 redefine RF-04, UC-02 e RN-02 para consulta humana na fonte oficial e decisão administrativa auditada. Não há consulta automática implementada; ela passa a evolução futura, sem condição de API para concluir o requisito atual. O registro do aceite decorre da informação da equipe, sem assinatura ou ata fabricada, e não aprova outros recortes de escopo.
+Atualização de 23/10/2026: a equipe definiu a conferência manual de CREF e solicitou adequar a ERS. RF-04, UC-02 e RN-02 descrevem consulta humana na fonte oficial e decisão administrativa auditada. Não há consulta automática implementada; ela passa a evolução futura, sem condição de API para concluir o requisito atual. A versão 2.3 consolida a definição de escopo pela equipe e retira pendências de aceite docente para essas alterações.
 
 A pesquisa consultou a [orientação oficial do CONFEF](https://faq.confef.org.br/faq/pdf.php?artlang=pt-br&cat=12&id=8) e a [consulta pública do CREF/SP](https://cref-sp.implanta.net.br/servicosOnline/Publico/ConsultaInscritos). Não foi localizada API pública documentada adequada à integração; não se afirma inexistência de serviço restrito. Consulta pública em formulário não é, por si só, documentação de API. Aprovação exige conferir titularidade e situação, não apenas formato de número.
 
@@ -61,7 +61,7 @@ Um perfil Android local separado permite demonstração standalone por USB/ADB, 
 
 Compartilhamento nativo agora elimina a cópia temporária também se download/escrita falhar parcialmente. Dois testes de regressão verificam essa limpeza. O backup foi corrigido para usar a chave local existente quando a variável de ambiente está vazia; duas regressões verificam fallback e preservação do arquivo diante de chave inválida. Dependências web/API e uuid do build móvel foram atualizados; dois alertas sem correção publicada do ecossistema Expo estão descritos na [auditoria](seguranca-dependencias.md).
 
-As divergências CREF automático, IA, PostgreSQL único, nuvem e Android/iOS foram confrontadas com a proposta e ERS originais. A aprovação de Lucca autoriza a implementação, mas não substitui concordância docente sobre redução de escopo. Nenhuma assinatura de integrante, comprovação de participação, submissão acadêmica ou aprovação externa foi fabricada.
+As divergências CREF automático, IA, PostgreSQL único, nuvem e Android/iOS foram confrontadas com a proposta e ERS originais. As decisões de escopo são registradas pela equipe, preservando a distinção entre implementado, testado e futuro. Nenhuma assinatura de integrante, comprovação de participação, submissão acadêmica ou homologação externa foi fabricada.
 
 Na retomada de 20/10, os sockets inválidos voltaram a impedir a partida do Docker após a troca de sessão do Windows; os diretórios de runtime foram novamente preservados para recriação, mantendo os mesmos volumes. O teste Android recebeu foco opcional de diagnóstico de treino, verificação do campo realmente focado antes de digitar, coordenadas com sinal e fechamento de teclado condicionado à sua visibilidade. Gestos mais lentos evitam pular cartões longos de consentimento. O diagnóstico isolado não é registrado como ensaio completo.
 

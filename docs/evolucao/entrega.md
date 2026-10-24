@@ -4,7 +4,8 @@ Este incremento amplia a entrega inicial preservada em [docs/sprint-2](../sprint
 
 Implementação inicial ampliada: commit `fca8a18`, integrada pelo [PR #1](https://github.com/DaviSouza78/LinkAtletas/pull/1), merge `f6a5a56`. Revisão de 15–20/10 na branch `revisao-sprint-2`, com autoria Lucca <luccacc.contato@gmail.com>. Verificações desta revisão: 82 testes Vitest, 15 cenários web em três motores e 22 testes de transporte/configuração Expo aprovados; tipos/build, TLS/reinício e recuperação SQL/S3 conferidos na [CI da revisão](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806). Os resultados antigos permanecem identificados como históricos.
 
-- [ERS v2.2: requisitos, fluxos, regras, cenários e histórico de revisões](ERS-v2.md). Atualização documental de 23/10/2026 inclui o aceite informado do CREF manual; os pacotes anteriores permanecem identificados pelo commit de sua publicação.
+- [ERS v2.3: requisitos, fluxos, regras, cenários e histórico de revisões](ERS-v2.md). Atualização documental de 23/10/2026 consolida as decisões da equipe; os pacotes anteriores permanecem identificados pelo commit de sua publicação.
+- [Cópia atualizada no template original](ERS-template-original-atualizada.pdf), para revisão da equipe; [preservação e método](template/README.md).
 - ERS [Word](ERS-v2.docx) / [PDF](ERS-v2.pdf), relatório [Word](relatorio-testes.docx) / [PDF](relatorio-testes.pdf).
 - [API e contratos](api.md).
 - [Diagramas e fontes UML/Mermaid](diagramas.md).

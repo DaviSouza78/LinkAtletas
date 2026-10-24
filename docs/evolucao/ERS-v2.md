@@ -1,6 +1,6 @@
-# ERS v2.2 — LinkAtletas — ampliação da Sprint 2
+# ERS v2.3 — LinkAtletas — ampliação da Sprint 2
 
-Data da revisão: 23/10/2026. Responsável pela revisão: Lucca Castilho Costa, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. O aceite docente da conferência manual de CREF foi informado pela equipe nesta revisão; não se estende automaticamente a outros ajustes de escopo nem comprova submissão acadêmica.
+Data da revisão: 23/10/2026. Responsável pela revisão: Lucca Castilho Costa, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. O escopo desta versão é definido pela equipe; a conferência manual de CREF é o procedimento vigente.
 
 ## Histórico e fontes
 
@@ -10,9 +10,12 @@ Data da revisão: 23/10/2026. Responsável pela revisão: Lucca Castilho Costa, 
 | 14/10/2026 | 1.1 | [Incremento web inicial](../sprint-2/ERS-v1.1.md): API, PostgreSQL, fluxo esportivo integrado e cenários de verificação | Lucca Castilho Costa |
 | 14/10/2026 | 2.0 | [Ampliação](../superpowers/specs/2026-10-14-expansao-completa-design.md): comunicação, mídia, privacidade, recuperação, ciclos, financeiro e cliente nativo | Lucca Castilho Costa |
 | 21/10/2026 | 2.1 | Consolidação das revisões de 15–21/10: modelos físicos conferidos, correções de privacidade/backup/upload, perfil Android local, 18 etapas do APK, publicação e evidências de testes | Lucca Castilho Costa |
-| 23/10/2026 | 2.2 | RF-04 e UC-02 adequados à conferência manual de CREF aceita pelo professor, conforme informação da equipe; atualização de critérios, limites externos, Eletiva I, publicação e histórico de revisões | Lucca Castilho Costa |
+| 23/10/2026 | 2.2 | RF-04 e UC-02 adequados à conferência manual de CREF; atualização de critérios, limites externos, Eletiva I, publicação e histórico de revisões | Lucca Castilho Costa |
+| 23/10/2026 | 2.3 | Consolidação das decisões de escopo pela equipe, retirada das pendências de aceite docente e preparação de cópia atualizada no template original, preservando a fonte da Sprint 1 | Lucca Castilho Costa |
 
-As datas históricas seguem as versões preservadas e a consolidação registrada no Git. O autor da versão original permanece coletivo, sem atribuir individualmente alterações não identificadas. Esta fonte mantém o conteúdo atualizado; a adaptação ao template obrigatório será realizada posteriormente, preservando este histórico.
+As datas históricas seguem as versões preservadas e a consolidação registrada no Git. O autor da versão original permanece coletivo, sem atribuir individualmente alterações não identificadas. Esta fonte mantém o conteúdo atualizado e o histórico utilizado na cópia do template original.
+
+Cópia de apresentação para revisão: [PDF atualizado no template original](ERS-template-original-atualizada.pdf), com [método e limites de preservação](template/README.md). A fonte original da Sprint 1 permanece intacta.
 
 Outras fontes: [proposta da demanda](../referencias/Proposta-inicial-original.pdf), [roteiro dos professores](../referencias/Roteiro-professores-original.pdf), [plano de execução](../superpowers/plans/2026-10-14-expansao-completa.md). O cronograma da ERS original cita RF-25–32 sem detalhá-los; esta revisão mantém RF-01–24 e identifica novos requisitos com prefixo RF-A, sem inventar o conteúdo original ausente. PostgreSQL é o único banco relacional desta implementação.
 
@@ -166,12 +169,12 @@ Consultas parametrizadas, validação Zod e autorização por usuário/recurso/e
 
 A implementação ampliada e sua revisão estão publicadas na `main` do repositório do grupo; a revisão técnica foi integrada pelo [PR #2](https://github.com/DaviSouza78/LinkAtletas/pull/2). Os registros de execução comprovam 82 testes de API/unidade, 15 cenários E2E em três motores, 22 testes móveis e 18 etapas do APK Android integrado em emulador. Docker/PostgreSQL/SMTP/S3 locais, build, backup e TLS têm evidências no [relatório](relatorio-testes.md). Esta revisão é documental; não representa nova execução desses testes em 23/10/2026.
 
-A [matriz curricular](rastreabilidade.md) inclui a Eletiva I e suas evidências. Permanecem pendentes a integração remota/nuvem prevista, o alinhamento dos demais recortes do MVP, homologações externas aplicáveis, revisão coletiva e submissões individuais. Financeiro avançado foi planejado originalmente para a Sprint 3; o código atual e seus testes controlados não comprovam operação no provedor. A automação de CREF deixa de ser pendência do aceite atual do RF-04 e fica como evolução condicionada à viabilidade de uma fonte oficial.
+A [matriz curricular](rastreabilidade.md) inclui a Eletiva I e suas evidências. Permanecem pendentes a integração remota/nuvem prevista, homologações externas aplicáveis, revisão coletiva e submissões individuais. Os recortes e evoluções do MVP são definidos pela equipe e registrados no backlog. Financeiro avançado foi planejado originalmente para a Sprint 3; o código atual e seus testes controlados não comprovam operação no provedor. A automação de CREF não integra o requisito atual do RF-04 e fica como evolução condicionada à viabilidade de uma fonte oficial.
 
 ## Revisão de escopo e decisões
 
-O roteiro docente define a Sprint 2 entre 21/09 e 26/10/2026. A ERS original previa CREF automático nesta Sprint e admitia alternativa manual na indisponibilidade da API. A pesquisa não localizou API pública documentada adequada à integração; isso não comprova inexistência de acesso restrito. A equipe informou em 23/10/2026 que o professor aceita a conferência manual e solicitou sua formalização. Esta revisão incorpora esse aceite ao RF-04, UC-02 e RN-02; o registro é baseado na informação da equipe, sem fabricar assinatura, ata ou comprovação externa.
+O roteiro define a Sprint 2 entre 21/09 e 26/10/2026. A ERS original previa CREF automático nesta Sprint e admitia alternativa manual na indisponibilidade da API. A pesquisa não localizou API pública documentada adequada à integração; isso não comprova inexistência de acesso restrito. A equipe definiu a conferência manual como procedimento vigente, incorporado ao RF-04, UC-02 e RN-02. A alteração está consolidada nesta versão.
 
-A proposta também solicita evolução de IA; o match atual segue por regras e não deve ser apresentado como modelo treinado. PostgreSQL substitui a menção a dois SGBDs; nuvem, iOS/lojas e autosave contínuo têm limites descritos na [revisão dos materiais](revisao-materiais.md). O aceite de CREF manual não resolve esses assuntos nem comprova aceitação integral de cada requisito original.
+A proposta também solicita evolução de IA; o match atual segue por regras e não deve ser apresentado como modelo treinado. PostgreSQL substitui a menção a dois SGBDs; nuvem, iOS/lojas e autosave contínuo têm limites descritos na [revisão dos materiais](revisao-materiais.md). As diferenças entre escopo atual, implementação, homologação e evolução permanecem explícitas, sem atribuir conclusão a funções ainda não executadas.
 
 O APK de demonstração tem pacote separado e aceita HTTP somente em loopback/endereço do emulador; o perfil normal continua exigindo HTTPS. O túnel USB permite testar o backend local sem publicá-lo. [Manual Android](manual-apk-local.md), [dependências externas](servicos-externos-sprint-2.md) e [auditoria de bibliotecas](seguranca-dependencias.md) registram estados e restrições. A API e os modelos foram confrontados com OpenAPI e metadados reais do banco, sem exportar dados pessoais: [dicionário completo](dicionario-dados.md).

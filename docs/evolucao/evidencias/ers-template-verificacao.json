@@ -1,0 +1,255 @@
+{
+  "version": "2.3",
+  "sourcePages": 47,
+  "updatedPages": 61,
+  "patchedFields": 49,
+  "originalSha256": "b49d79d04aa8af4ef8762076d417c5cef67b1d5004171c7ff73996111fe42752",
+  "updatedSha256": "cb32649af1b73a44be513f89e5215a4ad747eb7699ed73f8b9dc6cf568248bd4",
+  "templateSectionsPreserved": true,
+  "fontFamilies": [
+    "Arial-BoldMT",
+    "ArialMT",
+    "TimesNewRomanPSMT"
+  ],
+  "noNewFontFamilies": true,
+  "bodyFontSize": 12,
+  "historyFontSize": 10,
+  "originalPagesVisualChecks": [
+    {
+      "page": 1,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 2,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 3,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 4,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 5,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 6,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 7,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 8,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 9,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 10,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 11,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 12,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 13,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 14,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 15,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 16,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 17,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 18,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 19,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 20,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 21,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 22,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 23,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 24,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 25,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 26,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 27,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 28,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 29,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 30,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 31,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 32,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 33,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 34,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 35,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 36,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 37,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 38,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 39,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 40,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 41,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 42,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 43,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 44,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 45,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 46,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    },
+    {
+      "page": 47,
+      "unchangedOutsideUpdates": true,
+      "difference": null
+    }
+  ],
+  "editableOriginalAvailable": false
+}

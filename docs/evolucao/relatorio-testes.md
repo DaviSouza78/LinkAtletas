@@ -72,7 +72,7 @@ Os 15 E2E de 15/10 foram repetidos após a atualização dos plugins HTTP e pass
 
 A auditoria completa das dependências de produção e desenvolvimento retornou zero alertas na raiz e dois alertas altos sem correção oficial nas ferramentas transitivas do Expo: [resultado](evidencias/auditoria-dependencias.json), [exposição e tratamento](seguranca-dependencias.md). Não foram suprimidos avisos. O perfil normal Android foi pré-gerado com tráfego claro desabilitado e sem exceção local; o perfil de demonstração permite apenas três destinos locais explícitos.
 
-A [revisão dos materiais](revisao-materiais.md) preserva os originais e identifica ajustes de escopo que exigem alinhamento docente. Os modelos foram conferidos automaticamente contra 36 tabelas/257 colunas/45 FKs, 16 casos de uso únicos e 11 chamadas das sequências/OpenAPI, sem exportar dados de usuários.
+A [revisão dos materiais](revisao-materiais.md) preserva os originais e identifica ajustes de escopo definidos pela equipe. Os modelos foram conferidos automaticamente contra 36 tabelas/257 colunas/45 FKs, 16 casos de uso únicos e 11 chamadas das sequências/OpenAPI, sem exportar dados de usuários.
 
 Na CI de 20/10, a regressão do socket descartado falhou no WebKit porque esse navegador pode não emitir `close` quando a conexão é abortada antes de abrir. O ensaio agora injeta explicitamente o callback atrasado após abrir a conexão válida, mantendo o transporte real; a asserção não foi removida. A prontidão do E2E passou a consultar `/api/health` através do proxy web, evitando iniciar a primeira requisição quando somente o Vite já estava disponível.
 
