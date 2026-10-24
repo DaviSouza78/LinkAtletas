@@ -113,7 +113,7 @@ docs/evolucao/       ERS v2, API, manual, modelos, checklist e novas evidências
 
 [Índice](docs/evolucao/entrega.md) · [ERS v2](docs/evolucao/ERS-v2.md) · [API](docs/evolucao/api.md) · [Diagramas](docs/evolucao/diagramas.md) · [Backlog](docs/evolucao/backlog.md) · [Rastreabilidade/UCs](docs/evolucao/rastreabilidade.md) · [Decisões](docs/evolucao/decisoes.md).
 
-ERS de apresentação: [PDF v2.4 no template original](docs/evolucao/ERS-template-original-atualizada.pdf), revisado em 24/10/2026, com requisitos integrados, 16 casos de teste rastreáveis e modelos atuais. [Correções aplicadas](docs/evolucao/revisao-ers-aplicada-2026-10-24.md); a fonte da Sprint 1 permanece preservada.
+ERS de apresentação v2.5: [PDF no template original](docs/evolucao/ERS-template-original-atualizada.pdf) e [Word completo editável](docs/evolucao/ERS-completa-v2.5-editavel.docx), revisados em 24/10/2026, com requisitos integrados, 16 casos de teste rastreáveis e modelos atuais. [Ajustes de estrutura e Word](docs/evolucao/ajustes-ers-v2.5.md); a fonte da Sprint 1 permanece preservada.
 
 ## Equipe e pendências externas
 

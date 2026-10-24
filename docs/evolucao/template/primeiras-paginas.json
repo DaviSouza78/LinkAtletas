@@ -1,22 +1,116 @@
 [
- {"page":1,"start":"Versão <1.0>","text":"Versão <2.4>"},
- {"page":5,"start":"Para solucionar esse problema, o LinkAtletas","end":"em um só lugar.","text":"O LinkAtletas reúne aplicativo do atleta e interface web para atletas, treinadores e administração. O fluxo principal compreende cadastro, conferência manual de CREF, descoberta por compatibilidade, solicitação, aceite, prescrição e execução de treinos. A versão acadêmica demonstra o acompanhamento sem cobrar dinheiro. O módulo financeiro contém integração preparada e testes controlados; sua operação externa exige configuração e homologação próprias. Os dados esportivos e arquivos privados seguem regras de acesso e consentimento."},
- {"page":6,"start":" é um ecossistema digital composto","includePrevious":2,"end":"prescrições, métricas e pagamentos.","text":"Na Sprint 2, a solução integra app do atleta, web responsiva para os três papéis e API com PostgreSQL. O fluxo esportivo funciona localmente; cobrança real, implantação em nuvem e homologações externas não são apresentadas como concluídas."},
- {"page":6,"start":"Administradores. Inclui a verificação obrigatória","end":"certificação equivalente) antes da liberação do perfil.","text":"Administradores. O CREF exige conferência manual administrativa antes da publicação do perfil na descoberta."},
- {"page":7,"start":"via gateway de pagamentos integrado,","end":"treinadores ao final do ciclo de atendimento.","text":"com integração financeira preparada para configuração externa. Avaliação exige vínculo ativo elegível há sete dias por padrão."},
- {"page":7,"start":"Dashboard de Acompanhamento e Métricas:","text":"Indicadores avançados (evolução):"},
- {"page":7,"start":"Componente visual que apresenta a","end":"treinador indicadores sobre alunos ativos","text":"Evolução futura. A versão atual consulta fichas, execuções e estados do acompanhamento esportivo, sem afirmar dashboards avançados de saúde e retenção."},
- {"page":7,"start":" Aplicativo Mobile (React Native +","end":"treinadores.","text":" App React Native/Expo para o atleta e web React/TypeScript responsiva para atleta, treinador e administrador. Ambos usam a API integrada; iOS não foi homologado."},
- {"page":7,"start":"perfil, persistência em bancos de dados MySQL","text":"perfil, persistência relacional em PostgreSQL e armazenamento"},
- {"page":7,"start":"em nuvem via Object Storage","end":"correções.","text":"privado compatível com S3. Desenvolvimento usa serviço local; implantação remota permanece pendente."},
- {"page":7,"start":"O sistema atua em duas frentes integradas:","end":"para revisão. Ao término do período, o serviço é avaliado pelo aluno. Essa abordagem","text":"O acompanhamento começa com contas e preferências persistidas. O treinador submete CREF e evidência; a administração confere a fonte oficial e registra decisão, motivo e validade. O atleta encontra profissionais elegíveis por regras explicáveis, solicita vínculo e aguarda o aceite. No modo acadêmico não há cobrança; o modo Asaas configurado prepara checkout após o aceite. O treinador publica fichas, o atleta registra execução e feedback e as partes acessam mensagens, agenda e mídia privada autorizada. Avaliações exigem vínculo ativo elegível por sete dias por padrão; a nota pública é distinta do score de compatibilidade."},
- {"page":8,"start":"reduz o trabalho operacional","end":"governança de dados sensíveis em conformidade com a LGPD.","text":"A solução organiza o acompanhamento e implementa controles de privacidade; testes técnicos não constituem certificação jurídica de conformidade."},
- {"page":8,"start":"Para a construção desta solução,","end":"pagamentos.","text":"A interface web utiliza React/TypeScript e atende atleta, treinador e administrador. O cliente móvel utiliza React Native/Expo e compartilha a API Node.js/Fastify com PostgreSQL. A web usa sessão em cookie HttpOnly; o app usa token opaco em SecureStore. Arquivos privados são cifrados antes do armazenamento compatível com S3. PostgreSQL, SMTP Mailpit e S3 SeaweedFS são serviços locais de desenvolvimento. Há testes de backup, TLS local e CI; isso não comprova hospedagem pública ou alta disponibilidade. O APK foi ensaiado em emulador Android; aparelho físico, iOS e lojas não foram homologados. A implantação em nuvem será executada separadamente."},
- {"page":9,"start":"MySQL/PostgreSQL","text":"PostgreSQL"},
- {"page":10,"start":"Modelo de Cobrança Adotado:","text":"Modelo de Cobrança Proposto (evolução)"},
- {"page":10,"start":"O LinkAtletas adota um modelo híbrido","end":"da contratação de recursos avançados pelos profissionais.","text":"Marketplace e assinatura SaaS constituem proposta comercial futura. Na Sprint 2, o modo acadêmico não cobra e os testes financeiros usam respostas controladas. Os planos e limites apresentados a seguir são hipóteses de monetização, não funcionalidades comerciais homologadas nem despesas já contratadas."},
- {"page":10,"start":"Tabela de Planos e Precificação","text":"Planos Propostos para Evolução Comercial"},
- {"page":13,"start":"A assinatura mensal dos treinadores complementa","end":"previsível e permitindo oferecer recursos diferenciados conforme o porte e a necessidade de cada profissional.","text":"Na proposta comercial futura, a assinatura dos treinadores poderá complementar a monetização. Os planos abaixo não impõem limites de alunos ou comissões por categoria à implementação atual da Sprint 2."},
- {"page":13,"start":"Justificativa dos Planos","text":"Justificativa dos Planos Propostos"},
- {"page":13,"start":"Conselho Regional de Educação Física (Registro de validação","end":"profissional obrigatório).","text":"Conselho Regional de Educação Física; registro profissional conferido manualmente."}
+  {
+    "page": 1,
+    "start": "Versão <1.0>",
+    "text": "Versão <2.5>"
+  },
+  {
+    "page": 5,
+    "start": "Para solucionar esse problema, o LinkAtletas",
+    "end": "em um só lugar.",
+    "text": "O LinkAtletas reúne aplicativo do atleta e interface web para atletas, treinadores e administração. O fluxo principal compreende cadastro, conferência manual de CREF, descoberta por compatibilidade, solicitação, aceite, prescrição e execução de treinos. A versão acadêmica demonstra o acompanhamento sem cobrar dinheiro. O módulo financeiro contém integração preparada e testes controlados; sua operação externa exige configuração e homologação próprias. Os dados esportivos e arquivos privados seguem regras de acesso e consentimento."
+  },
+  {
+    "page": 6,
+    "start": " é um ecossistema digital composto",
+    "includePrevious": 2,
+    "end": "prescrições, métricas e pagamentos.",
+    "text": "Na Sprint 2, a solução integra app do atleta, web responsiva para os três papéis e API com PostgreSQL. O fluxo esportivo funciona localmente; cobrança real, implantação em nuvem e homologações externas não são apresentadas como concluídas."
+  },
+  {
+    "page": 6,
+    "start": "Administradores. Inclui a verificação obrigatória",
+    "end": "certificação equivalente) antes da liberação do perfil.",
+    "text": "Administradores. O CREF exige conferência manual administrativa antes da publicação do perfil na descoberta."
+  },
+  {
+    "page": 7,
+    "start": "via gateway de pagamentos integrado,",
+    "end": "treinadores ao final do ciclo de atendimento.",
+    "text": "com integração financeira preparada para configuração externa. Avaliação exige vínculo ativo elegível há sete dias por padrão."
+  },
+  {
+    "page": 7,
+    "start": "Dashboard de Acompanhamento e Métricas:",
+    "text": "Indicadores avançados (evolução):"
+  },
+  {
+    "page": 7,
+    "start": "Componente visual que apresenta a",
+    "end": "treinador indicadores sobre alunos ativos",
+    "text": "Evolução futura. A versão atual consulta fichas, execuções e estados do acompanhamento esportivo, sem afirmar dashboards avançados de saúde e retenção."
+  },
+  {
+    "page": 7,
+    "start": " Aplicativo Mobile (React Native +",
+    "end": "treinadores.",
+    "text": " App React Native/Expo para o atleta e web React/TypeScript responsiva para atleta, treinador e administrador. Ambos usam a API integrada; iOS não foi homologado."
+  },
+  {
+    "page": 7,
+    "start": "perfil, persistência em bancos de dados MySQL",
+    "text": "perfil, persistência relacional em PostgreSQL e armazenamento"
+  },
+  {
+    "page": 7,
+    "start": "em nuvem via Object Storage",
+    "end": "correções.",
+    "text": "privado compatível com S3. Desenvolvimento usa serviço local; implantação remota permanece pendente."
+  },
+  {
+    "page": 7,
+    "start": "O sistema atua em duas frentes integradas:",
+    "end": "para revisão. Ao término do período, o serviço é avaliado pelo aluno. Essa abordagem",
+    "text": "O acompanhamento começa com contas e preferências persistidas. O treinador submete CREF e evidência; a administração confere a fonte oficial e registra decisão, motivo e validade. O atleta encontra profissionais elegíveis por regras explicáveis, solicita vínculo e aguarda o aceite. No modo acadêmico não há cobrança; o modo Asaas configurado prepara checkout após o aceite. O treinador publica fichas, o atleta registra execução e feedback e as partes acessam mensagens, agenda e mídia privada autorizada. Avaliações exigem vínculo ativo elegível por sete dias por padrão; a nota pública é distinta do score de compatibilidade."
+  },
+  {
+    "page": 8,
+    "start": "reduz o trabalho operacional",
+    "end": "governança de dados sensíveis em conformidade com a LGPD.",
+    "text": "A solução organiza o acompanhamento e implementa controles de privacidade; testes técnicos não constituem certificação jurídica de conformidade."
+  },
+  {
+    "page": 8,
+    "start": "Para a construção desta solução,",
+    "end": "pagamentos.",
+    "text": "A interface web utiliza React/TypeScript e atende atleta, treinador e administrador. O cliente móvel utiliza React Native/Expo e compartilha a API Node.js/Fastify com PostgreSQL. A web usa sessão em cookie HttpOnly; o app usa token opaco em SecureStore. Arquivos privados são cifrados antes do armazenamento compatível com S3. PostgreSQL, SMTP Mailpit e S3 SeaweedFS são serviços locais de desenvolvimento. Há testes de backup, TLS local e CI; isso não comprova hospedagem pública ou alta disponibilidade. O APK foi ensaiado em emulador Android; aparelho físico, iOS e lojas não foram homologados. A implantação em nuvem será executada separadamente."
+  },
+  {
+    "page": 9,
+    "start": "MySQL/PostgreSQL",
+    "text": "PostgreSQL"
+  },
+  {
+    "page": 10,
+    "start": "Modelo de Cobrança Adotado:",
+    "text": "Modelo de Cobrança Proposto (evolução)"
+  },
+  {
+    "page": 10,
+    "start": "O LinkAtletas adota um modelo híbrido",
+    "end": "da contratação de recursos avançados pelos profissionais.",
+    "text": "Marketplace e assinatura SaaS constituem proposta comercial futura. Na Sprint 2, o modo acadêmico não cobra e os testes financeiros usam respostas controladas. Os planos e limites apresentados a seguir são hipóteses de monetização, não funcionalidades comerciais homologadas nem despesas já contratadas."
+  },
+  {
+    "page": 10,
+    "start": "Tabela de Planos e Precificação",
+    "text": "Planos Propostos para Evolução Comercial"
+  },
+  {
+    "page": 13,
+    "start": "A assinatura mensal dos treinadores complementa",
+    "end": "previsível e permitindo oferecer recursos diferenciados conforme o porte e a necessidade de cada profissional.",
+    "text": "Na proposta comercial futura, a assinatura dos treinadores poderá complementar a monetização. Os planos abaixo não impõem limites de alunos ou comissões por categoria à implementação atual da Sprint 2."
+  },
+  {
+    "page": 13,
+    "start": "Justificativa dos Planos",
+    "text": "Justificativa dos Planos Propostos"
+  },
+  {
+    "page": 13,
+    "start": "Conselho Regional de Educação Física (Registro de validação",
+    "end": "profissional obrigatório).",
+    "text": "Conselho Regional de Educação Física; registro profissional conferido manualmente."
+  }
 ]

@@ -1,4 +1,4 @@
-# ERS v2.4 — LinkAtletas — ampliação da Sprint 2
+# ERS v2.5 — LinkAtletas — ampliação da Sprint 2
 
 Data da revisão: 24/10/2026. Responsável pela revisão: Lucca Castilho Costa, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. O escopo desta versão é definido pela equipe; a conferência manual de CREF é o procedimento vigente.
 
@@ -13,10 +13,11 @@ Data da revisão: 24/10/2026. Responsável pela revisão: Lucca Castilho Costa, 
 | 23/10/2026 | 2.2 | RF-04 e UC-02 adequados à conferência manual de CREF; atualização de critérios, limites externos, Eletiva I, publicação e histórico de revisões | Lucca Castilho Costa |
 | 23/10/2026 | 2.3 | Consolidação das decisões de escopo pela equipe, retirada das pendências de aceite docente e preparação de cópia atualizada no template original, preservando a fonte da Sprint 1 | Lucca Castilho Costa |
 | 24/10/2026 | 2.4 | Aplicação da auditoria: requisitos integrados ao corpo, cenários e limites corrigidos, 16 casos de teste rastreáveis, figuras atuais, cronograma, sumário e retirada dos apêndices duplicados | Lucca Castilho Costa |
+| 24/10/2026 | 2.5 | Retirada do detalhamento 5.4.1 acrescentado e da lista final de relatórios, espaçamento dos CTs e apêndices, reconstrução do Word completo com layout posicionado e texto editável | Lucca Castilho Costa |
 
 As datas históricas seguem as versões preservadas e a consolidação registrada no Git. O autor da versão original permanece coletivo, sem atribuir individualmente alterações não identificadas. Esta fonte mantém o conteúdo atualizado e o histórico utilizado na cópia do template original.
 
-Documento de apresentação: [PDF atualizado no template original](ERS-template-original-atualizada.pdf), com [método e limites de preservação](template/README.md), [texto das seções repaginadas](ERS-template-original.md) e [correções aplicadas](revisao-ers-aplicada-2026-10-24.md). A fonte original da Sprint 1 permanece intacta. O PDF integra o conteúdo nos capítulos 1–6, desenvolve a seção de testes e mantém o título 7 sem duplicar a especificação.
+Documento de apresentação: [PDF atualizado no template original](ERS-template-original-atualizada.pdf) e [Word completo editável v2.5](ERS-completa-v2.5-editavel.docx), com [método e limites de preservação](template/README.md), [texto das seções repaginadas](ERS-template-original.md) e [ajustes de estrutura e Word](ajustes-ers-v2.5.md). A fonte original da Sprint 1 permanece intacta. O PDF integra o conteúdo nos capítulos 1–6, desenvolve a seção de testes e mantém o título 7 sem duplicar a especificação. Este Markdown e o arquivo ERS-v2.docx são sínteses auxiliares; o Word completo é o arquivo v2.5 identificado acima.
 
 Outras fontes: [proposta da demanda](../referencias/Proposta-inicial-original.pdf), [roteiro dos professores](../referencias/Roteiro-professores-original.pdf), [plano de execução](../superpowers/plans/2026-10-14-expansao-completa.md). O cronograma da ERS original cita RF-25–32 sem detalhá-los; esta revisão mantém RF-01–24 e identifica novos requisitos com prefixo RF-A, sem inventar o conteúdo original ausente. PostgreSQL é o único banco relacional desta implementação.
 

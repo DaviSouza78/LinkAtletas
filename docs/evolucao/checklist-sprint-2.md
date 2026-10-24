@@ -82,7 +82,7 @@ Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis o
 
 ## Estado de conclusão
 
-Conferência documental atualizada em 24/10/2026: [diferenças em relação aos originais, Eletiva I e homologações](aceite-escopo-sprint-2.md). As decisões de escopo da equipe estão incorporadas à ERS v2.4, incluindo CREF manual. [Auditoria aplicada](revisao-ers-aplicada-2026-10-24.md) e [PDF no template original](ERS-template-original-atualizada.pdf) integram requisitos, figuras, testes e sumário, sem apêndices duplicados. Integração com nuvem e homologações ainda não executadas mantêm seus próprios limites.
+Conferência documental atualizada em 24/10/2026: [diferenças em relação aos originais, Eletiva I e homologações](aceite-escopo-sprint-2.md). As decisões de escopo da equipe estão incorporadas à ERS v2.5, incluindo CREF manual. [Ajustes de estrutura e Word](ajustes-ers-v2.5.md), [PDF no template original](ERS-template-original-atualizada.pdf) e [Word completo](ERS-completa-v2.5-editavel.docx) integram requisitos, figuras, testes e sumário, sem apêndices duplicados ou detalhamento adicional 5.4.1. Integração com nuvem e homologações ainda não executadas mantêm seus próprios limites.
 
 Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado acima, com publicação e CI confirmadas. Acesso externo, homologação completa em aparelho, revisão coletiva e participação individual permanecem conforme as [pendências](pendencias-lucca.md). IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.
 

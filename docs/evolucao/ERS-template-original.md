@@ -1,4 +1,4 @@
-# ERS v2.4 - LinkAtletas
+# ERS v2.5 - LinkAtletas
 
 Data: 24/10/2026. Fonte textual das seções repaginadas do PDF; capa, identificação, histórico e seções iniciais são preservados do template e corrigidos pelos campos versionados.
 
@@ -942,7 +942,7 @@ Consulta do retorno pelo treinador na interface integrada; dados e resultados s�
 
 ## 5 Diagramas UML
 
-As figuras correspondem aos modelos atuais do repositório. Classes representam o domínio conceitual e não classes ORM implementadas. O DER representa o esquema físico; colunas selecionadas simplificam a visão e o dicionário de dados contém o detalhe completo. Diagramas com muitos elementos possuem detalhamento textual legível e links para a fonte ampliável.
+As figuras correspondem aos modelos atuais do repositório. Classes representam o domínio conceitual e não classes ORM implementadas. O DER representa o esquema físico, com atributos selecionados para simplificar a visão. Cada figura referencia sua fonte ampliável; o dicionário de dados completo permanece em documento técnico separado.
 
 ### 5.1 Diagrama de casos de uso
 
@@ -980,219 +980,11 @@ RF-14–18: verificar papel/vínculo, prescrever, publicar, consultar, registrar
 
 ### 5.4 Diagrama entidade-relacionamento
 
-Visão geral do DER atual. São 35 tabelas de domínio e schema_migrations, totalizando 36 tabelas, 257 colunas e 45 FKs no retrato do banco. Os vínculos físicos e atributos-chave são detalhados a seguir para leitura em A4.
+Visão geral do DER atual: 35 tabelas de domínio e schema_migrations, totalizando 36 tabelas, 257 colunas e 45 FKs no retrato do banco. A figura vetorial pode ser ampliada; o detalhe de campos e restrições está no dicionário de dados separado.
 
 [diagramas/der.svg](diagramas/der.svg)
 
 ![5.4 Diagrama entidade-relacionamento](diagramas/der.svg)
-
-### 5.4.1 Detalhamento do modelo físico
-
-PK = chave primária; FK = chave estrangeira; UK = unicidade. Cada entidade abaixo apresenta os atributos selecionados no DER e suas FKs de saída. Relações opcionais e obrigatórias seguem o desenho e as restrições SQL. Campos polimórficos resource_id não são FKs genéricas; a autorização correspondente é aplicada pela API. schema_migrations controla versões técnicas e não representa entidade esportiva.
-
-### administrative_audit
-
-uuid id PK; uuid actor_id FK; uuid subject_id FK
-
-FK: actor_id -> users; subject_id -> users.
-
-### billing_audit
-
-uuid id PK; uuid actor_id FK; uuid contract_id FK
-
-FK: actor_id -> users; contract_id -> contracts.
-
-### billing_events
-
-text id PK; text event; jsonb payload; timestamptz processed_at
-
-### billing_jobs
-
-uuid id PK; uuid subscription_id FK; text state
-
-FK: subscription_id -> billing_subscriptions.
-
-### billing_payments
-
-uuid id PK; uuid subscription_id FK; text provider_payment_id UK; integer amount_cents
-
-FK: subscription_id -> billing_subscriptions.
-
-### billing_plans
-
-uuid coach_id PK,FK; integer amount_cents
-
-FK: coach_id -> users.
-
-### billing_settings
-
-integer id PK; integer commission_bps; integer grace_days
-
-### billing_splits
-
-text provider_split_id PK; uuid payment_id FK; text status
-
-FK: payment_id -> billing_payments.
-
-### billing_subscriptions
-
-uuid id PK; uuid contract_id FK,UK; text state; text provider_checkout_id UK; text provider_subscription_id UK; text provider_customer_id
-
-FK: contract_id -> contracts.
-
-### billing_wallets
-
-uuid coach_id PK,FK; text wallet_id UK
-
-FK: coach_id -> users.
-
-### consent_history
-
-uuid id PK; uuid user_id FK; text purpose; boolean granted
-
-FK: user_id -> users.
-
-### consents
-
-uuid user_id PK,FK; text purpose PK; boolean granted; text version
-
-FK: user_id -> users.
-
-### consultation_history
-
-uuid id PK; uuid consultation_id FK; uuid actor_id FK
-
-FK: actor_id -> users; consultation_id -> consultations.
-
-### consultations
-
-uuid id PK; uuid contract_id FK; text description_ciphertext; timestamptz starts_at; text external_event_id
-
-FK: contract_id -> contracts.
-
-### contracts
-
-uuid id PK; uuid athlete_id FK; uuid coach_id FK; text status; timestamptz ended_at
-
-FK: athlete_id -> users; coach_id -> users.
-
-### executions
-
-uuid id PK; uuid workout_id FK,UK; text private_payload
-
-FK: workout_id -> workouts.
-
-### exercise_blocks
-
-uuid id PK; uuid workout_id FK; integer position; jsonb definition
-
-FK: workout_id -> workouts.
-
-### mail_outbox
-
-uuid id PK; uuid user_id FK; text encrypted_body; timestamptz sent_at
-
-FK: user_id -> users.
-
-### media
-
-uuid id PK; uuid owner_id FK; text purpose; uuid resource_id; text object_key UK
-
-FK: owner_id -> users.
-
-### media_feedback
-
-uuid id PK; uuid media_id FK; uuid author_id FK; text encrypted_text
-
-FK: author_id -> users; media_id -> media.
-
-### messages
-
-uuid id PK; uuid contract_id FK; uuid sender_id FK; text body_ciphertext; uuid media_id FK
-
-FK: contract_id -> contracts; media_id -> media; sender_id -> users.
-
-### metric_types
-
-text sport PK; text key PK; text unit; double_precision min; double_precision max
-
-### notifications
-
-uuid id PK; uuid user_id FK; uuid resource_id; timestamptz read_at
-
-FK: user_id -> users.
-
-### password_resets
-
-text token_hash PK; uuid user_id FK; timestamptz used_at
-
-FK: user_id -> users.
-
-### privacy_requests
-
-uuid id PK; uuid user_id FK; text status
-
-FK: user_id -> users.
-
-### private_health
-
-uuid user_id PK,FK; text encrypted_data
-
-FK: user_id -> users.
-
-### profiles
-
-uuid user_id PK,FK; text verification_status; timestamptz verification_expires_at
-
-FK: user_id -> users.
-
-### review_moderation
-
-uuid id PK; uuid review_id FK; uuid reviewer_id FK
-
-FK: review_id -> reviews; reviewer_id -> users.
-
-### review_reports
-
-uuid id PK; uuid review_id FK; uuid reporter_id FK
-
-FK: reporter_id -> users; review_id -> reviews.
-
-### reviews
-
-uuid id PK; uuid contract_id FK,UK; uuid athlete_id FK; uuid coach_id FK; integer rating; boolean hidden
-
-FK: athlete_id -> users; coach_id -> users; contract_id -> contracts.
-
-### sessions
-
-text token_hash PK; uuid user_id FK; timestamptz expires_at
-
-FK: user_id -> users.
-
-### users
-
-uuid id PK; text email UK; text role; timestamptz disabled_at
-
-### verification_audit
-
-uuid id PK; uuid verification_id FK; uuid reviewer_id FK
-
-FK: reviewer_id -> users; verification_id -> verifications.
-
-### verifications
-
-uuid id PK; uuid coach_id FK; uuid reviewer_id FK; uuid document_id FK; timestamptz expires_at
-
-FK: document_id -> media; coach_id -> users; reviewer_id -> users.
-
-### workouts
-
-uuid id PK; uuid contract_id FK; text status
-
-FK: contract_id -> contracts.
-
-[Dicionário completo de dados e restrições](dicionario-dados.md)
 
 ## 6. Casos de Testes
 
@@ -1526,26 +1318,6 @@ Fluxo principal:
 
 [evidencias/vitest-results.json](evidencias/vitest-results.json)
 
-[Relatório completo e limites](relatorio-testes.md)
-
-[82 testes de API/unidade](evidencias/vitest-results.json)
-
-[15 E2E em três motores](evidencias/playwright-results.json)
-
-[22 testes móveis](evidencias/mobile-tests.json)
-
-[18 etapas do APK integrado](evidencias/android-integrated-result.json)
-
-[Carga sintética](evidencias/carga-matchmaking.json)
-
-[Esquema físico](evidencias/database-schema.json)
-
-[API OpenAPI](openapi.json)
-
-[Backlog e decisões](backlog.md)
-
-[Matriz curricular — Eletiva I](rastreabilidade.md)
-
 ## 7. Apêndices
 
-Sem apêndices adicionais nesta entrega. Requisitos, regras e testes vigentes estão integrados às seções correspondentes. As evidências completas são arquivos vinculados na seção 6.
+Não se aplica nesta entrega. Os documentos de apoio e as evidências de teste são mantidos separadamente no repositório.

@@ -1,10 +1,10 @@
 {
-  "version": "2.4",
+  "version": "2.5",
   "documentReviewDate": "24/10/2026",
   "sourcePages": 47,
-  "updatedPages": 65,
+  "updatedPages": 60,
   "originalSha256": "b49d79d04aa8af4ef8762076d417c5cef67b1d5004171c7ff73996111fe42752",
-  "updatedSha256": "fc0fefd83fb4248a48dbfede923221cb911ed9c5696f926f9c27b27d2889c939",
+  "updatedSha256": "9d1229e647d1ae904a905ac7f1d9a04d8e8c8a940d6b226c4dadbd7a8d711256",
   "preservedInitialPages": 13,
   "initialPagesVisualChecks": [
     {
@@ -327,16 +327,12 @@
       "page": 50
     },
     {
-      "title": "5.4.1 Detalhamento do modelo físico",
+      "title": "6. Casos de Testes",
       "page": 51
     },
     {
-      "title": "6. Casos de Testes",
-      "page": 56
-    },
-    {
       "title": "7. Apêndices",
-      "page": 65
+      "page": 60
     }
   ],
   "figures": [
@@ -429,13 +425,13 @@
       ]
     }
   ],
-  "bodyLinesChecked": 1422,
+  "bodyLinesChecked": 1298,
   "allBodyTextWithinMargins": true,
   "editableOriginalAvailable": false,
   "visualReview": {
     "status": "reviewed",
-    "reviewDate": "24/10/2026",
-    "method": "All 65 pages inspected in six contact sheets; enlarged inspection of history, table of contents, glossary, CREF, diagrams and test sections. Auxiliary PDF: all 11 pages inspected.",
-    "applicationTestsRerun": false
+    "date": "24/10/2026",
+    "pagesInspected": 60,
+    "method": "All pages rendered and compared; detailed inspection of original tables, CREF, contents and test/appendix spacing"
   }
 }

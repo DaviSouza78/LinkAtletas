@@ -119,9 +119,10 @@ for i, row in enumerate(settings['history']):
         for k, line in enumerate(lines):
             history.insert_text((columns[j] + 5, top + 12 + k * 12), line, fontname=install(history, family), fontsize=10)
     allowed.setdefault(2, []).append(fitz.Rect(47, top - 1, 549, top + 45))
+history_bottom = 322.5 + 44.25 * len(settings['history'])
 for x in columns:
-    history.draw_line((x, 499.5), (x, 588), color=(0, 0, 0), width=1)
-for y in [543.75, 588]:
+    history.draw_line((x, 499.5), (x, history_bottom), color=(0, 0, 0), width=1)
+for y in [543.75 + 44.25 * i for i in range(len(settings['history']) - 4)]:
     history.draw_line((48.5, y), (546.5, y), color=(0, 0, 0), width=1)
 
 page = None
@@ -161,10 +162,13 @@ def paragraph(text, bold=False, x=54, gap=5):
     markdown.append(text + '\n')
 
 
-def heading(text, level=2, entry=True, fresh=False):
+def heading(text, level=2, entry=True, fresh=False, before=0):
     global cursor
     if fresh and page is not None:
         new_page()
+    elif before:
+        room(before + 4 * 20.7)
+        cursor += before
     size = 14 if level == 1 else 12
     lines = wrap(text, 'Arial-BoldMT', size, 496)
     room((len(lines) + 3) * 20.7)
@@ -323,21 +327,6 @@ for index, item in enumerate(settings['figures']):
     if index == 2:
         heading(settings['sequenceTitle'])
     figure(item)
-heading(settings['derDetailTitle'], fresh=True)
-paragraph(settings['derDetailIntro'])
-der = (base / 'diagramas/der.mmd').read_text(encoding='utf-8')
-relations = re.findall(r'^\s+(\w+)\s+[|o{}-]+\s+(\w+)\s+:\s+(\w+)', der, re.M)
-entities = re.findall(r'^  (\w+) \{\n(.*?)^  \}', der, re.M | re.S)
-assert len(entities) == 35 and len(relations) == 45
-for name, body in entities:
-    attributes = '; '.join(s.strip().replace('timestamp_with_time_zone', 'timestamptz') for s in body.splitlines() if s.strip())
-    references = [column + ' -> ' + parent for parent, child, column in relations if child == name]
-    room(110)
-    heading(name, entry=False)
-    paragraph(attributes)
-    if references:
-        paragraph('FK: ' + '; '.join(references) + '.')
-link('Dicion\u00e1rio completo de dados e restri\u00e7\u00f5es', 'dicionario-dados.md')
 heading(settings['testsTitle'], 1, fresh=True)
 for value in settings['testsIntro']:
     paragraph(value)
@@ -353,7 +342,7 @@ for item in tests:
         assertions = [s for f in vitest['testResults'] for s in f['assertionResults'] if s['title'] == item['assertion'] and s['status'] == 'passed']
         environment = test_date + '. ' + settings['apiEnvironment']
     assert len(assertions) == 1, item['id']
-    heading(item['id'] + ' - ' + item['name'], entry=False)
+    heading(item['id'] + ' - ' + item['name'], entry=False, before=20.7)
     field('refs', item['refs'])
     field('pre', item['pre'])
     field('steps', '')
@@ -363,9 +352,7 @@ for item in tests:
     field('environment', environment)
     link(item['file'], item['file'])
     validated.append({'id': item['id'], 'assertion': item['assertion'], 'source': item['file'], 'matchedPassedAssertion': True})
-for label, relative in settings['testLinks']:
-    link(label, relative)
-heading(settings['appendixTitle'], 1)
+heading(settings['appendixTitle'], 1, before=32)
 paragraph(settings['appendixText'])
 
 initial_toc = [
@@ -397,7 +384,7 @@ for title, number, level in toc:
     y += 17.4
 toc_page.insert_text((54, y + 15), 'P\u00e1ginas: posi\u00e7\u00e3o f\u00edsica no PDF, incluindo a capa.', fontname=install(toc_page, 'ArialMT'), fontsize=12)
 document.set_toc([[level, title, number] for title, number, level in toc])
-document.set_metadata({**original.metadata, 'title': 'LinkAtletas - ERS v2.4 - template original atualizado', 'subject': 'Sprint 2 - requisitos integrados e auditoria aplicada', 'modDate': fitz.get_pdf_now()})
+document.set_metadata({**original.metadata, 'title': 'LinkAtletas - ERS v' + settings['version'] + ' - template original atualizado', 'subject': 'Sprint 2 - requisitos integrados e auditoria aplicada', 'modDate': fitz.get_pdf_now()})
 fixed_cmaps = set()
 for current_page in document:
     for font in current_page.get_fonts(full=True):

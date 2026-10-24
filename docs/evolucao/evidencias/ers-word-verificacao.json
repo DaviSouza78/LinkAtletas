@@ -1,0 +1,15 @@
+{
+  "sourcePages": 60,
+  "renderedWordPages": 60,
+  "missingTokensByPage": [],
+  "method": "Editable positioned paragraphs; non-text graphical layer and figures preserved as images",
+  "visualReview": {
+    "status": "reviewed",
+    "pagesInspected": 60,
+    "renderer": "LibreOffice on Windows with Arial and Times New Roman",
+    "method": "Five contact sheets; enlarged review of tables, contents, CREF, tests and appendix"
+  },
+  "wordSha256": "ef33cac767d44b7a38840602ab03a07e9d2417225efcd1572645692dc3340172",
+  "pdfSha256": "9d1229e647d1ae904a905ac7f1d9a04d8e8c8a940d6b226c4dadbd7a8d711256",
+  "schemaValidation": "passed"
+}

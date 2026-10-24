@@ -1,5 +1,7 @@
 # Correções aplicadas à ERS — 24/10/2026
 
+Registro histórico da aplicação da versão 2.4. A [versão 2.5](ajustes-ers-v2.5.md) remove o detalhamento 5.4.1 e a lista final de relatórios acrescentados, ajusta espaçamento e substitui a tentativa de conversão do Word por uma reconstrução com texto editável posicionado.
+
 Versão 2.4. Responsável: Lucca Castilho Costa. Aplicação autorizada pela equipe após a [auditoria de 24/10](auditoria-ers-2026-10-24.md). Este registro atualiza a situação dos apontamentos; a auditoria anterior permanece histórica, com as páginas e o hash do documento então analisado.
 
 Documento principal: [ERS no template original](ERS-template-original-atualizada.pdf). Fontes: [texto repaginado](ERS-template-original.md), [campos das páginas iniciais](template/primeiras-paginas.json), [32 RF completos](template/requisitos.json), [seções e histórico](template/secoes.json), [16 casos de teste](template/testes.json) e [síntese auxiliar v2.4](ERS-v2.md).
