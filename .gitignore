@@ -2,6 +2,7 @@ node_modules/
 .pnpm-store/
 dist/
 .vite/
+.vercel/
 tmp/
 *.local
 *.tsbuildinfo
