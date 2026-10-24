@@ -75,6 +75,8 @@ WebSockets exigem Fluid Compute habilitado. Conexões podem terminar e o cliente
 
 Após configurar serviços, migrações e agendador, integrar a branch de preparação e sincronizar o fork conectado à Vercel. Confirmar preset Fastify, remover override antigo de Output Directory `dist` e manter Node 24. `vercel.json` já define build e instalação. Criar Preview isolado antes de promover a produção.
 
+No painel Build and Deployment, selecionar Fastify e desativar os overrides de Build Command, Output Directory e Install Command para usar a configuração versionada. Manter a raiz `./`. A entrada `server.ts` importa Fastify diretamente para que a detecção do backend reconheça a função; um arquivo que apenas importa outra entrada não atende a essa detecção. O erro `unused_function` em `server.ts` indica que a função não foi reconhecida; não resolver apagando a inclusão de `dist`, necessária para servir a interface.
+
 - [x] Entrada do servidor e configuração versionável preparadas.
 - [x] Rota agendada autenticada e trava implementadas.
 - [x] Consulta periódica de dados persistidos na interface implementada.

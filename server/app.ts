@@ -30,11 +30,13 @@ export async function buildApp(
     origin?: string
     secureCookies?: boolean
     serveFrontend?: boolean
+    factory?: typeof Fastify
   } = {},
 ) {
   const pool = options.pool || createPool()
   const origin = options.origin || appOrigin
-  const app = Fastify({
+  const factory = options.factory || Fastify
+  const app = factory({
     logger: options.logger
       ? {
           redact: [
