@@ -1,6 +1,6 @@
-# ERS v2.3 — LinkAtletas — ampliação da Sprint 2
+# ERS v2.4 — LinkAtletas — ampliação da Sprint 2
 
-Data da revisão: 23/10/2026. Responsável pela revisão: Lucca Castilho Costa, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. O escopo desta versão é definido pela equipe; a conferência manual de CREF é o procedimento vigente.
+Data da revisão: 24/10/2026. Responsável pela revisão: Lucca Castilho Costa, com autoria Git `Lucca <luccacc.contato@gmail.com>`. Demanda SAGA nº 12871, Ivi-it; Projeto Integrador Interdisciplinar II, ADS/SENAI Félix Guisard. Prazo informado para a Sprint 2: 26/10/2026. O escopo desta versão é definido pela equipe; a conferência manual de CREF é o procedimento vigente.
 
 ## Histórico e fontes
 
@@ -12,10 +12,11 @@ Data da revisão: 23/10/2026. Responsável pela revisão: Lucca Castilho Costa, 
 | 21/10/2026 | 2.1 | Consolidação das revisões de 15–21/10: modelos físicos conferidos, correções de privacidade/backup/upload, perfil Android local, 18 etapas do APK, publicação e evidências de testes | Lucca Castilho Costa |
 | 23/10/2026 | 2.2 | RF-04 e UC-02 adequados à conferência manual de CREF; atualização de critérios, limites externos, Eletiva I, publicação e histórico de revisões | Lucca Castilho Costa |
 | 23/10/2026 | 2.3 | Consolidação das decisões de escopo pela equipe, retirada das pendências de aceite docente e preparação de cópia atualizada no template original, preservando a fonte da Sprint 1 | Lucca Castilho Costa |
+| 24/10/2026 | 2.4 | Aplicação da auditoria: requisitos integrados ao corpo, cenários e limites corrigidos, 16 casos de teste rastreáveis, figuras atuais, cronograma, sumário e retirada dos apêndices duplicados | Lucca Castilho Costa |
 
 As datas históricas seguem as versões preservadas e a consolidação registrada no Git. O autor da versão original permanece coletivo, sem atribuir individualmente alterações não identificadas. Esta fonte mantém o conteúdo atualizado e o histórico utilizado na cópia do template original.
 
-Cópia de apresentação para revisão: [PDF atualizado no template original](ERS-template-original-atualizada.pdf), com [método e limites de preservação](template/README.md). A fonte original da Sprint 1 permanece intacta.
+Documento de apresentação: [PDF atualizado no template original](ERS-template-original-atualizada.pdf), com [método e limites de preservação](template/README.md), [texto das seções repaginadas](ERS-template-original.md) e [correções aplicadas](revisao-ers-aplicada-2026-10-24.md). A fonte original da Sprint 1 permanece intacta. O PDF integra o conteúdo nos capítulos 1–6, desenvolve a seção de testes e mantém o título 7 sem duplicar a especificação.
 
 Outras fontes: [proposta da demanda](../referencias/Proposta-inicial-original.pdf), [roteiro dos professores](../referencias/Roteiro-professores-original.pdf), [plano de execução](../superpowers/plans/2026-10-14-expansao-completa.md). O cronograma da ERS original cita RF-25–32 sem detalhá-los; esta revisão mantém RF-01–24 e identifica novos requisitos com prefixo RF-A, sem inventar o conteúdo original ausente. PostgreSQL é o único banco relacional desta implementação.
 
@@ -25,7 +26,7 @@ Conectar atletas a treinadores com preferências compatíveis, acompanhar o trei
 
 Web React e app Expo usam a mesma API Fastify/PostgreSQL. Modo `academic` registra vínculos sem cobranças; modo `asaas` exige provedor configurado e vigência financeira para novas interações. O checkout hospedado evita formulário próprio de cartão. Aprovação profissional local registra conferência manual, sem alegar consulta automática oficial. O matchmaking é determinístico e explicável; não existe modelo treinado de IA.
 
-Prioridades: P0, essencial ao fluxo; P1, complemento do acompanhamento; P2, validação/evolução externa. **Implementado** significa comportamento no código. **Testado local** depende das evidências no [relatório](relatorio-testes.md). **Pendente externo** depende de serviço/dispositivo real, não de um checkbox de código.
+Prioridades: P0, essencial ao fluxo; P1, complemento do acompanhamento. Dependência externa e evolução são estados separados da prioridade. **Implementado** significa comportamento no código. **Testado local** depende das evidências no [relatório](relatorio-testes.md). **Pendente externo** depende de serviço/dispositivo real, não de um checkbox de código. As especificações completas de cada RF estão na seção 2.1 do PDF e na fonte textual correspondente.
 
 ## Requisitos funcionais priorizados
 
@@ -34,15 +35,15 @@ Prioridades: P0, essencial ao fluxo; P1, complemento do acompanhamento; P2, vali
 | RF-01 | Cadastro e edição de perfil do atleta | P0 | Conta, preferências e perfil; informações privadas de saúde opcionais com consentimento |
 | RF-02 | Cadastro e edição de perfil do treinador | P0 | Perfil profissional, modalidades, objetivos, níveis, atendimento, horários e preço |
 | RF-03 | Submissão de registro profissional | P0 | CREF, evidência textual e documento privado opcional, imagem/PDF validado |
-| RF-04 | Verificação manual de registro profissional | P0 | Administrador consulta a fonte oficial e confere CREF, titularidade e situação profissional; registra decisão, motivo, evidência e validade com auditoria. Consulta automática não integra o aceite atual deste requisito; eventual integração é evolução futura |
+| RF-04 | Verificação manual de registro profissional | P0 | Administrador consulta a fonte oficial e confere CREF, titularidade e situação; registra fonte/data/resultado no motivo da decisão e prazo futuro opcional, com auditoria. A aprovação sem prazo explícito usa 365 dias de validade administrativa, sem atestar validade oficial da cédula. Não existe campo obrigatório separado para evidência da consulta; o campo evidence da submissão pertence ao treinador. Consulta automática é evolução futura |
 | RF-05 | Autenticação e controle de acesso | P0 | Cookie HttpOnly web, Bearer opaco nativo, logout, recuperação por SMTP e invalidação de sessões |
 | RF-06 | Processamento de matchmaking | P0 | Nota explicável sobre perfil; aprendizado automático/validação estatística continuam futuros |
 | RF-07 | Busca e filtros de treinadores | P0 | Somente perfis aprovados, elegíveis e não vencidos/suspensos; filtros de modalidade, preço, nome e atendimento |
 | RF-08 | Portfólio do profissional | P1 | Bio, modalidades, preço, CREF, compatibilidade e avaliações publicadas; não há curadoria pública de arquivos privados |
 | RF-09 | Solicitação de contratação e assinatura | P0 | Solicitação de vínculo; aceite do treinador; intenção financeira e checkout recorrente em modo Asaas |
 | RF-10 | Aceite/recusa de aluno | P0 | Decisão exclusiva do treinador destinatário, transação e histórico por ciclo |
-| RF-11 | Pagamento recorrente | P1/P2 | Adaptador real Asaas, intenção/assinatura, eventos autenticados; sandbox real e cobrança real ainda requerem acessos |
-| RF-12 | Split financeiro | P1/P2 | Carteira recebedora, comissão em basis points, solicitação de split e registros de evento; participação estimada não é repasse bancário homologado |
+| RF-11 | Pagamento recorrente | P1 | Adaptador real Asaas, intenção/assinatura, eventos autenticados; sandbox real e cobrança real ainda requerem acessos |
+| RF-12 | Split financeiro | P1 | Carteira recebedora, comissão em basis points, solicitação de split e registros de evento; participação estimada não é repasse bancário homologado |
 | RF-13 | Inadimplência e carência | P1 | Estados financeiros, prazo de carência, suspensão, jobs e conciliação; cenários de falha controlados |
 | RF-14 | Prescrição de treinos | P0 | Blocos, modalidade, data, rascunho/publicação; exige vínculo e acesso financeiro/profissional adequados |
 | RF-15 | Vídeos demonstrativos | P1 | Referência HTTPS por bloco e upload privado de orientação ligado à ficha |
@@ -54,7 +55,7 @@ Prioridades: P0, essencial ao fluxo; P1, complemento do acompanhamento; P2, vali
 | RF-21 | Resposta a avaliações | P1 | Somente treinador avaliado responde; denúncia e moderação auditada |
 | RF-22 | Cancelamento de assinatura/contrato | P1 | Retirada pendente, encerramento por participante, confirmação do provedor e preservação de período pago; novo ciclo preserva histórico |
 | RF-23 | Carteira de alunos | P0 | Solicitações, ciclos, prescrição, execução, conversa, agenda e acompanhamento financeiro |
-| RF-24 | Métodos de pagamento | P1/P2 | Meio de pagamento gerenciado no checkout do provedor; sem cartão bruto na aplicação; homologação externa pendente |
+| RF-24 | Métodos de pagamento | P1 | Meio de pagamento gerenciado no checkout do provedor; sem cartão bruto na aplicação; homologação externa pendente |
 
 ### Requisitos adicionais explicitamente definidos nesta ampliação
 
@@ -65,7 +66,7 @@ Prioridades: P0, essencial ao fluxo; P1, complemento do acompanhamento; P2, vali
 | RF-A03 | Consultorias e agenda | P1 | Criar, reagendar, cancelar, concluir; bloquear sobreposição das agendas dos participantes; histórico e referência Google opcional |
 | RF-A04 | Consentimento, exportação e encerramento | P0 | Finalidades versionadas, dados próprios em JSON, senha para encerramento, anonimização e controle de retenção |
 | RF-A05 | Expirar/suspender credenciais profissionais | P0 | Prazo, job de expiração, suspensão/revogação motivada e remoção da descoberta |
-| RF-A06 | App do atleta | P1/P2 | React Native/Expo, mesma API e token em SecureStore; APK Android integrado aprovado em emulador. Aparelho físico, IPA e execução em iPhone não homologados |
+| RF-A06 | App do atleta | P1 | React Native/Expo, mesma API e token em SecureStore; APK Android integrado aprovado em emulador. Aparelho físico, IPA e execução em iPhone não homologados |
 | RF-A07 | Operação e recuperação | P1 | Container, proxy TLS, configuração de segredos, migrations, tarefas, backup/restauração e CI conforme artefatos e testes efetivos |
 | RF-A08 | Moderação de conteúdo | P1 | Denúncia de avaliação, ocultação/restauração pelo administrador e histórico motivado |
 
@@ -77,7 +78,7 @@ Pré-condição: visitante sem sessão ou titular autenticado. Fluxo principal: 
 
 ### UC-02 — Credenciais profissionais (RF-03,04,A05)
 
-Pré-condições: treinador autenticado com perfil completo; administrador autorizado para decidir. Fluxo principal: treinador informa CREF/evidência e pode anexar documento privado validado → submissão fica pendente → administrador consulta o portal oficial do conselho competente e compara registro, nome do titular e situação profissional → registra evidência da conferência, decisão, motivo e prazo → servidor persiste decisão/auditoria → perfil aprovado e elegível entra na descoberta. A consulta externa é uma atividade humana; o sistema não a executa nem atesta automaticamente a resposta do conselho.
+Pré-condições: treinador autenticado com perfil completo; administrador autorizado para decidir. Fluxo principal: treinador informa CREF/evidência e pode anexar documento privado validado → submissão fica pendente → administrador consulta o portal oficial do conselho competente e compara registro, nome do titular e situação profissional → registra fonte, data e resultado no motivo da decisão e informa prazo futuro se necessário → servidor persiste decisão/auditoria → perfil aprovado e elegível entra na descoberta. Sem prazo explícito, a aprovação usa 365 dias como validade administrativa; não é validade oficial da cédula. A consulta externa é uma atividade humana; o sistema não a executa nem atesta automaticamente a resposta do conselho. Não há campo obrigatório separado de evidência administrativa: evidence da submissão é conteúdo enviado pelo treinador.
 
 Alternativas: recusa motivada e nova submissão; expiração por job; suspensão/revogação administrativa. Se a consulta oficial estiver indisponível ou os dados forem insuficientes/divergentes, a análise deve aguardar esclarecimento, sem aprovar somente pelo formato do número. Exceções: terceiro/atleta não submete; treinador não decide; documento alheio é inválido; decisão repetida gera conflito. Somente titular e administrador autorizado veem documento. Pós-condição: decisão rastreável e visibilidade condicionada a aprovação vigente. Consulta automática é evolução futura, fora do aceite atual do RF-04.
 
@@ -121,19 +122,19 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 |---|---|---|
 | RNF-01 LGPD | Conceder/revogar, exportar só dados próprios, reautenticar exclusão, negar terceiros; conferir SQL/objetos | Controles de privacidade locais; parecer jurídico e operação pública não homologados |
 | RNF-02 Criptografia saúde/biometria | Consultar SQL/S3: ausência de texto em claro; decrypt roundtrip; IV/tag íntegros; executar TLS local | AES-256-GCM e gestão de chave implementados; relatório deve distinguir TLS local de domínio público |
-| RNF-03 Auditoria profissional | Conferir registro/titular/situação na fonte oficial; decidir/suspender/expirar e verificar revisor, motivo, prazo e referência; decisão/auditoria transacionais | Testes locais comprovam o fluxo e a persistência, não consulta automática nem habilitação de dados fictícios; administrador direto do banco fora da garantia de imutabilidade |
+| RNF-03 Auditoria profissional | Conferir registro/titular/situação na fonte oficial; registrar fonte/data/resultado no motivo; decidir/suspender/expirar e verificar revisor, motivo, prazo e auditoria transacional | Evidência do treinador é distinta do motivo administrativo; testes locais comprovam fluxo/persistência, sem consulta automática ou habilitação de dados fictícios. Não há imutabilidade contra administrador direto do banco |
 | RNF-04 Ocultar não validados | Pendentes, suspensos/vencidos/rejeitados fora da busca e ações protegidas | Regra no servidor; uma lista já aberta precisa ser consultada novamente |
 | RNF-05 Cartão/PCI | Conferir checkout hospedado, ausência de PAN/CVV SQL/logs e minimização do webhook | Adaptador e teste HTTP controlado; não certifica PCI ou conta gateway real |
-| RNF-06 Match até 2 s | Dataset/ambiente declarados; aquecer, medir concorrência e p50/p95/p99; p95 ≤2 s no cenário | Resultado somente após execução de carga, sem extrapolar base sintética |
+| RNF-06 Match até 2 s | Dataset/ambiente declarados; aquecer, medir concorrência e p50/p95/p99; p95 ≤2 s no cenário | Carga local de 14/10: 500 treinadores sintéticos, 200 chamadas, concorrência 10, p95 97,78 ms; sem cache. Não extrapolar base sintética ou produção |
 | RNF-07 Métricas extensíveis | Consultar catálogo, gravar chaves válidas e rejeitar desconhecidas/fora de limite; tela dinâmica | Modalidades principais fixadas em contratos; catálogo administrativo/novos esportes ainda podem exigir código/migração |
-| RNF-08 Escala/70% | Testar expansão/balanceamento em nuvem e medir recursos | Não homologado; Docker/TLS e carga local não provam autoescala |
-| RNF-09 App responsivo | Web autenticada em 390/1440 e página pública em 320/390/1440 sem overflow; cliente Expo com tipos/bundles e fluxo Android | Capturas e verificações conforme relatório; bundle não equivale a execução em aparelho físico |
-| RNF-10 Usabilidade | Prescrever/publicar, reabrir rascunho, teclado/foco; instruções e confirmações claras | Rascunho explícito; autosave contínuo ainda não implementado |
-| RNF-11 Feedback visual | Erro de rede/validação, estado de envio e sucesso após resposta positiva; sem falso pagamento | E2E efetivo e capturas conforme relatório |
+| RNF-08 Escalabilidade | Na versão atual, executar carga no ambiente declarado e registrar latência/erros. Evolução: medir recursos e validar expansão/balanceamento na infraestrutura escolhida | Meta original de autoescala em 70%, fila e balanceador permanece evolução, fora do aceite local atual; hospedagem em nuvem continua pendente e não equivale a autoescala |
+| RNF-09 App responsivo | Web autenticada em 390/1440 e página pública em 320/390/1440 sem overflow; cliente Expo com tipos/bundles e fluxo Android | Capturas conforme relatório; bundle não equivale a aparelho físico. Material/HIG, contraste do sistema e fontes ampliadas exigem verificação própria ainda não homologada |
+| RNF-10 Usabilidade | Completar prescrição/publicação, salvar e reabrir rascunho com dados iguais; verificar teclado/foco, instruções e confirmação, sem bloqueio por erro tratado | Rascunho explícito testado; autosave contínuo futuro. Não se adota menor número de cliques sem medição como critério aprovado |
+| RNF-11 Feedback visual | Verificar espera durante envio, tratamento de rede/validação e confirmação apenas após resposta positiva; evitar duplicidade e falso pagamento | Indicador de espera não significa porcentagem real de progresso. E2E e capturas têm o alcance registrado no relatório |
 | RNF-12 Android/iOS | Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino | APK local compilado e 18 etapas integradas aprovadas no emulador Android API 35; aparelho físico, distribuição e IPA pendentes |
 | RNF-13 Navegadores | Fluxo em Chromium/Firefox/WebKit; registrar versões e axe | Engines testados não são automaticamente Edge/Safari reais; leitor de tela exige avaliação própria |
 | RNF-14 REST/OpenAPI | Swagger runtime e schemas reais; exemplo inválido devolve campo/erro | API compartilhada web/nativo, sem segredos no cliente |
-| RNF-15 Idempotência financeira | Checkout concorrente, webhook repetido/antigo, timeout e cancelamento incerto; conciliar sem duplicar | HTTP controlado; repetir em sandbox real antes da ativação |
+| RNF-15 Idempotência financeira | Checkout concorrente, webhook repetido/antigo, timeout e cancelamento incerto; verificar locks/unicidade locais e conciliar sem repetir criação incerta | HTTP controlado; homologação do provedor pendente. O adaptador não envia chave de idempotência externa, portanto não garante deduplicação pelo gateway. Jobs exigem execução/agendamento operacional; não há garantia automática de rotina noturna |
 | RNF-16 Logs sanitizados | Marcadores sensíveis não aparecem em logs públicos; token reset em fragmento, Bearer fora de URL | Revisão/teste local não substituem monitoramento/auditoria independente |
 
 ## Regras de negócio preservadas e ajustes
@@ -141,7 +142,7 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 | ID | Regra e implementação |
 |---|---|
 | RN-01 | Somente treinador aprovado/elegível aparece na descoberta |
-| RN-02 | Administrador confere registro, titularidade e situação na fonte oficial; aprovação registra administrador, horário, origem manual, motivo/evidência, prazo e documento quando fornecido. Formato válido do número não substitui conferência profissional |
+| RN-02 | Administrador confere registro, titularidade e situação na fonte oficial e inclui fonte/data/resultado no motivo. Decisão e auditoria registram revisor, horário, origem manual e prazo: futuro explícito ou 365 dias administrativos por padrão na aprovação. Documento do treinador é opcional; evidence da submissão não é campo separado da conferência administrativa. Formato do número não comprova habilitação |
 | RN-03 | Expiração, suspensão e revogação retiram visibilidade e bloqueiam novas ações protegidas |
 | RN-04 | Mensalidade em modo Asaas solicita split para carteira elegível; só evento autenticado confirma estado financeiro |
 | RN-05 | Administrador configura comissão 0–50% (basis points) e carência 0–30 dias |
@@ -167,7 +168,7 @@ Consultas parametrizadas, validação Zod e autorização por usuário/recurso/e
 
 ## Situação da versão e evidências
 
-A implementação ampliada e sua revisão estão publicadas na `main` do repositório do grupo; a revisão técnica foi integrada pelo [PR #2](https://github.com/DaviSouza78/LinkAtletas/pull/2). Os registros de execução comprovam 82 testes de API/unidade, 15 cenários E2E em três motores, 22 testes móveis e 18 etapas do APK Android integrado em emulador. Docker/PostgreSQL/SMTP/S3 locais, build, backup e TLS têm evidências no [relatório](relatorio-testes.md). Esta revisão é documental; não representa nova execução desses testes em 23/10/2026.
+A implementação ampliada e sua revisão estão publicadas na `main` do repositório do grupo; a revisão técnica foi integrada pelo [PR #2](https://github.com/DaviSouza78/LinkAtletas/pull/2). Os registros de execução comprovam 82 testes de API/unidade, 15 cenários E2E em três motores, 22 testes móveis e 18 etapas do APK Android integrado em emulador. Docker/PostgreSQL/SMTP/S3 locais, build, backup e TLS têm evidências no [relatório](relatorio-testes.md). Esta revisão é documental; não representa nova execução desses testes em 24/10/2026. A seção 6 do PDF desenvolve CT001–CT016 com pré-condições, passos, esperado, observado, data/ambiente e evidência rastreável.
 
 A [matriz curricular](rastreabilidade.md) inclui a Eletiva I e suas evidências. Permanecem pendentes a integração remota/nuvem prevista, homologações externas aplicáveis, revisão coletiva e submissões individuais. Os recortes e evoluções do MVP são definidos pela equipe e registrados no backlog. Financeiro avançado foi planejado originalmente para a Sprint 3; o código atual e seus testes controlados não comprovam operação no provedor. A automação de CREF não integra o requisito atual do RF-04 e fica como evolução condicionada à viabilidade de uma fonte oficial.
 

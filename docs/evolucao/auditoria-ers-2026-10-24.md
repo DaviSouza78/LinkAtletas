@@ -1,5 +1,7 @@
 # Auditoria da ERS — Sprint 2
 
+Registro histórico da revisão anterior à aplicação. As correções foram posteriormente autorizadas e estão documentadas em [correções aplicadas à versão 2.4](revisao-ers-aplicada-2026-10-24.md); as páginas e os estados abaixo se referem ao PDF de 61 páginas auditado, preservado no histórico Git.
+
 Data: 24/10/2026. Responsável: Lucca Castilho Costa. Base do repositório: `ca0f7498348e342bdf0138d24c81b612f38791d4`. Situação: revisão concluída; correções propostas, não aplicadas nesta etapa.
 
 ## Parecer

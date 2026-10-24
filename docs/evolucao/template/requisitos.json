@@ -1,0 +1,516 @@
+[
+  {
+    "id": "RF-01",
+    "name": "Cadastro e edição de perfil do atleta",
+    "priority": "P0",
+    "actor": "Atleta",
+    "pre": "Visitante para criar conta; titular autenticado para manter o perfil.",
+    "description": "Criar conta de atleta e manter nome, cidade, modalidades, objetivos, níveis, orçamento, disponibilidade e atendimento. Dados privados de saúde são opcionais e dependem de consentimento específico.",
+    "steps": [
+      "Informar nome, e-mail e senha; o servidor valida a entrada, cria conta e perfil e inicia sessão.",
+      "Completar as preferências esportivas e salvar o perfil.",
+      "O servidor valida as opções e persiste as alterações; a próxima busca usa os dados atuais."
+    ],
+    "alternative": "E-mail duplicado, senha inadequada ou opções inválidas impedem a gravação e exibem erro. Não há fila de aprendizagem ou recomendação em segundo plano.",
+    "acceptance": "O titular reabre o perfil persistido; terceiros não podem alterá-lo.",
+    "status": "Implementado; evidências de API e interface."
+  },
+  {
+    "id": "RF-02",
+    "name": "Cadastro e edição de perfil do treinador",
+    "priority": "P0",
+    "actor": "Treinador",
+    "pre": "Visitante para criar conta; treinador autenticado para editar o próprio perfil.",
+    "description": "Manter nome, bio, cidade, modalidades, objetivos, níveis atendidos, disponibilidade, formato de atendimento e preço. Bio reúne a apresentação profissional; não há cadastro separado de planos comerciais Starter/Pro/Business.",
+    "steps": [
+      "Criar conta com papel treinador e acessar o perfil.",
+      "Preencher os campos profissionais e salvar.",
+      "O servidor valida e persiste; a publicação na descoberta depende da aprovação profissional vigente."
+    ],
+    "alternative": "Dados incompletos ou inválidos exigem correção. Editar o perfil não concede aprovação de CREF.",
+    "acceptance": "Perfil salvo pertence ao titular e respeita a condição de publicação.",
+    "status": "Implementado; evidências de API e interface."
+  },
+  {
+    "id": "RF-03",
+    "name": "Submissão de registro profissional",
+    "priority": "P0",
+    "actor": "Treinador",
+    "pre": "Conta autenticada e perfil com modalidade, nível, objetivos e disponibilidade preenchidos.",
+    "description": "Submeter CREF e evidência textual para análise administrativa. Documento privado de imagem/PDF é opcional; vídeo não é aceito como comprovação profissional. CREF deve ter de 4 a 50 caracteres e a evidência de 10 a 2.000 caracteres, conforme schema vigente.",
+    "steps": [
+      "Informar CREF e evidência; anexar documento próprio se necessário.",
+      "O servidor valida formato, propriedade e finalidade do arquivo.",
+      "Persistir a submissão pendente e disponibilizá-la à administração."
+    ],
+    "alternative": "Perfil incompleto, documento alheio ou perfil já aprovado geram erro. Validade de formato não comprova regularidade no conselho.",
+    "acceptance": "Titular e administrador autorizado consultam a submissão; o pendente não entra na descoberta.",
+    "status": "Implementado e testado com dados fictícios."
+  },
+  {
+    "id": "RF-04",
+    "name": "Conferência manual do registro profissional",
+    "priority": "P0",
+    "actor": "Administrador",
+    "pre": "Submissão pendente e administrador autenticado.",
+    "description": "O administrador consulta o portal oficial do conselho, compara CREF, titularidade e situação e registra a decisão. A consulta é humana: a aplicação não acessa nem certifica automaticamente os dados do conselho.",
+    "steps": [
+      "Abrir a submissão e conferir a fonte oficial.",
+      "Registrar no motivo a fonte, a data e o resultado da conferência; a evidência enviada pelo treinador permanece distinta desse registro administrativo.",
+      "Aprovar ou rejeitar com motivo de 5 a 1.000 caracteres; informar validade futura quando aplicável.",
+      "O servidor grava decisão, revisor e auditoria na mesma transação e atualiza o perfil."
+    ],
+    "alternative": "Consulta indisponível ou dados insuficientes mantêm a análise pendente. Divergência exige rejeição motivada e eventual nova submissão. Decisão repetida é conflito. Sem prazo explícito, aprovação usa 365 dias como validade administrativa padrão, não como validade oficial da cédula.",
+    "acceptance": "Somente aprovação vigente permite descoberta; não existe campo separado obrigatório de evidência de consulta nem automação de CREF no escopo atual.",
+    "status": "Implementado; procedimento manual definido pela equipe."
+  },
+  {
+    "id": "RF-05",
+    "name": "Autenticação e controle de acesso",
+    "priority": "P0",
+    "actor": "Atleta, treinador e administrador",
+    "pre": "Conta existente e ativa; administrador provisionado por procedimento próprio.",
+    "description": "Autenticar e autorizar por papel, propriedade e estado. A web usa cookie HttpOnly; o app usa token Bearer opaco guardado no SecureStore. Atletas também acessam a web.",
+    "steps": [
+      "Informar e-mail e senha; o servidor verifica a credencial e inicia sessão.",
+      "Acessar funções permitidas ao papel e ao recurso solicitado.",
+      "Ao sair, invalidar a sessão; a recuperação segue RF-A01."
+    ],
+    "alternative": "Credencial inválida, sessão expirada ou acesso indevido são negados. O cadastro público não permite criar administrador.",
+    "acceptance": "Sessão válida autoriza somente recursos próprios/permitidos; logout impede reutilização.",
+    "status": "Implementado; testes de sessão, papéis e origem."
+  },
+  {
+    "id": "RF-06",
+    "name": "Processamento de matchmaking por regras",
+    "priority": "P0",
+    "actor": "Sistema, solicitado pelo atleta",
+    "pre": "Atleta autenticado com preferências; profissionais aprovados e elegíveis.",
+    "description": "Filtrar modalidade e compatibilidade de atendimento/cidade e calcular nota explicável: objetivos 30, nível 20, orçamento 25 e horário em comum 25. Sem correspondência, o critério não soma pontos. Não há modelo treinado.",
+    "steps": [
+      "Consultar profissionais aprovados, ativos e com validade vigente.",
+      "Excluir incompatíveis em modalidade e atendimento; quando presencial exigir cidade, excluir cidade incompatível ou ausente.",
+      "Calcular score e razões; ordenar por score, nome e identificador para desempate."
+    ],
+    "alternative": "Não há resultado quando os filtros eliminam todos os candidatos. A cidade incompatível no presencial não é apenas penalidade de nota. Não há cache de recomendações no caminho testado.",
+    "acceptance": "Mesmas entradas produzem resultado determinístico e razões verificáveis.",
+    "status": "Implementado; testes unitários, API e carga sintética."
+  },
+  {
+    "id": "RF-07",
+    "name": "Busca e filtragem de treinadores",
+    "priority": "P0",
+    "actor": "Atleta",
+    "pre": "Sessão válida.",
+    "description": "Consultar a descoberta por modalidade, texto, preço máximo e atendimento. O texto pesquisa nome, cidade e bio. Avaliações públicas não constituem filtro de nota mínima na versão atual.",
+    "steps": [
+      "Abrir a descoberta e informar filtros disponíveis.",
+      "O servidor aplica elegibilidade, matching e filtros.",
+      "Exibir cards, score e razões; limpar filtros refaz a consulta."
+    ],
+    "alternative": "Entrada inválida gera erro; ausência de resultados permite revisar filtros. Suspensão/expiração é verificada no servidor em nova consulta, sem garantia de atualização instantânea de toda lista já aberta.",
+    "acceptance": "A resposta contém apenas treinadores elegíveis que atendem aos filtros suportados.",
+    "status": "Implementado e testado."
+  },
+  {
+    "id": "RF-08",
+    "name": "Visualização do portfólio do treinador",
+    "priority": "P1",
+    "actor": "Atleta",
+    "pre": "Acesso autorizado à descoberta.",
+    "description": "Apresentar bio, modalidades, atendimento, cidade, preço, registro profissional, compatibilidade e avaliações publicadas. Documentos profissionais e mídias privadas não são portfólio público.",
+    "steps": [
+      "Selecionar um profissional exibido na descoberta.",
+      "Consultar os dados públicos e avaliações visíveis.",
+      "Iniciar solicitação de vínculo se o profissional continuar elegível."
+    ],
+    "alternative": "Perfil indisponível ou inelegível não autoriza contratação. Não há biblioteca pública de vídeos ou campos de especialização independentes da bio.",
+    "acceptance": "Nenhum documento privado é exposto ao visitante da descoberta.",
+    "status": "Implementado; dados persistidos."
+  },
+  {
+    "id": "RF-09",
+    "name": "Solicitação de contratação e assinatura",
+    "priority": "P0",
+    "actor": "Atleta",
+    "pre": "Atleta autenticado e treinador elegível.",
+    "description": "Criar solicitação pendente de vínculo. O treinador decide antes da intenção financeira; não há pré-autorização de cartão durante o pedido.",
+    "steps": [
+      "Confirmar interesse no treinador.",
+      "O servidor revalida elegibilidade e unicidade de ciclo vigente e persiste o pedido.",
+      "Após o aceite, modo acadêmico mantém vínculo sem cobrança; modo Asaas configurado permite preparar checkout."
+    ],
+    "alternative": "Duplicidade, papel incorreto ou profissional inelegível geram erro. Um ciclo anterior encerrado/recusado permite novo ciclo sem mover seu histórico.",
+    "acceptance": "Pedido persistido fica disponível somente às partes autorizadas.",
+    "status": "Fluxo acadêmico implementado e testado; financeiro externo não homologado."
+  },
+  {
+    "id": "RF-10",
+    "name": "Aceite ou recusa de solicitação de aluno",
+    "priority": "P0",
+    "actor": "Treinador destinatário",
+    "pre": "Solicitação pendente e profissional elegível para aceitar.",
+    "description": "Decidir exclusivamente sobre os pedidos destinados ao treinador, com transação e preservação do ciclo.",
+    "steps": [
+      "Consultar pedidos e perfil do solicitante.",
+      "Aceitar ou recusar; o servidor bloqueia o registro e verifica o destinatário e estado.",
+      "Atualizar vínculo/carteira. No modo financeiro, acesso depende da vigência aplicável."
+    ],
+    "alternative": "Terceiro não decide; concorrência ou nova decisão sobre pedido resolvido gera conflito. Recusa não inicia cobrança nem reduz a nota do match.",
+    "acceptance": "Uma única decisão efetiva é persistida para a solicitação.",
+    "status": "Implementado; inclusive teste de aceite concorrente."
+  },
+  {
+    "id": "RF-11",
+    "name": "Pagamento recorrente",
+    "priority": "P1",
+    "actor": "Atleta, sistema e Asaas configurado",
+    "pre": "Ciclo aceito; modo Asaas, plano, carteira e credenciais configurados.",
+    "description": "Preparar checkout hospedado e acompanhar assinatura por eventos autenticados. O provedor gerencia cobrança; a aplicação não recebe dados brutos de cartão.",
+    "steps": [
+      "Persistir intenção única e solicitar checkout recorrente ao provedor.",
+      "Apresentar URL hospedada ao atleta.",
+      "Receber webhook autenticado e persistir evento único.",
+      "Processar evento e atualizar estado e vigência."
+    ],
+    "alternative": "Sem configuração não há sucesso externo. Timeout mantém resultado incerto para conciliação; redirect não confirma pagamento. Modo acadêmico não cobra.",
+    "acceptance": "Estado financeiro decorre de evento/reconciliação válidos, sem duplicar intenção local.",
+    "status": "Adaptador e testes HTTP controlados existentes; homologação sandbox prevista para continuidade financeira da Sprint 3."
+  },
+  {
+    "id": "RF-12",
+    "name": "Divisão de pagamento",
+    "priority": "P1",
+    "actor": "Sistema e provedor financeiro",
+    "pre": "Carteira elegível, comissão configurada e modo Asaas.",
+    "description": "Solicitar split no checkout e registrar eventos/valores. Estimativa de participação não é comprovação de liquidação ou repasse bancário.",
+    "steps": [
+      "Ler carteira e comissão administrativa.",
+      "Enviar a participação ao provedor no checkout.",
+      "Processar eventos autenticados e registrar referências, valores e estados dos splits."
+    ],
+    "alternative": "Carteira/configuração inválida impede a operação; falha externa segue conciliação. A aplicação não assume poder de reter ou liberar saldo bancário por conta própria.",
+    "acceptance": "Cálculos e eventos são rastreáveis, com validação real de split ainda pendente no provedor.",
+    "status": "Testado com respostas HTTP controladas; repasse externo não homologado."
+  },
+  {
+    "id": "RF-13",
+    "name": "Inadimplência e carência",
+    "priority": "P1",
+    "actor": "Sistema e jobs",
+    "pre": "Assinatura financeira e eventos válidos.",
+    "description": "Manter estados de pagamento, período pago e carência configurada; suspender novas interações quando a regra de acesso exigir.",
+    "steps": [
+      "Registrar evento e preservar a vigência confirmada.",
+      "Aplicar carência e conciliar pendências por jobs.",
+      "Restaurar regularidade após confirmação ou bloquear novas ações ao terminar o prazo aplicável."
+    ],
+    "alternative": "Evento antigo não reduz período pago. Criação de cobrança com resultado incerto não recebe repetição cega; histórico não é apagado por suspensão.",
+    "acceptance": "Transições obedecem ao estado persistido, sem transformar erro em pagamento aprovado.",
+    "status": "Testes financeiros controlados; serviço externo pendente de homologação."
+  },
+  {
+    "id": "RF-14",
+    "name": "Prescrição de fichas de treino",
+    "priority": "P0",
+    "actor": "Treinador",
+    "pre": "Ciclo ativo, aprovação profissional e acesso financeiro aplicável válidos.",
+    "description": "Criar ficha com modalidade, data e blocos com orientações, metas e métricas; salvar rascunho por ação explícita ou publicar.",
+    "steps": [
+      "Selecionar o atleta do vínculo e preencher ficha/blocos.",
+      "Salvar rascunho privado ou solicitar publicação.",
+      "O servidor valida propriedade e catálogo e persiste; atleta consulta somente o publicado."
+    ],
+    "alternative": "Dados inválidos impedem gravação. Terceiro não prescreve. Encerramento efetivo impede novas prescrições; não significa apagar fichas históricas.",
+    "acceptance": "Rascunho reabre para o treinador e publicado aparece apenas ao atleta autorizado.",
+    "status": "Implementado e testado no fluxo principal."
+  },
+  {
+    "id": "RF-15",
+    "name": "Orientação e mídia demonstrativa",
+    "priority": "P1",
+    "actor": "Treinador",
+    "pre": "Ficha e vínculo autorizados.",
+    "description": "Associar referência HTTPS por bloco e mídia privada de orientação ligada à ficha. Não existe biblioteca pública de exercícios gerida separadamente.",
+    "steps": [
+      "Informar referência HTTPS no bloco ou selecionar arquivo de orientação para a ficha.",
+      "O servidor valida finalidade, arquivo e autorização.",
+      "Armazenar mídia privada cifrada e permitir recuperação somente ao usuário autorizado."
+    ],
+    "alternative": "Formato, tamanho ou propriedade inválidos são recusados. S3 local em desenvolvimento não comprova armazenamento hospedado em nuvem.",
+    "acceptance": "Atleta do vínculo acessa orientação permitida; terceiros não baixam o arquivo.",
+    "status": "Implementado; serviços locais testados."
+  },
+  {
+    "id": "RF-16",
+    "name": "Consulta de treinos prescritos",
+    "priority": "P0",
+    "actor": "Atleta",
+    "pre": "Sessão válida e acesso autorizado ao vínculo/ficha.",
+    "description": "Listar fichas publicadas, blocos e referências de orientação; preservar o histórico do ciclo conforme autorização.",
+    "steps": [
+      "Abrir a área de treinos.",
+      "Selecionar ficha publicada e consultar blocos, metas e orientação.",
+      "Iniciar registro de execução pelo RF-17."
+    ],
+    "alternative": "Sem fichas publicadas, mostrar estado vazio. Rascunho privado e ficha de terceiro não ficam acessíveis.",
+    "acceptance": "Somente fichas autorizadas são retornadas pela API e exibidas na interface.",
+    "status": "Implementado; API, navegador e APK integrado."
+  },
+  {
+    "id": "RF-17",
+    "name": "Registro de execução e feedback",
+    "priority": "P0",
+    "actor": "Atleta",
+    "pre": "Ficha publicada autorizada e acesso válido.",
+    "description": "Registrar blocos realizados, métricas do catálogo, esforço de 1 a 10 e observações, com payload privado cifrado e uma execução por ficha.",
+    "steps": [
+      "Marcar blocos concluídos e preencher métricas/esforço/observações.",
+      "O servidor valida chaves, limites e índices e grava a execução.",
+      "Atualização autorizada altera o mesmo registro; o treinador consulta o retorno."
+    ],
+    "alternative": "Execução parcial é permitida; métricas desconhecidas, fora da faixa ou blocos inexistentes são recusados.",
+    "acceptance": "Persistência mantém uma execução por ficha e não revela conteúdo a terceiros.",
+    "status": "Implementado e testado."
+  },
+  {
+    "id": "RF-18",
+    "name": "Mídia de performance e correção técnica",
+    "priority": "P1",
+    "actor": "Atleta e treinador do vínculo",
+    "pre": "Recurso autorizado e consentimento específico de performance concedido.",
+    "description": "Selecionar e enviar mídia privada de performance para análise do treinador. A versão móvel usa seletor de arquivos; câmera própria e upload retomável automático não são funcionalidades comprovadas. Tipos reconhecidos pelo módulo: PNG, JPEG, WebP, PDF, MP4 e WebM, respeitando a finalidade. Limites: 50 MiB por vídeo e 10 MiB nos demais tipos; a requisição multipart aceita um arquivo, sem campos adicionais, com teto global de 50 MiB. Comprovação profissional não aceita vídeo.",
+    "steps": [
+      "Selecionar arquivo e enviar para o recurso autorizado.",
+      "Validar assinatura, MIME, extensão, tamanho, finalidade e consentimento; cifrar e armazenar.",
+      "O treinador acessa o arquivo autorizado e registra correção técnica."
+    ],
+    "alternative": "Falha de envio mostra erro e permite nova ação do usuário, sem promessa de pausa/retomada automática. Revogação de performance elimina as mídias abrangidas pela política.",
+    "acceptance": "Arquivo real pode ser recuperado por usuário autorizado; terceiro e consentimento ausente são negados.",
+    "status": "Implementado; upload e correção verificados no APK integrado."
+  },
+  {
+    "id": "RF-19",
+    "name": "Mensagens em tempo real",
+    "priority": "P1",
+    "actor": "Participantes do vínculo",
+    "pre": "Sessão e vínculo válidos para envio.",
+    "description": "Manter histórico paginado e cifrado, envio REST, eventos WebSocket, leitura e anexos privados. Notificações são internas; não se afirma push do sistema operacional.",
+    "steps": [
+      "Abrir conversa e recuperar histórico persistido.",
+      "Enviar texto/anexo autorizado; após commit o servidor publica para as partes.",
+      "Confirmar leitura por cursor; reconexão consulta o banco novamente."
+    ],
+    "alternative": "Terceiro não acessa; vínculo encerrado não envia; sessão revogada fecha conexão. Múltiplas instâncias precisam de broker futuro.",
+    "acceptance": "Troca entre as partes persiste e reaparece sem expor dados de outra conversa.",
+    "status": "Implementado; testes de duas sessões, web e APK."
+  },
+  {
+    "id": "RF-20",
+    "name": "Avaliação pública do treinador",
+    "priority": "P1",
+    "actor": "Atleta",
+    "pre": "Vínculo elegível ativo há sete dias por padrão, conforme configuração.",
+    "description": "Publicar nota de 1 a 5 e texto, uma avaliação por ciclo, com edição pelo autor e média calculada sobre conteúdo visível.",
+    "steps": [
+      "Selecionar vínculo elegível e preencher nota e comentário.",
+      "Validar papel, vigência e período mínimo e persistir uma avaliação por ciclo.",
+      "Exibir avaliações visíveis e sua média; autor pode editar conforme autorização."
+    ],
+    "alternative": "Avaliação precoce, duplicada, de terceiro ou sem vínculo ativo é recusada. Período reduzido em fixture não comprova transcurso real de sete dias.",
+    "acceptance": "Critério temporal e unicidade são aplicados no servidor; comentário oculto não compõe a média pública.",
+    "status": "Implementado e testado com condições de fixture identificadas."
+  },
+  {
+    "id": "RF-21",
+    "name": "Resposta a avaliações",
+    "priority": "P1",
+    "actor": "Treinador avaliado",
+    "pre": "Avaliação visível do próprio treinador.",
+    "description": "Responder à avaliação e permitir denúncia/moderação pelo fluxo RF-A08.",
+    "steps": [
+      "Consultar avaliações recebidas.",
+      "Informar resposta e confirmar.",
+      "O servidor verifica o treinador destinatário e vincula a resposta à avaliação."
+    ],
+    "alternative": "Outro profissional não responde; conteúdo oculto não recebe resposta pública. Denúncia segue análise administrativa motivada.",
+    "acceptance": "Resposta pertence ao treinador avaliado e acompanha a avaliação correta.",
+    "status": "Implementado e testado."
+  },
+  {
+    "id": "RF-22",
+    "name": "Encerramento de vínculo e assinatura",
+    "priority": "P1",
+    "actor": "Participante autorizado",
+    "pre": "Ciclo acessível ao participante.",
+    "description": "Retirar pedido pendente ou encerrar vínculo conforme estado. No acadêmico, encerrar sem cobrança; no Asaas, confirmar cancelamento da renovação e preservar período pago aplicável.",
+    "steps": [
+      "Informar motivo e confirmar a operação.",
+      "Autorizar o participante e bloquear o ciclo na transação.",
+      "Aplicar encerramento acadêmico ou solicitar cancelamento ao provedor, preservando histórico e vigência confirmada."
+    ],
+    "alternative": "Repetição é idempotente; falha/timeout externo mantém pendência para conciliação, sem falso sucesso. Suspensão profissional pode impedir novas ações independentemente de vigência financeira.",
+    "acceptance": "Novo ciclo não move fichas antigas; histórico é preservado e novas ações respeitam o estado efetivo.",
+    "status": "Fluxo local e contratos HTTP testados; cancelamento externo ainda não homologado."
+  },
+  {
+    "id": "RF-23",
+    "name": "Gestão da carteira de alunos",
+    "priority": "P0",
+    "actor": "Treinador",
+    "pre": "Treinador autenticado.",
+    "description": "Consultar solicitações e ciclos, prescrever, consultar execução, conversar, agendar e acompanhar o estado financeiro aplicável.",
+    "steps": [
+      "Abrir carteira e selecionar o aluno/ciclo autorizado.",
+      "Consultar estado e histórico e acessar ações permitidas.",
+      "Ao encerrar, conservar registros e impedir novas operações incompatíveis com o estado."
+    ],
+    "alternative": "Encerramento preserva fichas existentes e histórico; não elimina automaticamente treinos futuros. Terceiros não acessam a carteira.",
+    "acceptance": "A carteira corresponde aos vínculos reais e seus estados persistidos.",
+    "status": "Implementado e integrado ao back-end."
+  },
+  {
+    "id": "RF-24",
+    "name": "Meio de pagamento no provedor",
+    "priority": "P1",
+    "actor": "Atleta e provedor configurado",
+    "pre": "Modo Asaas configurado e ciclo elegível.",
+    "description": "Encaminhar o atleta ao checkout hospedado; não manter formulário próprio de cartão ou carteira local de PAN/CVV.",
+    "steps": [
+      "Preparar intenção e obter URL de checkout pelo fluxo financeiro.",
+      "O atleta informa os dados somente no provedor.",
+      "Atualizar assinatura por eventos autenticados e conciliação, não pelo redirect."
+    ],
+    "alternative": "Falta de configuração ou confirmação gera indisponibilidade/pendência. Rejeição de cartão ocorre no ambiente externo e só é refletida conforme eventos realmente recebidos.",
+    "acceptance": "Dados brutos de cartão não entram no contrato da aplicação; operação real exige homologação do provedor.",
+    "status": "Adaptador testado de forma controlada; homologação financeira futura."
+  },
+  {
+    "id": "RF-A01",
+    "name": "Recuperação de acesso por e-mail",
+    "priority": "P0",
+    "actor": "Titular da conta",
+    "pre": "Acesso ao endereço cadastrado e serviço SMTP configurado.",
+    "description": "Recuperar senha por token aleatório de uso único, hash persistido, expiração de 30 minutos e outbox SMTP.",
+    "steps": [
+      "Solicitar recuperação por e-mail; devolver resposta genérica.",
+      "Enviar link pelo SMTP; o titular informa token e nova senha.",
+      "Verificar/bloquear token, alterar hash e revogar sessões anteriores."
+    ],
+    "alternative": "Token inválido, usado ou expirado não altera senha. Mailpit captura mensagens locais, sem provar entrega à caixa externa.",
+    "acceptance": "A nova senha autentica e o token/sessões antigos não permitem reutilização.",
+    "status": "Implementado; SMTP local testado."
+  },
+  {
+    "id": "RF-A02",
+    "name": "Notificações internas",
+    "priority": "P1",
+    "actor": "Destinatário autenticado",
+    "pre": "Evento persistido destinado ao usuário.",
+    "description": "Consultar notificações internas, contador e leitura individual/em lote, com atualização por eventos em tempo real quando conectados.",
+    "steps": [
+      "Abrir a lista do destinatário.",
+      "Consultar contador e marcar itens ou todos como lidos.",
+      "Persistir leitura e atualizar a apresentação."
+    ],
+    "alternative": "Terceiro não lê nem marca notificações alheias. Não há garantia de push de dispositivo fora do aplicativo.",
+    "acceptance": "Leitura e contador permanecem consistentes com o destinatário.",
+    "status": "Implementado e testado."
+  },
+  {
+    "id": "RF-A03",
+    "name": "Consultorias e agenda",
+    "priority": "P1",
+    "actor": "Participante do vínculo; treinador para concluir",
+    "pre": "Vínculo e acesso válidos; horário permitido.",
+    "description": "Criar, reagendar, cancelar e concluir consultorias, com histórico e bloqueio de sobreposição. Agenda própria funciona sem Google.",
+    "steps": [
+      "Definir início, duração e objetivo.",
+      "Bloquear agendas em ordem e verificar conflito antes de persistir.",
+      "Notificar as partes; registrar alterações motivadas e conclusão autorizada após o início."
+    ],
+    "alternative": "Terceiro, sobreposição, horário passado ou motivo ausente são recusados. Integração Google é opcional, depende de OAuth e ação do treinador; sincronização bidirecional de alteração/cancelamento é futura.",
+    "acceptance": "Reserva não se confunde com disponibilidade usada na nota do match.",
+    "status": "Agenda local testada; Google real não homologado."
+  },
+  {
+    "id": "RF-A04",
+    "name": "Consentimento, exportação e encerramento de conta",
+    "priority": "P0",
+    "actor": "Titular autenticado",
+    "pre": "Conta ativa; senha confirmada para encerramento.",
+    "description": "Gerenciar finalidades versionadas, exportar dados próprios e encerrar conta com anonimização/remoção de conteúdo privado conforme política e retenção aplicáveis.",
+    "steps": [
+      "Consultar política e conceder ou revogar consentimentos separados.",
+      "Exportar os próprios dados quando solicitado.",
+      "Confirmar senha para encerrar; conciliar financeiro, remover conteúdo abrangido, anonimizar e invalidar sessões."
+    ],
+    "alternative": "Senha incorreta ou pendência financeira/remoção não conciliada impede apresentar encerramento concluído. Backups restaurados devem reaplicar pedidos de eliminação.",
+    "acceptance": "Revogação e encerramento não permitem reaparecimento indevido de dados/sessões; retenção legal depende de política operacional definida.",
+    "status": "Controles locais testados; não constitui certificação jurídica."
+  },
+  {
+    "id": "RF-A05",
+    "name": "Validade e suspensão profissional",
+    "priority": "P0",
+    "actor": "Administrador e jobs",
+    "pre": "Verificação existente e administrador autorizado para decisões manuais.",
+    "description": "Expirar aprovação por prazo e suspender/revogar profissional com motivo e auditoria, retirando elegibilidade para novas ações protegidas.",
+    "steps": [
+      "Verificar prazo nos jobs ou receber decisão administrativa.",
+      "Persistir alteração e auditoria.",
+      "Negar descoberta e novas operações incompatíveis com a situação profissional."
+    ],
+    "alternative": "Uma tela já aberta precisa de nova consulta; não há promessa de atualização instantânea de todos os clientes. Nova comprovação segue RF-03/04.",
+    "acceptance": "Expirado/suspenso não é elegível na consulta e nas operações protegidas.",
+    "status": "Implementado e testado."
+  },
+  {
+    "id": "RF-A06",
+    "name": "Aplicativo do atleta",
+    "priority": "P1",
+    "actor": "Atleta",
+    "pre": "APK/perfil configurado e API acessível.",
+    "description": "Usar a mesma API pelo cliente React Native/Expo, sessão no SecureStore, treino, mensagens, agenda, mídias, notificações e privacidade.",
+    "steps": [
+      "Instalar o APK local de demonstração e conectar à API via ambiente configurado.",
+      "Autenticar e executar funções autorizadas.",
+      "Restaurar a sessão com segurança e tratar falhas de transporte."
+    ],
+    "alternative": "Perfil normal exige HTTPS; demonstração local restringe HTTP a loopback/emulador. Bundle iOS não equivale a IPA, iPhone ou publicação em loja.",
+    "acceptance": "O ensaio integrado de 18 etapas no emulador é evidência da configuração declarada, sem extrapolar a aparelhos físicos.",
+    "status": "Android em emulador aprovado; iOS, aparelhos e distribuição não homologados."
+  },
+  {
+    "id": "RF-A07",
+    "name": "Operação e recuperação",
+    "priority": "P1",
+    "actor": "Responsável técnico",
+    "pre": "Configuração, segredos e chave de cifra preservados.",
+    "description": "Executar API, banco, SMTP e armazenamento; aplicar migrations e jobs, configurar TLS e realizar backup/restauração SQL/S3. A implantação em nuvem permanece pendente.",
+    "steps": [
+      "Preparar serviços/configuração e aplicar migrations sem apagar dados existentes.",
+      "Iniciar aplicação e verificar saúde; agendar jobs conforme ambiente.",
+      "Gerar backup com chave preservada e testar restauração isolada."
+    ],
+    "alternative": "Sem segredos/configuração válidos, impedir ativação externa indevida. Docker/TLS local não comprovam hospedagem pública, balanceamento ou autoescala.",
+    "acceptance": "Serviços e recuperação são reproduzíveis no ambiente registrado, com integridade verificada.",
+    "status": "Operação local e CI verificadas; implantação remota ainda não executada."
+  },
+  {
+    "id": "RF-A08",
+    "name": "Moderação de avaliações",
+    "priority": "P1",
+    "actor": "Usuário denunciante e administrador",
+    "pre": "Avaliação existente; administrador autorizado para moderar.",
+    "description": "Denunciar avaliação e ocultar/restaurar conteúdo com decisão motivada e histórico.",
+    "steps": [
+      "Registrar denúncia vinculada à avaliação.",
+      "Administrador analisa e informa motivo da ocultação/restauração.",
+      "Persistir decisão; média e listagem públicas usam somente conteúdo visível."
+    ],
+    "alternative": "Terceiro não altera avaliação; denúncia não é ocultação automática sem análise administrativa.",
+    "acceptance": "Decisão auditável e média consistente com os itens visíveis.",
+    "status": "Implementado e testado."
+  }
+]

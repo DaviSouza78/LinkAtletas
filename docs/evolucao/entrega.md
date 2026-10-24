@@ -4,9 +4,9 @@ Este incremento amplia a entrega inicial preservada em [docs/sprint-2](../sprint
 
 Implementação inicial ampliada: commit `fca8a18`, integrada pelo [PR #1](https://github.com/DaviSouza78/LinkAtletas/pull/1), merge `f6a5a56`. Revisão de 15–20/10 na branch `revisao-sprint-2`, com autoria Lucca <luccacc.contato@gmail.com>. Verificações desta revisão: 82 testes Vitest, 15 cenários web em três motores e 22 testes de transporte/configuração Expo aprovados; tipos/build, TLS/reinício e recuperação SQL/S3 conferidos na [CI da revisão](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806). Os resultados antigos permanecem identificados como históricos.
 
-- [ERS v2.3: requisitos, fluxos, regras, cenários e histórico de revisões](ERS-v2.md). Atualização documental de 23/10/2026 consolida as decisões da equipe; os pacotes anteriores permanecem identificados pelo commit de sua publicação.
-- [Cópia atualizada no template original](ERS-template-original-atualizada.pdf), para revisão da equipe; [preservação e método](template/README.md).
-- ERS [Word](ERS-v2.docx) / [PDF](ERS-v2.pdf), relatório [Word](relatorio-testes.docx) / [PDF](relatorio-testes.pdf).
+- [ERS principal no template original — v2.4](ERS-template-original-atualizada.pdf), com [preservação e método](template/README.md) e [correções da auditoria](revisao-ers-aplicada-2026-10-24.md). Atualização documental de 24/10/2026: requisitos integrados, figuras atuais, testes detalhados, sumário e histórico. Os pacotes anteriores permanecem identificados pelo commit de sua publicação.
+- [Fonte textual das seções repaginadas](ERS-template-original.md) e [síntese auxiliar v2.4](ERS-v2.md).
+- Síntese auxiliar da ERS em [Word](ERS-v2.docx) / [PDF](ERS-v2.pdf), relatório [Word](relatorio-testes.docx) / [PDF](relatorio-testes.pdf). O Word auxiliar não reproduz o template original.
 - [API e contratos](api.md).
 - [Diagramas e fontes UML/Mermaid](diagramas.md).
 - [Backlog e pendências externas](backlog.md).

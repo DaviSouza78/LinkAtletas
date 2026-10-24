@@ -113,6 +113,8 @@ docs/evolucao/       ERS v2, API, manual, modelos, checklist e novas evidências
 
 [Índice](docs/evolucao/entrega.md) · [ERS v2](docs/evolucao/ERS-v2.md) · [API](docs/evolucao/api.md) · [Diagramas](docs/evolucao/diagramas.md) · [Backlog](docs/evolucao/backlog.md) · [Rastreabilidade/UCs](docs/evolucao/rastreabilidade.md) · [Decisões](docs/evolucao/decisoes.md).
 
+ERS de apresentação: [PDF v2.4 no template original](docs/evolucao/ERS-template-original-atualizada.pdf), revisado em 24/10/2026, com requisitos integrados, 16 casos de teste rastreáveis e modelos atuais. [Correções aplicadas](docs/evolucao/revisao-ers-aplicada-2026-10-24.md); a fonte da Sprint 1 permanece preservada.
+
 ## Equipe e pendências externas
 
 João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa. Cada integrante deve registrar sua participação efetiva e realizar sua entrega acadêmica. Autoria Git deste incremento usa o nome/e-mail fornecidos por Lucca, sem presumir participação dos demais.
