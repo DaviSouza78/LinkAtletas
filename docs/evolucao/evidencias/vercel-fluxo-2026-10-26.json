@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-26T23:00:37.791Z",
+  "environment": "preview",
+  "checks": [
+    {
+      "label": "register flow 0",
+      "passed": true
+    },
+    {
+      "label": "register flow 1",
+      "passed": true
+    },
+    {
+      "label": "register flow 2",
+      "passed": true
+    },
+    {
+      "label": "complete sports profile",
+      "passed": true
+    },
+    {
+      "label": "complete sports profile",
+      "passed": true
+    },
+    {
+      "label": "unverified coach cannot receive contract",
+      "passed": true
+    },
+    {
+      "label": "submit manual CREF",
+      "passed": true
+    },
+    {
+      "label": "athlete denied administrative decision",
+      "passed": true
+    },
+    {
+      "label": "manual CREF decision",
+      "passed": true
+    },
+    {
+      "label": "request contract",
+      "passed": true
+    },
+    {
+      "label": "coach accepts contract",
+      "passed": true
+    },
+    {
+      "label": "coach publishes workout",
+      "passed": true
+    },
+    {
+      "label": "athlete reads workout",
+      "passed": true
+    },
+    {
+      "label": "athlete execution",
+      "passed": true
+    },
+    {
+      "label": "coach reads persisted feedback",
+      "passed": true
+    },
+    {
+      "label": "message sent",
+      "passed": true
+    },
+    {
+      "label": "other session receives persisted message",
+      "passed": true
+    },
+    {
+      "label": "close flow fixture account",
+      "passed": true
+    },
+    {
+      "label": "close flow fixture account",
+      "passed": true
+    },
+    {
+      "label": "close flow fixture account",
+      "passed": true
+    }
+  ],
+  "syntheticCrefOnly": true,
+  "screenshotsOrBrowserFlow": false,
+  "transport": "real HTTPS API with independent native sessions"
+}

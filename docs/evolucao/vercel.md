@@ -1,6 +1,16 @@
 # Implantação do LinkAtletas na Vercel
 
-## Estado em 24/10/2026
+## Estado atual em 26/10/2026
+
+O Preview do commit `98b4904` já respondeu `/api/health` com HTTP 200 e PostgreSQL conectado. Neon, Tigris e Brevo estão configurados com ambientes separados. Cadastro, sessão, CREF manual, contratação, treino, execução, feedback, mensagens e recuperação de senha foram verificados por HTTPS. A [conferência atual da implantação](implantacao-2026-10-26.md) reúne evidências e pendências de produção; ela prevalece sobre o histórico abaixo.
+
+Uploads grandes usam sessões autenticadas com partes de 3 MiB, cifradas no S3, finalização idempotente e download em stream com Range. O limite da ERS não foi reduzido. [Contrato atualizado da API](api.md).
+
+O cron-job.org tem uma tarefa a cada minuto, ainda desativada até a validação de produção. A credencial fica no cabeçalho Authorization, nunca na URL. O modo financeiro é acadêmico: não há cobrança real. E-mail aceito pelo SMTP não equivale a confirmação na caixa de entrada. O APK com a URL HTTPS foi compilado e abriu no emulador; aparelho físico e lojas têm verificações próprias.
+
+## Histórico de preparação em 24/10/2026
+
+As pendências e resultados das seções seguintes descrevem a situação histórica de 24/10, antes da conclusão dos serviços em 26/10. Consulte o registro atual acima para decidir o que ainda falta.
 
 A interface pública responde HTTP 200 em https://link-atletas.vercel.app/. A consulta de `/api/health` retornou HTTP 404 antes desta preparação. Publicar a interface não transferiu o PostgreSQL nem os arquivos do Docker para a nuvem.
 

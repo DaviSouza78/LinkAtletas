@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-26T22:56:48.034Z",
+  "environment": "preview",
+  "checks": [
+    {
+      "label": "preview recovery account created",
+      "passed": true
+    },
+    {
+      "label": "forgot-password accepted",
+      "passed": true
+    },
+    {
+      "label": "authenticated jobs executed",
+      "passed": true
+    },
+    {
+      "label": "application recovery email accepted by SMTP",
+      "passed": true
+    },
+    {
+      "label": "reset password",
+      "passed": true
+    },
+    {
+      "label": "reset token cannot be reused",
+      "passed": true
+    },
+    {
+      "label": "old session revoked",
+      "passed": true
+    },
+    {
+      "label": "new password login",
+      "passed": true
+    },
+    {
+      "label": "password change email jobs",
+      "passed": true
+    },
+    {
+      "label": "temporary recovery account closed",
+      "passed": true
+    }
+  ],
+  "inboxReceiptConfirmed": false,
+  "resetTokenSource": "private outbox read by deployment owner before SMTP delivery",
+  "recipient": "project owner only"
+}
