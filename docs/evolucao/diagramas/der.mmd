@@ -22,6 +22,8 @@ erDiagram
   users ||--o{ media : owner_id
   users ||--o{ media_feedback : author_id
   media ||--o{ media_feedback : media_id
+  media o|--o{ media_uploads : media_id
+  users ||--o{ media_uploads : owner_id
   contracts ||--o{ messages : contract_id
   media o|--o{ messages : media_id
   users ||--o{ messages : sender_id
@@ -157,6 +159,11 @@ erDiagram
     uuid media_id FK
     uuid author_id FK
     text encrypted_text
+  }
+  media_uploads {
+    uuid id PK
+    uuid owner_id FK
+    uuid media_id FK
   }
   messages {
     uuid id PK

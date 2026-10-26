@@ -2,9 +2,12 @@ import type { FastifyInstance } from 'fastify'
 import type { Pool, PoolClient } from 'pg'
 import { randomUUID } from 'node:crypto'
 import { basename, extname } from 'node:path'
+import { Readable } from 'node:stream'
+import { mediaUploadRoutes, deletePendingUploads } from './media-uploads.js'
 import {
   S3Client,
   CreateBucketCommand,
+  HeadBucketCommand,
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
@@ -30,7 +33,7 @@ type MediaRow = {
   created_at: string
   deleted_at: string | null
 }
-function storage() {
+export function mediaStorage() {
   return new S3Client({
     region: process.env.S3_REGION || 'us-east-1',
     endpoint: process.env.S3_ENDPOINT || 'http://127.0.0.1:8333',
@@ -42,11 +45,21 @@ function storage() {
     },
   })
 }
-const bucket = () => process.env.S3_BUCKET || 'linkatletas-private'
+export const mediaBucket = () => process.env.S3_BUCKET || 'linkatletas-private'
 export async function ensureMediaBucket() {
-  const client = storage()
+  const client = mediaStorage()
   try {
-    await client.send(new CreateBucketCommand({ Bucket: bucket() }))
+    try {
+      await client.send(new HeadBucketCommand({ Bucket: mediaBucket() }))
+      return
+    } catch (error) {
+      if (
+        (error as { $metadata?: { httpStatusCode?: number } }).$metadata
+          ?.httpStatusCode !== 404
+      )
+        throw error
+    }
+    await client.send(new CreateBucketCommand({ Bucket: mediaBucket() }))
   } catch (error) {
     if (
       !['BucketAlreadyOwnedByYou', 'BucketAlreadyExists'].includes(
@@ -153,15 +166,22 @@ export async function deleteMediaObjects(
   ownerId: string,
   purpose?: string,
 ) {
+  await deletePendingUploads(
+    pool,
+    mediaStorage,
+    mediaBucket(),
+    ownerId,
+    purpose,
+  )
   const { rows } = await pool.query<MediaRow>(
     'SELECT * FROM media WHERE owner_id=$1 AND deleted_at IS NULL AND ($2::text IS NULL OR purpose=$2)',
     [ownerId, purpose || null],
   )
-  const client = storage()
+  const client = mediaStorage()
   try {
     for (const row of rows) {
       await client.send(
-        new DeleteObjectCommand({ Bucket: bucket(), Key: row.object_key }),
+        new DeleteObjectCommand({ Bucket: mediaBucket(), Key: row.object_key }),
       )
       await transaction(pool, async (db) => {
         await db.query('UPDATE media SET deleted_at=now() WHERE id=$1', [
@@ -179,25 +199,15 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
     tags: ['Arquivos privados'],
     response: { '2xx': { type: 'object', additionalProperties: true } },
   }
-  app.post('/media', { schema }, async (req, reply) => {
-    const user = requireUser(req)
-    const { purpose, resourceId } = z
-      .object({
-        purpose: z.enum([
-          'verification',
-          'instruction',
-          'performance',
-          'message',
-        ]),
-        resourceId: idSchema,
-      })
-      .strict()
-      .parse(req.query)
+  async function saveMedia(
+    user: { id: string; role: string },
+    purpose: string,
+    resourceId: string,
+    file: { filename: string; mimetype: string; bytes: Buffer },
+    connection?: PoolClient,
+  ) {
     await authorize(pool, user, purpose, resourceId, true)
-    const file = await req.file()
-    if (!file || file.fieldname !== 'file')
-      fail(400, 'FILE_REQUIRED', 'Envie um arquivo no campo file.')
-    const bytes = await file.toBuffer(),
+    const bytes = file.bytes,
       type = fileType(bytes),
       extension = extname(file.filename).toLowerCase()
     if (
@@ -223,11 +233,11 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
       .replace(/[\x00-\x1f\x7f"<>]/g, '_')
       .slice(0, 150)
     await ensureMediaBucket()
-    const client = storage()
+    const client = mediaStorage()
     try {
       await client.send(
         new PutObjectCommand({
-          Bucket: bucket(),
+          Bucket: mediaBucket(),
           Key: objectKey,
           Body: encryptPrivate(bytes.toString('base64')),
           ContentType: 'application/octet-stream',
@@ -236,7 +246,7 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
       try {
         // Check consent/resource again to cover revocation while uploading.
         await authorize(pool, user, purpose, resourceId, true)
-        const saved = await transaction(pool, async (db) => {
+        const persist = async (db: PoolClient) => {
           const account = await db.query(
             'SELECT 1 FROM users WHERE id=$1 AND disabled_at IS NULL FOR SHARE',
             [user.id],
@@ -269,17 +279,53 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
             ],
           )
           return rows[0]
-        })
-        return reply.code(201).send({ media: dto(saved) })
+        }
+        const saved = connection
+          ? await persist(connection)
+          : await transaction(pool, persist)
+        return { media: dto(saved) }
       } catch (error) {
         await client.send(
-          new DeleteObjectCommand({ Bucket: bucket(), Key: objectKey }),
+          new DeleteObjectCommand({ Bucket: mediaBucket(), Key: objectKey }),
         )
         throw error
       }
     } finally {
       client.destroy()
     }
+  }
+  await mediaUploadRoutes(app, pool, {
+    authorize: (user, purpose, resourceId) =>
+      authorize(pool, user, purpose, resourceId, true),
+    save: saveMedia,
+    storage: mediaStorage,
+    bucket: mediaBucket,
+    dto,
+  })
+  app.post('/media', { schema }, async (req, reply) => {
+    const user = requireUser(req)
+    const { purpose, resourceId } = z
+      .object({
+        purpose: z.enum([
+          'verification',
+          'instruction',
+          'performance',
+          'message',
+        ]),
+        resourceId: idSchema,
+      })
+      .strict()
+      .parse(req.query)
+    await authorize(pool, user, purpose, resourceId, true)
+    const file = await req.file()
+    if (!file || file.fieldname !== 'file')
+      fail(400, 'FILE_REQUIRED', 'Envie um arquivo no campo file.')
+    const result = await saveMedia(user, purpose, resourceId, {
+      filename: file.filename,
+      mimetype: file.mimetype,
+      bytes: await file.toBuffer(),
+    })
+    return reply.code(201).send(result)
   })
   app.get('/media', { schema }, async (req) => {
     const user = requireUser(req),
@@ -339,16 +385,45 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
     { schema: { tags: ['Arquivos privados'], response: {} } },
     async (req, reply) => {
       const row = await get(req.params.id, requireUser(req)),
-        client = storage()
+        client = mediaStorage()
       try {
         const result = await client.send(
-          new GetObjectCommand({ Bucket: bucket(), Key: row.object_key }),
+          new GetObjectCommand({ Bucket: mediaBucket(), Key: row.object_key }),
         )
         if (!result.Body) fail(404, 'NOT_FOUND', 'Arquivo não encontrado.')
         const bytes = Buffer.from(
           decryptPrivate(await result.Body.transformToString()),
           'base64',
         )
+        const range = req.headers.range
+        let content = bytes
+        if (range) {
+          const match = /^bytes=(\d*)-(\d*)$/.exec(range)
+          let start = match?.[1] ? Number(match[1]) : 0
+          let end = match?.[2] ? Number(match[2]) : bytes.length - 1
+          if (match && !match[1] && match[2]) {
+            start = Math.max(0, bytes.length - Number(match[2]))
+            end = bytes.length - 1
+          }
+          if (
+            !match ||
+            (!match[1] && !match[2]) ||
+            !Number.isSafeInteger(start) ||
+            !Number.isSafeInteger(end) ||
+            start >= bytes.length ||
+            start > end
+          ) {
+            return reply
+              .code(416)
+              .header('Content-Range', `bytes */${bytes.length}`)
+              .send()
+          }
+          end = Math.min(end, bytes.length - 1)
+          content = bytes.subarray(start, end + 1)
+          reply
+            .code(206)
+            .header('Content-Range', `bytes ${start}-${end}/${bytes.length}`)
+        }
         return reply
           .type(row.mime_type)
           .header(
@@ -356,7 +431,8 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
             `${row.mime_type === 'application/pdf' ? 'attachment' : 'inline'}; filename*=UTF-8''${encodeURIComponent(row.name)}`,
           )
           .header('Content-Security-Policy', "sandbox; default-src 'none'")
-          .send(bytes)
+          .header('Accept-Ranges', 'bytes')
+          .send(Readable.from([content]))
       } finally {
         client.destroy()
       }
@@ -370,10 +446,13 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
         row = await get(req.params.id, user)
       if (row.owner_id !== user.id)
         fail(403, 'FORBIDDEN', 'Somente o titular exclui este arquivo.')
-      const client = storage()
+      const client = mediaStorage()
       try {
         await client.send(
-          new DeleteObjectCommand({ Bucket: bucket(), Key: row.object_key }),
+          new DeleteObjectCommand({
+            Bucket: mediaBucket(),
+            Key: row.object_key,
+          }),
         )
         await pool.query('UPDATE media SET deleted_at=now() WHERE id=$1', [
           row.id,
@@ -447,16 +526,14 @@ export async function mediaRoutes(app: FastifyInstance, pool: Pool) {
         'Seu treinador enviou uma correção técnica.',
         row.id,
       )
-      return reply
-        .code(201)
-        .send({
-          feedback: {
-            ...saved,
-            authorId: user.id,
-            authorName: user.name,
-            text: input.text,
-          },
-        })
+      return reply.code(201).send({
+        feedback: {
+          ...saved,
+          authorId: user.id,
+          authorName: user.name,
+          text: input.text,
+        },
+      })
     },
   )
 }

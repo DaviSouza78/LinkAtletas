@@ -20,6 +20,7 @@
     "mail_outbox",
     "media",
     "media_feedback",
+    "media_uploads",
     "messages",
     "metric_types",
     "notifications",
@@ -536,14 +537,6 @@
     },
     {
       "table_name": "billing_subscriptions",
-      "column_name": "provider_customer_id",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
       "column_name": "checkout_url",
       "data_type": "text",
       "udt_name": "text",
@@ -605,6 +598,14 @@
       "udt_name": "timestamptz",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "provider_customer_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
     },
     {
       "table_name": "billing_wallets",
@@ -1229,6 +1230,86 @@
       "udt_name": "timestamptz",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "owner_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "purpose",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "name",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "mime_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "size",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "parts",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "(now() + '01:00:00'::interval)"
     },
     {
       "table_name": "messages",
@@ -2800,6 +2881,66 @@
       "foreign_table": null
     },
     {
+      "table_name": "media_uploads",
+      "name": "media_uploads_media_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE SET NULL",
+      "columns": [
+        "media_id"
+      ],
+      "foreign_table": "media"
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_owner_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "owner_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_parts_check",
+      "type": "c",
+      "definition": "CHECK (((parts > 0) AND (parts <= 17)))",
+      "columns": [
+        "parts"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_purpose_check",
+      "type": "c",
+      "definition": "CHECK ((purpose = ANY (ARRAY['verification'::text, 'instruction'::text, 'performance'::text, 'message'::text])))",
+      "columns": [
+        "purpose"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_size_check",
+      "type": "c",
+      "definition": "CHECK (((size > 0) AND (size <= 52428800)))",
+      "columns": [
+        "size"
+      ],
+      "foreign_table": null
+    },
+    {
       "table_name": "messages",
       "name": "messages_contract_id_fkey",
       "type": "f",
@@ -3543,6 +3684,21 @@
       "tablename": "media_feedback",
       "indexname": "media_feedback_pkey",
       "indexdef": "CREATE UNIQUE INDEX media_feedback_pkey ON public.media_feedback USING btree (id)"
+    },
+    {
+      "tablename": "media_uploads",
+      "indexname": "media_uploads_expiry",
+      "indexdef": "CREATE INDEX media_uploads_expiry ON public.media_uploads USING btree (expires_at)"
+    },
+    {
+      "tablename": "media_uploads",
+      "indexname": "media_uploads_owner",
+      "indexdef": "CREATE INDEX media_uploads_owner ON public.media_uploads USING btree (owner_id)"
+    },
+    {
+      "tablename": "media_uploads",
+      "indexname": "media_uploads_pkey",
+      "indexdef": "CREATE UNIQUE INDEX media_uploads_pkey ON public.media_uploads USING btree (id)"
     },
     {
       "tablename": "messages",

@@ -30,7 +30,7 @@ try {
   await mkdir('docs/evolucao/evidencias', { recursive: true })
   await writeFile('docs/evolucao/evidencias/database-schema.json', JSON.stringify(metadata, null, 2) + '\n')
   const lines = ['# Dicionário do banco implementado', '',
-    'Gerado por `pnpm exec tsx scripts/export-schema.ts` após as migrations, consultando apenas metadados PostgreSQL. Não contém dados pessoais. As 35 tabelas de domínio e a tabela técnica `schema_migrations` refletem o banco implementado.', '',
+    'Gerado por `pnpm exec tsx scripts/export-schema.ts` após as migrations, consultando apenas metadados PostgreSQL. Não contém dados pessoais. As 35 tabelas de domínio e as tabelas tecnicas `schema_migrations` e `media_uploads` refletem o banco implementado.', '',
     'O [DER](diagramas/der.mmd) resume os atributos, mas inclui todas as relações FK. O modelo de classes é conceitual; cardinalidades do DER refletem restrições físicas, incluindo referências opcionais. Campos `resource_id` polimórficos são autorizados pela aplicação e não são FKs.', '']
   for (const table of tables) {
     lines.push(`## ${table}`, '', '| Coluna | Tipo PostgreSQL | Nulo | Chave/restrição |', '|---|---|---|---|')

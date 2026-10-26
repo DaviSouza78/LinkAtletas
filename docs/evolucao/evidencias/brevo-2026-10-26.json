@@ -1,0 +1,10 @@
+{
+  "executedAt": "2026-10-26T16:27:56.013Z",
+  "provider": "Brevo",
+  "smtpAuthenticated": true,
+  "tlsRequired": true,
+  "acceptedCount": 1,
+  "rejectedCount": 0,
+  "inboxReceiptVerified": false,
+  "applicationFlowVerified": false
+}

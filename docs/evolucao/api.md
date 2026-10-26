@@ -6,7 +6,7 @@ Base local: `http://localhost:3001/api`. Swagger: `/api/docs`; especificação r
 
 Web: cookie opaco `la_session`, HttpOnly, SameSite=Lax e Secure no ambiente HTTPS. Mutações exigem `Origin` autorizado; o frontend chama a mesma origem `/api`. Nativo: `Authorization: Bearer <token-opaco>` emitido pelos endpoints nativos, armazenado em SecureStore; o servidor guarda somente o hash. Nunca colocar token em URL, logs ou chave pública de ambiente.
 
-Entrada JSON validada no servidor; upload usa multipart. Falhas devolvem `code`, `message` e eventualmente `fields`. Códigos comuns: 400 inválido, 401 sem sessão/credencial, 403 papel/estado, 404 recurso privado alheio, 409 conflito, 413 arquivo, 429 limite e 503 integração não configurada. Não repetir criação financeira após timeout supondo falha; consultar estado/conciliar.
+Entrada JSON validada no servidor; upload usa multipart ou partes binárias autenticadas. Falhas devolvem `code`, `message` e eventualmente `fields`. Códigos comuns: 400 inválido, 401 sem sessão/credencial, 403 papel/estado, 404 recurso privado alheio, 409 conflito, 413 arquivo, 429 limite e 503 integração não configurada. Não repetir criação financeira após timeout supondo falha; consultar estado/conciliar.
 
 ## Conta e perfil
 
@@ -46,6 +46,17 @@ Reset enviado para `/redefinir-senha#token=...`; o fragmento não integra a requ
 | GET `/dashboard` | `{contracts,workouts}` autorizados |
 
 ## Arquivos privados
+
+Para arquivos maiores que 3 MiB, web e aplicativo usam sessões de envio:
+
+| Método e rota | Entrada e comportamento |
+|---|---|
+| POST `/media/uploads` | JSON `{purpose,resourceId,name,mimeType,size}`; retorna 201 `{upload:{id,partSize,parts,expiresAt}}` |
+| PUT `/media/uploads/:id/parts/:part` | `Content-Type: application/octet-stream`, parte binária do tamanho esperado; índices começam em zero; máximo 3 MiB por requisição |
+| POST `/media/uploads/:id/complete` | Recompõe, valida assinatura/tipo/extensão/limite, revalida autorização e consentimento, salva cifrado e retorna 201 `{media}`; repetição retorna o mesmo arquivo |
+| DELETE `/media/uploads/:id` | Titular cancela a sessão e elimina as partes temporárias; não exclui uma mídia já concluída |
+
+Sessões expiram em uma hora, com no máximo três envios incompletos por usuário. As partes também ficam cifradas. O job elimina sessões expiradas e seus objetos temporários; revogação de performance e encerramento da conta eliminam partes correspondentes. Downloads usam resposta em stream e aceitam `Range: bytes=inicio-fim`, retornando 206/`Content-Range`; faixa inválida retorna 416. O suporte efetivo a arquivos grandes na Vercel exige o teste da implantação, além do teste local.
 
 `POST /media?purpose=verification|instruction|performance|message&resourceId=UUID`: multipart com um campo `file`; retorna 201 `{media}`. `resourceId`: usuário treinador para verification, ficha para instruction/performance, contrato para message. API confere propriedade e finalidade; performance exige consentimento.
 

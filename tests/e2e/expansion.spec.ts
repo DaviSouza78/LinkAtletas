@@ -35,8 +35,8 @@ test('chat ao vivo → agenda → avaliação → consentimento e mídia → fin
   browser,
   baseURL,
 }, info) => {
-  const athleteContext = await browser.newContext({ baseURL }),
-    coachContext = await browser.newContext({ baseURL })
+  const athleteContext = await browser.newContext({ baseURL, reducedMotion: 'reduce' }),
+    coachContext = await browser.newContext({ baseURL, reducedMotion: 'reduce' })
   const athlete = await athleteContext.newPage(),
     coach = await coachContext.newPage(),
     errors: string[] = []
@@ -254,6 +254,7 @@ test('chat ao vivo → agenda → avaliação → consentimento e mídia → fin
     await athlete
       .getByRole('checkbox', { name: /Vídeos e dados de performance/ })
       .check()
+    await expect(athlete.getByText(/Prefer.ncia de privacidade atualizada/)).toBeVisible()
     await athlete.goto(`/atleta/treino`)
     await athlete
       .getByRole('combobox', { name: /Treino selecionado/ })
@@ -267,7 +268,7 @@ test('chat ao vivo → agenda → avaliação → consentimento e mídia → fin
       .setInputFiles({
         name: 'performance.png',
         mimeType: 'image/png',
-        buffer: bytes,
+        buffer: Buffer.concat([bytes, Buffer.alloc(5 * 1024 * 1024)]),
       })
     await athlete.getByRole('button', { name: /Enviar arquivo/ }).click()
     await expect(

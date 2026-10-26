@@ -1,6 +1,6 @@
 # Dicionário do banco implementado
 
-Gerado por `pnpm exec tsx scripts/export-schema.ts` após as migrations, consultando apenas metadados PostgreSQL. Não contém dados pessoais. As 35 tabelas de domínio e a tabela técnica `schema_migrations` refletem o banco implementado.
+Gerado por `pnpm exec tsx scripts/export-schema.ts` após as migrations, consultando apenas metadados PostgreSQL. Não contém dados pessoais. As 35 tabelas de domínio e as tabelas tecnicas `schema_migrations` e `media_uploads` refletem o banco implementado.
 
 O [DER](diagramas/der.mmd) resume os atributos, mas inclui todas as relações FK. O modelo de classes é conceitual; cardinalidades do DER refletem restrições físicas, incluindo referências opcionais. Campos `resource_id` polimórficos são autorizados pela aplicação e não são FKs.
 
@@ -190,7 +190,6 @@ Restrições:
 | state | text | Não | — |
 | provider_checkout_id | text | Sim | UNIQUE |
 | provider_subscription_id | text | Sim | UNIQUE |
-| provider_customer_id | text | Sim | — |
 | checkout_url | text | Sim | — |
 | paid_until | timestamp with time zone | Sim | — |
 | grace_until | timestamp with time zone | Sim | — |
@@ -199,6 +198,7 @@ Restrições:
 | cancellation_started_at | timestamp with time zone | Sim | — |
 | last_event_at | timestamp with time zone | Sim | — |
 | created_at | timestamp with time zone | Não | — |
+| provider_customer_id | text | Sim | — |
 
 Restrições:
 
@@ -474,6 +474,36 @@ Restrições:
 Índices:
 
 - `media_feedback_pkey`: `CREATE UNIQUE INDEX media_feedback_pkey ON public.media_feedback USING btree (id)`.
+
+## media_uploads
+
+| Coluna | Tipo PostgreSQL | Nulo | Chave/restrição |
+|---|---|---|---|
+| id | uuid | Não | PK |
+| owner_id | uuid | Não | FK → users |
+| purpose | text | Não | — |
+| resource_id | uuid | Não | — |
+| name | text | Não | — |
+| mime_type | text | Não | — |
+| size | integer | Não | — |
+| parts | integer | Não | — |
+| media_id | uuid | Sim | FK → media |
+| expires_at | timestamp with time zone | Não | — |
+
+Restrições:
+
+- `media_uploads_media_id_fkey`: `FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE SET NULL`.
+- `media_uploads_owner_id_fkey`: `FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE`.
+- `media_uploads_parts_check`: `CHECK (((parts > 0) AND (parts <= 17)))`.
+- `media_uploads_pkey`: `PRIMARY KEY (id)`.
+- `media_uploads_purpose_check`: `CHECK ((purpose = ANY (ARRAY['verification'::text, 'instruction'::text, 'performance'::text, 'message'::text])))`.
+- `media_uploads_size_check`: `CHECK (((size > 0) AND (size <= 52428800)))`.
+
+Índices:
+
+- `media_uploads_expiry`: `CREATE INDEX media_uploads_expiry ON public.media_uploads USING btree (expires_at)`.
+- `media_uploads_owner`: `CREATE INDEX media_uploads_owner ON public.media_uploads USING btree (owner_id)`.
+- `media_uploads_pkey`: `CREATE UNIQUE INDEX media_uploads_pkey ON public.media_uploads USING btree (id)`.
 
 ## messages
 
