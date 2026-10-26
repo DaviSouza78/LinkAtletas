@@ -5,5 +5,5 @@
   "role": "admin",
   "password": "random; stored only in ignored local file",
   "publicSeedApplied": false,
-  "loginVerified": false
+  "loginVerified": true
 }

@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-26",
+  "provider": "cron-job.org",
+  "jobId": 8728881,
+  "url": "https://link-atletas.vercel.app/api/internal/jobs",
+  "enabled": true,
+  "schedule": "* * * * *",
+  "timezone": "America/Sao_Paulo",
+  "authorization": "Bearer secret stored privately in provider request header",
+  "saveResponseBodies": false,
+  "unauthenticatedRequestStatus": 401,
+  "automaticExecutions": [
+    { "scheduledLocal": "2026-10-26 20:09:00", "executedLocal": "2026-10-26 20:09:04", "durationSeconds": 5.43, "httpStatus": 200 },
+    { "scheduledLocal": "2026-10-26 20:10:00", "executedLocal": "2026-10-26 20:10:03", "durationSeconds": 5.35, "httpStatus": 200 }
+  ],
+  "verification": "provider execution history observed in authenticated dashboard"
+}

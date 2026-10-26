@@ -1,5 +1,9 @@
 # Publicação no GitHub
 
+## Implantação de 26/10/2026
+
+O [PR #3](https://github.com/DaviSouza78/LinkAtletas/pull/3) foi integrado na `main` do grupo, commit `af3ee6f`, e sincronizado com `luccalck/LinkAtletas`. A [CI da main](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40417254496) concluiu com sucesso. A [aplicação pública](https://link-atletas.vercel.app) foi reconstruída com variáveis de produção, sem copiar banco/chaves de Preview. [Evidências de serviços, testes reais e APK](implantacao-2026-10-26.md). Os registros datados abaixo são históricos.
+
 Em 14/10/2026, Lucca confirmou que é colaborador e autorizou publicar os commits em `DaviSouza78/LinkAtletas`. A conta autenticada `luccalck` possui permissão WRITE. A branch [evolucao-completa](https://github.com/DaviSouza78/LinkAtletas/tree/evolucao-completa) preserva os commits da implementação com autoria `Lucca <luccacc.contato@gmail.com>`.
 
 [Pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) integrado à `main` em 14/10/2026 às 23:46:40 UTC, commit `f6a5a56c3b4e68e83ff007b8ac42dac3c9443540`. Os checks do PR passaram antes da integração. A [CI completa na main, run 38656142290](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290), também terminou com sucesso: instalação com lockfile, tipos/build, 75 testes Vitest, backup/restauração, 15 E2E em três motores, acessibilidade automática, testes/exportação Expo e implantação TLS com reinício. Registros: [PR](evidencias/github-pr-1.json), [CI](evidencias/github-ci-main.json). A branch `sprint-2` também foi publicada para preservar a etapa inicial.

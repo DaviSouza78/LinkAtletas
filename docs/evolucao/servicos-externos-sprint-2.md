@@ -1,5 +1,7 @@
 # Serviços externos e exigências da Sprint 2
 
+Atualização operacional em 26/10/2026: Vercel, Neon, Tigris e Brevo foram configurados e a aplicação pública foi testada. O [registro atual da implantação](implantacao-2026-10-26.md) reúne evidências por ambiente e prevalece sobre a situação local descrita na revisão histórica abaixo. Asaas, Google e lojas permanecem fora da ativação acadêmica atual; não houve cobrança real.
+
 Revisão de 23/10/2026, com base no [roteiro dos professores, seção 9, página 9](../referencias/Roteiro-professores-original.pdf#page=9), na [ERS original, página 39](../referencias/ERS-Sprint-1-original.pdf#page=39), na [proposta inicial, página 4](../referencias/Proposta-inicial-original.pdf#page=4) e na [ERS atual](ERS-v2.md).
 
 ## O que é necessário para a próxima entrega

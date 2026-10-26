@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-26T23:08:52.417Z",
+  "environment": "production",
+  "url": "https://link-atletas.vercel.app",
+  "checks": [
+    {
+      "label": "public health",
+      "passed": true
+    },
+    {
+      "label": "public navigation /",
+      "passed": true
+    },
+    {
+      "label": "public navigation /entrar",
+      "passed": true
+    },
+    {
+      "label": "public navigation /mensagens",
+      "passed": true
+    },
+    {
+      "label": "unauthenticated job denied",
+      "passed": true
+    },
+    {
+      "label": "production administrator login",
+      "passed": true
+    },
+    {
+      "label": "administrator role",
+      "passed": true
+    },
+    {
+      "label": "administrative authorization",
+      "passed": true
+    },
+    {
+      "label": "browser login",
+      "passed": true
+    },
+    {
+      "label": "secure HttpOnly cookie",
+      "passed": true
+    },
+    {
+      "label": "temporary unverified account",
+      "passed": true
+    },
+    {
+      "label": "athlete role denied administrative data",
+      "passed": true
+    },
+    {
+      "label": "production upload session",
+      "passed": true
+    },
+    {
+      "label": "production encrypted part",
+      "passed": true
+    },
+    {
+      "label": "production upload completed",
+      "passed": true
+    },
+    {
+      "label": "production authorized download",
+      "passed": true
+    },
+    {
+      "label": "production anonymous media denied",
+      "passed": true
+    },
+    {
+      "label": "production fixture deleted",
+      "passed": true
+    },
+    {
+      "label": "temporary account closed",
+      "passed": true
+    },
+    {
+      "label": "production forgot-password accepted",
+      "passed": true
+    },
+    {
+      "label": "authenticated production jobs",
+      "passed": true
+    },
+    {
+      "label": "production recovery email accepted by SMTP",
+      "passed": true
+    }
+  ],
+  "publicSeedApplied": false,
+  "temporaryAccountClosed": true,
+  "testAdministratorSessionsRemoved": true,
+  "emailInboxReceiptConfirmed": false,
+  "resetLinkSentToProjectOwner": true
+}

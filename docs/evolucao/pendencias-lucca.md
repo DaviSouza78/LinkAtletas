@@ -24,7 +24,8 @@ Revisão atualizada em 26/10/2026. Os nove entregáveis têm referências no [ch
 - [ ] Se a automação de CREF for retomada como evolução, confirmar fonte oficial e condições de integração; ela não é requisito do aceite atual do RF-04.
 - [x] Armazenamento privado Tigris criado, com chaves e buckets separados por ambiente, variáveis na Vercel e [testes reais de S3](evidencias/tigris-2026-10-26.json). Isso não conclui a implantação da aplicação.
 - [x] Configurar Neon, Tigris e Brevo, aplicar migrações e conferir fluxo principal e recuperação de senha em Preview real. [Evidências e limites](implantacao-2026-10-26.md).
-- [ ] Concluir a validação da produção pública e ativar o agendador após os testes. O Preview não substitui a conferência do domínio de produção.
+- [x] Publicar e testar produção com suas próprias variáveis, conta administrativa, cookie seguro, armazenamento privado e recuperação SMTP. Agendador ativado e execução automática confirmada: [registro](implantacao-2026-10-26.md).
+- [ ] O titular definir sua senha administrativa usando o e-mail de recuperação enviado a `luccacc.contato@gmail.com` ou solicitar novo link na aplicação. O aceite SMTP foi confirmado; chegada à caixa de entrada não foi verificada pelo agente.
 - [ ] Configurar Google OAuth/Agenda/Meet se exigido; agenda própria já funciona sem ele. Sincronização bidirecional permanece evolução.
 - [ ] Validar procedimentos/textos de privacidade e retenção com o responsável antes de receber dados reais.
 

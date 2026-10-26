@@ -1,5 +1,11 @@
 # Conferência da entrega da Sprint 2 — 26/10/2026
 
+## Atualização posterior: implantação publicada
+
+A nuvem foi publicada e testada em 26/10/2026, após a conferência local abaixo. [Interface e API públicas](https://link-atletas.vercel.app), Neon, Tigris e Brevo estão integrados; [testes e limitações atuais](implantacao-2026-10-26.md). O fluxo principal foi validado por HTTPS em Preview, incluindo CREF manual, vínculo, treino, execução e feedback; produção passou por banco, login, cookie seguro, permissões, arquivos privados e recuperação de senha com aceite SMTP. O texto de limitação da nuvem nas seções seguintes é histórico e não deve ser copiado como situação atual.
+
+A entrega continua exigindo revisão do grupo, demonstração e envio individual. APK instalado/iniciado em emulador não comprova aparelho físico nem publicação em loja. Não houve cobrança real nem confirmação de chegada do e-mail à caixa de entrada.
+
 ## Conclusão e ressalva
 
 Recomenda-se entregar o incremento funcional local com código, documentação e evidências, sem aguardar a conclusão da hospedagem. Isso não declara aceite acadêmico nem conclusão integral dos requisitos de nuvem.

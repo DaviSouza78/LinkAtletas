@@ -1,5 +1,7 @@
 # Checklist da Sprint 2 — versão ampliada
 
+Atualização da nuvem em 26/10/2026: [aplicação pública](https://link-atletas.vercel.app) com API, PostgreSQL Neon, Tigris privado e Brevo integrados. [Verificações de Preview e produção, arquivos de 50 MiB, recuperação de senha, APK e limites](implantacao-2026-10-26.md). O [PR #3](https://github.com/DaviSouza78/LinkAtletas/pull/3) integrou a versão na `main` do grupo, sincronizada com o fork. A revisão coletiva e o envio individual continuam a cargo dos integrantes.
+
 Atualizado em 26/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
 
 ## 1. Código-fonte atualizado e versionado
@@ -79,7 +81,7 @@ Conferência de 26/10: [orientação de entrega e ressalva de nuvem](conferencia
 - [x] [Decisões](decisoes.md): arquitetura/provedores, ciclos, cifra, dependências externas, mudanças em relação à ERS original e limites de autoria.
 - [x] [Manual](manual.md): instalação, serviços locais, conta, privacidade, financeiro, app e roteiro de demonstração.
 - [x] Limitações preservadas: IA treinada, autoescala, autosave contínuo, sincronização Google bidirecional e novos esportes administrativos estão no backlog.
-- [ ] Ativar serviços externos somente com credenciais/configuração/autorização do responsável; homologar e registrar resultados reais.
+- [x] Ativar os serviços da implantação acadêmica com autorização do responsável e registrar testes reais: Vercel, Neon, Tigris, Brevo e cron-job.org. [Evidências por ambiente e limites](implantacao-2026-10-26.md). Asaas, Google e lojas conservam seus próprios critérios de evolução/homologação.
 - [ ] Cada integrante realizar sua entrega e registrar participação própria; nenhuma submissão acadêmica foi feita automaticamente.
 
 ## Estado de conclusão

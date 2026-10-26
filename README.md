@@ -1,5 +1,7 @@
 # LinkAtletas
 
+Aplicação publicada: [link-atletas.vercel.app](https://link-atletas.vercel.app). Interface e API no mesmo domínio, PostgreSQL Neon, armazenamento privado Tigris e SMTP Brevo. [Testes remotos, APK e limites da implantação](docs/evolucao/implantacao-2026-10-26.md). Modo financeiro acadêmico sem cobrança; cadastre contas próprias, sem usar as credenciais locais de demonstração na nuvem.
+
 Projeto Integrador Interdisciplinar II — ADS, Faculdade de Tecnologia SENAI Félix Guisard. Plataforma para conectar atletas a treinadores e acompanhar o treinamento esportivo, em resposta à demanda SAGA nº 12871 da Ivi-it.
 
 A ampliação preserva o fluxo da Sprint 2 e acrescenta chat em tempo real, avaliações/moderação, consultorias, arquivos privados cifrados, recuperação de senha, consentimentos/privacidade, ciclos de vínculo, financeiro Asaas e cliente React Native/Expo. A API é Node/TypeScript/Fastify com PostgreSQL; a web usa React. Modo acadêmico é explicitamente sem cobrança. Integrações escritas/testadas localmente e homologações externas são estados separados.
@@ -10,7 +12,7 @@ Revisão de 21/10/2026: APK local aprovado em [18 etapas integradas](docs/evoluc
 
 ## Executar localmente
 
-Para a implantação pública em preparação, consulte o [guia da Vercel](docs/evolucao/vercel.md), que identifica configurações e verificações ainda pendentes. O Docker abaixo continua sendo o ambiente local.
+Para a implantação pública, consulte o [guia da Vercel](docs/evolucao/vercel.md), com configurações, evidências e limites. O Docker abaixo continua sendo o ambiente local.
 
 Pré-requisitos: Node.js 24, pnpm 10 e Docker Desktop ativo. Na primeira instalação:
 

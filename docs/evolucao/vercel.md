@@ -2,11 +2,13 @@
 
 ## Estado atual em 26/10/2026
 
+Produção publicada a partir da `main`, commit `af3ee6f`, após o [PR #3](https://github.com/DaviSouza78/LinkAtletas/pull/3). O [domínio público](https://link-atletas.vercel.app) atende interface e API; a [verificação de produção](evidencias/vercel-producao-2026-10-26.json) aprovou banco, administrador, cookie seguro, permissões, armazenamento e recuperação com SMTP aceito. O administrador entrou também pelo navegador: [captura](evidencias/vercel-admin-producao-2026-10-26.png). O fork e o repositório do grupo receberam a mesma versão.
+
 O Preview do commit `98b4904` já respondeu `/api/health` com HTTP 200 e PostgreSQL conectado. Neon, Tigris e Brevo estão configurados com ambientes separados. Cadastro, sessão, CREF manual, contratação, treino, execução, feedback, mensagens e recuperação de senha foram verificados por HTTPS. A [conferência atual da implantação](implantacao-2026-10-26.md) reúne evidências e pendências de produção; ela prevalece sobre o histórico abaixo.
 
 Uploads grandes usam sessões autenticadas com partes de 3 MiB, cifradas no S3, finalização idempotente e download em stream com Range. O limite da ERS não foi reduzido. [Contrato atualizado da API](api.md).
 
-O cron-job.org tem uma tarefa a cada minuto, ainda desativada até a validação de produção. A credencial fica no cabeçalho Authorization, nunca na URL. O modo financeiro é acadêmico: não há cobrança real. E-mail aceito pelo SMTP não equivale a confirmação na caixa de entrada. O APK com a URL HTTPS foi compilado e abriu no emulador; aparelho físico e lojas têm verificações próprias.
+O cron-job.org tem uma tarefa ativa a cada minuto, com [execução real bem-sucedida](evidencias/cron-producao-ativo-2026-10-26.png) após a validação de produção. A credencial fica no cabeçalho Authorization, nunca na URL; corpos de resposta não são salvos no histórico. O modo financeiro é acadêmico: não há cobrança real. E-mail aceito pelo SMTP não equivale a confirmação na caixa de entrada. O APK com a URL HTTPS foi compilado e abriu no emulador; aparelho físico e lojas têm verificações próprias.
 
 ## Histórico de preparação em 24/10/2026
 
