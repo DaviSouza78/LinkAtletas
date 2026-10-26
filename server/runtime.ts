@@ -6,7 +6,7 @@ import { runJobs } from './jobs.js'
 import { createPool } from './db/pool.js'
 import { runScheduledJobs, scheduledRoutes } from './scheduled.js'
 
-export async function startServer(app: FastifyInstance) {
+export async function startServer(app: FastifyInstance, options: { listen?: boolean } = {}) {
   const jobsPool = createPool()
   scheduledRoutes(app, () => runScheduledJobs(jobsPool))
   let jobsRunning = false
@@ -37,6 +37,10 @@ export async function startServer(app: FastifyInstance) {
       root: fileURLToPath(new URL('../dist/', import.meta.url)),
       prefix: '/',
     })
+  }
+  if (options.listen === false) {
+    await app.ready()
+    return
   }
   const shutdown = async () => {
     await app.close()

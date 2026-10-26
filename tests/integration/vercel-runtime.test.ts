@@ -8,7 +8,15 @@ let child: ChildProcess
 let base: string
 
 beforeAll(async () => {
-  child = spawn(process.execPath, ['--no-experimental-require-module', '--import', 'tsx', 'server.ts'], {
+  const script = `
+    import http from 'node:http';
+    const { default: handler } = await import('./server.ts');
+    const server = http.createServer(handler);
+    server.listen(0, '127.0.0.1', () => {
+      console.log('Server listening at http://127.0.0.1:' + server.address().port);
+    });
+  `
+  child = spawn(process.execPath, ['--no-experimental-require-module', '--import', 'tsx', '--input-type=module', '-e', script], {
     cwd: process.cwd(),
     env: {
       ...process.env,
@@ -63,7 +71,7 @@ afterAll(async () => {
 })
 
 describe('entrada de producao da vercel', () => {
-  it('libera a importacao antes da confirmacao do listen pelo runtime', async () => {
+  it('exporta um handler sem abrir outra porta durante a importacao', async () => {
     const script = `
       import http from 'node:http';
       import { setTimeout } from 'node:timers/promises';
@@ -72,15 +80,15 @@ describe('entrada de producao da vercel', () => {
       let captured = false;
       let resolved = false;
       http.Server.prototype.listen = function () { captured = true; return this; };
-      void import('./server.ts').then(() => { resolved = true; });
+      void import('./server.ts').then((module) => { resolved = typeof module.default === 'function'; });
       await setTimeout(1500);
       console.log(JSON.stringify({ moduleResolved: resolved, listenerCaptured: captured }));
-      process.exit(resolved && captured ? 0 : 1);
+      process.exit(resolved && !captured ? 0 : 1);
     `
     const { stdout } = await promisify(execFile)(process.execPath, [
       '--no-experimental-require-module', '--import', 'tsx', '--input-type=module', '-e', script,
     ], { cwd: process.cwd(), windowsHide: true, timeout: 10000 })
-    expect(JSON.parse(stdout.trim())).toEqual({ moduleResolved: true, listenerCaptured: true })
+    expect(JSON.parse(stdout.trim())).toEqual({ moduleResolved: true, listenerCaptured: false })
   })
 
   it('serve a interface e uma rota interna do navegador', async () => {
