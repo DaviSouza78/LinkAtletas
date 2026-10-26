@@ -5,5 +5,9 @@ import { startServer } from './server/runtime.js'
 
 export const config = { maxDuration: 300 }
 
-const app = await buildApp({ factory: Fastify, logger: true, serveFrontend: production })
-await startServer(app)
+void buildApp({ factory: Fastify, logger: true, serveFrontend: production })
+  .then((app) => startServer(app))
+  .catch((error) => {
+    console.error('Falha ao iniciar a aplicacao.', error)
+    process.exitCode = 1
+  })
