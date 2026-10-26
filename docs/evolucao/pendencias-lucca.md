@@ -22,7 +22,8 @@ Revisão de 23/10/2026. Os nove entregáveis têm referências no [checklist](ch
 
 - [ ] Fornecer conta sandbox Asaas/carteira/webhook e conferir cobrança de teste, split, cancelamento e conciliação. Hoje os testes financeiros usam servidor HTTP controlado; o modo acadêmico não cobra.
 - [ ] Se a automação de CREF for retomada como evolução, confirmar fonte oficial e condições de integração; ela não é requisito do aceite atual do RF-04.
-- [ ] Fornecer infraestrutura/domínio, SMTP externo e S3 privado hospedado se a entrega acordada exigir URL pública/nuvem. TLS local testado não equivale a site implantado.
+- [x] Armazenamento privado Tigris criado, com chaves e buckets separados por ambiente, variáveis na Vercel e [testes reais de S3](evidencias/tigris-2026-10-26.json). Isso não conclui a implantação da aplicação.
+- [ ] Concluir infraestrutura/domínio e SMTP externo se a entrega acordada exigir URL pública/nuvem. TLS local testado não equivale a site implantado. Migrações, agendador, vídeos grandes e homologação remota estão detalhados no [registro da Vercel](vercel.md).
 - [ ] Configurar Google OAuth/Agenda/Meet se exigido; agenda própria já funciona sem ele. Sincronização bidirecional permanece evolução.
 - [ ] Validar procedimentos/textos de privacidade e retenção com o responsável antes de receber dados reais.
 

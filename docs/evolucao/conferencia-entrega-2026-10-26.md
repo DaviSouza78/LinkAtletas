@@ -42,3 +42,5 @@ O build web e a verificação TypeScript passaram em 26/10/2026. O Docker foi re
 - [CI completa do código corrigido](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40070556602), concluída com sucesso; não substitui homologação da aplicação hospedada.
 
 O servidor de demonstração foi iniciado em `http://localhost:5173`, com API em `http://localhost:3001/api/health`. Os resultados acima são locais, não comprovam a nuvem. A ERS completa permanece na versão 2.5; esta conferência não modifica o template nem os resultados históricos citados nela.
+
+Avanço posterior no mesmo dia: o armazenamento Tigris foi configurado na Vercel para Production e Preview, com buckets privados e chaves independentes. Os [testes de produção](evidencias/tigris-2026-10-26.json) e [de Preview](evidencias/tigris-preview-2026-10-26.json) comprovaram escrita, leitura, exclusão do arquivo de teste e isolamento entre os ambientes. A implantação completa da aplicação continua pendente; consultar o [estado atualizado da nuvem](vercel.md).

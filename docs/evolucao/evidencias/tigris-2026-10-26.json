@@ -1,0 +1,12 @@
+{
+  "executedAt": "2026-10-26T16:09:09.078Z",
+  "provider": "Tigris",
+  "bucket": "linkatletas-luccalck-producao",
+  "scope": "storage_adapter_only",
+  "applicationDeploymentVerified": false,
+  "write": true,
+  "readMatches": true,
+  "anonymousStatus": 403,
+  "otherEnvironmentDenied": true,
+  "testObjectDeleted": true
+}

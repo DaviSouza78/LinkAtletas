@@ -20,6 +20,10 @@ Conectar um bucket privado compatível com S3. Tigris é uma opção oferecida n
 
 Configurar SMTP de um provedor real, incluindo remetente/domínio verificado quando exigido. Mailpit local não envia e-mails pela internet. Não usar credenciais do GitHub como credenciais SMTP.
 
+Atualização de 26/10/2026: criados no Tigris os buckets privados `linkatletas-luccalck-producao` e `linkatletas-luccalck-preview`, com chaves independentes de leitura/gravação limitadas ao respectivo bucket. Acesso administrativo e acesso a todos os buckets permanecem desativados. As cinco variáveis `S3_*` foram cadastradas como Secret na Vercel, separadamente para Production e Preview. A configuração foi feita diretamente nas variáveis do projeto; não depende de um recurso Tigris aparecer na lista Storage da Vercel.
+
+Testes reais com o SDK S3 usado pelo projeto comprovaram gravação, leitura com conteúdo idêntico, acesso anônimo negado (403), acesso ao bucket do outro ambiente negado (403) e exclusão dos arquivos de teste. Evidências: [Production](evidencias/tigris-2026-10-26.json) e [Preview](evidencias/tigris-preview-2026-10-26.json). São testes do armazenamento a partir do ambiente local; não comprovam o fluxo de upload da aplicação implantada. Backups das credenciais em `.env.tigris.local` e `.env.tigris-preview.local`, ignorados pelo Git e pelo upload da Vercel. Não anexar esses arquivos à entrega. SMTP, migrações remotas, agendador, adaptação dos vídeos grandes e nova implantação continuam pendentes.
+
 ## 3. Variáveis do servidor
 
 Em 26/10/2026, `DATA_ENCRYPTION_KEY` e `CRON_SECRET` foram cadastradas como Secret, com valores independentes para Production e Preview. Backup privado local em `.env.cloud-secrets.local`, ignorado pelo Git e pelo upload da Vercel; não anexar esse arquivo à entrega. Não trocar a chave de dados após inserir informações cifradas sem um procedimento de migração. A configuração das chaves não conclui bucket, SMTP, agendador ou migrações remotas.
@@ -96,7 +100,8 @@ A conexão Tigris foi preparada no painel, limitada ao projeto LinkAtletas. A in
 - [x] `APP_ORIGIN` e modo acadêmico configurados em Production e Preview.
 - [x] Roteamento do Preview confirmado em requisição real: `/api/health` alcança a função.
 - [ ] Migrações executadas na nuvem.
-- [ ] Bucket privado S3 e SMTP configurados e verificados.
+- [x] Buckets privados S3 e chaves separados entre Production e Preview, configurados na Vercel e verificados por testes reais do armazenamento.
+- [ ] SMTP externo configurado e verificado.
 - [ ] Agendador frequente configurado.
 - [ ] Upload de vídeos grandes adaptado e testado na nuvem.
 - [ ] Build nativo da Vercel e rotas reais validados no Preview.
