@@ -1,8 +1,10 @@
 # Checklist da Sprint 2 — versão ampliada
 
-Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
+Atualizado em 26/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
 
 ## 1. Código-fonte atualizado e versionado
+
+Conferência de 26/10: [orientação de entrega e ressalva de nuvem](conferencia-entrega-2026-10-26.md), com 95 testes de unidade/API e 15 de navegador reexecutados e aprovados nesta data. A demonstração local foi recuperada e verificada; hospedagem completa permanece pendente, conforme o registro de implantação.
 
 - [x] Clone local separado e branch de ampliação; código de [API](../../server/), [web](../../src/) e [app](../../mobile/); base anterior preservada em `sprint-2`.
 - [x] Autor Git definido como Lucca com e-mail fornecido; [decisões](decisoes.md) explicam autoria e limites.
@@ -68,7 +70,7 @@ Atualizado em 21/10/2026. Use este documento para revisar os nove entregáveis o
 - [x] [ERS v2](ERS-v2.md): RF-01–24, RNF-01–16, RN-01–16 preservados, RF-A explícitos e fluxos/exceções.
 - [x] [Backlog](backlog.md), [matriz de UCs/rastreabilidade](rastreabilidade.md) e [diagramas](diagramas.md) com fontes editáveis.
 - [x] Casos de uso UML: atores, elipses e limite de sistema, [PlantUML](diagramas/casos-de-uso.puml) e [SVG](diagramas/casos-de-uso.svg).
-- [x] ERS em [Word](ERS-v2.docx) e [PDF](ERS-v2.pdf); relatório em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf), com [renderização para inspeção](evidencias/documentos/render.json).
+- [x] ERS completa no template em [Word](ERS-completa-v2.5-editavel.docx) e [PDF](ERS-template-original-atualizada.pdf); relatório em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf), com [renderização para inspeção](evidencias/documentos/render.json).
 - [x] Relacionar a contribuição da Eletiva I e suas evidências na [matriz](rastreabilidade.md).
 - [ ] Realizar revisão coletiva da equipe e conferir anexos acadêmicos específicos da entrega.
 

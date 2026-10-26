@@ -22,6 +22,8 @@ Configurar SMTP de um provedor real, incluindo remetente/domínio verificado qua
 
 ## 3. Variáveis do servidor
 
+Em 26/10/2026, `DATA_ENCRYPTION_KEY` e `CRON_SECRET` foram cadastradas como Secret, com valores independentes para Production e Preview. Backup privado local em `.env.cloud-secrets.local`, ignorado pelo Git e pelo upload da Vercel; não anexar esse arquivo à entrega. Não trocar a chave de dados após inserir informações cifradas sem um procedimento de migração. A configuração das chaves não conclui bucket, SMTP, agendador ou migrações remotas.
+
 Cadastrar em Settings → Environment Variables, ambiente Production. Não colocar prefixo `VITE_` em segredos. Não importar o `.env` local inteiro.
 
 | Nome | Valor/origem |

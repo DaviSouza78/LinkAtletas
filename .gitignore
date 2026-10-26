@@ -15,6 +15,8 @@ test-results/
 coverage/
 docs/sprint-2/evidencias/playwright-artifacts/
 docs/evolucao/evidencias/playwright-artifacts/
+docs/evolucao/evidencias/verificacao-*/playwright-artifacts/
+docs/evolucao/evidencias/verificacao-*/playwright-report/
 backups/
 mobile/.expo/
 mobile/dist/
