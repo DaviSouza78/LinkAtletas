@@ -7,7 +7,7 @@ let child: ChildProcess
 let base: string
 
 beforeAll(async () => {
-  child = spawn(process.execPath, ['--import', 'tsx', 'server.ts'], {
+  child = spawn(process.execPath, ['--no-experimental-require-module', '--import', 'tsx', 'server.ts'], {
     cwd: process.cwd(),
     env: {
       ...process.env,
