@@ -98,7 +98,7 @@ Nesta conferência foram relidos os arquivos de resultado das execuções anteri
 ## 9. Registro de dificuldades, decisões e mudanças de escopo
 
 - [x] **Registro preparado**, com decisões e dificuldades efetivamente encontradas. Conferir [decisões e dificuldades](decisoes.md) e [estado inicial](estado-inicial.md).
-- [x] Recorte web responsiva antes do aplicativo nativo documentado. Conferir [proposta aprovada](../superpowers/specs/2026-10-14-sprint-2-design.md) e [decisões](decisoes.md).
+- [x] Recorte web responsiva antes do aplicativo nativo documentado. Conferir [proposta aprovada](../historico/planejamento/specs/2026-10-14-sprint-2-design.md) e [decisões](decisoes.md).
 - [x] PostgreSQL como banco único; conferência CREF manual; vínculo sem pagamento; critérios de match e métricas registrados. Conferir [decisões](decisoes.md).
 - [x] Dificuldades de ambiente, filtro de preço, layout mobile, watcher de testes, renderização dos diagramas e inicialização do servidor registradas com suas soluções. Conferir [dificuldades T01–T11](decisoes.md).
 - [x] Limitações e funcionalidades futuras mantidas no [backlog](backlog.md) e na [ERS](ERS-v1.1.md), sem declarar pagamentos, chat ou upload como concluídos.

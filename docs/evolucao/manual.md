@@ -1,6 +1,6 @@
 # Manual de instalação, execução e demonstração
 
-Revisão: 20/10/2026. Para desenvolvimento local use dados fictícios. Integrações de cobrança/publicação ficam desligadas até configuração explícita do responsável. [API](api.md), [limitações](backlog.md) e [resultados de testes](relatorio-testes.md) complementam este manual.
+Para desenvolvimento local use dados fictícios. A [aplicação pública](https://link-atletas.vercel.app) tem configuração independente de banco, arquivos e SMTP; consulte a [implantação verificada em 26/10/2026](implantacao-2026-10-26.md). O modo financeiro acadêmico não cobra dinheiro. [API](api.md), [limitações](backlog.md) e [resultados de testes](relatorio-testes.md) complementam este manual.
 
 ## Instalação local
 
@@ -87,7 +87,7 @@ Opcional: OAuth Client ID público do tipo Web em `VITE_GOOGLE_CLIENT_ID`, Calen
 
 ## Aplicativo Expo
 
-No diretório [mobile](../../mobile/):
+No diretório [mobile](../../mobile):
 
 ```powershell
 pnpm --dir mobile install --frozen-lockfile

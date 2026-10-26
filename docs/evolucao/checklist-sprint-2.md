@@ -6,9 +6,9 @@ Atualizado em 26/10/2026. Use este documento para revisar os nove entregáveis o
 
 ## 1. Código-fonte atualizado e versionado
 
-Conferência de 26/10: [orientação de entrega e ressalva de nuvem](conferencia-entrega-2026-10-26.md), com 95 testes de unidade/API e 15 de navegador reexecutados e aprovados nesta data. A demonstração local foi recuperada e verificada; hospedagem completa permanece pendente, conforme o registro de implantação.
+Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-26.md), com 99 testes de unidade/API, 15 de navegador e verificações reais de Preview e produção. A [conferência anterior](historico/conferencia-entrega-2026-10-26.md) preserva o contexto da demonstração local e da publicação posterior.
 
-- [x] Clone local separado e branch de ampliação; código de [API](../../server/), [web](../../src/) e [app](../../mobile/); base anterior preservada em `sprint-2`.
+- [x] Clone local separado e branch de ampliação; código de [API](../../server), [web](../../src) e [app](../../mobile); base anterior preservada em `sprint-2`.
 - [x] Autor Git definido como Lucca com e-mail fornecido; [decisões](decisoes.md) explicam autoria e limites.
 - [x] Implementação versionada no commit local `fca8a18`, com autoria Lucca; documentação/evidências versionadas na mesma branch. Pacotes ZIP e Git bundle serão gerados a partir do commit de entrega, conforme o [índice](entrega.md).
 - [x] Branch publicada no [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas/tree/evolucao-completa), com commits de Lucca; [pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) integrado após autorização de publicação e aprovação dos checks.
@@ -24,9 +24,9 @@ Conferência de 26/10: [orientação de entrega e ressalva de nuvem](conferencia
 
 ## 3. Banco de dados criado e integrado
 
-- [x] PostgreSQL e migrations cumulativas [001–005](../../server/db/migrations/), sem substituição da base da Sprint 2.
+- [x] PostgreSQL e migrations cumulativas [001–005](../../server/db/migrations), sem substituição da base da Sprint 2.
 - [x] Relações/chaves/índices para conta, ciclos, treino, arquivos, chat, agenda, review, financeiro e privacidade: [DER](diagramas/der.mmd).
-- [x] Isolamento de testes com banco `_test` e dados fictícios: [testes](../../tests/integration/), [configuração](../../vitest.config.ts).
+- [x] Isolamento de testes com banco `_test` e dados fictícios: [testes](../../tests/integration), [configuração](../../vitest.config.ts).
 - [x] Backup/restauração isolados: [36 tabelas e objetos com checksums iguais](evidencias/backup-restore.json), campo/mídia decifrados e [worker de rede privada](evidencias/private-network-backup.json).
 
 ## 4. Interface responsiva integrada ao back-end
@@ -86,7 +86,7 @@ Conferência de 26/10: [orientação de entrega e ressalva de nuvem](conferencia
 
 ## Estado de conclusão
 
-Conferência documental atualizada em 24/10/2026: [diferenças em relação aos originais, Eletiva I e homologações](aceite-escopo-sprint-2.md). As decisões de escopo da equipe estão incorporadas à ERS v2.5, incluindo CREF manual. [Ajustes de estrutura e Word](ajustes-ers-v2.5.md), [PDF no template original](ERS-template-original-atualizada.pdf) e [Word completo](ERS-completa-v2.5-editavel.docx) integram requisitos, figuras, testes e sumário, sem apêndices duplicados ou detalhamento adicional 5.4.1. Integração com nuvem e homologações ainda não executadas mantêm seus próprios limites.
+Conferência documental atualizada em 24/10/2026: [diferenças em relação aos originais, Eletiva I e homologações](aceite-escopo-sprint-2.md). As decisões de escopo da equipe estão incorporadas à ERS v2.5, incluindo CREF manual. [Ajustes de estrutura e Word](historico/ajustes-ers-v2.5.md), [PDF no template original](ERS-template-original-atualizada.pdf) e [Word completo](ERS-completa-v2.5-editavel.docx) integram requisitos, figuras, testes e sumário, sem apêndices duplicados ou detalhamento adicional 5.4.1. Integração com nuvem e homologações ainda não executadas mantêm seus próprios limites.
 
 Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado acima, com publicação e CI confirmadas. Acesso externo, homologação completa em aparelho, revisão coletiva e participação individual permanecem conforme as [pendências](pendencias-lucca.md). IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.
 

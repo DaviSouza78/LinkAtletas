@@ -16,6 +16,8 @@ async function visit(directory: string): Promise<string[]> {
 }
 for (const file of [
   path.resolve('README.md'),
+  path.resolve('docs/README.md'),
+  ...(await visit(path.resolve('docs/historico'))),
   ...(await visit(path.resolve('docs/evolucao'))),
 ]) {
   const text = await readFile(file, 'utf8')

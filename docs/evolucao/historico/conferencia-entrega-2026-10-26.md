@@ -2,7 +2,7 @@
 
 ## Atualização posterior: implantação publicada
 
-A nuvem foi publicada e testada em 26/10/2026, após a conferência local abaixo. [Interface e API públicas](https://link-atletas.vercel.app), Neon, Tigris e Brevo estão integrados; [testes e limitações atuais](implantacao-2026-10-26.md). O fluxo principal foi validado por HTTPS em Preview, incluindo CREF manual, vínculo, treino, execução e feedback; produção passou por banco, login, cookie seguro, permissões, arquivos privados e recuperação de senha com aceite SMTP. O texto de limitação da nuvem nas seções seguintes é histórico e não deve ser copiado como situação atual.
+A nuvem foi publicada e testada em 26/10/2026, após a conferência local abaixo. [Interface e API públicas](https://link-atletas.vercel.app), Neon, Tigris e Brevo estão integrados; [testes e limitações atuais](../implantacao-2026-10-26.md). O fluxo principal foi validado por HTTPS em Preview, incluindo CREF manual, vínculo, treino, execução e feedback; produção passou por banco, login, cookie seguro, permissões, arquivos privados e recuperação de senha com aceite SMTP. O texto de limitação da nuvem nas seções seguintes é histórico e não deve ser copiado como situação atual.
 
 A entrega continua exigindo revisão do grupo, demonstração e envio individual. APK instalado/iniciado em emulador não comprova aparelho físico nem publicação em loja. Não houve cobrança real nem confirmação de chegada do e-mail à caixa de entrada.
 
@@ -10,18 +10,18 @@ A entrega continua exigindo revisão do grupo, demonstração e envio individual
 
 Recomenda-se entregar o incremento funcional local com código, documentação e evidências, sem aguardar a conclusão da hospedagem. Isso não declara aceite acadêmico nem conclusão integral dos requisitos de nuvem.
 
-O [roteiro original](../referencias/Roteiro-professores-original.pdf#page=9), seção 9.6, apresenta os nove entregáveis gerais, sem exigir uma URL pública nessa lista. A seção 9.5 exige demonstração real do sistema, apresentação das limitações e plano da Sprint 3. A página 9 também prevê integração com serviço em nuvem quando planejada; como a nuvem faz parte do LinkAtletas, essa ressalva precisa permanecer explícita. Na página 10, a Sprint 3 inclui conclusão, testes e implantação. A matriz da página 5 admite diagrama, URL, log, captura, configuração ou roteiro reproduzível como evidência de Computação em Nuvem.
+O [roteiro original](../../referencias/Roteiro-professores-original.pdf#page=9), seção 9.6, apresenta os nove entregáveis gerais, sem exigir uma URL pública nessa lista. A seção 9.5 exige demonstração real do sistema, apresentação das limitações e plano da Sprint 3. A página 9 também prevê integração com serviço em nuvem quando planejada; como a nuvem faz parte do LinkAtletas, essa ressalva precisa permanecer explícita. Na página 10, a Sprint 3 inclui conclusão, testes e implantação. A matriz da página 5 admite diagrama, URL, log, captura, configuração ou roteiro reproduzível como evidência de Computação em Nuvem.
 
 Portanto, demonstração local funcional atende ao núcleo executável da Sprint 2; não é correto afirmar que ela comprova hospedagem remota ou garante aprovação sem ressalvas. Decisão final de avaliação pertence aos docentes.
 
 ## Material de entrega
 
-- [Checklist dos nove entregáveis, com referências](checklist-sprint-2.md).
-- [ERS final em PDF no template](ERS-template-original-atualizada.pdf) e [Word completo editável](ERS-completa-v2.5-editavel.docx). `ERS-v2.md`, `ERS-v2.docx` e `ERS-v2.pdf` são fontes/sínteses auxiliares; não substituir o documento completo pelo resumo.
-- [Diagramas](diagramas.md), [backlog](backlog.md), [matriz de UCs](rastreabilidade.md), [decisões](decisoes.md) e [API](api.md).
-- [Relatório de testes e limites das evidências](relatorio-testes.md).
-- [Manual de execução](manual.md), [README](../../README.md) e [APK local](manual-apk-local.md).
-- [Estado da implantação na Vercel](vercel.md), incluindo o que ainda não funciona.
+- [Checklist dos nove entregáveis, com referências](../checklist-sprint-2.md).
+- [ERS final em PDF no template](../ERS-template-original-atualizada.pdf) e [Word completo editável](../ERS-completa-v2.5-editavel.docx). `ERS-v2.md`, `ERS-v2.docx` e `ERS-v2.pdf` são fontes/sínteses auxiliares; não substituir o documento completo pelo resumo.
+- [Diagramas](../diagramas.md), [backlog](../backlog.md), [matriz de UCs](../rastreabilidade.md), [decisões](../decisoes.md) e [API](../api.md).
+- [Relatório de testes e limites das evidências](../relatorio-testes.md).
+- [Manual de execução](../manual.md), [README](../../../README.md) e [APK local](../manual-apk-local.md).
+- [Estado da implantação na Vercel](../vercel.md), incluindo o que ainda não funciona.
 
 A base acadêmica integrada está na `main`; a configuração da nuvem está em `preparacao-vercel`. Não promover a versão remota com falha de inicialização apenas para obter uma URL de API.
 
@@ -42,11 +42,11 @@ O fluxo principal está implementado e possui evidências de testes no ambiente 
 
 O build web e a verificação TypeScript passaram em 26/10/2026. O Docker foi recuperado preservando os diretórios de sockets transitórios `Docker/run` e `docker-secrets-engine`, sem reset de volumes, bancos ou chaves. PostgreSQL, Mailpit e SeaweedFS ficaram saudáveis; migrações foram aplicadas e o seed preservou contas existentes.
 
-- [95/95 testes Vitest de unidade/API](evidencias/verificacao-2026-10-26-vitest.json), sem falhas.
-- [15/15 testes de navegador](evidencias/verificacao-2026-10-26/playwright-results.json), em Chromium, Firefox e WebKit, sem retries. Incluem fluxo principal, mensagens, mídia privada, recuperação de senha por SMTP local, responsividade e axe.
-- [Estado real do ambiente local](evidencias/ambiente-2026-10-26.json): API saudável e interface HTTP 200.
+- [95/95 testes Vitest de unidade/API](../evidencias/verificacao-2026-10-26-vitest.json), sem falhas.
+- [15/15 testes de navegador](../evidencias/verificacao-2026-10-26/playwright-results.json), em Chromium, Firefox e WebKit, sem retries. Incluem fluxo principal, mensagens, mídia privada, recuperação de senha por SMTP local, responsividade e axe.
+- [Estado real do ambiente local](../evidencias/ambiente-2026-10-26.json): API saudável e interface HTTP 200.
 - [CI completa do código corrigido](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40070556602), concluída com sucesso; não substitui homologação da aplicação hospedada.
 
 O servidor de demonstração foi iniciado em `http://localhost:5173`, com API em `http://localhost:3001/api/health`. Os resultados acima são locais, não comprovam a nuvem. A ERS completa permanece na versão 2.5; esta conferência não modifica o template nem os resultados históricos citados nela.
 
-Avanço posterior no mesmo dia: o armazenamento Tigris foi configurado na Vercel para Production e Preview, com buckets privados e chaves independentes. Os [testes de produção](evidencias/tigris-2026-10-26.json) e [de Preview](evidencias/tigris-preview-2026-10-26.json) comprovaram escrita, leitura, exclusão do arquivo de teste e isolamento entre os ambientes. A implantação completa da aplicação continua pendente; consultar o [estado atualizado da nuvem](vercel.md).
+Avanço posterior no mesmo dia: o armazenamento Tigris foi configurado na Vercel para Production e Preview, com buckets privados e chaves independentes. Os [testes de produção](../evidencias/tigris-2026-10-26.json) e [de Preview](../evidencias/tigris-preview-2026-10-26.json) comprovaram escrita, leitura, exclusão do arquivo de teste e isolamento entre os ambientes. A implantação completa da aplicação continua pendente; consultar o [estado atualizado da nuvem](../vercel.md).

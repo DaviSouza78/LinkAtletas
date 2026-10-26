@@ -47,4 +47,4 @@ Essa verificação comprova somente que o frontend original compila neste ambien
 
 ## Decisões pendentes de revisão
 
-A proposta está em `docs/superpowers/specs/2026-10-14-sprint-2-design.md`. A implementação aguarda sua aprovação, especialmente quanto a concluir o fluxo web responsivo nesta Sprint e entregar React Native na etapa seguinte. Nenhum novo código de aplicação foi implementado até este registro.
+A proposta está em `docs/historico/planejamento/specs/2026-10-14-sprint-2-design.md`. A implementação aguarda sua aprovação, especialmente quanto a concluir o fluxo web responsivo nesta Sprint e entregar React Native na etapa seguinte. Nenhum novo código de aplicação foi implementado até este registro.

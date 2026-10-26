@@ -1,6 +1,6 @@
 # ERS no template original
 
-Documentos completos de apresentação da Sprint 2: [PDF no template](../ERS-template-original-atualizada.pdf) e [Word editável v2.5](../ERS-completa-v2.5-editavel.docx), revisão de 24/10/2026. A [ERS original da Sprint 1](../../referencias/ERS-Sprint-1-original.pdf) permanece intacta. Veja os [ajustes da v2.5](../ajustes-ers-v2.5.md); o registro da auditoria aplicada à v2.4 permanece histórico.
+Documentos completos de apresentação da Sprint 2: [PDF no template](../ERS-template-original-atualizada.pdf) e [Word editável v2.5](../ERS-completa-v2.5-editavel.docx), revisão de 24/10/2026. A [ERS original da Sprint 1](../../referencias/ERS-Sprint-1-original.pdf) permanece intacta. Veja os [ajustes da v2.5](../historico/ajustes-ers-v2.5.md); o registro da auditoria aplicada à v2.4 permanece histórico.
 
 Preservam-se capa, identificação, histórico, capítulos 1–7, dimensões, margens, Arial e tamanhos do texto do template. As 13 páginas iniciais recebem correções nos campos necessários; o restante é repaginado para integrar os requisitos e desenvolver os testes. A continuação original da tabela de siglas também foi mantida. Histórico usa Arial Bold/Times New Roman de 10 pontos, conforme a tabela original; corpo usa Arial de 12 pontos, títulos principais Arial Bold de 14 pontos. Figuras mantêm sua tipografia própria. Não se reduz fonte para impor quantidade de páginas.
 

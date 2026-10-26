@@ -4,7 +4,7 @@ Data: 14/10/2026. Status: ampliação recomendada aprovada por Lucca em 14/10/20
 
 ## Objetivo e referência
 
-Ampliar a implementação da Sprint 2 para cobrir as funcionalidades ainda abertas no [checklist](../../sprint-2/checklist-sprint-2.md), preservando a aplicação já testada. Base: commit `51463da533be6558faae0a59dbd675d32d74816b`. A branch `sprint-2` permanece disponível como entrega anterior; a ampliação será desenvolvida em `evolucao-completa`.
+Ampliar a implementação da Sprint 2 para cobrir as funcionalidades ainda abertas no [checklist](../../../sprint-2/checklist-sprint-2.md), preservando a aplicação já testada. Base: commit `51463da533be6558faae0a59dbd675d32d74816b`. A branch `sprint-2` permanece disponível como entrega anterior; a ampliação será desenvolvida em `evolucao-completa`.
 
 O pedido atual autoriza desenvolver o máximo possível das funcionalidades restantes. Esta proposta define como fazê-lo e quais etapas ainda exigem credenciais, infraestrutura ou validação externa. A versão anterior foi aprovada com web responsiva, CREF manual e vínculo sem pagamento; a ampliação acrescenta novos clientes e serviços externos.
 
