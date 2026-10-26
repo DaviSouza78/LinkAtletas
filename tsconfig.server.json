@@ -10,5 +10,5 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["server", "shared", "scripts"]
+  "include": ["server.ts", "server", "shared", "scripts"]
 }

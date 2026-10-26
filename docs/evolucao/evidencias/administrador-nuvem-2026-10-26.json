@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-26T22:56:58.596Z",
+  "environment": "production",
+  "created": true,
+  "role": "admin",
+  "password": "random; stored only in ignored local file",
+  "publicSeedApplied": false,
+  "loginVerified": false
+}

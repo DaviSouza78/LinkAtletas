@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-26",
+  "commit": "90d07048eb611c357c8f72071979c0937f874584",
+  "sha256": "b0891d0cd8028e250b5923b59d5310ff3034ef929315dbe5ae72a359fe30037c",
+  "size": 42389494,
+  "productionApiUrlPresentInBundle": true,
+  "buildRun": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/40409474125",
+  "emulatorRun": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/40415556849",
+  "emulator": {
+    "installed": true,
+    "launched": true,
+    "loginFieldsVisible": true,
+    "runtimeCrashDetected": false,
+    "environment": "Android API 35 x86_64 emulator",
+    "fullFlowValidated": false,
+    "realDeviceValidated": false
+  },
+  "storeRelease": false
+}

@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-26T22:55:03.955Z",
+  "environment": "preview",
+  "deployment": "https://link-atletas-mc461jwkr-luccacastilho13-6001s-projects.vercel.app",
+  "checks": [
+    {
+      "label": "database health",
+      "passed": true
+    },
+    {
+      "label": "unauthenticated jobs denied",
+      "passed": true
+    },
+    {
+      "label": "SPA route",
+      "passed": true
+    },
+    {
+      "label": "missing API route",
+      "passed": true
+    },
+    {
+      "label": "registration 0",
+      "passed": true
+    },
+    {
+      "label": "registration 1",
+      "passed": true
+    },
+    {
+      "label": "registration 2",
+      "passed": true
+    },
+    {
+      "label": "native session",
+      "passed": true
+    },
+    {
+      "label": "invalid login",
+      "passed": true
+    },
+    {
+      "label": "performance consent",
+      "passed": true
+    },
+    {
+      "label": "start upload 5242912",
+      "passed": true
+    },
+    {
+      "label": "missing parts rejected",
+      "passed": true
+    },
+    {
+      "label": "upload 5242912 part 0",
+      "passed": true
+    },
+    {
+      "label": "upload 5242912 part 1",
+      "passed": true
+    },
+    {
+      "label": "complete 5242912",
+      "passed": true
+    },
+    {
+      "label": "idempotent completion",
+      "passed": true
+    },
+    {
+      "label": "third party denied",
+      "passed": true
+    },
+    {
+      "label": "download 5242912",
+      "passed": true
+    },
+    {
+      "label": "hash 5242912",
+      "passed": true
+    },
+    {
+      "label": "range status",
+      "passed": true
+    },
+    {
+      "label": "range bytes",
+      "passed": true
+    },
+    {
+      "label": "delete private fixture",
+      "passed": true
+    },
+    {
+      "label": "start upload 52428800",
+      "passed": true
+    },
+    {
+      "label": "close synthetic account",
+      "passed": true
+    },
+    {
+      "label": "close synthetic account",
+      "passed": true
+    },
+    {
+      "label": "close synthetic account",
+      "passed": true
+    }
+  ],
+  "fixtureSetup": "API accounts; isolated synthetic contract/workout in Preview database",
+  "productionDataModified": false,
+  "completedAt": "2026-10-26T22:57:46.326Z",
+  "success": false,
+  "partial": true,
+  "transportFailure": "Client connection reset before missing-parts assertion for 50 MiB; 5 MiB transfer completed. Separate rerun records the maximum-size test."
+}

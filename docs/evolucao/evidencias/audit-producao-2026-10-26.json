@@ -1,0 +1,11 @@
+{
+  "scope": "production_dependencies",
+  "vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0
+  },
+  "note": "Registro das contagens do pnpm audit --prod apos ajustes de compatibilidade e atualizacoes de seguranca."
+}

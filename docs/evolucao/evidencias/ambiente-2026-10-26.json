@@ -1,0 +1,33 @@
+{
+  "executedAt": "2026-10-26T12:41:28.7063432-03:00",
+  "services": [
+    {
+      "Service": "db",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "mail",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "storage",
+      "State": "running",
+      "Health": "healthy"
+    }
+  ],
+  "apiHealth": {
+    "ok": true,
+    "database": "postgresql"
+  },
+  "frontendHttpStatus": 200,
+  "vitestPassed": 95,
+  "vitestFailed": 0,
+  "playwrightPassed": 15,
+  "playwrightFailed": 0,
+  "databaseScope": "local_and_isolated_test",
+  "originalVolumesPreserved": true,
+  "factoryResetUsed": false,
+  "recovery": "Preserved both transient Docker runtime directories and restarted Desktop. No database or key reset."
+}

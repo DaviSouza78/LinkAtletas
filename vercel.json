@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "fastify",
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": null,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/fastify@22.0.0",
+      "config": {
+        "includeFiles": ["dist/**"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/package.json",
+      "transforms": [
+        {
+          "type": "request.path",
+          "op": "set",
+          "args": "/$1"
+        }
+      ]
+    }
+  ]
+}

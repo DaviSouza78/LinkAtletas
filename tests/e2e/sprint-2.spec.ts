@@ -86,14 +86,17 @@ test('cadastro → aprovação → contratação → publicação → execução
   const coachName = `Treinador E2E ${unique}`
   const athleteName = `Atleta E2E ${unique}`
   const coachContext = await browser.newContext({
+    reducedMotion: 'reduce',
     baseURL,
     viewport: { width: 1440, height: 1000 },
   })
   const athleteContext = await browser.newContext({
+    reducedMotion: 'reduce',
     baseURL,
     viewport: { width: 1440, height: 1000 },
   })
   const adminContext = await browser.newContext({
+    reducedMotion: 'reduce',
     baseURL,
     viewport: { width: 1440, height: 1000 },
   })

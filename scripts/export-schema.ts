@@ -26,11 +26,16 @@ try {
   const indexes = (await pool.query<{ tablename: string; indexname: string; indexdef: string }>(
     `SELECT tablename,indexname,indexdef FROM pg_indexes WHERE schemaname='public' ORDER BY tablename,indexname`,
   )).rows
-  const metadata = { tables, columns, constraints, indexes }
+  const orderedColumns = [...columns].sort((a, b) => {
+    const left = `${a.table_name}.${a.column_name}`
+    const right = `${b.table_name}.${b.column_name}`
+    return left < right ? -1 : left > right ? 1 : 0
+  })
+  const metadata = { tables, columns: orderedColumns, constraints, indexes }
   await mkdir('docs/evolucao/evidencias', { recursive: true })
   await writeFile('docs/evolucao/evidencias/database-schema.json', JSON.stringify(metadata, null, 2) + '\n')
   const lines = ['# Dicionário do banco implementado', '',
-    'Gerado por `pnpm exec tsx scripts/export-schema.ts` após as migrations, consultando apenas metadados PostgreSQL. Não contém dados pessoais. As 35 tabelas de domínio e a tabela técnica `schema_migrations` refletem o banco implementado.', '',
+    'Gerado por `pnpm exec tsx scripts/export-schema.ts` após as migrations, consultando apenas metadados PostgreSQL. Não contém dados pessoais. As 35 tabelas de domínio e as tabelas tecnicas `schema_migrations` e `media_uploads` refletem o banco implementado.', '',
     'O [DER](diagramas/der.mmd) resume os atributos, mas inclui todas as relações FK. O modelo de classes é conceitual; cardinalidades do DER refletem restrições físicas, incluindo referências opcionais. Campos `resource_id` polimórficos são autorizados pela aplicação e não são FKs.', '']
   for (const table of tables) {
     lines.push(`## ${table}`, '', '| Coluna | Tipo PostgreSQL | Nulo | Chave/restrição |', '|---|---|---|---|')

@@ -1,10 +1,10 @@
 {
-  "executedAt": "2026-10-24T04:53:55.744Z",
-  "relativeLinksChecked": 499,
-  "openapiPaths": 59,
+  "executedAt": "2026-10-26T23:04:18.165Z",
+  "relativeLinksChecked": 544,
+  "openapiPaths": 63,
   "brokenLinks": [],
-  "diagramColumnsChecked": 129,
+  "diagramColumnsChecked": 132,
   "sequenceCallsChecked": 11,
   "useCasesChecked": 16,
-  "foreignKeysDocumented": 45
+  "foreignKeysDocumented": 47
 }

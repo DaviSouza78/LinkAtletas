@@ -10,6 +10,8 @@ Revisão de 21/10/2026: APK local aprovado em [18 etapas integradas](docs/evoluc
 
 ## Executar localmente
 
+Para a implantação pública em preparação, consulte o [guia da Vercel](docs/evolucao/vercel.md), que identifica configurações e verificações ainda pendentes. O Docker abaixo continua sendo o ambiente local.
+
 Pré-requisitos: Node.js 24, pnpm 10 e Docker Desktop ativo. Na primeira instalação:
 
 ```powershell

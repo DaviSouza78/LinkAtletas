@@ -20,6 +20,7 @@
     "mail_outbox",
     "media",
     "media_feedback",
+    "media_uploads",
     "messages",
     "metric_types",
     "notifications",
@@ -40,11 +41,11 @@
   "columns": [
     {
       "table_name": "administrative_audit",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "column_name": "action",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
+      "column_default": null
     },
     {
       "table_name": "administrative_audit",
@@ -56,19 +57,19 @@
     },
     {
       "table_name": "administrative_audit",
-      "column_name": "subject_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "YES",
-      "column_default": null
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
     },
     {
       "table_name": "administrative_audit",
-      "column_name": "action",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": "gen_random_uuid()"
     },
     {
       "table_name": "administrative_audit",
@@ -80,19 +81,19 @@
     },
     {
       "table_name": "administrative_audit",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
+      "column_name": "subject_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
     },
     {
       "table_name": "billing_audit",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "column_name": "action",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
+      "column_default": null
     },
     {
       "table_name": "billing_audit",
@@ -112,11 +113,19 @@
     },
     {
       "table_name": "billing_audit",
-      "column_name": "action",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_audit",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
     },
     {
       "table_name": "billing_audit",
@@ -127,20 +136,12 @@
       "column_default": "''::text"
     },
     {
-      "table_name": "billing_audit",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
-    },
-    {
       "table_name": "billing_events",
-      "column_name": "id",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "attempts",
+      "data_type": "integer",
+      "udt_name": "int4",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": "0"
     },
     {
       "table_name": "billing_events",
@@ -160,35 +161,11 @@
     },
     {
       "table_name": "billing_events",
-      "column_name": "payload",
-      "data_type": "jsonb",
-      "udt_name": "jsonb",
+      "column_name": "id",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
-    },
-    {
-      "table_name": "billing_events",
-      "column_name": "received_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
-    },
-    {
-      "table_name": "billing_events",
-      "column_name": "processed_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_events",
-      "column_name": "attempts",
-      "data_type": "integer",
-      "udt_name": "int4",
-      "is_nullable": "NO",
-      "column_default": "0"
     },
     {
       "table_name": "billing_events",
@@ -200,6 +177,22 @@
     },
     {
       "table_name": "billing_events",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_events",
+      "column_name": "processed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_events",
       "column_name": "processing_note",
       "data_type": "text",
       "udt_name": "text",
@@ -207,36 +200,12 @@
       "column_default": "''::text"
     },
     {
-      "table_name": "billing_jobs",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "table_name": "billing_events",
+      "column_name": "received_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
       "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "billing_jobs",
-      "column_name": "subscription_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_jobs",
-      "column_name": "kind",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_jobs",
-      "column_name": "state",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
+      "column_default": "now()"
     },
     {
       "table_name": "billing_jobs",
@@ -248,6 +217,30 @@
     },
     {
       "table_name": "billing_jobs",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "kind",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_jobs",
       "column_name": "note",
       "data_type": "text",
       "udt_name": "text",
@@ -256,11 +249,19 @@
     },
     {
       "table_name": "billing_jobs",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
+      "column_name": "state",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": null
+    },
+    {
+      "table_name": "billing_jobs",
+      "column_name": "subscription_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "billing_jobs",
@@ -272,30 +273,6 @@
     },
     {
       "table_name": "billing_payments",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "billing_payments",
-      "column_name": "subscription_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_payments",
-      "column_name": "provider_payment_id",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_payments",
       "column_name": "amount_cents",
       "data_type": "integer",
       "udt_name": "int4",
@@ -304,27 +281,11 @@
     },
     {
       "table_name": "billing_payments",
-      "column_name": "net_cents",
+      "column_name": "coach_share_cents",
       "data_type": "integer",
       "udt_name": "int4",
       "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_payments",
-      "column_name": "status",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_payments",
-      "column_name": "paid_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
-      "column_default": null
+      "column_default": "0"
     },
     {
       "table_name": "billing_payments",
@@ -344,11 +305,27 @@
     },
     {
       "table_name": "billing_payments",
-      "column_name": "coach_share_cents",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "net_cents",
       "data_type": "integer",
       "udt_name": "int4",
       "is_nullable": "NO",
-      "column_default": "0"
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "paid_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
     },
     {
       "table_name": "billing_payments",
@@ -357,6 +334,46 @@
       "udt_name": "int4",
       "is_nullable": "NO",
       "column_default": "0"
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "provider_payment_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_payments",
+      "column_name": "subscription_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_plans",
+      "column_name": "active",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "billing_plans",
+      "column_name": "amount_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "billing_plans",
@@ -371,30 +388,6 @@
       "column_name": "name",
       "data_type": "text",
       "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_plans",
-      "column_name": "amount_cents",
-      "data_type": "integer",
-      "udt_name": "int4",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_plans",
-      "column_name": "active",
-      "data_type": "boolean",
-      "udt_name": "bool",
-      "is_nullable": "NO",
-      "column_default": "true"
-    },
-    {
-      "table_name": "billing_settings",
-      "column_name": "id",
-      "data_type": "integer",
-      "udt_name": "int4",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -415,10 +408,26 @@
       "column_default": "3"
     },
     {
+      "table_name": "billing_settings",
+      "column_name": "id",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
       "table_name": "billing_splits",
-      "column_name": "provider_split_id",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "amount_cents",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_splits",
+      "column_name": "event_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -432,17 +441,9 @@
     },
     {
       "table_name": "billing_splits",
-      "column_name": "wallet_id",
+      "column_name": "provider_split_id",
       "data_type": "text",
       "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_splits",
-      "column_name": "amount_cents",
-      "data_type": "integer",
-      "udt_name": "int4",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -456,31 +457,7 @@
     },
     {
       "table_name": "billing_splits",
-      "column_name": "event_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "contract_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "plan_name",
+      "column_name": "wallet_id",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
@@ -492,78 +469,6 @@
       "data_type": "integer",
       "udt_name": "int4",
       "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "commission_bps",
-      "data_type": "integer",
-      "udt_name": "int4",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "environment",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "state",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": "'awaiting_payment'::text"
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "provider_checkout_id",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "provider_subscription_id",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "provider_customer_id",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "checkout_url",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "paid_until",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "billing_subscriptions",
-      "column_name": "grace_until",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
       "column_default": null
     },
     {
@@ -592,10 +497,26 @@
     },
     {
       "table_name": "billing_subscriptions",
-      "column_name": "last_event_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
+      "column_name": "checkout_url",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "commission_bps",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
       "column_default": null
     },
     {
@@ -607,18 +528,90 @@
       "column_default": "now()"
     },
     {
-      "table_name": "billing_wallets",
-      "column_name": "coach_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "table_name": "billing_subscriptions",
+      "column_name": "environment",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
     {
-      "table_name": "billing_wallets",
-      "column_name": "wallet_id",
+      "table_name": "billing_subscriptions",
+      "column_name": "grace_until",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "last_event_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "paid_until",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "plan_name",
       "data_type": "text",
       "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "provider_checkout_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "provider_customer_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "provider_subscription_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "billing_subscriptions",
+      "column_name": "state",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "'awaiting_payment'::text"
+    },
+    {
+      "table_name": "billing_wallets",
+      "column_name": "coach_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -631,40 +624,8 @@
       "column_default": "now()"
     },
     {
-      "table_name": "consent_history",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "consent_history",
-      "column_name": "user_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "consent_history",
-      "column_name": "purpose",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "consent_history",
-      "column_name": "granted",
-      "data_type": "boolean",
-      "udt_name": "bool",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "consent_history",
-      "column_name": "version",
+      "table_name": "billing_wallets",
+      "column_name": "wallet_id",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
@@ -679,16 +640,40 @@
       "column_default": "now()"
     },
     {
-      "table_name": "consents",
-      "column_name": "user_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "table_name": "consent_history",
+      "column_name": "granted",
+      "data_type": "boolean",
+      "udt_name": "bool",
       "is_nullable": "NO",
       "column_default": null
     },
     {
-      "table_name": "consents",
+      "table_name": "consent_history",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "consent_history",
       "column_name": "purpose",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "consent_history",
+      "column_name": "version",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
@@ -704,7 +689,7 @@
     },
     {
       "table_name": "consents",
-      "column_name": "version",
+      "column_name": "purpose",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
@@ -719,26 +704,18 @@
       "column_default": "now()"
     },
     {
-      "table_name": "consultation_history",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "consultation_history",
-      "column_name": "consultation_id",
+      "table_name": "consents",
+      "column_name": "user_id",
       "data_type": "uuid",
       "udt_name": "uuid",
       "is_nullable": "NO",
       "column_default": null
     },
     {
-      "table_name": "consultation_history",
-      "column_name": "actor_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "table_name": "consents",
+      "column_name": "version",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -752,7 +729,39 @@
     },
     {
       "table_name": "consultation_history",
-      "column_name": "previous_starts_at",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "consultation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "consultation_history",
+      "column_name": "new_starts_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
       "is_nullable": "YES",
@@ -760,7 +769,7 @@
     },
     {
       "table_name": "consultation_history",
-      "column_name": "new_starts_at",
+      "column_name": "previous_starts_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
       "is_nullable": "YES",
@@ -775,22 +784,6 @@
       "column_default": null
     },
     {
-      "table_name": "consultation_history",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
-    },
-    {
-      "table_name": "consultations",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
       "table_name": "consultations",
       "column_name": "contract_id",
       "data_type": "uuid",
@@ -800,25 +793,17 @@
     },
     {
       "table_name": "consultations",
-      "column_name": "title",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": "now()"
     },
     {
       "table_name": "consultations",
       "column_name": "description_ciphertext",
       "data_type": "text",
       "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "consultations",
-      "column_name": "starts_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -832,11 +817,19 @@
     },
     {
       "table_name": "consultations",
-      "column_name": "status",
+      "column_name": "external_event_id",
       "data_type": "text",
       "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
       "is_nullable": "NO",
-      "column_default": "'scheduled'::text"
+      "column_default": "gen_random_uuid()"
     },
     {
       "table_name": "consultations",
@@ -848,19 +841,27 @@
     },
     {
       "table_name": "consultations",
-      "column_name": "external_event_id",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "YES",
+      "column_name": "starts_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
       "column_default": null
     },
     {
       "table_name": "consultations",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": "'scheduled'::text"
+    },
+    {
+      "table_name": "consultations",
+      "column_name": "title",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "consultations",
@@ -872,14 +873,6 @@
     },
     {
       "table_name": "contracts",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "contracts",
       "column_name": "athlete_id",
       "data_type": "uuid",
       "udt_name": "uuid",
@@ -888,19 +881,19 @@
     },
     {
       "table_name": "contracts",
+      "column_name": "cancellation_reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "contracts",
       "column_name": "coach_id",
       "data_type": "uuid",
       "udt_name": "uuid",
       "is_nullable": "NO",
       "column_default": null
-    },
-    {
-      "table_name": "contracts",
-      "column_name": "status",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": "'pending'::text"
     },
     {
       "table_name": "contracts",
@@ -928,14 +921,6 @@
     },
     {
       "table_name": "contracts",
-      "column_name": "cancellation_reason",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": "''::text"
-    },
-    {
-      "table_name": "executions",
       "column_name": "id",
       "data_type": "uuid",
       "udt_name": "uuid",
@@ -943,12 +928,12 @@
       "column_default": "gen_random_uuid()"
     },
     {
-      "table_name": "executions",
-      "column_name": "workout_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "table_name": "contracts",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": "'pending'::text"
     },
     {
       "table_name": "executions",
@@ -968,11 +953,11 @@
     },
     {
       "table_name": "executions",
-      "column_name": "notes",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
       "is_nullable": "NO",
-      "column_default": "''::text"
+      "column_default": "gen_random_uuid()"
     },
     {
       "table_name": "executions",
@@ -984,11 +969,11 @@
     },
     {
       "table_name": "executions",
-      "column_name": "updated_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
+      "column_name": "notes",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": "''::text"
     },
     {
       "table_name": "executions",
@@ -999,26 +984,18 @@
       "column_default": null
     },
     {
-      "table_name": "exercise_blocks",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "table_name": "executions",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
       "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
+      "column_default": "now()"
     },
     {
-      "table_name": "exercise_blocks",
+      "table_name": "executions",
       "column_name": "workout_id",
       "data_type": "uuid",
       "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "exercise_blocks",
-      "column_name": "position",
-      "data_type": "integer",
-      "udt_name": "int4",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1031,7 +1008,7 @@
       "column_default": null
     },
     {
-      "table_name": "mail_outbox",
+      "table_name": "exercise_blocks",
       "column_name": "id",
       "data_type": "uuid",
       "udt_name": "uuid",
@@ -1039,34 +1016,18 @@
       "column_default": "gen_random_uuid()"
     },
     {
-      "table_name": "mail_outbox",
-      "column_name": "user_id",
+      "table_name": "exercise_blocks",
+      "column_name": "position",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "exercise_blocks",
+      "column_name": "workout_id",
       "data_type": "uuid",
       "udt_name": "uuid",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "mail_outbox",
-      "column_name": "recipient",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "mail_outbox",
-      "column_name": "subject",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "mail_outbox",
-      "column_name": "encrypted_body",
-      "data_type": "text",
-      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1080,9 +1041,33 @@
     },
     {
       "table_name": "mail_outbox",
-      "column_name": "sent_at",
+      "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "encrypted_body",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "last_error",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "YES",
       "column_default": null
     },
@@ -1096,6 +1081,38 @@
     },
     {
       "table_name": "mail_outbox",
+      "column_name": "recipient",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "sent_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "subject",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "mail_outbox",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
       "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
@@ -1103,10 +1120,10 @@
       "column_default": "now()"
     },
     {
-      "table_name": "mail_outbox",
-      "column_name": "last_error",
-      "data_type": "text",
-      "udt_name": "text",
+      "table_name": "media",
+      "column_name": "deleted_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
       "is_nullable": "YES",
       "column_default": null
     },
@@ -1115,6 +1132,30 @@
       "column_name": "id",
       "data_type": "uuid",
       "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "mime_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "name",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media",
+      "column_name": "object_key",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1144,65 +1185,9 @@
     },
     {
       "table_name": "media",
-      "column_name": "name",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "media",
-      "column_name": "mime_type",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "media",
       "column_name": "size",
       "data_type": "integer",
       "udt_name": "int4",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "media",
-      "column_name": "object_key",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "media",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
-    },
-    {
-      "table_name": "media",
-      "column_name": "deleted_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "media_feedback",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "media_feedback",
-      "column_name": "media_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1216,6 +1201,14 @@
     },
     {
       "table_name": "media_feedback",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "media_feedback",
       "column_name": "encrypted_text",
       "data_type": "text",
       "udt_name": "text",
@@ -1224,6 +1217,118 @@
     },
     {
       "table_name": "media_feedback",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "media_feedback",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "(now() + '01:00:00'::interval)"
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "media_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "mime_type",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "name",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "owner_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "parts",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "purpose",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "media_uploads",
+      "column_name": "size",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "messages",
+      "column_name": "body_ciphertext",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "messages",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "messages",
       "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
@@ -1240,43 +1345,11 @@
     },
     {
       "table_name": "messages",
-      "column_name": "contract_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "messages",
-      "column_name": "sender_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "messages",
-      "column_name": "body_ciphertext",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "messages",
       "column_name": "media_id",
       "data_type": "uuid",
       "udt_name": "uuid",
       "is_nullable": "YES",
       "column_default": null
-    },
-    {
-      "table_name": "messages",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
     },
     {
       "table_name": "messages",
@@ -1287,10 +1360,10 @@
       "column_default": null
     },
     {
-      "table_name": "metric_types",
-      "column_name": "sport",
-      "data_type": "text",
-      "udt_name": "text",
+      "table_name": "messages",
+      "column_name": "sender_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1312,9 +1385,9 @@
     },
     {
       "table_name": "metric_types",
-      "column_name": "unit",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "max",
+      "data_type": "double precision",
+      "udt_name": "float8",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1328,50 +1401,18 @@
     },
     {
       "table_name": "metric_types",
-      "column_name": "max",
-      "data_type": "double precision",
-      "udt_name": "float8",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "notifications",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "notifications",
-      "column_name": "user_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "notifications",
-      "column_name": "kind",
+      "column_name": "sport",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
     {
-      "table_name": "notifications",
-      "column_name": "title",
+      "table_name": "metric_types",
+      "column_name": "unit",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "notifications",
-      "column_name": "resource_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "YES",
       "column_default": null
     },
     {
@@ -1384,6 +1425,22 @@
     },
     {
       "table_name": "notifications",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "kind",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
       "column_name": "read_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
@@ -1391,15 +1448,23 @@
       "column_default": null
     },
     {
-      "table_name": "password_resets",
-      "column_name": "token_hash",
+      "table_name": "notifications",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "title",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
     {
-      "table_name": "password_resets",
+      "table_name": "notifications",
       "column_name": "user_id",
       "data_type": "uuid",
       "udt_name": "uuid",
@@ -1408,9 +1473,25 @@
     },
     {
       "table_name": "password_resets",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "password_resets",
       "column_name": "expires_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "password_resets",
+      "column_name": "token_hash",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1424,11 +1505,19 @@
     },
     {
       "table_name": "password_resets",
-      "column_name": "created_at",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "privacy_requests",
+      "column_name": "completed_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
+      "is_nullable": "YES",
+      "column_default": null
     },
     {
       "table_name": "privacy_requests",
@@ -1440,11 +1529,11 @@
     },
     {
       "table_name": "privacy_requests",
-      "column_name": "user_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "column_name": "requested_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
       "is_nullable": "NO",
-      "column_default": null
+      "column_default": "now()"
     },
     {
       "table_name": "privacy_requests",
@@ -1456,22 +1545,6 @@
     },
     {
       "table_name": "privacy_requests",
-      "column_name": "requested_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
-    },
-    {
-      "table_name": "privacy_requests",
-      "column_name": "completed_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "private_health",
       "column_name": "user_id",
       "data_type": "uuid",
       "udt_name": "uuid",
@@ -1495,7 +1568,7 @@
       "column_default": "now()"
     },
     {
-      "table_name": "profiles",
+      "table_name": "private_health",
       "column_name": "user_id",
       "data_type": "uuid",
       "udt_name": "uuid",
@@ -1504,11 +1577,11 @@
     },
     {
       "table_name": "profiles",
-      "column_name": "city",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "availability",
+      "data_type": "ARRAY",
+      "udt_name": "_text",
       "is_nullable": "NO",
-      "column_default": "''::text"
+      "column_default": "'{}'::text[]"
     },
     {
       "table_name": "profiles",
@@ -1520,11 +1593,27 @@
     },
     {
       "table_name": "profiles",
-      "column_name": "sports",
-      "data_type": "ARRAY",
-      "udt_name": "_text",
+      "column_name": "budget",
+      "data_type": "numeric",
+      "udt_name": "numeric",
       "is_nullable": "NO",
-      "column_default": "'{}'::text[]"
+      "column_default": "0"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "city",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "cref",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
     },
     {
       "table_name": "profiles",
@@ -1544,27 +1633,11 @@
     },
     {
       "table_name": "profiles",
-      "column_name": "availability",
-      "data_type": "ARRAY",
-      "udt_name": "_text",
-      "is_nullable": "NO",
-      "column_default": "'{}'::text[]"
-    },
-    {
-      "table_name": "profiles",
       "column_name": "mode",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
       "column_default": "'online'::text"
-    },
-    {
-      "table_name": "profiles",
-      "column_name": "budget",
-      "data_type": "numeric",
-      "udt_name": "numeric",
-      "is_nullable": "NO",
-      "column_default": "0"
     },
     {
       "table_name": "profiles",
@@ -1576,7 +1649,31 @@
     },
     {
       "table_name": "profiles",
-      "column_name": "cref",
+      "column_name": "sports",
+      "data_type": "ARRAY",
+      "udt_name": "_text",
+      "is_nullable": "NO",
+      "column_default": "'{}'::text[]"
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "verification_expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "profiles",
+      "column_name": "verification_reason",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
@@ -1591,19 +1688,19 @@
       "column_default": "'unsubmitted'::text"
     },
     {
-      "table_name": "profiles",
-      "column_name": "verification_reason",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": "''::text"
-    },
-    {
-      "table_name": "profiles",
-      "column_name": "verification_expires_at",
+      "table_name": "review_moderation",
+      "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
-      "is_nullable": "YES",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "hidden",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
       "column_default": null
     },
     {
@@ -1613,6 +1710,14 @@
       "udt_name": "uuid",
       "is_nullable": "NO",
       "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "review_moderation",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "review_moderation",
@@ -1631,23 +1736,7 @@
       "column_default": null
     },
     {
-      "table_name": "review_moderation",
-      "column_name": "hidden",
-      "data_type": "boolean",
-      "udt_name": "bool",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "review_moderation",
-      "column_name": "reason",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "review_moderation",
+      "table_name": "review_reports",
       "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
@@ -1664,9 +1753,9 @@
     },
     {
       "table_name": "review_reports",
-      "column_name": "review_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1680,31 +1769,7 @@
     },
     {
       "table_name": "review_reports",
-      "column_name": "reason",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "review_reports",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
-    },
-    {
-      "table_name": "reviews",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
-    },
-    {
-      "table_name": "reviews",
-      "column_name": "contract_id",
+      "column_name": "review_id",
       "data_type": "uuid",
       "udt_name": "uuid",
       "is_nullable": "NO",
@@ -1720,22 +1785,6 @@
     },
     {
       "table_name": "reviews",
-      "column_name": "coach_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "reviews",
-      "column_name": "rating",
-      "data_type": "integer",
-      "udt_name": "int4",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "reviews",
       "column_name": "body",
       "data_type": "text",
       "udt_name": "text",
@@ -1744,10 +1793,50 @@
     },
     {
       "table_name": "reviews",
-      "column_name": "reply",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "YES",
+      "column_name": "coach_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "contract_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "hidden",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "rating",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "is_nullable": "NO",
       "column_default": null
     },
     {
@@ -1760,23 +1849,23 @@
     },
     {
       "table_name": "reviews",
-      "column_name": "hidden",
-      "data_type": "boolean",
-      "udt_name": "bool",
-      "is_nullable": "NO",
-      "column_default": "false"
+      "column_name": "reply",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "YES",
+      "column_default": null
     },
     {
       "table_name": "reviews",
-      "column_name": "created_at",
+      "column_name": "updated_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
       "is_nullable": "NO",
       "column_default": "now()"
     },
     {
-      "table_name": "reviews",
-      "column_name": "updated_at",
+      "table_name": "schema_migrations",
+      "column_name": "applied_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
       "is_nullable": "NO",
@@ -1791,12 +1880,20 @@
       "column_default": null
     },
     {
-      "table_name": "schema_migrations",
-      "column_name": "applied_at",
+      "table_name": "sessions",
+      "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "sessions",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "sessions",
@@ -1815,20 +1912,28 @@
       "column_default": null
     },
     {
-      "table_name": "sessions",
-      "column_name": "expires_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "sessions",
+      "table_name": "users",
       "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
       "is_nullable": "NO",
       "column_default": "now()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "disabled_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "email",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": null
     },
     {
       "table_name": "users",
@@ -1841,14 +1946,6 @@
     {
       "table_name": "users",
       "column_name": "name",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "users",
-      "column_name": "email",
       "data_type": "text",
       "udt_name": "text",
       "is_nullable": "NO",
@@ -1871,7 +1968,7 @@
       "column_default": null
     },
     {
-      "table_name": "users",
+      "table_name": "verification_audit",
       "column_name": "created_at",
       "data_type": "timestamp with time zone",
       "udt_name": "timestamptz",
@@ -1879,11 +1976,11 @@
       "column_default": "now()"
     },
     {
-      "table_name": "users",
-      "column_name": "disabled_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
+      "table_name": "verification_audit",
+      "column_name": "decision",
+      "data_type": "text",
+      "udt_name": "text",
+      "is_nullable": "NO",
       "column_default": null
     },
     {
@@ -1896,9 +1993,9 @@
     },
     {
       "table_name": "verification_audit",
-      "column_name": "verification_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "column_name": "reason",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -1912,35 +2009,11 @@
     },
     {
       "table_name": "verification_audit",
-      "column_name": "decision",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "verification_audit",
-      "column_name": "reason",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "verification_audit",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
-    },
-    {
-      "table_name": "verifications",
-      "column_name": "id",
+      "column_name": "verification_id",
       "data_type": "uuid",
       "udt_name": "uuid",
       "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
+      "column_default": null
     },
     {
       "table_name": "verifications",
@@ -1960,6 +2033,14 @@
     },
     {
       "table_name": "verifications",
+      "column_name": "document_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
       "column_name": "evidence",
       "data_type": "text",
       "udt_name": "text",
@@ -1968,11 +2049,19 @@
     },
     {
       "table_name": "verifications",
-      "column_name": "status",
-      "data_type": "text",
-      "udt_name": "text",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
       "is_nullable": "NO",
-      "column_default": "'pending'::text"
+      "column_default": "gen_random_uuid()"
     },
     {
       "table_name": "verifications",
@@ -1981,14 +2070,6 @@
       "udt_name": "text",
       "is_nullable": "NO",
       "column_default": "''::text"
-    },
-    {
-      "table_name": "verifications",
-      "column_name": "submitted_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "NO",
-      "column_default": "now()"
     },
     {
       "table_name": "verifications",
@@ -2008,22 +2089,6 @@
     },
     {
       "table_name": "verifications",
-      "column_name": "document_id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "verifications",
-      "column_name": "expires_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
-      "is_nullable": "YES",
-      "column_default": null
-    },
-    {
-      "table_name": "verifications",
       "column_name": "source",
       "data_type": "text",
       "udt_name": "text",
@@ -2031,12 +2096,20 @@
       "column_default": "'manual'::text"
     },
     {
-      "table_name": "workouts",
-      "column_name": "id",
-      "data_type": "uuid",
-      "udt_name": "uuid",
+      "table_name": "verifications",
+      "column_name": "status",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": "gen_random_uuid()"
+      "column_default": "'pending'::text"
+    },
+    {
+      "table_name": "verifications",
+      "column_name": "submitted_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
     },
     {
       "table_name": "workouts",
@@ -2048,9 +2121,33 @@
     },
     {
       "table_name": "workouts",
-      "column_name": "title",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "instructions",
       "data_type": "text",
       "udt_name": "text",
+      "is_nullable": "NO",
+      "column_default": "''::text"
+    },
+    {
+      "table_name": "workouts",
+      "column_name": "scheduled_date",
+      "data_type": "date",
+      "udt_name": "date",
       "is_nullable": "NO",
       "column_default": null
     },
@@ -2064,22 +2161,6 @@
     },
     {
       "table_name": "workouts",
-      "column_name": "scheduled_date",
-      "data_type": "date",
-      "udt_name": "date",
-      "is_nullable": "NO",
-      "column_default": null
-    },
-    {
-      "table_name": "workouts",
-      "column_name": "instructions",
-      "data_type": "text",
-      "udt_name": "text",
-      "is_nullable": "NO",
-      "column_default": "''::text"
-    },
-    {
-      "table_name": "workouts",
       "column_name": "status",
       "data_type": "text",
       "udt_name": "text",
@@ -2088,11 +2169,11 @@
     },
     {
       "table_name": "workouts",
-      "column_name": "created_at",
-      "data_type": "timestamp with time zone",
-      "udt_name": "timestamptz",
+      "column_name": "title",
+      "data_type": "text",
+      "udt_name": "text",
       "is_nullable": "NO",
-      "column_default": "now()"
+      "column_default": null
     }
   ],
   "constraints": [
@@ -2796,6 +2877,66 @@
       "definition": "PRIMARY KEY (id)",
       "columns": [
         "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_media_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE SET NULL",
+      "columns": [
+        "media_id"
+      ],
+      "foreign_table": "media"
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_owner_id_fkey",
+      "type": "f",
+      "definition": "FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE",
+      "columns": [
+        "owner_id"
+      ],
+      "foreign_table": "users"
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_parts_check",
+      "type": "c",
+      "definition": "CHECK (((parts > 0) AND (parts <= 17)))",
+      "columns": [
+        "parts"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_pkey",
+      "type": "p",
+      "definition": "PRIMARY KEY (id)",
+      "columns": [
+        "id"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_purpose_check",
+      "type": "c",
+      "definition": "CHECK ((purpose = ANY (ARRAY['verification'::text, 'instruction'::text, 'performance'::text, 'message'::text])))",
+      "columns": [
+        "purpose"
+      ],
+      "foreign_table": null
+    },
+    {
+      "table_name": "media_uploads",
+      "name": "media_uploads_size_check",
+      "type": "c",
+      "definition": "CHECK (((size > 0) AND (size <= 52428800)))",
+      "columns": [
+        "size"
       ],
       "foreign_table": null
     },
@@ -3543,6 +3684,21 @@
       "tablename": "media_feedback",
       "indexname": "media_feedback_pkey",
       "indexdef": "CREATE UNIQUE INDEX media_feedback_pkey ON public.media_feedback USING btree (id)"
+    },
+    {
+      "tablename": "media_uploads",
+      "indexname": "media_uploads_expiry",
+      "indexdef": "CREATE INDEX media_uploads_expiry ON public.media_uploads USING btree (expires_at)"
+    },
+    {
+      "tablename": "media_uploads",
+      "indexname": "media_uploads_owner",
+      "indexdef": "CREATE INDEX media_uploads_owner ON public.media_uploads USING btree (owner_id)"
+    },
+    {
+      "tablename": "media_uploads",
+      "indexname": "media_uploads_pkey",
+      "indexdef": "CREATE UNIQUE INDEX media_uploads_pkey ON public.media_uploads USING btree (id)"
     },
     {
       "tablename": "messages",

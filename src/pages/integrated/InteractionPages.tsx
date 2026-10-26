@@ -72,6 +72,26 @@ const dateTime = (value: string) =>
     dateStyle: 'short',
     timeStyle: 'short',
   })
+function usePersistedRefresh(reload: () => Promise<void>) {
+  useEffect(() => {
+    let running = false
+    const refresh = async () => {
+      if (document.visibilityState !== 'visible' || running) return
+      running = true
+      try {
+        await reload()
+      } finally {
+        running = false
+      }
+    }
+    const timer = setInterval(() => void refresh(), 10000)
+    document.addEventListener('visibilitychange', refresh)
+    return () => {
+      clearInterval(timer)
+      document.removeEventListener('visibilitychange', refresh)
+    }
+  }, [reload])
+}
 function localDateTime(value: string) {
   const date = new Date(value)
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
@@ -140,6 +160,7 @@ function Conversation({ contract }: { contract: Contract }) {
   const remote = useRemote<{ messages: Message[]; nextCursor: string | null }>(
     `/contracts/${contract.id}/messages?limit=50`,
   )
+  usePersistedRefresh(remote.reload)
   const [older, setOlder] = useState<Message[]>([])
   const [cursor, setCursor] = useState<string | null>(null)
   const [text, setText] = useState('')
@@ -325,6 +346,7 @@ export function NotificationsPage() {
   const remote = useRemote<{ notifications: Notification[]; unread: number }>(
     '/notifications',
   )
+  usePersistedRefresh(remote.reload)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   useEvents((event) => {
@@ -414,6 +436,7 @@ export function AgendaPage() {
   useEvents((event) => {
     if (event.type === 'consultation') void remote.reload()
   })
+  usePersistedRefresh(remote.reload)
   const active =
     contracts.data?.contracts.filter((c) => c.status === 'active') || []
   async function perform(action: () => Promise<unknown>, result: string) {

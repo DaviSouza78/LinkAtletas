@@ -2,6 +2,7 @@ node_modules/
 .pnpm-store/
 dist/
 .vite/
+.vercel/
 tmp/
 *.local
 *.tsbuildinfo
@@ -14,6 +15,8 @@ test-results/
 coverage/
 docs/sprint-2/evidencias/playwright-artifacts/
 docs/evolucao/evidencias/playwright-artifacts/
+docs/evolucao/evidencias/verificacao-*/playwright-artifacts/
+docs/evolucao/evidencias/verificacao-*/playwright-report/
 backups/
 mobile/.expo/
 mobile/dist/

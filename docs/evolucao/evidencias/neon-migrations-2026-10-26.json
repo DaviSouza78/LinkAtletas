@@ -1,0 +1,33 @@
+{
+  "executedAt": "2026-10-26T16:35:39.869Z",
+  "environments": [
+    {
+      "environment": "production",
+      "migrated": true,
+      "versions": [
+        "001_initial.sql",
+        "002_platform.sql",
+        "003_interactions.sql",
+        "004_billing.sql",
+        "005_billing_compatibility.sql",
+        "006_media_uploads.sql"
+      ],
+      "accounts": 0,
+      "seeded": false
+    },
+    {
+      "environment": "preview",
+      "migrated": true,
+      "versions": [
+        "001_initial.sql",
+        "002_platform.sql",
+        "003_interactions.sql",
+        "004_billing.sql",
+        "005_billing_compatibility.sql",
+        "006_media_uploads.sql"
+      ],
+      "accounts": 0,
+      "seeded": false
+    }
+  ]
+}

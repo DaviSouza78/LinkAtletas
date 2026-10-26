@@ -1,6 +1,6 @@
 # Pendências de Lucca e do grupo
 
-Revisão de 23/10/2026. Os nove entregáveis têm referências no [checklist](checklist-sprint-2.md); a [publicação](publicacao.md) identifica os commits e resultados. As decisões de escopo são da equipe; homologações de terceiros e envio acadêmico têm seus próprios registros.
+Revisão atualizada em 26/10/2026. Os nove entregáveis têm referências no [checklist](checklist-sprint-2.md); a [publicação](publicacao.md) identifica os commits e resultados. As decisões de escopo são da equipe; homologações de terceiros e envio acadêmico têm seus próprios registros. O [registro atual da nuvem](implantacao-2026-10-26.md) detalha serviços, testes remotos, APK e pendências de produção.
 
 ## Resolvido nesta revisão
 
@@ -22,7 +22,9 @@ Revisão de 23/10/2026. Os nove entregáveis têm referências no [checklist](ch
 
 - [ ] Fornecer conta sandbox Asaas/carteira/webhook e conferir cobrança de teste, split, cancelamento e conciliação. Hoje os testes financeiros usam servidor HTTP controlado; o modo acadêmico não cobra.
 - [ ] Se a automação de CREF for retomada como evolução, confirmar fonte oficial e condições de integração; ela não é requisito do aceite atual do RF-04.
-- [ ] Fornecer infraestrutura/domínio, SMTP externo e S3 privado hospedado se a entrega acordada exigir URL pública/nuvem. TLS local testado não equivale a site implantado.
+- [x] Armazenamento privado Tigris criado, com chaves e buckets separados por ambiente, variáveis na Vercel e [testes reais de S3](evidencias/tigris-2026-10-26.json). Isso não conclui a implantação da aplicação.
+- [x] Configurar Neon, Tigris e Brevo, aplicar migrações e conferir fluxo principal e recuperação de senha em Preview real. [Evidências e limites](implantacao-2026-10-26.md).
+- [ ] Concluir a validação da produção pública e ativar o agendador após os testes. O Preview não substitui a conferência do domínio de produção.
 - [ ] Configurar Google OAuth/Agenda/Meet se exigido; agenda própria já funciona sem ele. Sincronização bidirecional permanece evolução.
 - [ ] Validar procedimentos/textos de privacidade e retenção com o responsável antes de receber dados reais.
 

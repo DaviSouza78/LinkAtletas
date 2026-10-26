@@ -131,7 +131,10 @@ export async function logout() {
 // Expo's global fetch serializes File/Blob bytes, not the old RN URI objects.
 // Keep the selected name instead of exposing DocumentPicker's cache filename.
 class SelectedFile extends File {
-  constructor(uri: string, private readonly selectedName: string) {
+  constructor(
+    uri: string,
+    private readonly selectedName: string,
+  ) {
     super(uri)
   }
   override get name() {
@@ -144,6 +147,52 @@ export async function upload(
   resourceId: string,
 ) {
   if (API_CONFIGURATION_ERROR) throw new Error(API_CONFIGURATION_ERROR)
+  const selected = new SelectedFile(asset.uri, asset.name)
+  if (selected.size > 3 * 1024 * 1024) {
+    const { upload } = await api<{
+      upload: { id: string; partSize: number; parts: number }
+    }>('/media/uploads', 'POST', {
+      purpose,
+      resourceId,
+      name: asset.name,
+      mimeType: asset.mimeType || selected.type,
+      size: selected.size,
+    })
+    try {
+      for (let part = 0; part < upload.parts; part++) {
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 120_000)
+        try {
+          const response = await fetch(
+            `${API_URL}/media/uploads/${upload.id}/parts/${part}`,
+            {
+              method: 'PUT',
+              signal: controller.signal,
+              headers: {
+                'Content-Type': 'application/octet-stream',
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+              },
+              body: selected.slice(
+                part * upload.partSize,
+                (part + 1) * upload.partSize,
+              ),
+            },
+          )
+          if (!response.ok) return await responseError(response)
+        } finally {
+          clearTimeout(timeout)
+        }
+      }
+      return await api<{ media: Media }>(
+        `/media/uploads/${upload.id}/complete`,
+        'POST',
+        {},
+      )
+    } catch (error) {
+      await api(`/media/uploads/${upload.id}`, 'DELETE').catch(() => undefined)
+      throw error
+    }
+  }
   const form = new FormData()
   form.append('file', new SelectedFile(asset.uri, asset.name), asset.name)
   const controller = new AbortController(),

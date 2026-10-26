@@ -1,6 +1,8 @@
 import { pathToFileURL } from 'node:url'
 import type { Pool } from 'pg'
 import { createPool } from './db/pool.js'
+import { cleanupMediaUploads } from './modules/media-uploads.js'
+import { mediaStorage, mediaBucket } from './modules/media.js'
 import { deliverOutbox } from './services/mail.js'
 import { expireVerifications } from './modules/verification.js'
 import {
@@ -15,11 +17,12 @@ export async function runJobs(pool: Pool) {
   await reconcileBilling(pool)
   await expireBillingAccess(pool)
   const mail = await deliverOutbox(pool)
+  const uploads = await cleanupMediaUploads(pool, mediaStorage, mediaBucket())
   await pool.query('DELETE FROM sessions WHERE expires_at<=now()')
   await pool.query(
     "DELETE FROM password_resets WHERE expires_at<now()-interval '1 day'",
   )
-  return { verifications, mail, completedAt: new Date().toISOString() }
+  return { verifications, mail, uploads, completedAt: new Date().toISOString() }
 }
 if (
   process.argv[1] &&

@@ -224,6 +224,149 @@ describe.sequential('Plataforma, SMTP e S3 reais locais', () => {
       (await call(stranger, 'GET', `/media/${mediaId}/content`)).statusCode,
     ).toBe(404)
   })
+  it('envio em partes preserva arquivo grande, impede terceiro e finaliza sem duplicar', async () => {
+    const bytes = Buffer.concat([png, Buffer.alloc(5 * 1024 * 1024)])
+    const started = await call(athlete, 'POST', '/media/uploads', {
+      purpose: 'performance',
+      resourceId: workoutId,
+      name: 'large.png',
+      mimeType: 'image/png',
+      size: bytes.length,
+    })
+    expect(started.statusCode, started.body).toBe(201)
+    const session = started.json().upload
+    expect(
+      (
+        await call(
+          stranger,
+          'POST',
+          `/media/uploads/${session.id}/complete`,
+          {},
+        )
+      ).statusCode,
+    ).toBe(404)
+    expect(
+      (await call(athlete, 'POST', `/media/uploads/${session.id}/complete`, {}))
+        .statusCode,
+    ).toBe(409)
+    for (let part = 0; part < session.parts; part++) {
+      const response = await app.inject({
+        method: 'PUT',
+        url: `/api/media/uploads/${session.id}/parts/${part}`,
+        headers: {
+          origin,
+          authorization: `Bearer ${athlete.token}`,
+          'content-type': 'application/octet-stream',
+        },
+        payload: bytes.subarray(
+          part * session.partSize,
+          (part + 1) * session.partSize,
+        ),
+      })
+      expect(response.statusCode, response.body).toBe(200)
+    }
+    const completed = await call(
+      athlete,
+      'POST',
+      `/media/uploads/${session.id}/complete`,
+      {},
+    )
+    expect(completed.statusCode, completed.body).toBe(201)
+    const id = completed.json().media.id
+    const repeated = await call(
+      athlete,
+      'POST',
+      `/media/uploads/${session.id}/complete`,
+      {},
+    )
+    expect(repeated.json().media.id).toBe(id)
+    const downloaded = await call(coach, 'GET', `/media/${id}/content`)
+    expect(downloaded.rawPayload.equals(bytes)).toBe(true)
+    const ranged = await app.inject({
+      method: 'GET',
+      url: `/api/media/${id}/content`,
+      headers: { authorization: `Bearer ${coach.token}`, range: 'bytes=10-25' },
+    })
+    expect(ranged.statusCode).toBe(206)
+    expect(ranged.headers['content-range']).toBe(`bytes 10-25/${bytes.length}`)
+    expect(ranged.rawPayload.equals(bytes.subarray(10, 26))).toBe(true)
+    expect((await call(athlete, 'DELETE', `/media/${id}`)).statusCode).toBe(200)
+  })
+  it('video no limite de 50 MiB atravessa partes e retorna em stream', async () => {
+    const bytes = Buffer.alloc(50 * 1024 * 1024)
+    bytes.write('ftyp', 4)
+    const started = await call(athlete, 'POST', '/media/uploads', {
+      purpose: 'performance',
+      resourceId: workoutId,
+      name: 'limit.mp4',
+      mimeType: 'video/mp4',
+      size: bytes.length,
+    })
+    expect(started.statusCode, started.body).toBe(201)
+    const session = started.json().upload
+    for (let part = 0; part < session.parts; part++) {
+      const response = await app.inject({
+        method: 'PUT',
+        url: `/api/media/uploads/${session.id}/parts/${part}`,
+        headers: {
+          authorization: `Bearer ${athlete.token}`,
+          'content-type': 'application/octet-stream',
+        },
+        payload: bytes.subarray(
+          part * session.partSize,
+          (part + 1) * session.partSize,
+        ),
+      })
+      expect(response.statusCode, response.body).toBe(200)
+    }
+    const result = await call(
+      athlete,
+      'POST',
+      `/media/uploads/${session.id}/complete`,
+      {},
+    )
+    expect(result.statusCode, result.body).toBe(201)
+    const id = result.json().media.id
+    const content = await call(coach, 'GET', `/media/${id}/content`)
+    expect(content.statusCode).toBe(200)
+    expect(content.rawPayload.equals(bytes)).toBe(true)
+    expect((await call(athlete, 'DELETE', `/media/${id}`)).statusCode).toBe(200)
+  }, 60_000)
+  it('partes invalidas, sessao expirada e assinatura falsa sao recusadas', async () => {
+    const started = await call(athlete, 'POST', '/media/uploads', {
+      purpose: 'performance',
+      resourceId: workoutId,
+      name: 'fake.png',
+      mimeType: 'image/png',
+      size: 10,
+    })
+    const id = started.json().upload.id
+    const send = (part: number, payload: Buffer) =>
+      app.inject({
+        method: 'PUT',
+        url: `/api/media/uploads/${id}/parts/${part}`,
+        headers: {
+          authorization: `Bearer ${athlete.token}`,
+          'content-type': 'application/octet-stream',
+        },
+        payload,
+      })
+    expect((await send(1, Buffer.alloc(10))).statusCode).toBe(400)
+    expect((await send(0, Buffer.alloc(9))).statusCode).toBe(400)
+    expect((await send(0, Buffer.alloc(10))).statusCode).toBe(200)
+    expect(
+      (await call(athlete, 'POST', `/media/uploads/${id}/complete`, {}))
+        .statusCode,
+    ).toBe(400)
+    await pool.query(
+      "UPDATE media_uploads SET expires_at=now()-interval '1 second' WHERE id=$1",
+      [id],
+    )
+    expect((await send(0, Buffer.alloc(10))).statusCode).toBe(404)
+    expect(
+      (await call(athlete, 'DELETE', `/media/uploads/${id}`)).statusCode,
+    ).toBe(200)
+  })
   it('feedback é privado e revogação elimina mídia do S3 e impede download', async () => {
     expect(
       (
