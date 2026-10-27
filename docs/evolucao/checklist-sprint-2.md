@@ -10,23 +10,24 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 
 - [x] Clone local separado e branch de ampliação; código de [API](../../server), [web](../../src) e [app](../../mobile); base anterior preservada em `sprint-2`.
 - [x] Autor Git definido como Lucca com e-mail fornecido; [decisões](decisoes.md) explicam autoria e limites.
-- [x] Implementação versionada no commit local `fca8a18`, com autoria Lucca; documentação/evidências versionadas na mesma branch. O código pode ser obtido pelo clone ou pelo ZIP da branch main no GitHub; veja o [índice](entrega.md).
-- [x] Branch publicada no [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas/tree/evolucao-completa), com commits de Lucca; [pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) integrado após autorização de publicação e aprovação dos checks.
-- [x] Merge na `main`, commit `f6a5a56`: [registro do PR](evidencias/github-pr-1.json) e [CI aprovada na main](evidencias/github-ci-main.json).
+- [x] Implementação versionada no commit inicial da ampliação [fca8a18](https://github.com/DaviSouza78/LinkAtletas/commit/fca8a18), com autoria Lucca; documentação/evidências versionadas na mesma branch. O código pode ser obtido pelo clone ou pelo ZIP da branch main no GitHub; veja o [índice](entrega.md).
+- [x] Branch publicada no [GitHub do grupo — main atual](https://github.com/DaviSouza78/LinkAtletas/tree/main), com commits de Lucca; [pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) integrado após autorização de publicação e aprovação dos checks.
+- [x] Merge inicial na `main`, commit `f6a5a56` (histórico): [registro do PR](evidencias/github-pr-1.json) e [CI aprovada na main](evidencias/github-ci-main.json).
 
 ## 2. Fluxo principal funcional de ponta a ponta
 
-- [x] Cadastro → perfil → CREF manual → descoberta → solicitação → aceite → prescrição → execução/feedback: [API original](../../tests/integration/api.test.ts), [web](../../src/App.tsx), [roteiro](manual.md).
+- [x] Cadastro → perfil → CREF manual → descoberta → solicitação → aceite → prescrição → execução/feedback: [API original](../../tests/integration/api.test.ts), [web](../../src/App.tsx), [roteiro](manual.md) e [jornada real em Preview HTTPS](evidencias/vercel-fluxo-2026-10-26.json).
 - [x] Funcionalidades antes abertas agora possuem código e telas: [mensagens/agenda/reviews/notificações](../../src/pages/integrated/InteractionPages.tsx), [financeiro](../../src/pages/integrated/BillingPages.tsx), [privacidade/mídia/reset](../../src/pages/integrated/Expansion.tsx).
 - [x] Cancelamento, novos ciclos, carência e conciliação: [billing](../../server/modules/billing.ts), [contratos](../../server/modules/contracts.ts), [testes de financeiro](../../tests/integration/billing.test.ts).
-- [x] Fluxo ampliado em Chromium, Firefox e WebKit: [15/15 E2E](evidencias/playwright-results.json) e [relatório](relatorio-testes.md).
+- [x] Fluxo ampliado em Chromium, Firefox e WebKit: [15/15 E2E da verificação final](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) e [relatório](relatorio-testes.md).
 
 ## 3. Banco de dados criado e integrado
 
 - [x] PostgreSQL Neon criado e integrado em produção e Preview, com seis migrations aplicadas: [fontes](../../server/db/migrations) e [evidência](evidencias/neon-migrations-2026-10-26.json).
-- [x] Relações/chaves/índices para conta, ciclos, treino, arquivos, chat, agenda, review, financeiro e privacidade: [DER](diagramas/der.mmd).
+- [x] Relações/chaves/índices para conta, ciclos, treino, arquivos, chat, agenda, review, financeiro e privacidade: [DER visual](diagramas/der.svg) e [fonte editável](diagramas/der.mmd).
 - [x] Isolamento de testes com banco `_test` e dados fictícios: [testes](../../tests/integration), [configuração](../../vitest.config.ts).
-- [x] Backup/restauração isolados: [36 tabelas e objetos com checksums iguais](evidencias/backup-restore.json), campo/mídia decifrados e [worker de rede privada](evidencias/private-network-backup.json).
+- [x] Snapshot cifrado do Neon de produção restaurado em banco local isolado, com contagens das 37 tabelas conferidas: [registro](evidencias/backup-nuvem-2026-10-26.json). Esse teste não inclui cópia dos objetos Tigris.
+- [x] Ensaio local anterior de backup/restauração isolados: [36 tabelas e objetos com checksums iguais](evidencias/backup-restore.json), campo/mídia decifrados e [worker de rede privada](evidencias/private-network-backup.json).
 
 ## 4. Interface responsiva integrada ao back-end
 
@@ -34,10 +35,11 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] Formulários novos com rótulos/erro/espera/sucesso e layout responsivo: [CSS](../../src/styles.css) e páginas integradas.
 - [x] Fonte do app Expo com a mesma API e SecureStore: [app](../../mobile/App.tsx), [cliente](../../mobile/src/api.ts).
 - [x] Evidências Chromium 390/1440 e seis telas sem violações axe: [E2E](evidencias/playwright-results.json), [axe](evidencias/chromium-axe.json), [chat desktop](evidencias/chromium-chat.png) e [privacidade mobile](evidencias/chromium-privacidade-mobile.png).
-- [x] App: tipos/dependências/Doctor, [21/22 testes de transporte/configuração](evidencias/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/mobile-bundles.json); ver [limites](evidencias/mobile-verificacao.md).
+- [x] App: tipos/dependências/Doctor, [22/22 testes de transporte/configuração](evidencias/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/mobile-bundles.json); ver [limites](evidencias/mobile-verificacao.md).
 - [x] Firefox e WebKit executados: [resultados](evidencias/playwright-results.json), [axe Firefox](evidencias/firefox-axe.json) e [axe WebKit](evidencias/webkit-axe.json).
 - [x] APK Android de verificação compilado no GitHub, com assinatura de desenvolvimento: [execução e hash](publicacao.md). O perfil local permite backend por USB: [manual](manual-apk-local.md); o APK documental antigo permanece histórico.
-- [x] APK instalado e tela de login aberta no emulador Android API 35: [resultado](evidencias/android-emulator-result.json), [captura](evidencias/android-emulator-startup.png) e [run aprovado](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814). O ensaio integrado do APK local é registrado separadamente na [verificação móvel](evidencias/mobile-verificacao.md); aparelho físico continua pendente.
+- [x] APK com URL HTTPS de produção compilado, instalado e iniciado no emulador Android API 35: [resultado atual](evidencias/android-nuvem-2026-10-26.json) e [captura](evidencias/android-nuvem-inicializacao-2026-10-26.png). Esse ensaio valida a inicialização, não a jornada completa em aparelho físico.
+- [x] Ensaio anterior de inicialização do APK no emulador Android API 35: [resultado](evidencias/android-emulator-result.json), [captura](evidencias/android-emulator-startup.png) e [run aprovado](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814). O ensaio integrado do APK local é registrado separadamente na [verificação móvel](evidencias/mobile-verificacao.md); aparelho físico continua pendente.
 
 ## 5. Validações e tratamento básico de erros
 
@@ -51,22 +53,22 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 
 - [x] Evidência inicial preservada: [33 Vitest e 2 E2E históricos](../sprint-2/relatorio-testes.md).
 - [x] Novos testes de [plataforma](../../tests/integration/platform.test.ts), [interações](../../tests/integration/interactions.test.ts), [financeiro](../../tests/integration/billing.test.ts), [cifra](../../tests/unit/crypto.test.ts).
-- [x] [82/82 Vitest](evidencias/vitest-results.json), [15/15 E2E nos três motores](evidencias/playwright-results.json), testes/bundles do app e operação TLS/backup/carga: [relatório](relatorio-testes.md).
+- [x] [99/99 testes de API/unidade](evidencias/nuvem-2026-10-26-vitest.json), [15/15 E2E nos três motores na verificação final](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json), testes/bundles do app e operação TLS/backup/carga: [relatório](relatorio-testes.md).
 - [x] Corridas de privacidade verificadas com bloqueios reais: [três testes](../../tests/integration/privacy-races.test.ts) de perfil, senha/sessão e feedback eliminado.
 - [x] [TLS 1.3 local](evidencias/production-tls.json) com CA explícita, sem alteração do trust global; [carga](evidencias/carga-matchmaking.json) 200 chamadas/500 perfis sintéticos e p95 97,78 ms.
-- [x] [CI versionada](../../.github/workflows/ci.yml) e executada com sucesso no GitHub após merge: [run 38656142290](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290), [registro verificável](evidencias/github-ci-main.json).
+- [x] [CI versionada](../../.github/workflows/ci.yml) e executada com sucesso após a integração da nuvem na main: [run 40417254496](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40417254496). O [registro da CI anterior](evidencias/github-ci-main.json) permanece histórico.
 - [x] Correção do indicador de chat após evento tardio de socket descartado e regressão no navegador: [CI final aprovada](evidencias/github-ci-finalizacao.json), [cenário de chat](../../tests/e2e/expansion.spec.ts).
-- [x] [Tipos e build final aprovados](evidencias/verificacao-build.txt); engines adicionais incluídos no relatório.
+- [x] [Tipos e build aprovados na execução registrada](evidencias/verificacao-build.txt); engines adicionais incluídos no relatório.
 
 ## 7. Documentação de API
 
-- [x] [Guia ampliado](api.md), contratos compartilhados e Swagger/OpenAPI runtime `/api/docs` e `/api/openapi.json`.
-- [x] Documentados autenticação web/nativa, multipart, WS, erro, papel, finalidade e limites externos.
+- [x] [Guia ampliado](api.md), [contratos compartilhados](../../shared/contracts.ts), [Swagger interativo](https://link-atletas.vercel.app/api/docs/) e [OpenAPI da aplicação](https://link-atletas.vercel.app/api/openapi.json).
+- [x] Documentados autenticação web/nativa, multipart, WS, erro, papel, finalidade e limites externos no [guia da API](api.md). O CREF é conferido manualmente pela administração; não há API externa de validação oficial ativada.
 - [x] [Snapshot OpenAPI](openapi.json) gerado da aplicação e [conferência](evidencias/documentation-check.json) das rotas e links relativos.
 
 ## 8. ERS, diagramas e backlog atualizados
 
-- [x] [ERS v2](ERS-v2.md): RF-01–24, RNF-01–16, RN-01–16 preservados, RF-A explícitos e fluxos/exceções.
+- [x] [ERS final de entrega](ERS-template-original-atualizada.pdf) e [síntese técnica auxiliar](ERS-v2.md): RF-01–24, RNF-01–16, RN-01–16 preservados, RF-A explícitos e fluxos/exceções.
 - [x] [Backlog](backlog.md), [matriz de UCs/rastreabilidade](rastreabilidade.md) e [diagramas](diagramas.md) com fontes editáveis.
 - [x] Casos de uso UML: atores, elipses e limite de sistema, [PlantUML](diagramas/casos-de-uso.puml) e [SVG](diagramas/casos-de-uso.svg).
 - [x] [ERS final v2.6 em PDF](ERS-template-original-atualizada.pdf), ajustada e fornecida pela equipe em 26/10/2026, preservada sem conversão. O DOCX anterior foi retirado para evitar divergência com a versão entregue. Relatório de testes em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf).
@@ -77,7 +79,7 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 
 - [x] [Decisões](decisoes.md): arquitetura/provedores, ciclos, cifra, dependências externas, mudanças em relação à ERS original e limites de autoria.
 - [x] [Manual](manual.md): instalação, serviços locais, conta, privacidade, financeiro, app e roteiro de demonstração.
-- [x] Limitações preservadas: IA treinada, autoescala, autosave contínuo, sincronização Google bidirecional e novos esportes administrativos estão no backlog.
+- [x] Limitações preservadas: IA treinada, autoescala, autosave contínuo, sincronização Google bidirecional e novos esportes administrativos estão no [backlog](backlog.md).
 - [x] Ativar os serviços da implantação acadêmica com autorização do responsável e registrar testes reais: Vercel, Neon, Tigris, Brevo e cron-job.org. [Evidências por ambiente e limites](implantacao-2026-10-26.md). Asaas, Google e lojas conservam seus próprios critérios de evolução/homologação.
 
 ## Estado de conclusão
@@ -88,7 +90,9 @@ A revisão coletiva foi concluída conforme informado pela equipe. Cada integran
 
 Evoluções e homologações não realizadas, como cobrança real, Google OAuth e testes em aparelhos físicos, permanecem no [backlog](backlog.md) e nos [limites da implantação](implantacao-2026-10-26.md), fora dos checks desta entrega.
 
-## Revisão complementar de 15–20/10/2026
+## Registros históricos da revisão de 15–21/10/2026
+
+As contagens, versões e execuções abaixo pertencem às datas desses registros. As evidências atuais de entrega estão nos nove itens acima.
 
 - [x] Todos os materiais originais inventariados e comparados: [revisão](revisao-materiais.md) e [hashes](evidencias/materiais-originais.json).
 - [x] Checklist dos fornecedores, obrigação por Sprint, alternativas locais e homologações: [serviços externos](servicos-externos-sprint-2.md).
@@ -99,3 +103,7 @@ Evoluções e homologações não realizadas, como cobrança real, Google OAuth 
 - [x] APK corrigido conectado à API/PostgreSQL/SMTP/S3: [18/18 etapas aprovadas](evidencias/android-integrated-result.json), [execução remota](evidencias/github-android-integrated.json), [upload e correção](evidencias/android-integrated-midia-feedback.png), [encerramento](evidencias/android-integrated-conta-encerrada.png).
 
 - [x] CI completa da revisão, com tipos/build, 82 testes, backup, 15 E2E, nativo e TLS: [run 39645457806](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806), [registro](evidencias/github-ci-pr-2.json).
+
+## Conferência das referências
+
+[A auditoria dos links](evidencias/checklist-links-2026-10-26.json) registra destinos locais versionados, integridade dos formatos examinados e respostas HTTP dos links externos. Essa conferência documental não representa uma nova execução dos testes funcionais.

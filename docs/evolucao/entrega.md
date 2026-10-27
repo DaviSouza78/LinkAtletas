@@ -2,7 +2,7 @@
 
 A documentação atual está organizada no [índice principal](../README.md). Para revisar a entrega, comece pelo [checklist dos nove entregáveis](checklist-sprint-2.md).
 
-- ERS completa no template: [PDF](ERS-template-original-atualizada.pdf) e [Word editável](ERS-completa-v2.5-editavel.docx).
+- ERS completa no template: [PDF final v2.6 ajustado pela equipe](ERS-template-original-atualizada.pdf).
 - [Diagramas](diagramas.md), [backlog](backlog.md) e [matriz de UCs](rastreabilidade.md).
 - [API](api.md), [manual de execução](manual.md) e [decisões técnicas](decisoes.md).
 - [Relatório de testes](relatorio-testes.md) e [evidências da implantação e do APK](implantacao-2026-10-26.md).

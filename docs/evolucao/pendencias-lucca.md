@@ -16,7 +16,8 @@ Revisão atualizada em 26/10/2026. Os nove entregáveis têm referências no [ch
 - [x] Registrar a conferência **manual de CREF** como requisito atual na [ERS](ERS-v2.md), conforme decisão da equipe. A automação permanece como evolução futura.
 - [x] Documentar os recortes definidos pela equipe: match por regras, PostgreSQL único e limites de Android/iOS e nuvem; manter evoluções no backlog sem apresentá-las como implementadas.
 - [x] Relacionar a contribuição da **Eletiva I** e suas evidências na [matriz de UCs](rastreabilidade.md).
-- [ ] Cada integrante revisar a demonstração, registrar sua participação real e fazer sua própria entrega no ambiente acadêmico. O documento de convivência exige anexar **e concluir o envio**. Prazo do roteiro: **26/10/2026**; conferir eventuais atualizações na disciplina.
+- [x] Revisão coletiva dos materiais concluída conforme confirmação da equipe; [ERS final](ERS-template-original-atualizada.pdf) fornecida com os ajustes do grupo.
+- [ ] Cada integrante registrar sua participação real e fazer sua própria entrega no ambiente acadêmico. O documento de convivência exige anexar **e concluir o envio**. Prazo do roteiro: **26/10/2026**; conferir eventuais atualizações na disciplina.
 
 ## Quando houver homologação externa ou operação pública
 

@@ -1,5 +1,7 @@
 # Relatório de testes — ampliação LinkAtletas
 
+Atualização final de 26/10/2026: [99/99 testes de API/unidade](evidencias/nuvem-2026-10-26-vitest.json), [15/15 E2E na verificação final](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) e [22/22 testes móveis](evidencias/mobile-tests.json). Serviços reais, Preview e produção estão no [registro de implantação](implantacao-2026-10-26.md). As contagens e limitações anteriores abaixo são históricas; SMTP externo, S3 hospedado e publicação já possuem evidências nesse registro. A ERS oficial é o [PDF final fornecido pela equipe](ERS-template-original-atualizada.pdf); as verificações anteriores de DOCX referem-se à versão anterior.
+
 Consolidação revisada em 21/10/2026, com evidências datadas de cada execução; registros de 14–15/10 preservados quando não houve mudança no cenário. Este relatório registra evidência efetivamente produzida; testes escritos, aprovação técnica, build, sandbox e homologação de aparelho são estados distintos. As evidências históricas da Sprint 2 inicial permanecem em [docs/sprint-2/evidencias](../sprint-2/evidencias).
 
 ## Ambiente
@@ -58,7 +60,7 @@ pnpm test:e2e
 
 Não execute integração Vitest e E2E simultaneamente no mesmo banco de teste. Configuração final do E2E define portas e diretório de evidência; conferir arquivo de configuração antes de executar. Manual do cliente e operação estão em [manual.md](manual.md).
 
-## Homologações externas pendentes
+## Homologações pendentes na revisão anterior à implantação
 
 Asaas sandbox real, split/repasse de carteira real, CREF autorizado, SMTP externo, S3 hospedado, domínio público, stores e fluxo completo em aparelhos Android/iOS. Google OAuth/Agenda/Meet reais também não foram exercitados. Axe não substitui ensaio com leitor de tela ou revisão integral WCAG. WebKit não comprova Safari real; Chromium não comprova Edge real. Carga local não comprova autoescala em nuvem. Veja [publicação e APK](publicacao.md) e [pendências humanas](pendencias-lucca.md).
 
