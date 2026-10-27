@@ -9,7 +9,7 @@ Este índice reúne os documentos atuais da Sprint 2. A aplicação está dispon
 | Documento | Referência |
 |---|---|
 | Conferência dos nove entregáveis | [Checklist da Sprint 2](evolucao/checklist-sprint-2.md) |
-| ERS completa no template obrigatório — v2.6 | [PDF](evolucao/ERS-template-original-atualizada.pdf) · [Word editável](evolucao/ERS-template-original-atualizada.docx) |
+| ERS completa no template obrigatório — v2.6 | [PDF final ajustado pela equipe](evolucao/ERS-template-original-atualizada.pdf) |
 | Casos de uso, classes, sequências e DER | [Diagramas e fontes](evolucao/diagramas.md) |
 | Requisitos priorizados e evolução | [Backlog](evolucao/backlog.md) |
 | Integração das unidades curriculares | [Matriz de rastreabilidade](evolucao/rastreabilidade.md) |

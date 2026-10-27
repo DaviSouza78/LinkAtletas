@@ -2,7 +2,7 @@
 
 Data: 26/10/2026. Versão: 2.6. Revisão: Lucca Castilho Costa.
 
-Documentos atuais: [PDF](../ERS-template-original-atualizada.pdf) e [Word editável](../ERS-template-original-atualizada.docx). Fontes preservadas: [modelo do professor](../../referencias/Modelo-ERS-professor-2026.pdf), [ERS original da Sprint 1](../../referencias/ERS-Sprint-1-original.pdf) e [Word fornecido para esta revisão](../../referencias/ERS-base-editavel-sprint-2.docx).
+Documentos atuais: [PDF](../ERS-template-original-atualizada.pdf) e [ERS final em PDF](../ERS-template-original-atualizada.pdf). Fontes preservadas: [modelo do professor](../../referencias/Modelo-ERS-professor-2026.pdf), [ERS original da Sprint 1](../../referencias/ERS-Sprint-1-original.pdf) e [Word fornecido para esta revisão](../../referencias/ERS-base-editavel-sprint-2.docx).
 
 ## Correções aplicadas
 

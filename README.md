@@ -75,7 +75,7 @@ docs/         documentação atual, evidências e histórico acadêmico
 
 ## Documentação e entrega
 
-- [ERS completa no template em PDF](docs/evolucao/ERS-template-original-atualizada.pdf) e [Word editável](docs/evolucao/ERS-template-original-atualizada.docx).
+- [ERS final v2.6 ajustada pela equipe em PDF](docs/evolucao/ERS-template-original-atualizada.pdf).
 - [Checklist dos nove entregáveis](docs/evolucao/checklist-sprint-2.md), [diagramas](docs/evolucao/diagramas.md), [backlog](docs/evolucao/backlog.md) e [matriz de UCs](docs/evolucao/rastreabilidade.md).
 - [API](docs/evolucao/api.md), [aplicativo](mobile/README.md) e [implantação na Vercel](docs/evolucao/vercel.md).
 - [Testes de nuvem e APK](docs/evolucao/implantacao-2026-10-26.md), [decisões técnicas](docs/evolucao/decisoes.md) e [pendências](docs/evolucao/pendencias-lucca.md).

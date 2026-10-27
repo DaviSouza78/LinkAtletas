@@ -1,8 +1,8 @@
 # Checklist da Sprint 2 — versão ampliada
 
-Atualização da nuvem em 26/10/2026: [aplicação pública](https://link-atletas.vercel.app) com API, PostgreSQL Neon, Tigris privado e Brevo integrados. [Verificações de Preview e produção, arquivos de 50 MiB, recuperação de senha, APK e limites](implantacao-2026-10-26.md). O [PR #3](https://github.com/DaviSouza78/LinkAtletas/pull/3) integrou a versão na `main` do grupo, sincronizada com o fork. A revisão coletiva e o envio individual continuam a cargo dos integrantes.
+Atualização da nuvem em 26/10/2026: [aplicação pública](https://link-atletas.vercel.app) com API, PostgreSQL Neon, Tigris privado e Brevo integrados. [Verificações de Preview e produção, arquivos de 50 MiB, recuperação de senha, APK e limites](implantacao-2026-10-26.md). O [PR #3](https://github.com/DaviSouza78/LinkAtletas/pull/3) integrou a versão na `main` do grupo, sincronizada com o fork. A revisão coletiva foi concluída conforme confirmação da equipe. O envio individual é realizado por cada integrante no ambiente acadêmico.
 
-Atualizado em 26/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica artefato/implementação existente com referência; execução consolidada e homologação externa têm marcação própria. A [ERS v2](ERS-v2.md) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
+Atualizado em 26/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../sprint-2/checklist-sprint-2.md) permanece histórica. `[x]` indica implementação, artefato ou revisão concluída com referência. Este checklist reúne os entregáveis da Sprint 2; evoluções e homologações não executadas permanecem no backlog e no registro de implantação, sem indicação de conclusão. A [ERS final revisada pela equipe](ERS-template-original-atualizada.pdf) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
 
 ## 1. Código-fonte atualizado e versionado
 
@@ -10,7 +10,7 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 
 - [x] Clone local separado e branch de ampliação; código de [API](../../server), [web](../../src) e [app](../../mobile); base anterior preservada em `sprint-2`.
 - [x] Autor Git definido como Lucca com e-mail fornecido; [decisões](decisoes.md) explicam autoria e limites.
-- [x] Implementação versionada no commit local `fca8a18`, com autoria Lucca; documentação/evidências versionadas na mesma branch. Pacotes ZIP e Git bundle serão gerados a partir do commit de entrega, conforme o [índice](entrega.md).
+- [x] Implementação versionada no commit local `fca8a18`, com autoria Lucca; documentação/evidências versionadas na mesma branch. O código pode ser obtido pelo clone ou pelo ZIP da branch main no GitHub; veja o [índice](entrega.md).
 - [x] Branch publicada no [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas/tree/evolucao-completa), com commits de Lucca; [pull request #1](https://github.com/DaviSouza78/LinkAtletas/pull/1) integrado após autorização de publicação e aprovação dos checks.
 - [x] Merge na `main`, commit `f6a5a56`: [registro do PR](evidencias/github-pr-1.json) e [CI aprovada na main](evidencias/github-ci-main.json).
 
@@ -20,11 +20,10 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] Funcionalidades antes abertas agora possuem código e telas: [mensagens/agenda/reviews/notificações](../../src/pages/integrated/InteractionPages.tsx), [financeiro](../../src/pages/integrated/BillingPages.tsx), [privacidade/mídia/reset](../../src/pages/integrated/Expansion.tsx).
 - [x] Cancelamento, novos ciclos, carência e conciliação: [billing](../../server/modules/billing.ts), [contratos](../../server/modules/contracts.ts), [testes de financeiro](../../tests/integration/billing.test.ts).
 - [x] Fluxo ampliado em Chromium, Firefox e WebKit: [15/15 E2E](evidencias/playwright-results.json) e [relatório](relatorio-testes.md).
-- [ ] Cobrança e split em sandbox real/produção e Google OAuth real: exigem configuração/acessos e evidências externas. CREF automático é evolução futura; o requisito atual é conferência manual.
 
 ## 3. Banco de dados criado e integrado
 
-- [x] PostgreSQL e migrations cumulativas [001–005](../../server/db/migrations), sem substituição da base da Sprint 2.
+- [x] PostgreSQL Neon criado e integrado em produção e Preview, com seis migrations aplicadas: [fontes](../../server/db/migrations) e [evidência](evidencias/neon-migrations-2026-10-26.json).
 - [x] Relações/chaves/índices para conta, ciclos, treino, arquivos, chat, agenda, review, financeiro e privacidade: [DER](diagramas/der.mmd).
 - [x] Isolamento de testes com banco `_test` e dados fictícios: [testes](../../tests/integration), [configuração](../../vitest.config.ts).
 - [x] Backup/restauração isolados: [36 tabelas e objetos com checksums iguais](evidencias/backup-restore.json), campo/mídia decifrados e [worker de rede privada](evidencias/private-network-backup.json).
@@ -39,7 +38,6 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] Firefox e WebKit executados: [resultados](evidencias/playwright-results.json), [axe Firefox](evidencias/firefox-axe.json) e [axe WebKit](evidencias/webkit-axe.json).
 - [x] APK Android de verificação compilado no GitHub, com assinatura de desenvolvimento: [execução e hash](publicacao.md). O perfil local permite backend por USB: [manual](manual-apk-local.md); o APK documental antigo permanece histórico.
 - [x] APK instalado e tela de login aberta no emulador Android API 35: [resultado](evidencias/android-emulator-result.json), [captura](evidencias/android-emulator-startup.png) e [run aprovado](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675093814). O ensaio integrado do APK local é registrado separadamente na [verificação móvel](evidencias/mobile-verificacao.md); aparelho físico continua pendente.
-- [ ] Assinatura de distribuição, IPA e homologação completa em aparelhos Android/iOS; Safari/Edge reais e leitor de tela: não presumidos por compilação, bundles ou viewport.
 
 ## 5. Validações e tratamento básico de erros
 
@@ -59,7 +57,6 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] [CI versionada](../../.github/workflows/ci.yml) e executada com sucesso no GitHub após merge: [run 38656142290](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38656142290), [registro verificável](evidencias/github-ci-main.json).
 - [x] Correção do indicador de chat após evento tardio de socket descartado e regressão no navegador: [CI final aprovada](evidencias/github-ci-finalizacao.json), [cenário de chat](../../tests/e2e/expansion.spec.ts).
 - [x] [Tipos e build final aprovados](evidencias/verificacao-build.txt); engines adicionais incluídos no relatório.
-- [ ] Homologações externas e dispositivos não executadas não recebem check de aprovação.
 
 ## 7. Documentação de API
 
@@ -72,9 +69,9 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] [ERS v2](ERS-v2.md): RF-01–24, RNF-01–16, RN-01–16 preservados, RF-A explícitos e fluxos/exceções.
 - [x] [Backlog](backlog.md), [matriz de UCs/rastreabilidade](rastreabilidade.md) e [diagramas](diagramas.md) com fontes editáveis.
 - [x] Casos de uso UML: atores, elipses e limite de sistema, [PlantUML](diagramas/casos-de-uso.puml) e [SVG](diagramas/casos-de-uso.svg).
-- [x] ERS completa v2.6 no template em [Word](ERS-template-original-atualizada.docx) e [PDF](ERS-template-original-atualizada.pdf); relatório em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf), com [renderização para inspeção](evidencias/documentos/render.json).
+- [x] [ERS final v2.6 em PDF](ERS-template-original-atualizada.pdf), ajustada e fornecida pela equipe em 26/10/2026, preservada sem conversão. O DOCX anterior foi retirado para evitar divergência com a versão entregue. Relatório de testes em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf).
+- [x] Revisão coletiva concluída, conforme confirmação da equipe; a ERS ajustada é a versão final de entrega.
 - [x] Relacionar a contribuição da Eletiva I e suas evidências na [matriz](rastreabilidade.md).
-- [ ] Realizar revisão coletiva da equipe e conferir anexos acadêmicos específicos da entrega.
 
 ## 9. Registro de dificuldades, decisões e mudanças de escopo
 
@@ -82,13 +79,14 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] [Manual](manual.md): instalação, serviços locais, conta, privacidade, financeiro, app e roteiro de demonstração.
 - [x] Limitações preservadas: IA treinada, autoescala, autosave contínuo, sincronização Google bidirecional e novos esportes administrativos estão no backlog.
 - [x] Ativar os serviços da implantação acadêmica com autorização do responsável e registrar testes reais: Vercel, Neon, Tigris, Brevo e cron-job.org. [Evidências por ambiente e limites](implantacao-2026-10-26.md). Asaas, Google e lojas conservam seus próprios critérios de evolução/homologação.
-- [ ] Cada integrante realizar sua entrega e registrar participação própria; nenhuma submissão acadêmica foi feita automaticamente.
 
 ## Estado de conclusão
 
-Conferência documental atualizada em 26/10/2026: [diferenças em relação aos originais, Eletiva I e homologações](aceite-escopo-sprint-2.md). As decisões de escopo estão incorporadas à ERS v2.6, incluindo CREF manual e implantação remota. A [revisão conforme o modelo do professor](historico/revisao-ers-v2.6.md), o [PDF](ERS-template-original-atualizada.pdf) e o [Word completo](ERS-template-original-atualizada.docx) restauram fichas de requisitos, cronograma, protótipos e modelos conceituais, mantêm os testes e completam seis sequências e duas atividades. Os limites das homologações externas continuam explícitos no [registro de implantação](implantacao-2026-10-26.md).
+Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado neste checklist. A ERS oficial de entrega é o [PDF final ajustado pela equipe](ERS-template-original-atualizada.pdf), que substitui o PDF anterior; o DOCX correspondente à versão anterior foi removido.
 
-Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado acima, com publicação e CI confirmadas. Acesso externo, homologação completa em aparelho, revisão coletiva e participação individual permanecem conforme as [pendências](pendencias-lucca.md). IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.
+A revisão coletiva foi concluída conforme informado pela equipe. Cada integrante deve realizar sua submissão no ambiente acadêmico. Este documento não afirma que a submissão já ocorreu.
+
+Evoluções e homologações não realizadas, como cobrança real, Google OAuth e testes em aparelhos físicos, permanecem no [backlog](backlog.md) e nos [limites da implantação](implantacao-2026-10-26.md), fora dos checks desta entrega.
 
 ## Revisão complementar de 15–20/10/2026
 
@@ -99,6 +97,5 @@ Os nove entregáveis obrigatórios possuem implementação ou artefato referenci
 - [x] Correções de limpeza de arquivos privados, backup com variável vazia e bibliotecas: [decisões](decisoes.md), [auditoria](seguranca-dependencias.md).
 - [x] Página pública com informações coerentes, menu móvel e layout sem overflow em 320/390/1440: [Chrome](evidencias/chrome-landing-revisada.json); contraste corrigido e [axe sem violações nas regras verificadas](evidencias/chrome-landing-axe.json).
 - [x] APK corrigido conectado à API/PostgreSQL/SMTP/S3: [18/18 etapas aprovadas](evidencias/android-integrated-result.json), [execução remota](evidencias/github-android-integrated.json), [upload e correção](evidencias/android-integrated-midia-feedback.png), [encerramento](evidencias/android-integrated-conta-encerrada.png).
-- [ ] Concluir a revisão coletiva e as entregas individuais. As diferenças de escopo frente à ERS/proposta originais estão registradas como decisões da equipe.
 
 - [x] CI completa da revisão, com tipos/build, 82 testes, backup, 15 E2E, nativo e TLS: [run 39645457806](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806), [registro](evidencias/github-ci-pr-2.json).

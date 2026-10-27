@@ -1,6 +1,6 @@
 # ERS no modelo do professor
 
-Versão corrente: **2.6, de 26/10/2026**. Documentos completos: [PDF](../ERS-template-original-atualizada.pdf) e [Word editável](../ERS-template-original-atualizada.docx). O PDF é exportado do próprio Word; o conteúdo textual é nativo e editável, enquanto diagramas e protótipos são imagens. A aparência foi conferida no ambiente de renderização registrado; outros editores podem repaginar o Word.
+Versão corrente: **2.6, de 26/10/2026**. Documento oficial: [PDF final ajustado pela equipe](../ERS-template-original-atualizada.pdf), fornecido e preservado sem conversão. O DOCX anterior foi retirado por não representar esses ajustes. Os arquivos desta pasta registram a geração anterior e não substituem o PDF final.
 
 A revisão restaura o formato das fichas de requisitos, as técnicas de levantamento, o detalhamento do cronograma, os protótipos e os diagramas conceituais do grupo. Mantém CREF manual, implantação remota e testes rastreáveis. O [registro das correções](../historico/revisao-ers-v2.6.md) explica as alterações e a numeração mantida conforme o modelo.
 
