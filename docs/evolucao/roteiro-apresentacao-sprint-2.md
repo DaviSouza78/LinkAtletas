@@ -88,14 +88,64 @@
 
 ## Conferência final dos nove entregáveis
 
-- [ ] Código atualizado e versionado → GitHub, commits e PRs.
-- [ ] Fluxo principal funcional → demonstração de atleta, treinador e administrador.
-- [ ] Banco criado e integrado → PostgreSQL/Neon, DER e persistência.
-- [ ] Interface responsiva integrada → desktop/celular e API.
-- [ ] Validações e erros → exemplos no site e permissões.
-- [ ] Testes com evidências → Actions, resultados e capturas.
-- [ ] Documentação da API → Swagger/OpenAPI.
-- [ ] ERS, diagramas e backlog atualizados → documentos e histórico.
-- [ ] Dificuldades, decisões e escopo registrados → decisões e limitações.
+### 1. Código-fonte atualizado e versionado
+
+- [ ] Abrir a `main` do [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas), mostrar o README e as pastas `src`, `server`, `mobile` e `tests`.
+- Mostrar a lista de commits e abrir um PR integrado, como o [PR #3 da implantação](https://github.com/DaviSouza78/LinkAtletas/pull/3) ou o [PR #4 da organização](https://github.com/DaviSouza78/LinkAtletas/pull/4).
+- Destacar: código, documentação e alterações possuem histórico; a entrega não depende apenas dos arquivos de um computador.
+
+### 2. Fluxo principal funcional de ponta a ponta
+
+- [ ] Demonstrar atleta, treinador e administrador: perfil → submissão/conferência manual de CREF → descoberta → solicitação e aceite do vínculo → publicação do treino → execução e feedback.
+- Mostrar o resultado registrado pelo atleta na conta do treinador; atualizar a página para comprovar que permanece salvo.
+- Se o tempo for curto, deixar contas e perfis preparados e executar ao vivo o vínculo e o treino. Dizer quais etapas estavam previamente preparadas.
+
+### 3. Banco de dados criado e integrado
+
+- [ ] Abrir o [DER](diagramas.md) e apontar as relações entre `users`, `profiles`, `contracts`, `workouts` e `executions`.
+- Abrir [saúde da API](https://link-atletas.vercel.app/api/health): mostrar `ok: true` e `database: postgresql`.
+- Mostrar um dado fictício salvo no site e recuperado após atualizar a página. Se abrir o Neon, mostrar as tabelas e somente dados de demonstração, sem a conexão ou credenciais.
+- Explicar em uma frase: PostgreSQL é o banco; Neon hospeda o banco de produção; a API controla o acesso. Docker mantém outro banco local, independente.
+
+### 4. Interface responsiva integrada ao back-end
+
+- [ ] Mostrar uma tela funcional no desktop e depois na visualização de celular, com menu, formulário e botões utilizáveis.
+- Salvar ou consultar um registro real pela interface; demonstrar que a outra conta recebe o resultado.
+- Se perguntarem como integra: navegador → API Fastify na Vercel → PostgreSQL no Neon. A adaptação visual não substitui essa demonstração dos dados.
+
+### 5. Validações e tratamento básico de erros
+
+- [ ] Tentar enviar um formulário com campo obrigatório vazio e fazer login com senha incorreta; mostrar a mensagem e o formulário ainda utilizável.
+- Mostrar que o treinador sem aprovação não fica disponível para contratação e que atleta não acessa funções administrativas.
+- Opcional: mostrar uma evidência de acesso negado a arquivo de outro usuário no [registro de testes remotos](evidencias/vercel-preview-50mib-2026-10-26.json). Não usar documentos pessoais na demonstração.
+
+### 6. Testes iniciais com evidências
+
+- [ ] Abrir a [CI completa aprovada](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40420233293/attempts/2) e expandir as etapas de testes, navegador/acessibilidade, aplicativo e TLS. Mostrar resultados, não apenas a existência do workflow.
+- Abrir o [relatório dos 99 testes de API/unidade](evidencias/nuvem-2026-10-26-vitest.json); localizar `numPassedTests` e `numFailedTests`.
+- Abrir o [resultado dos 15 testes de navegador](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json); localizar `stats` e destacar `expected: 15`, `unexpected: 0` e `flaky: 0` nessa execução.
+- Mostrar duas capturas: [aprovação administrativa](evidencias/verificacao-nuvem-entrega-2026-10-26/aprovacao-administrativa.png) e [execução no celular](evidencias/verificacao-nuvem-entrega-2026-10-26/execucao-mobile.png).
+- Para comprovar nuvem, abrir o [resultado de produção](evidencias/vercel-producao-2026-10-26.json) e o [cron com execuções 200 OK](evidencias/cron-producao-ativo-2026-10-26.png). Se mencionar APK, mostrar a [inicialização no emulador](evidencias/android-nuvem-inicializacao-2026-10-26.png).
+- Identificar a data e o ambiente de cada evidência. Não apresentar uma captura antiga como teste executado ao vivo nem afirmar que todas as tentativas passaram.
+
+### 7. Documentação da API
+
+- [ ] Abrir o [Swagger publicado](https://link-atletas.vercel.app/api/docs); expandir uma rota de autenticação e uma de treinos.
+- Apontar método e caminho, campos obrigatórios da requisição, estrutura da resposta e códigos de erro/autenticação.
+- Mostrar o [contrato OpenAPI publicado](https://link-atletas.vercel.app/api/openapi.json) e o [guia da API no repositório](api.md).
+- Explicar: o contrato documenta como web e aplicativo usam o mesmo back-end. Não é necessário executar todas as rotas; operações protegidas precisam de sessão e podem alterar dados.
+
+### 8. ERS, diagramas e backlog atualizados
+
+- [ ] Voltar à [ERS completa](ERS-template-original-atualizada.pdf) e mostrar o histórico de revisões, um requisito funcional e seu caso de teste correspondente.
+- Abrir os [diagramas atuais](diagramas.md): destacar o DER e uma sequência do fluxo demonstrado.
+- Abrir o [backlog](backlog.md): apontar itens implementados e evoluções futuras, como automação do CREF, homologação financeira e dispositivos/lojas.
+- Mostrar a [matriz de UCs](rastreabilidade.md) para relacionar disciplinas, atividades e evidências.
+
+### 9. Registro de dificuldades, decisões e mudanças de escopo
+
+- [ ] Abrir o [registro de decisões](decisoes.md) e selecionar dois exemplos: substituição da automação do CREF pela conferência manual e organização da solução com PostgreSQL/API compartilhada.
+- Abrir o [registro da implantação](implantacao-2026-10-26.md): explicar a dificuldade de inicialização/roteamento na Vercel e o envio em partes de 3 MiB para arquivos grandes.
+- Fechar com as [pendências reais](pendencias-lucca.md): revisão/entrega individual, aparelho físico/iOS e serviços opcionais ainda sem homologação. Reforçar que financeiro acadêmico não cobra e que limitações estão documentadas.
 
 As caixas deste roteiro são lembretes do que mostrar na apresentação, não indicadores de funcionalidades pendentes.
