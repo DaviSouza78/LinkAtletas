@@ -4,6 +4,8 @@ Este índice reúne os documentos atuais da Sprint 2. A aplicação está dispon
 
 ## Entrega acadêmica
 
+[Roteiro breve para apresentar a Sprint 2](evolucao/roteiro-apresentacao-sprint-2.md).
+
 | Documento | Referência |
 |---|---|
 | Conferência dos nove entregáveis | [Checklist da Sprint 2](evolucao/checklist-sprint-2.md) |
