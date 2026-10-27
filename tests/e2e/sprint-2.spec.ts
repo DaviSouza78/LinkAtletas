@@ -295,6 +295,37 @@ test('cadastro → aprovação → contratação → publicação → execução
         fullPage: true,
       })
     })
+    await test.step('Suspensao e revogacao preservam a decisao original e exibem o estado atual', async () => {
+      await admin.goto('/admin')
+      const verification = admin.locator('article').filter({
+        has: admin.getByRole('heading', { name: coachName, exact: true }),
+      })
+      await verification
+        .getByRole('textbox')
+        .fill('Suspensao ficticia para teste de regressao.')
+      admin.once('dialog', (dialog) => void dialog.accept())
+      await verification
+        .getByRole('button', { name: 'Suspender profissional', exact: true })
+        .click()
+      await expect(verification.getByText('Suspenso', { exact: true })).toBeVisible()
+      await expect(verification.getByText('Aprovado', { exact: true })).toBeVisible()
+      await expect(
+        verification.getByRole('button', { name: 'Suspender profissional', exact: true }),
+      ).toBeDisabled()
+      await verification
+        .getByRole('textbox')
+        .fill('Revogacao ficticia para teste de regressao.')
+      admin.once('dialog', (dialog) => void dialog.accept())
+      await verification
+        .getByRole('button', { name: 'Revogar aprovação', exact: true })
+        .click()
+      await expect(verification.getByText('Recusado', { exact: true })).toBeVisible()
+      await expect(verification.getByText('Aprovado', { exact: true })).toBeVisible()
+      await admin.screenshot({
+        path: path.join(evidenceDir, 'admin-status-atual.png'),
+        fullPage: true,
+      })
+    })
     expect(runtimeErrors).toEqual([])
   } finally {
     const closed = await Promise.allSettled([

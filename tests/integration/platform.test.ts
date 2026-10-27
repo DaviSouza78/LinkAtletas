@@ -418,6 +418,12 @@ describe.sequential('Plataforma, SMTP e S3 reais locais', () => {
     expect(row.private_payload).not.toContain('confidencial')
   })
   it('expiração e suspensão profissional removem descoberta e registram auditoria', async () => {
+    const verificationId = (
+      await pool.query(
+        "INSERT INTO verifications(coach_id,cref,evidence,status,reason) VALUES($1,'TESTE-STATUS','Registro ficticio','approved','Analise original') RETURNING id",
+        [coach.user.id],
+      )
+    ).rows[0].id
     await pool.query(
       "UPDATE profiles SET verification_expires_at=now()-interval '1 second' WHERE user_id=$1",
       [coach.user.id],
@@ -438,6 +444,16 @@ describe.sequential('Plataforma, SMTP e S3 reais locais', () => {
       { status: 'suspended', reason: 'Conferência administrativa de teste' },
     )
     expect(response.statusCode, response.body).toBe(200)
+    const listed = await call(admin, 'GET', '/admin/verifications')
+    expect(listed.statusCode).toBe(200)
+    expect(
+      listed.json().verifications.find((v: { id: string }) => v.id === verificationId),
+    ).toMatchObject({
+      status: 'approved',
+      reason: 'Analise original',
+      currentStatus: 'suspended',
+      currentReason: 'Conferência administrativa de teste',
+    })
     expect(
       (
         await pool.query(
@@ -446,6 +462,23 @@ describe.sequential('Plataforma, SMTP e S3 reais locais', () => {
         )
       ).rows[0].n,
     ).toBe(2)
+    const revoked = await call(
+      admin,
+      'PATCH',
+      `/admin/coaches/${coach.user.id}/verification`,
+      { status: 'rejected', reason: 'Revogacao ficticia de teste' },
+    )
+    expect(revoked.statusCode).toBe(200)
+    const afterRevocation = await call(admin, 'GET', '/admin/verifications')
+    expect(
+      afterRevocation.json().verifications.find(
+        (v: { id: string }) => v.id === verificationId,
+      ),
+    ).toMatchObject({
+      status: 'approved',
+      currentStatus: 'rejected',
+      currentReason: 'Revogacao ficticia de teste',
+    })
   })
   it('recuperação envia via SMTP, token só tem hash SQL, uso único e invalida sessões', async () => {
     const missing = await call(null, 'POST', '/auth/forgot-password', {

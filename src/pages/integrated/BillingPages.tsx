@@ -109,7 +109,9 @@ export function FinancePage() {
           <article className="live-panel">
             <Wallet />
             <strong>{money(summary.data.totals.receivedCents / 100)}</strong>
-            <span>Recebimentos confirmados</span>
+            <span>
+              {coach ? 'Recebimentos confirmados' : 'Pagamentos confirmados'}
+            </span>
           </article>
           <article className="live-panel">
             <Wallet />

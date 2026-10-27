@@ -60,6 +60,8 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] Correção do indicador de chat após evento tardio de socket descartado e regressão no navegador: [CI final aprovada](evidencias/github-ci-finalizacao.json), [cenário de chat](../../tests/e2e/expansion.spec.ts).
 - [x] [Tipos e build aprovados na execução registrada](evidencias/verificacao-build.txt); engines adicionais incluídos no relatório.
 
+- [x] Revisão manual posterior da interface pública e administração local, com três correções e regressão Chromium: [cenários e limites de 27/10/2026](testes-manuais-2026-10-27.md).
+
 ## 7. Documentação de API
 
 - [x] [Guia ampliado](api.md), [contratos compartilhados](../../shared/contracts.ts), [Swagger interativo](https://link-atletas.vercel.app/api/docs/) e [OpenAPI da aplicação](https://link-atletas.vercel.app/api/openapi.json).

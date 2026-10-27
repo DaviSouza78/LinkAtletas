@@ -4,6 +4,7 @@ import type {
   Profile,
   ProfileInput,
   Verification,
+  VerificationStatus,
 } from '../../../shared/contracts'
 import { SPORTS, GOALS, LEVELS, SLOTS } from '../../../shared/contracts'
 import { useAuth } from '../../context/AuthContext'
@@ -248,6 +249,8 @@ export function ProfilePage() {
   )
 }
 type ExtendedVerification = Verification & {
+  currentStatus?: VerificationStatus
+  currentReason?: string
   documentId?: string | null
   expiresAt?: string | null
   source?: string
@@ -486,9 +489,15 @@ export function AdminPage() {
                 <h3>{v.coachName}</h3>
                 <p>CREF {v.cref}</p>
               </div>
-              <Badge status={v.status} />
+              <Badge status={v.currentStatus || v.status} />
             </div>
+            <p className="live-muted">
+              Resultado desta solicitacao: <Badge status={v.status} />
+            </p>
             <p className="live-evidence">{v.evidence}</p>
+            {v.currentReason && v.currentReason !== v.reason && (
+              <p>Situacao atual: {v.currentReason}</p>
+            )}
             {v.documentId && (
               <a
                 className="button button--outline"
@@ -555,39 +564,41 @@ export function AdminPage() {
             ) : (
               <p>{v.reason || 'Registro aprovado.'}</p>
             )}
-            {v.status === 'approved' && (
-              <div className="live-form exp-inline-form">
-                <label>
-                  Justificativa da suspensão ou revogação
-                  <textarea
-                    minLength={5}
-                    maxLength={1000}
-                    value={reasons[v.id] || ''}
-                    onChange={(e) =>
-                      setReasons((value) => ({
-                        ...value,
-                        [v.id]: e.target.value,
-                      }))
-                    }
-                  />
-                </label>
-                <div className="live-actions">
-                  <button
-                    className="button button--outline"
-                    disabled={!!busy}
-                    onClick={() => void suspend(v, 'suspended')}
-                  >
-                    Suspender profissional
-                  </button>
-                  <button
-                    className="button button--outline"
-                    disabled={!!busy}
-                    onClick={() => void suspend(v, 'rejected')}
-                  >
-                    Revogar aprovação
-                  </button>
+            {v.status === 'approved' &&
+              (!v.currentStatus ||
+                ['approved', 'suspended', 'expired'].includes(v.currentStatus)) && (
+                <div className="live-form exp-inline-form">
+                  <label>
+                    Justificativa da suspensão ou revogação
+                    <textarea
+                      minLength={5}
+                      maxLength={1000}
+                      value={reasons[v.id] || ''}
+                      onChange={(e) =>
+                        setReasons((value) => ({
+                          ...value,
+                          [v.id]: e.target.value,
+                        }))
+                      }
+                    />
+                  </label>
+                  <div className="live-actions">
+                    <button
+                      className="button button--outline"
+                      disabled={!!busy || v.currentStatus === 'suspended'}
+                      onClick={() => void suspend(v, 'suspended')}
+                    >
+                      Suspender profissional
+                    </button>
+                    <button
+                      className="button button--outline"
+                      disabled={!!busy}
+                      onClick={() => void suspend(v, 'rejected')}
+                    >
+                      Revogar aprovação
+                    </button>
+                  </div>
                 </div>
-              </div>
             )}
           </article>
         ))}

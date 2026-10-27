@@ -248,7 +248,7 @@ function Conversation({ contract }: { contract: Contract }) {
           className={connected ? 'exp-connection online' : 'exp-connection'}
           role="status"
         >
-          {connected ? 'Conectado' : 'Reconectando…'}
+          {connected ? 'Conectado' : 'Atualizacao a cada 10 s'}
         </span>
       </div>
       <State {...remote} retry={remote.reload} />

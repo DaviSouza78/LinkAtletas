@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-27",
+  "environment": "https://link-atletas.vercel.app",
+  "method": "HTTP API supplementary checks and synthetic fixture cleanup",
+  "checks": [
+    {
+      "scenario": "authorized coach downloads identical private fixture",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "scenario": "anonymous cannot read private fixture",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "scenario": "athlete exports own data",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "scenario": "athlete cannot close with wrong password",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "scenario": "athlete synthetic account closed and anonymized",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "scenario": "athlete closed account cannot log in",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "scenario": "coach exports own data",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "scenario": "coach cannot close with wrong password",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "scenario": "coach synthetic account closed and anonymized",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "scenario": "coach closed account cannot log in",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "scenario": "temporary administrative session logged out",
+      "status": 200,
+      "passed": true
+    }
+  ]
+}
