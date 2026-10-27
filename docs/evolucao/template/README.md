@@ -1,32 +1,31 @@
-# ERS no template original
+# ERS no modelo do professor
 
-Documentos completos de apresentação da Sprint 2: [PDF no template](../ERS-template-original-atualizada.pdf) e [Word editável v2.5](../ERS-completa-v2.5-editavel.docx), revisão de 24/10/2026. A [ERS original da Sprint 1](../../referencias/ERS-Sprint-1-original.pdf) permanece intacta. Veja os [ajustes da v2.5](../historico/ajustes-ers-v2.5.md); o registro da auditoria aplicada à v2.4 permanece histórico.
+Versão corrente: **2.6, de 26/10/2026**. Documentos completos: [PDF](../ERS-template-original-atualizada.pdf) e [Word editável](../ERS-template-original-atualizada.docx). O PDF é exportado do próprio Word; o conteúdo textual é nativo e editável, enquanto diagramas e protótipos são imagens. A aparência foi conferida no ambiente de renderização registrado; outros editores podem repaginar o Word.
 
-Preservam-se capa, identificação, histórico, capítulos 1–7, dimensões, margens, Arial e tamanhos do texto do template. As 13 páginas iniciais recebem correções nos campos necessários; o restante é repaginado para integrar os requisitos e desenvolver os testes. A continuação original da tabela de siglas também foi mantida. Histórico usa Arial Bold/Times New Roman de 10 pontos, conforme a tabela original; corpo usa Arial de 12 pontos, títulos principais Arial Bold de 14 pontos. Figuras mantêm sua tipografia própria. Não se reduz fonte para impor quantidade de páginas.
+A revisão restaura o formato das fichas de requisitos, as técnicas de levantamento, o detalhamento do cronograma, os protótipos e os diagramas conceituais do grupo. Mantém CREF manual, implantação remota e testes rastreáveis. O [registro das correções](../historico/revisao-ers-v2.6.md) explica as alterações e a numeração mantida conforme o modelo.
 
-Os apêndices duplicados foram retirados. RF-01–24 e RF-A01–A08, 16 RNF, 16 RN, cronograma, telas e diagramas atuais estão no corpo. A seção 6 contém CT001–CT016 com resultados históricos rastreados e espaçamento entre os casos. A seção 7 tem título preto uma única vez no corpo, com nota de não aplicabilidade. Não há subseção 5.4.1 nem lista final de relatórios: não pertenciam ao template. O detalhe do banco fica no documento técnico separado. O sumário do PDF inclui as páginas físicas, links internos e marcadores.
+Preservam-se as fontes, cores, dimensões de página, cabeçalhos, capa, identificação e tabelas do documento fornecido, com correções localizadas de versão e implantação. O corpo segue Arial 12, títulos principais Arial 14 em negrito e campos em listas, conforme o documento original preenchido. O histórico mantém sua tipografia original e recebe a revisão 2.6. Não se reduz fonte para impor quantidade de páginas.
 
-## Fontes e reprodução
+## Fontes
 
-- [primeiras-paginas.json](primeiras-paginas.json): campos corrigidos sobre a fonte original.
-- [requisitos.json](requisitos.json): 32 requisitos completos, fluxos, exceções, prioridade, estado e aceite.
-- [secoes.json](secoes.json): histórico, cronograma, legendas, referências e demais seções.
-- [testes.json](testes.json): 16 casos e títulos exatos das asserções aprovadas nos registros preservados.
-- [ERS-v2.md](../ERS-v2.md): síntese auxiliar de escopo, UC, RNF e regras; mantém Word/PDF auxiliares. As especificações completas integradas estão no documento principal e no [texto repaginado](../ERS-template-original.md).
-- [atualizacoes.json](atualizacoes.json): entrada histórica da tentativa v2.3, conservada para rastreabilidade; não é usada pelo gerador atual.
+- [Modelo do professor](../../referencias/Modelo-ERS-professor-2026.pdf): estrutura das seções e dos requisitos.
+- [ERS da Sprint 1](../../referencias/ERS-Sprint-1-original.pdf): conteúdo original, cronograma, protótipos e modelos conceituais.
+- [Word fornecido para a revisão](../../referencias/ERS-base-editavel-sprint-2.docx): base editável preservada.
+- [revisao-modelo.json](revisao-modelo.json): revisão 2.6, técnicas, cronograma, figuras e atualizações de implantação.
+- [requisitos.json](requisitos.json): requisitos funcionais e fluxos; prioridade, estado e aceite ficam disponíveis como metadados, sem criar campos extras na ficha do professor.
+- [nao-funcionais.json](nao-funcionais.json): requisitos não funcionais com fluxos de verificação e limites reais.
+- [testes.json](testes.json): CT001–CT016 e asserções correspondentes a registros aprovados.
+- [originais](originais/): imagens extraídas da ERS original sem redesenhar o trabalho do grupo.
 
-Ambiente: Windows com Arial, Arial Bold e Times New Roman, Python com PyMuPDF/Pillow e dependências Node do repositório. Com o Chromium do Playwright disponível, executar na raiz:
+## Reprodução
+
+O gerador atual é [build-ers-template.py](../../../scripts/build-ers-template.py). Requer Python com python-docx, PyMuPDF e Pillow. O Word base é aberto em cópia e permanece inalterado. Após gerar o Word, exportá-lo para PDF com Word ou LibreOffice e conferir todas as páginas. Para o sumário, o documento possui campo TOC e entradas TC; o cache deve refletir a exportação final. Ao editar e repaginar no Word, atualizar o sumário.
 
 ```powershell
-node scripts/render-ers-figures.mjs
-python -X utf8 scripts/update-template-pdf.py
-python -X utf8 scripts/build-template-word.py
-pnpm exec tsx scripts/build-documents.ts ERS-v2
+python -X utf8 scripts/build-ers-template.py --reference docs/referencias/ERS-base-editavel-sprint-2.docx
 pnpm docs:check
 ```
 
-A primeira etapa converte os SVGs pelo Chromium preservando CSS e vetores. O [manifesto](figuras/manifesto.json) relaciona hashes da fonte e do PDF de cada figura, e o gerador recusa assets desatualizados. A segunda etapa gera o PDF principal, o texto repaginado e o [registro verificável](../evidencias/ers-template-verificacao.json). A conversão do Word auxiliar para PDF exige LibreOffice e não recria o template original.
+O parâmetro opcional `--page-map` recebe um JSON com as páginas observadas após a exportação para atualizar o cache do sumário. Os identificadores estão em [cabecalhos-modelo.json](cabecalhos-modelo.json). O PDF final deve ser reexportado do Word após essa atualização e novamente conferido. O [registro de verificação](../evidencias/ers-modelo-verificacao.json) associa a revisão às fontes, contagens e evidências.
 
-O gerador falha em âncoras ambíguas, texto sem espaço nos campos iniciais, margens excedidas, sumário inconsistente ou caso sem asserção aprovada correspondente. Compara as 13 páginas iniciais fora das áreas corrigidas e renderiza todas as páginas para inspeção em `%TEMP%/linkatletas-ers-template-review`. A inspeção visual deve ser registrada após conferir essas imagens; geração não é revisão visual automática.
-
-Não foi encontrado o Word editável original. O Word completo v2.5 é uma reconstrução com parágrafos/quadros posicionados e texto editável, mantendo o desenho do template em camada gráfica; imagens e diagramas permanecem imagens. Textos maiores podem exigir ajustar o quadro, em vez de refluir automaticamente como em um documento de texto corrido. A cópia foi renderizada e comparada no ambiente documentado; não se garante identidade de pixels em todos os editores. O Word auxiliar ERS-v2.docx é uma síntese distinta. A revisão não é homologação de nuvem, dispositivo físico, conselho ou gateway, nem nova execução dos testes históricos.
+`update-template-pdf.py`, `build-template-word.py`, `secoes.json`, `primeiras-paginas.json` e `figuras/` pertencem ao processo anterior da v2.5. Não devem ser executados para regenerar a revisão 2.6: o processo antigo montava primeiro o PDF e reconstruía o Word com quadros posicionados. A [síntese técnica](../ERS-v2.md) e seus arquivos auxiliares também não substituem a ERS completa acima.

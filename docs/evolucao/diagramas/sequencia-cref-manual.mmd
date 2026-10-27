@@ -1,0 +1,24 @@
+sequenceDiagram
+  actor T as Treinador
+  actor A as Administrador
+  participant API as API LinkAtletas
+  participant DB as PostgreSQL
+  participant C as Portal oficial do conselho
+  T->>API: POST /verifications
+  API->>DB: Validar perfil e salvar submissao pendente
+  API-->>T: Submissao registrada
+  A->>API: GET /admin/verifications
+  API->>DB: Listar pendencias autorizadas
+  API-->>A: CREF e evidencia do treinador
+  A->>C: Consulta humana de registro, titular e situacao
+  C-->>A: Informacao para conferencia
+  alt Fonte acessivel e decisao possivel
+    A->>API: PATCH /admin/verifications/:id
+    API->>DB: Decisao, revisor e auditoria na mesma transacao
+    DB-->>API: Estado atualizado
+    API-->>A: Decisao registrada
+    Note over API,DB: Somente aprovacao vigente habilita descoberta
+  else Consulta indisponivel ou insuficiente
+    A-->>A: Manter pendente e retomar analise
+  end
+  Note over A,C: Nao existe chamada automatica da API ao conselho

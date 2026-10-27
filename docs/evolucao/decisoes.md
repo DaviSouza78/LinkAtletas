@@ -1,5 +1,9 @@
 # Decisões, dificuldades e mudanças de escopo
 
+## Adequação da ERS ao modelo em 26/10/2026
+
+A revisão manual do grupo identificou divergências no formato das fichas de requisitos, nas técnicas de levantamento, no detalhamento do cronograma e na substituição de protótipos e modelos conceituais. A [ERS v2.6](ERS-template-original-atualizada.pdf) restaura esses elementos conforme o modelo do professor e a fonte original do grupo, mantendo CREF manual, banco implementado e implantação remota. As duas sequências atuais foram preservadas; quatro sequências e duas atividades completam a estrutura anexada. O [registro das correções](historico/revisao-ers-v2.6.md) e o [Word editável](ERS-template-original-atualizada.docx) acompanham a revisão. O PDF é exportado do Word, evitando duas montagens independentes.
+
 ## Organização do repositório em 26/10/2026
 
 O README passou a apresentar acesso, funcionalidades, instalação e documentos principais. Um [índice único](../README.md) distingue a ERS completa de suas fontes auxiliares. Planos anteriores e revisões da ERS foram separados em diretórios históricos, com links relativos atualizados. Materiais originais e evidências acadêmicas foram preservados; um relatório HTML gerado sem referências foi retirado, mantendo os resultados JSON e as capturas correspondentes.

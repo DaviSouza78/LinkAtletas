@@ -72,7 +72,7 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] [ERS v2](ERS-v2.md): RF-01–24, RNF-01–16, RN-01–16 preservados, RF-A explícitos e fluxos/exceções.
 - [x] [Backlog](backlog.md), [matriz de UCs/rastreabilidade](rastreabilidade.md) e [diagramas](diagramas.md) com fontes editáveis.
 - [x] Casos de uso UML: atores, elipses e limite de sistema, [PlantUML](diagramas/casos-de-uso.puml) e [SVG](diagramas/casos-de-uso.svg).
-- [x] ERS completa no template em [Word](ERS-completa-v2.5-editavel.docx) e [PDF](ERS-template-original-atualizada.pdf); relatório em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf), com [renderização para inspeção](evidencias/documentos/render.json).
+- [x] ERS completa v2.6 no template em [Word](ERS-template-original-atualizada.docx) e [PDF](ERS-template-original-atualizada.pdf); relatório em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf), com [renderização para inspeção](evidencias/documentos/render.json).
 - [x] Relacionar a contribuição da Eletiva I e suas evidências na [matriz](rastreabilidade.md).
 - [ ] Realizar revisão coletiva da equipe e conferir anexos acadêmicos específicos da entrega.
 
@@ -86,7 +86,7 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 
 ## Estado de conclusão
 
-Conferência documental atualizada em 24/10/2026: [diferenças em relação aos originais, Eletiva I e homologações](aceite-escopo-sprint-2.md). As decisões de escopo da equipe estão incorporadas à ERS v2.5, incluindo CREF manual. [Ajustes de estrutura e Word](historico/ajustes-ers-v2.5.md), [PDF no template original](ERS-template-original-atualizada.pdf) e [Word completo](ERS-completa-v2.5-editavel.docx) integram requisitos, figuras, testes e sumário, sem apêndices duplicados ou detalhamento adicional 5.4.1. Integração com nuvem e homologações ainda não executadas mantêm seus próprios limites.
+Conferência documental atualizada em 26/10/2026: [diferenças em relação aos originais, Eletiva I e homologações](aceite-escopo-sprint-2.md). As decisões de escopo estão incorporadas à ERS v2.6, incluindo CREF manual e implantação remota. A [revisão conforme o modelo do professor](historico/revisao-ers-v2.6.md), o [PDF](ERS-template-original-atualizada.pdf) e o [Word completo](ERS-template-original-atualizada.docx) restauram fichas de requisitos, cronograma, protótipos e modelos conceituais, mantêm os testes e completam seis sequências e duas atividades. Os limites das homologações externas continuam explícitos no [registro de implantação](implantacao-2026-10-26.md).
 
 Os nove entregáveis obrigatórios possuem implementação ou artefato referenciado acima, com publicação e CI confirmadas. Acesso externo, homologação completa em aparelho, revisão coletiva e participação individual permanecem conforme as [pendências](pendencias-lucca.md). IA treinada, autosave contínuo, novas modalidades administrativas e sincronização Google bidirecional são evoluções futuras do [backlog](backlog.md). A existência de código de integração não certifica operação externa nem conformidade integral LGPD/PCI/WCAG.
 

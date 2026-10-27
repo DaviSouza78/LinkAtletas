@@ -1,0 +1,21 @@
+sequenceDiagram
+  actor U as Usuario
+  participant W as Web
+  participant API as API LinkAtletas
+  participant DB as PostgreSQL
+  participant J as Jobs protegidos
+  participant SMTP as Brevo SMTP
+  U->>W: Solicitar recuperacao de senha
+  W->>API: POST /auth/forgot-password
+  API->>DB: Para conta elegivel, token e outbox cifrada
+  API-->>W: Resposta generica
+  J->>DB: Buscar envio pendente
+  J->>SMTP: Enviar link de recuperacao
+  SMTP-->>J: Aceite SMTP ou erro
+  J->>DB: Atualizar tentativa e resultado
+  Note over J,SMTP: Aceite SMTP nao comprova chegada a caixa de entrada
+  U->>W: Abrir link e informar nova senha
+  W->>API: POST /auth/reset-password
+  API->>DB: Validar token, alterar senha e revogar sessoes
+  API-->>W: Resultado da redefinicao
+  Note over API,DB: Token expirado ou ja utilizado e rejeitado

@@ -1,0 +1,16 @@
+flowchart TD
+  A([Inicio]) --> B[Atleta consulta treinadores elegiveis]
+  B --> C[Solicita vinculo]
+  C --> D{Treinador aceita?}
+  D -- Nao --> E[Registrar recusa]
+  E --> B
+  D -- Sim --> F{Modo academico?}
+  F -- Sim --> G[Vinculo ativo sem cobranca]
+  F -- Nao --> H[Aguardar confirmacao financeira do provedor]
+  H --> I{Acesso financeiro liberado?}
+  I -- Nao --> H
+  I -- Sim --> G
+  G --> J[Treinador prescreve e publica ficha]
+  J --> K[Atleta consulta e registra execucao]
+  K --> L[Treinador acompanha feedback]
+  L --> M([Fim])

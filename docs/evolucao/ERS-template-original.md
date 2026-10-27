@@ -1,1012 +1,1388 @@
-# ERS v2.5 - LinkAtletas
+# ERS v2.6 - LinkAtletas
 
-Data: 24/10/2026. Fonte textual das seções repaginadas do PDF; capa, identificação, histórico e seções iniciais são preservados do template e corrigidos pelos campos versionados.
+1 Introdução	5
 
-Complemento das definições: SMTP — transporte de e-mail; MVP — produto mínimo viável. Match é a nota determinística de compatibilidade, distinta da avaliação pública. O CREF é conferido por uma pessoa; formato do número não comprova regularidade profissional.
+1.1 Objetivos deste documento	6
+
+1.2 Escopo do produto	6
+
+1.2.1 Nome do produto e componentes principais	6
+
+1.2.2 Descrição do produto	7
+
+1.2.3 Missão do produto	8
+
+1.2.4 Tabela de viabilidade	8
+
+1.2.5 Justificativa	11
+
+1.3 Definições e siglas	13
+
+1.4 Técnica(s) utilizada(s) para levantamento de requisitos	14
+
+2. Requisitos Específicos	14
+
+2.1 Requisitos Funcionais (RF)	14
+
+2.2 Requisitos Não Funcionais (RNF)	30
+
+2.3 Regras de Negócio (RN)	38
+
+3. Cronograma do Projeto	40
+
+3.1 Planejamento de Sprints	40
+
+4. Protótipo do produto	44
+
+5. Diagramas UML	48
+
+5.1 Diagrama de Casos de Uso	48
+
+5.1 Diagrama de Classes	49
+
+5.2 Diagrama de Sequência	50
+
+5.3 Diagrama de Atividade	56
+
+5.4 DER	58
+
+6. Casos de Testes	59
+
+7. Apêndices	67
 
 ### 1.4 Técnica(s) utilizada(s) para levantamento de requisitos
 
-A especificação foi construída a partir da demanda SAGA nº 12871, da proposta Ivi-it e do roteiro acadêmico. A equipe consolidou requisitos por análise documental, discussão do fluxo esportivo e prototipação. Os protótipos históricos estão no Stitch; não se atribui sua produção ao Figma sem registro correspondente.
+As seguintes técnicas foram utilizadas:
 
-A revisão da Sprint 2 confrontou a ERS inicial, o backlog, os contratos da API, os modelos e as evidências de execução existentes. Não se registra entrevista ou homologação por cliente que não esteja documentada. As decisões de escopo são da equipe.
+•	Brainstorming
 
-As tabelas de viabilidade anteriores preservam estimativas acadêmicas: investimento inicial de R$ 7.018,00, operação mensal de R$ 1.025,00 e trabalho de 408 horas a R$ 16,00 (R$ 6.528,00). Não são preços atuais pesquisados, gastos realizados ou serviços contratados. Os planos comerciais apresentados são hipóteses de evolução.
+•	Observação do processo atual
 
-## 2 Requisitos Específicos
+•	Análise de sistemas similares
 
-### 2.1 Requisitos funcionais
+•	Prototipagem de Baixa Fidelidade
 
-P0 identifica o fluxo essencial e P1 os complementos. Prioridade não comprova implementação ou homologação: cada requisito informa seu estado e limite. RF-01–24 preservam os identificadores originais; RF-A01–A08 identificam a ampliação já registrada, incorporada nesta seção sem duplicar a especificação em apêndices.
+## 2. Requisitos Específicos
 
-### RF-01 - Cadastro e edição de perfil do atleta
+### 2.1 Requisitos Funcionais (RF)
 
-**Prioridade:** P0. Estado e limite: Implementado; evidências de API e interface.
+Os requisitos abaixo descrevem a interação entre usuário e sistema. RF-01 a RF-24 mantêm a identificação original; RF-A01 a RF-A08 correspondem às funcionalidades complementares incorporadas na Sprint 2. A lista priorizada e o estado de implementação estão no backlog do projeto.
 
-**Descrição:** Criar conta de atleta e manter nome, cidade, modalidades, objetivos, níveis, orçamento, disponibilidade e atendimento. Dados privados de saúde são opcionais e dependem de consentimento específico.
+Os requisitos financeiros RF-11 a RF-13 e RF-24 possuem integração preparada e testes controlados. A demonstração acadêmica não realiza cobranças reais.
 
-**Atores:** Atleta
+### [RF 01] – Cadastro e edição de perfil do atleta
+
+**Descrição:** O sistema deve permitir que o atleta crie sua conta e mantenha atualizadas suas informações pessoais, localização e preferências esportivas para direcionamento na plataforma. Dados privados de saúde são opcionais e exigem consentimento específico.
+
+**Ator Principal:** Atleta
 
 **Pré-condições:** Visitante para criar conta; titular autenticado para manter o perfil.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Informar nome, e-mail e senha; o servidor valida a entrada, cria conta e perfil e inicia sessão.
+1.	Informar nome, e-mail e senha; o servidor valida a entrada, cria conta e perfil e inicia sessão.
 
-2. Completar as preferências esportivas e salvar o perfil.
+2.	Completar as preferências esportivas e salvar o perfil.
 
-3. O servidor valida as opções e persiste as alterações; a próxima busca usa os dados atuais.
+3.	O servidor valida as opções e persiste as alterações; a próxima busca usa os dados atuais.
 
-**Alternativas e exceções:** E-mail duplicado, senha inadequada ou opções inválidas impedem a gravação e exibem erro. Não há fila de aprendizagem ou recomendação em segundo plano.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** O titular reabre o perfil persistido; terceiros não podem alterá-lo.
+A1 - E-mail já cadastrado: impedir a criação de conta duplicada e informar o erro.
 
-### RF-02 - Cadastro e edição de perfil do treinador
+A2 - Campos inválidos: destacar a informação que precisa de correção e impedir a gravação até o ajuste.
 
-**Prioridade:** P0. Estado e limite: Implementado; evidências de API e interface.
+### [RF 02] – Cadastro e edição de perfil do treinador
 
-**Descrição:** Manter nome, bio, cidade, modalidades, objetivos, níveis atendidos, disponibilidade, formato de atendimento e preço. Bio reúne a apresentação profissional; não há cadastro separado de planos comerciais Starter/Pro/Business.
+**Descrição:** O sistema deve permitir que o treinador cadastre e mantenha seu perfil profissional, incluindo nome, apresentação, cidade, modalidades, objetivos, níveis atendidos, disponibilidade, formato de atendimento e preço.
 
-**Atores:** Treinador
+**Ator Principal:** Treinador
 
 **Pré-condições:** Visitante para criar conta; treinador autenticado para editar o próprio perfil.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Criar conta com papel treinador e acessar o perfil.
+1.	Criar conta com papel treinador e acessar o perfil.
 
-2. Preencher os campos profissionais e salvar.
+2.	Preencher os campos profissionais e salvar.
 
-3. O servidor valida e persiste; a publicação na descoberta depende da aprovação profissional vigente.
+3.	O servidor valida e persiste; a publicação na descoberta depende da aprovação profissional vigente.
 
-**Alternativas e exceções:** Dados incompletos ou inválidos exigem correção. Editar o perfil não concede aprovação de CREF.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Perfil salvo pertence ao titular e respeita a condição de publicação.
+A1 - Dados incompletos ou inválidos exigem correção.
 
-### RF-03 - Submissão de registro profissional
+A2 - Editar o perfil não concede aprovação de CREF.
 
-**Prioridade:** P0. Estado e limite: Implementado e testado com dados fictícios.
+### [RF 03] – Submissão de registro profissional
 
-**Descrição:** Submeter CREF e evidência textual para análise administrativa. Documento privado de imagem/PDF é opcional; vídeo não é aceito como comprovação profissional. CREF deve ter de 4 a 50 caracteres e a evidência de 10 a 2.000 caracteres, conforme schema vigente.
+**Descrição:** O sistema deve permitir ao treinador submeter seu número de CREF e evidência textual para análise administrativa, com documento privado de imagem ou PDF opcional. O número deve ter de 4 a 50 caracteres e a evidência, de 10 a 2.000 caracteres.
 
-**Atores:** Treinador
+**Ator Principal:** Treinador
 
 **Pré-condições:** Conta autenticada e perfil com modalidade, nível, objetivos e disponibilidade preenchidos.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Informar CREF e evidência; anexar documento próprio se necessário.
+1.	Informar CREF e evidência; anexar documento próprio se necessário.
 
-2. O servidor valida formato, propriedade e finalidade do arquivo.
+2.	O servidor valida formato, propriedade e finalidade do arquivo.
 
-3. Persistir a submissão pendente e disponibilizá-la à administração.
+3.	Persistir a submissão pendente e disponibilizá-la à administração.
 
-**Alternativas e exceções:** Perfil incompleto, documento alheio ou perfil já aprovado geram erro. Validade de formato não comprova regularidade no conselho.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Titular e administrador autorizado consultam a submissão; o pendente não entra na descoberta.
+A1 - Perfil incompleto, documento alheio ou perfil já aprovado geram erro.
 
-### RF-04 - Conferência manual do registro profissional
+A2 - Validade de formato não comprova regularidade no conselho.
 
-**Prioridade:** P0. Estado e limite: Implementado; procedimento manual definido pela equipe.
+### [RF 04] – Conferência manual do registro profissional
 
-**Descrição:** O administrador consulta o portal oficial do conselho, compara CREF, titularidade e situação e registra a decisão. A consulta é humana: a aplicação não acessa nem certifica automaticamente os dados do conselho.
+**Descrição:** O sistema deve permitir que o administrador registre a decisão sobre o registro profissional após consultar manualmente a fonte oficial do conselho e conferir CREF, titularidade e situação. A aplicação mantém a decisão, o responsável, o motivo e a validade administrativa.
 
-**Atores:** Administrador
+**Ator Principal:** Administrador
 
 **Pré-condições:** Submissão pendente e administrador autenticado.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Abrir a submissão e conferir a fonte oficial.
+1.	Abrir a submissão e conferir a fonte oficial.
 
-2. Registrar no motivo a fonte, a data e o resultado da conferência; a evidência enviada pelo treinador permanece distinta desse registro administrativo.
+2.	Registrar no motivo a fonte, a data e o resultado da conferência; a evidência enviada pelo treinador permanece distinta desse registro administrativo.
 
-3. Aprovar ou rejeitar com motivo de 5 a 1.000 caracteres; informar validade futura quando aplicável.
+3.	Aprovar ou rejeitar com motivo de 5 a 1.000 caracteres; informar validade futura quando aplicável.
 
-4. O servidor grava decisão, revisor e auditoria na mesma transação e atualiza o perfil.
+4.	O servidor grava decisão, revisor e auditoria na mesma transação e atualiza o perfil.
 
-**Alternativas e exceções:** Consulta indisponível ou dados insuficientes mantêm a análise pendente. Divergência exige rejeição motivada e eventual nova submissão. Decisão repetida é conflito. Sem prazo explícito, aprovação usa 365 dias como validade administrativa padrão, não como validade oficial da cédula.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Somente aprovação vigente permite descoberta; não existe campo separado obrigatório de evidência de consulta nem automação de CREF no escopo atual.
+A1 - Consulta indisponível ou dados insuficientes mantêm a análise pendente.
 
-### RF-05 - Autenticação e controle de acesso
+A2 - Divergência exige rejeição motivada e eventual nova submissão.
 
-**Prioridade:** P0. Estado e limite: Implementado; testes de sessão, papéis e origem.
+A3 - Decisão repetida é conflito.
 
-**Descrição:** Autenticar e autorizar por papel, propriedade e estado. A web usa cookie HttpOnly; o app usa token Bearer opaco guardado no SecureStore. Atletas também acessam a web.
+A4 - Sem prazo explícito, aprovação usa 365 dias como validade administrativa padrão, não como validade oficial da cédula.
 
-**Atores:** Atleta, treinador e administrador
+### [RF 05] – Autenticação e controle de acesso
+
+**Descrição:** O sistema deve autenticar atletas, treinadores e administradores e restringir as operações conforme papel, propriedade do recurso e estado da conta. A web utiliza sessão em cookie HttpOnly; o aplicativo utiliza token Bearer opaco armazenado no SecureStore.
+
+**Ator Principal:** Atleta, treinador e administrador
 
 **Pré-condições:** Conta existente e ativa; administrador provisionado por procedimento próprio.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Informar e-mail e senha; o servidor verifica a credencial e inicia sessão.
+1.	Informar e-mail e senha; o servidor verifica a credencial e inicia sessão.
 
-2. Acessar funções permitidas ao papel e ao recurso solicitado.
+2.	Acessar funções permitidas ao papel e ao recurso solicitado.
 
-3. Ao sair, invalidar a sessão; a recuperação segue RF-A01.
+3.	Ao sair, invalidar a sessão; a recuperação segue RF-A01.
 
-**Alternativas e exceções:** Credencial inválida, sessão expirada ou acesso indevido são negados. O cadastro público não permite criar administrador.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Sessão válida autoriza somente recursos próprios/permitidos; logout impede reutilização.
+A1 - Credencial inválida, sessão expirada ou acesso indevido são negados.
 
-### RF-06 - Processamento de matchmaking por regras
+A2 - O cadastro público não permite criar administrador.
 
-**Prioridade:** P0. Estado e limite: Implementado; testes unitários, API e carga sintética.
+### [RF 06] – Processamento de matchmaking por regras
 
-**Descrição:** Filtrar modalidade e compatibilidade de atendimento/cidade e calcular nota explicável: objetivos 30, nível 20, orçamento 25 e horário em comum 25. Sem correspondência, o critério não soma pontos. Não há modelo treinado.
+**Descrição:** O sistema deve calcular a compatibilidade entre atleta e treinadores elegíveis por regras explicáveis. Após filtrar modalidade e atendimento/cidade, a pontuação considera objetivos (30), nível (20), orçamento (25) e horário em comum (25), somando até 100 pontos.
 
-**Atores:** Sistema, solicitado pelo atleta
+**Ator Principal:** Sistema, solicitado pelo atleta
 
 **Pré-condições:** Atleta autenticado com preferências; profissionais aprovados e elegíveis.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Consultar profissionais aprovados, ativos e com validade vigente.
+1.	Consultar profissionais aprovados, ativos e com validade vigente.
 
-2. Excluir incompatíveis em modalidade e atendimento; quando presencial exigir cidade, excluir cidade incompatível ou ausente.
+2.	Excluir incompatíveis em modalidade e atendimento; quando presencial exigir cidade, excluir cidade incompatível ou ausente.
 
-3. Calcular score e razões; ordenar por score, nome e identificador para desempate.
+3.	Calcular score e razões; ordenar por score, nome e identificador para desempate.
 
-**Alternativas e exceções:** Não há resultado quando os filtros eliminam todos os candidatos. A cidade incompatível no presencial não é apenas penalidade de nota. Não há cache de recomendações no caminho testado.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Mesmas entradas produzem resultado determinístico e razões verificáveis.
+A1 - Sem candidatos: informar a ausência de resultados quando os filtros eliminarem os profissionais disponíveis.
 
-### RF-07 - Busca e filtragem de treinadores
+A2 - Atendimento presencial incompatível: excluir candidatos cuja cidade seja incompatível ou não esteja informada.
 
-**Prioridade:** P0. Estado e limite: Implementado e testado.
+### [RF 07] – Busca e filtragem de treinadores
 
-**Descrição:** Consultar a descoberta por modalidade, texto, preço máximo e atendimento. O texto pesquisa nome, cidade e bio. Avaliações públicas não constituem filtro de nota mínima na versão atual.
+**Descrição:** O sistema deve permitir ao atleta buscar treinadores por modalidade, texto, preço máximo e formato de atendimento. A busca textual deve considerar nome, cidade e apresentação profissional.
 
-**Atores:** Atleta
+**Ator Principal:** Atleta
 
 **Pré-condições:** Sessão válida.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Abrir a descoberta e informar filtros disponíveis.
+1.	Abrir a descoberta e informar filtros disponíveis.
 
-2. O servidor aplica elegibilidade, matching e filtros.
+2.	O servidor aplica elegibilidade, matching e filtros.
 
-3. Exibir cards, score e razões; limpar filtros refaz a consulta.
+3.	Exibir cards, score e razões; limpar filtros refaz a consulta.
 
-**Alternativas e exceções:** Entrada inválida gera erro; ausência de resultados permite revisar filtros. Suspensão/expiração é verificada no servidor em nova consulta, sem garantia de atualização instantânea de toda lista já aberta.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** A resposta contém apenas treinadores elegíveis que atendem aos filtros suportados.
+A1 - Entrada inválida gera erro; ausência de resultados permite revisar filtros.
 
-### RF-08 - Visualização do portfólio do treinador
+A2 - Suspensão/expiração é verificada no servidor em nova consulta, sem garantia de atualização instantânea de toda lista já aberta.
 
-**Prioridade:** P1. Estado e limite: Implementado; dados persistidos.
+### [RF 08] – Visualização do portfólio do treinador
 
-**Descrição:** Apresentar bio, modalidades, atendimento, cidade, preço, registro profissional, compatibilidade e avaliações publicadas. Documentos profissionais e mídias privadas não são portfólio público.
+**Descrição:** O sistema deve apresentar o portfólio do treinador com apresentação, modalidades, atendimento, cidade, preço, registro profissional, compatibilidade e avaliações publicadas, preservando a privacidade dos documentos e mídias restritos.
 
-**Atores:** Atleta
+**Ator Principal:** Atleta
 
 **Pré-condições:** Acesso autorizado à descoberta.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Selecionar um profissional exibido na descoberta.
+1.	Selecionar um profissional exibido na descoberta.
 
-2. Consultar os dados públicos e avaliações visíveis.
+2.	Consultar os dados públicos e avaliações visíveis.
 
-3. Iniciar solicitação de vínculo se o profissional continuar elegível.
+3.	Iniciar solicitação de vínculo se o profissional continuar elegível.
 
-**Alternativas e exceções:** Perfil indisponível ou inelegível não autoriza contratação. Não há biblioteca pública de vídeos ou campos de especialização independentes da bio.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Nenhum documento privado é exposto ao visitante da descoberta.
+A1 - Perfil indisponível ou inelegível: impedir a contratação e informar que o profissional não está disponível para um novo vínculo.
 
-### RF-09 - Solicitação de contratação e assinatura
+### [RF 09] – Solicitação de contratação e assinatura
 
-**Prioridade:** P0. Estado e limite: Fluxo acadêmico implementado e testado; financeiro externo não homologado.
+**Descrição:** O sistema deve permitir ao atleta solicitar um vínculo com treinador elegível. A solicitação deve permanecer pendente até a decisão do profissional, antes de qualquer intenção financeira.
 
-**Descrição:** Criar solicitação pendente de vínculo. O treinador decide antes da intenção financeira; não há pré-autorização de cartão durante o pedido.
-
-**Atores:** Atleta
+**Ator Principal:** Atleta
 
 **Pré-condições:** Atleta autenticado e treinador elegível.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Confirmar interesse no treinador.
+1.	Confirmar interesse no treinador.
 
-2. O servidor revalida elegibilidade e unicidade de ciclo vigente e persiste o pedido.
+2.	O servidor revalida elegibilidade e unicidade de ciclo vigente e persiste o pedido.
 
-3. Após o aceite, modo acadêmico mantém vínculo sem cobrança; modo Asaas configurado permite preparar checkout.
+3.	Após o aceite, modo acadêmico mantém vínculo sem cobrança; modo Asaas configurado permite preparar checkout.
 
-**Alternativas e exceções:** Duplicidade, papel incorreto ou profissional inelegível geram erro. Um ciclo anterior encerrado/recusado permite novo ciclo sem mover seu histórico.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Pedido persistido fica disponível somente às partes autorizadas.
+A1 - Duplicidade, papel incorreto ou profissional inelegível geram erro.
 
-### RF-10 - Aceite ou recusa de solicitação de aluno
+A2 - Um ciclo anterior encerrado/recusado permite novo ciclo sem mover seu histórico.
 
-**Prioridade:** P0. Estado e limite: Implementado; inclusive teste de aceite concorrente.
+### [RF 10] – Aceite ou recusa de solicitação de aluno
 
-**Descrição:** Decidir exclusivamente sobre os pedidos destinados ao treinador, com transação e preservação do ciclo.
+**Descrição:** O sistema deve permitir que o treinador aceite ou recuse exclusivamente as solicitações destinadas ao seu perfil, registrando a decisão e preservando o histórico do ciclo.
 
-**Atores:** Treinador destinatário
+**Ator Principal:** Treinador destinatário
 
 **Pré-condições:** Solicitação pendente e profissional elegível para aceitar.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Consultar pedidos e perfil do solicitante.
+1.	Consultar pedidos e perfil do solicitante.
 
-2. Aceitar ou recusar; o servidor bloqueia o registro e verifica o destinatário e estado.
+2.	Aceitar ou recusar; o servidor bloqueia o registro e verifica o destinatário e estado.
 
-3. Atualizar vínculo/carteira. No modo financeiro, acesso depende da vigência aplicável.
+3.	Atualizar vínculo/carteira. No modo financeiro, acesso depende da vigência aplicável.
 
-**Alternativas e exceções:** Terceiro não decide; concorrência ou nova decisão sobre pedido resolvido gera conflito. Recusa não inicia cobrança nem reduz a nota do match.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Uma única decisão efetiva é persistida para a solicitação.
+A1 - Terceiro não decide; concorrência ou nova decisão sobre pedido resolvido gera conflito.
 
-### RF-11 - Pagamento recorrente
+A2 - Recusa não inicia cobrança nem reduz a nota do match.
 
-**Prioridade:** P1. Estado e limite: Adaptador e testes HTTP controlados existentes; homologação sandbox prevista para continuidade financeira da Sprint 3.
+### [RF 11] – Pagamento recorrente
 
-**Descrição:** Preparar checkout hospedado e acompanhar assinatura por eventos autenticados. O provedor gerencia cobrança; a aplicação não recebe dados brutos de cartão.
+**Descrição:** No modo financeiro configurado, o sistema deve preparar checkout hospedado e acompanhar a assinatura por eventos autenticados. O provedor gerencia a cobrança, sem transmitir dados brutos de cartão ao LinkAtletas.
 
-**Atores:** Atleta, sistema e Asaas configurado
+**Ator Principal:** Atleta, sistema e Asaas configurado
 
 **Pré-condições:** Ciclo aceito; modo Asaas, plano, carteira e credenciais configurados.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Persistir intenção única e solicitar checkout recorrente ao provedor.
+1.	Persistir intenção única e solicitar checkout recorrente ao provedor.
 
-2. Apresentar URL hospedada ao atleta.
+2.	Apresentar URL hospedada ao atleta.
 
-3. Receber webhook autenticado e persistir evento único.
+3.	Receber webhook autenticado e persistir evento único.
 
-4. Processar evento e atualizar estado e vigência.
+4.	Processar evento e atualizar estado e vigência.
 
-**Alternativas e exceções:** Sem configuração não há sucesso externo. Timeout mantém resultado incerto para conciliação; redirect não confirma pagamento. Modo acadêmico não cobra.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Estado financeiro decorre de evento/reconciliação válidos, sem duplicar intenção local.
+A1 - Sem configuração não há sucesso externo.
 
-### RF-12 - Divisão de pagamento
+A2 - Timeout mantém resultado incerto para conciliação; redirect não confirma pagamento.
 
-**Prioridade:** P1. Estado e limite: Testado com respostas HTTP controladas; repasse externo não homologado.
+A3 - Modo acadêmico não cobra.
 
-**Descrição:** Solicitar split no checkout e registrar eventos/valores. Estimativa de participação não é comprovação de liquidação ou repasse bancário.
+### [RF 12] – Divisão de pagamento
 
-**Atores:** Sistema e provedor financeiro
+**Descrição:** No modo financeiro configurado, o sistema deve solicitar ao provedor a divisão do pagamento entre a taxa da plataforma e a participação do treinador e registrar as referências e valores retornados.
+
+**Ator Principal:** Sistema e provedor financeiro
 
 **Pré-condições:** Carteira elegível, comissão configurada e modo Asaas.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Ler carteira e comissão administrativa.
+1.	Ler carteira e comissão administrativa.
 
-2. Enviar a participação ao provedor no checkout.
+2.	Enviar a participação ao provedor no checkout.
 
-3. Processar eventos autenticados e registrar referências, valores e estados dos splits.
+3.	Processar eventos autenticados e registrar referências, valores e estados dos splits.
 
-**Alternativas e exceções:** Carteira/configuração inválida impede a operação; falha externa segue conciliação. A aplicação não assume poder de reter ou liberar saldo bancário por conta própria.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Cálculos e eventos são rastreáveis, com validação real de split ainda pendente no provedor.
+A1 - Carteira/configuração inválida impede a operação; falha externa segue conciliação.
 
-### RF-13 - Inadimplência e carência
+A2 - A aplicação não assume poder de reter ou liberar saldo bancário por conta própria.
 
-**Prioridade:** P1. Estado e limite: Testes financeiros controlados; serviço externo pendente de homologação.
+### [RF 13] – Inadimplência e carência
 
-**Descrição:** Manter estados de pagamento, período pago e carência configurada; suspender novas interações quando a regra de acesso exigir.
+**Descrição:** No modo financeiro configurado, o sistema deve acompanhar o estado do pagamento, o período pago e a carência definida, suspendendo novas interações quando a regra de acesso exigir.
 
-**Atores:** Sistema e jobs
+**Ator Principal:** Sistema e jobs
 
 **Pré-condições:** Assinatura financeira e eventos válidos.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Registrar evento e preservar a vigência confirmada.
+1.	Registrar evento e preservar a vigência confirmada.
 
-2. Aplicar carência e conciliar pendências por jobs.
+2.	Aplicar carência e conciliar pendências por jobs.
 
-3. Restaurar regularidade após confirmação ou bloquear novas ações ao terminar o prazo aplicável.
+3.	Restaurar regularidade após confirmação ou bloquear novas ações ao terminar o prazo aplicável.
 
-**Alternativas e exceções:** Evento antigo não reduz período pago. Criação de cobrança com resultado incerto não recebe repetição cega; histórico não é apagado por suspensão.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Transições obedecem ao estado persistido, sem transformar erro em pagamento aprovado.
+A1 - Evento antigo não reduz período pago.
 
-### RF-14 - Prescrição de fichas de treino
+A2 - Criação de cobrança com resultado incerto não recebe repetição cega; histórico não é apagado por suspensão.
 
-**Prioridade:** P0. Estado e limite: Implementado e testado no fluxo principal.
+### [RF 14] – Prescrição de fichas de treino
 
-**Descrição:** Criar ficha com modalidade, data e blocos com orientações, metas e métricas; salvar rascunho por ação explícita ou publicar.
+**Descrição:** O sistema deve permitir ao treinador criar fichas de treino com modalidade, data e blocos de exercícios, orientações, metas e métricas, com ações explícitas de salvar rascunho e publicar.
 
-**Atores:** Treinador
+**Ator Principal:** Treinador
 
 **Pré-condições:** Ciclo ativo, aprovação profissional e acesso financeiro aplicável válidos.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Selecionar o atleta do vínculo e preencher ficha/blocos.
+1.	Selecionar o atleta do vínculo e preencher ficha/blocos.
 
-2. Salvar rascunho privado ou solicitar publicação.
+2.	Salvar rascunho privado ou solicitar publicação.
 
-3. O servidor valida propriedade e catálogo e persiste; atleta consulta somente o publicado.
+3.	O servidor valida propriedade e catálogo e persiste; atleta consulta somente o publicado.
 
-**Alternativas e exceções:** Dados inválidos impedem gravação. Terceiro não prescreve. Encerramento efetivo impede novas prescrições; não significa apagar fichas históricas.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Rascunho reabre para o treinador e publicado aparece apenas ao atleta autorizado.
+A1 - Dados inválidos impedem gravação.
 
-### RF-15 - Orientação e mídia demonstrativa
+A2 - Terceiro não prescreve.
 
-**Prioridade:** P1. Estado e limite: Implementado; serviços locais testados.
+A3 - Encerramento efetivo impede novas prescrições; não significa apagar fichas históricas.
 
-**Descrição:** Associar referência HTTPS por bloco e mídia privada de orientação ligada à ficha. Não existe biblioteca pública de exercícios gerida separadamente.
+### [RF 15] – Orientação e mídia demonstrativa
 
-**Atores:** Treinador
+**Descrição:** O sistema deve permitir ao treinador associar referências HTTPS aos blocos e mídias privadas de orientação à ficha, disponibilizando-as somente aos participantes autorizados.
+
+**Ator Principal:** Treinador
 
 **Pré-condições:** Ficha e vínculo autorizados.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Informar referência HTTPS no bloco ou selecionar arquivo de orientação para a ficha.
+1.	Informar referência HTTPS no bloco ou selecionar arquivo de orientação para a ficha.
 
-2. O servidor valida finalidade, arquivo e autorização.
+2.	O servidor valida finalidade, arquivo e autorização.
 
-3. Armazenar mídia privada cifrada e permitir recuperação somente ao usuário autorizado.
+3.	Armazenar mídia privada cifrada e permitir recuperação somente ao usuário autorizado.
 
-**Alternativas e exceções:** Formato, tamanho ou propriedade inválidos são recusados. S3 local em desenvolvimento não comprova armazenamento hospedado em nuvem.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Atleta do vínculo acessa orientação permitida; terceiros não baixam o arquivo.
+A1 - Arquivo inválido: recusar formato ou tamanho não permitido.
 
-### RF-16 - Consulta de treinos prescritos
+A2 - Acesso indevido: negar a associação ou leitura de mídia que não pertença ao usuário ou ao recurso autorizado.
 
-**Prioridade:** P0. Estado e limite: Implementado; API, navegador e APK integrado.
+### [RF 16] – Consulta de treinos prescritos
 
-**Descrição:** Listar fichas publicadas, blocos e referências de orientação; preservar o histórico do ciclo conforme autorização.
+**Descrição:** O sistema deve permitir ao atleta consultar suas fichas publicadas, blocos de exercícios e referências de orientação, preservando o histórico conforme as regras de autorização do ciclo.
 
-**Atores:** Atleta
+**Ator Principal:** Atleta
 
 **Pré-condições:** Sessão válida e acesso autorizado ao vínculo/ficha.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Abrir a área de treinos.
+1.	Abrir a área de treinos.
 
-2. Selecionar ficha publicada e consultar blocos, metas e orientação.
+2.	Selecionar ficha publicada e consultar blocos, metas e orientação.
 
-3. Iniciar registro de execução pelo RF-17.
+3.	Iniciar registro de execução pelo RF-17.
 
-**Alternativas e exceções:** Sem fichas publicadas, mostrar estado vazio. Rascunho privado e ficha de terceiro não ficam acessíveis.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Somente fichas autorizadas são retornadas pela API e exibidas na interface.
+A1 - Sem fichas publicadas, mostrar estado vazio.
 
-### RF-17 - Registro de execução e feedback
+A2 - Rascunho privado e ficha de terceiro não ficam acessíveis.
 
-**Prioridade:** P0. Estado e limite: Implementado e testado.
+### [RF 17] – Registro de execução e feedback
 
-**Descrição:** Registrar blocos realizados, métricas do catálogo, esforço de 1 a 10 e observações, com payload privado cifrado e uma execução por ficha.
+**Descrição:** O sistema deve permitir ao atleta registrar os blocos realizados, métricas do catálogo, percepção de esforço de 1 a 10 e observações, mantendo uma execução por ficha e os dados privados cifrados.
 
-**Atores:** Atleta
+**Ator Principal:** Atleta
 
 **Pré-condições:** Ficha publicada autorizada e acesso válido.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Marcar blocos concluídos e preencher métricas/esforço/observações.
+1.	Marcar blocos concluídos e preencher métricas/esforço/observações.
 
-2. O servidor valida chaves, limites e índices e grava a execução.
+2.	O servidor valida chaves, limites e índices e grava a execução.
 
-3. Atualização autorizada altera o mesmo registro; o treinador consulta o retorno.
+3.	Atualização autorizada altera o mesmo registro; o treinador consulta o retorno.
 
-**Alternativas e exceções:** Execução parcial é permitida; métricas desconhecidas, fora da faixa ou blocos inexistentes são recusados.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Persistência mantém uma execução por ficha e não revela conteúdo a terceiros.
+A1 - Execução parcial é permitida; métricas desconhecidas, fora da faixa ou blocos inexistentes são recusados.
 
-### RF-18 - Mídia de performance e correção técnica
+### [RF 18] – Mídia de performance e correção técnica
 
-**Prioridade:** P1. Estado e limite: Implementado; upload e correção verificados no APK integrado.
+**Descrição:** O sistema deve permitir ao atleta enviar mídia privada de performance e ao treinador autorizado registrar a correção técnica. Os arquivos devem respeitar tipo e finalidade, com limite de 50 MiB para vídeo e 10 MiB para os demais tipos permitidos. O cliente móvel utiliza seletor de arquivos; a implantação remota realiza upload em partes.
 
-**Descrição:** Selecionar e enviar mídia privada de performance para análise do treinador. A versão móvel usa seletor de arquivos; câmera própria e upload retomável automático não são funcionalidades comprovadas. Tipos reconhecidos pelo módulo: PNG, JPEG, WebP, PDF, MP4 e WebM, respeitando a finalidade. Limites: 50 MiB por vídeo e 10 MiB nos demais tipos; a requisição multipart aceita um arquivo, sem campos adicionais, com teto global de 50 MiB. Comprovação profissional não aceita vídeo.
-
-**Atores:** Atleta e treinador do vínculo
+**Ator Principal:** Atleta e treinador do vínculo
 
 **Pré-condições:** Recurso autorizado e consentimento específico de performance concedido.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Selecionar arquivo e enviar para o recurso autorizado.
+1.	Selecionar arquivo e enviar para o recurso autorizado.
 
-2. Validar assinatura, MIME, extensão, tamanho, finalidade e consentimento; cifrar e armazenar.
+2.	Validar assinatura, MIME, extensão, tamanho, finalidade e consentimento; cifrar e armazenar.
 
-3. O treinador acessa o arquivo autorizado e registra correção técnica.
+3.	O treinador acessa o arquivo autorizado e registra correção técnica.
 
-**Alternativas e exceções:** Falha de envio mostra erro e permite nova ação do usuário, sem promessa de pausa/retomada automática. Revogação de performance elimina as mídias abrangidas pela política.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Arquivo real pode ser recuperado por usuário autorizado; terceiro e consentimento ausente são negados.
+A1 - Falha de envio mostra erro e permite nova ação do usuário, sem promessa de pausa/retomada automática.
 
-### RF-19 - Mensagens em tempo real
+A2 - Revogação de performance elimina as mídias abrangidas pela política.
 
-**Prioridade:** P1. Estado e limite: Implementado; testes de duas sessões, web e APK.
+### [RF 19] – Mensagens em tempo real
 
-**Descrição:** Manter histórico paginado e cifrado, envio REST, eventos WebSocket, leitura e anexos privados. Notificações são internas; não se afirma push do sistema operacional.
+**Descrição:** O sistema deve permitir a troca de mensagens entre participantes autorizados de um vínculo, com histórico paginado e cifrado, registro de leitura, anexos privados e atualização por eventos quando conectados.
 
-**Atores:** Participantes do vínculo
+**Ator Principal:** Participantes do vínculo
 
 **Pré-condições:** Sessão e vínculo válidos para envio.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Abrir conversa e recuperar histórico persistido.
+1.	Abrir conversa e recuperar histórico persistido.
 
-2. Enviar texto/anexo autorizado; após commit o servidor publica para as partes.
+2.	Enviar texto/anexo autorizado; após commit o servidor publica para as partes.
 
-3. Confirmar leitura por cursor; reconexão consulta o banco novamente.
+3.	Confirmar leitura por cursor; reconexão consulta o banco novamente.
 
-**Alternativas e exceções:** Terceiro não acessa; vínculo encerrado não envia; sessão revogada fecha conexão. Múltiplas instâncias precisam de broker futuro.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Troca entre as partes persiste e reaparece sem expor dados de outra conversa.
+A1 - Terceiro não acessa; vínculo encerrado não envia; sessão revogada fecha conexão.
 
-### RF-20 - Avaliação pública do treinador
+A2 - Múltiplas instâncias precisam de broker futuro.
 
-**Prioridade:** P1. Estado e limite: Implementado e testado com condições de fixture identificadas.
+### [RF 20] – Avaliação pública do treinador
 
-**Descrição:** Publicar nota de 1 a 5 e texto, uma avaliação por ciclo, com edição pelo autor e média calculada sobre conteúdo visível.
+**Descrição:** O sistema deve permitir ao atleta elegível publicar nota de 1 a 5 e comentário sobre o treinador, com uma avaliação por ciclo, edição pelo autor e média calculada sobre o conteúdo visível.
 
-**Atores:** Atleta
+**Ator Principal:** Atleta
 
 **Pré-condições:** Vínculo elegível ativo há sete dias por padrão, conforme configuração.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Selecionar vínculo elegível e preencher nota e comentário.
+1.	Selecionar vínculo elegível e preencher nota e comentário.
 
-2. Validar papel, vigência e período mínimo e persistir uma avaliação por ciclo.
+2.	Validar papel, vigência e período mínimo e persistir uma avaliação por ciclo.
 
-3. Exibir avaliações visíveis e sua média; autor pode editar conforme autorização.
+3.	Exibir avaliações visíveis e sua média; autor pode editar conforme autorização.
 
-**Alternativas e exceções:** Avaliação precoce, duplicada, de terceiro ou sem vínculo ativo é recusada. Período reduzido em fixture não comprova transcurso real de sete dias.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Critério temporal e unicidade são aplicados no servidor; comentário oculto não compõe a média pública.
+A1 - Avaliação não elegível: recusar envio antes do prazo mínimo, sem vínculo ativo ou por terceiro.
 
-### RF-21 - Resposta a avaliações
+A2 - Duplicidade: impedir uma segunda avaliação para o mesmo ciclo.
 
-**Prioridade:** P1. Estado e limite: Implementado e testado.
+### [RF 21] – Resposta a avaliações
 
-**Descrição:** Responder à avaliação e permitir denúncia/moderação pelo fluxo RF-A08.
+**Descrição:** O sistema deve permitir ao treinador responder às avaliações do seu perfil, observando a visibilidade do conteúdo e o fluxo de denúncia e moderação descrito em RF-A08.
 
-**Atores:** Treinador avaliado
+**Ator Principal:** Treinador avaliado
 
 **Pré-condições:** Avaliação visível do próprio treinador.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Consultar avaliações recebidas.
+1.	Consultar avaliações recebidas.
 
-2. Informar resposta e confirmar.
+2.	Informar resposta e confirmar.
 
-3. O servidor verifica o treinador destinatário e vincula a resposta à avaliação.
+3.	O servidor verifica o treinador destinatário e vincula a resposta à avaliação.
 
-**Alternativas e exceções:** Outro profissional não responde; conteúdo oculto não recebe resposta pública. Denúncia segue análise administrativa motivada.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Resposta pertence ao treinador avaliado e acompanha a avaliação correta.
+A1 - Outro profissional não responde; conteúdo oculto não recebe resposta pública.
 
-### RF-22 - Encerramento de vínculo e assinatura
+A2 - Denúncia segue análise administrativa motivada.
 
-**Prioridade:** P1. Estado e limite: Fluxo local e contratos HTTP testados; cancelamento externo ainda não homologado.
+### [RF 22] – Encerramento de vínculo e assinatura
 
-**Descrição:** Retirar pedido pendente ou encerrar vínculo conforme estado. No acadêmico, encerrar sem cobrança; no Asaas, confirmar cancelamento da renovação e preservar período pago aplicável.
+**Descrição:** O sistema deve permitir a retirada de pedido pendente ou o encerramento do vínculo conforme seu estado. No modo acadêmico não há cobrança; no modo Asaas configurado, deve confirmar o cancelamento da renovação e preservar o período pago aplicável.
 
-**Atores:** Participante autorizado
+**Ator Principal:** Participante autorizado
 
 **Pré-condições:** Ciclo acessível ao participante.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Informar motivo e confirmar a operação.
+1.	Informar motivo e confirmar a operação.
 
-2. Autorizar o participante e bloquear o ciclo na transação.
+2.	Autorizar o participante e bloquear o ciclo na transação.
 
-3. Aplicar encerramento acadêmico ou solicitar cancelamento ao provedor, preservando histórico e vigência confirmada.
+3.	Aplicar encerramento acadêmico ou solicitar cancelamento ao provedor, preservando histórico e vigência confirmada.
 
-**Alternativas e exceções:** Repetição é idempotente; falha/timeout externo mantém pendência para conciliação, sem falso sucesso. Suspensão profissional pode impedir novas ações independentemente de vigência financeira.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Novo ciclo não move fichas antigas; histórico é preservado e novas ações respeitam o estado efetivo.
+A1 - Repetição é idempotente; falha/timeout externo mantém pendência para conciliação, sem falso sucesso.
 
-### RF-23 - Gestão da carteira de alunos
+A2 - Suspensão profissional pode impedir novas ações independentemente de vigência financeira.
 
-**Prioridade:** P0. Estado e limite: Implementado e integrado ao back-end.
+### [RF 23] – Gestão da carteira de alunos
 
-**Descrição:** Consultar solicitações e ciclos, prescrever, consultar execução, conversar, agendar e acompanhar o estado financeiro aplicável.
+**Descrição:** O sistema deve permitir ao treinador gerenciar suas solicitações e ciclos de acompanhamento, prescrever treinos, consultar execuções, trocar mensagens, agendar consultorias e acompanhar o estado financeiro aplicável.
 
-**Atores:** Treinador
+**Ator Principal:** Treinador
 
 **Pré-condições:** Treinador autenticado.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Abrir carteira e selecionar o aluno/ciclo autorizado.
+1.	Abrir carteira e selecionar o aluno/ciclo autorizado.
 
-2. Consultar estado e histórico e acessar ações permitidas.
+2.	Consultar estado e histórico e acessar ações permitidas.
 
-3. Ao encerrar, conservar registros e impedir novas operações incompatíveis com o estado.
+3.	Ao encerrar, conservar registros e impedir novas operações incompatíveis com o estado.
 
-**Alternativas e exceções:** Encerramento preserva fichas existentes e histórico; não elimina automaticamente treinos futuros. Terceiros não acessam a carteira.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** A carteira corresponde aos vínculos reais e seus estados persistidos.
+A1 - Encerramento preserva fichas existentes e histórico; não elimina automaticamente treinos futuros.
 
-### RF-24 - Meio de pagamento no provedor
+A2 - Terceiros não acessam a carteira.
 
-**Prioridade:** P1. Estado e limite: Adaptador testado de forma controlada; homologação financeira futura.
+### [RF 24] – Meio de pagamento no provedor
 
-**Descrição:** Encaminhar o atleta ao checkout hospedado; não manter formulário próprio de cartão ou carteira local de PAN/CVV.
+**Descrição:** No modo financeiro configurado, o sistema deve encaminhar o atleta ao checkout hospedado do provedor para gestão do pagamento, sem coletar ou armazenar número completo de cartão ou CVV.
 
-**Atores:** Atleta e provedor configurado
+**Ator Principal:** Atleta e provedor configurado
 
 **Pré-condições:** Modo Asaas configurado e ciclo elegível.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Preparar intenção e obter URL de checkout pelo fluxo financeiro.
+1.	Preparar intenção e obter URL de checkout pelo fluxo financeiro.
 
-2. O atleta informa os dados somente no provedor.
+2.	O atleta informa os dados somente no provedor.
 
-3. Atualizar assinatura por eventos autenticados e conciliação, não pelo redirect.
+3.	Atualizar assinatura por eventos autenticados e conciliação, não pelo redirect.
 
-**Alternativas e exceções:** Falta de configuração ou confirmação gera indisponibilidade/pendência. Rejeição de cartão ocorre no ambiente externo e só é refletida conforme eventos realmente recebidos.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Dados brutos de cartão não entram no contrato da aplicação; operação real exige homologação do provedor.
+A1 - Falta de configuração ou confirmação gera indisponibilidade/pendência.
 
-### RF-A01 - Recuperação de acesso por e-mail
+A2 - Rejeição de cartão ocorre no ambiente externo e só é refletida conforme eventos realmente recebidos.
 
-**Prioridade:** P0. Estado e limite: Implementado; SMTP local testado.
+### [RF A01] – Recuperação de acesso por e-mail
 
-**Descrição:** Recuperar senha por token aleatório de uso único, hash persistido, expiração de 30 minutos e outbox SMTP.
+**Descrição:** O sistema deve permitir a recuperação de senha por e-mail, utilizando token aleatório de uso único com expiração de 30 minutos, hash persistido e fila de envio SMTP.
 
-**Atores:** Titular da conta
+**Ator Principal:** Titular da conta
 
 **Pré-condições:** Acesso ao endereço cadastrado e serviço SMTP configurado.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Solicitar recuperação por e-mail; devolver resposta genérica.
+1.	Solicitar recuperação por e-mail; devolver resposta genérica.
 
-2. Enviar link pelo SMTP; o titular informa token e nova senha.
+2.	Enviar link pelo SMTP; o titular informa token e nova senha.
 
-3. Verificar/bloquear token, alterar hash e revogar sessões anteriores.
+3.	Verificar/bloquear token, alterar hash e revogar sessões anteriores.
 
-**Alternativas e exceções:** Token inválido, usado ou expirado não altera senha. Mailpit captura mensagens locais, sem provar entrega à caixa externa.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** A nova senha autentica e o token/sessões antigos não permitem reutilização.
+A1 - Token inválido: recusar tokens utilizados ou expirados.
 
-### RF-A02 - Notificações internas
+A2 - Falha de envio: manter a tentativa na fila para processamento conforme a política de envio.
 
-**Prioridade:** P1. Estado e limite: Implementado e testado.
+### [RF A02] – Notificações internas
 
-**Descrição:** Consultar notificações internas, contador e leitura individual/em lote, com atualização por eventos em tempo real quando conectados.
+**Descrição:** O sistema deve permitir consultar notificações internas, seu contador e estado de leitura, com marcação individual ou em lote e atualização por eventos quando conectado.
 
-**Atores:** Destinatário autenticado
+**Ator Principal:** Destinatário autenticado
 
 **Pré-condições:** Evento persistido destinado ao usuário.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Abrir a lista do destinatário.
+1.	Abrir a lista do destinatário.
 
-2. Consultar contador e marcar itens ou todos como lidos.
+2.	Consultar contador e marcar itens ou todos como lidos.
 
-3. Persistir leitura e atualizar a apresentação.
+3.	Persistir leitura e atualizar a apresentação.
 
-**Alternativas e exceções:** Terceiro não lê nem marca notificações alheias. Não há garantia de push de dispositivo fora do aplicativo.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Leitura e contador permanecem consistentes com o destinatário.
+A1 - Terceiro não lê nem marca notificações alheias.
 
-### RF-A03 - Consultorias e agenda
+A2 - Não há garantia de push de dispositivo fora do aplicativo.
 
-**Prioridade:** P1. Estado e limite: Agenda local testada; Google real não homologado.
+### [RF A03] – Consultorias e agenda
 
-**Descrição:** Criar, reagendar, cancelar e concluir consultorias, com histórico e bloqueio de sobreposição. Agenda própria funciona sem Google.
+**Descrição:** O sistema deve permitir criar, reagendar, cancelar e concluir consultorias, mantendo histórico e bloqueando sobreposição de horários. A agenda da aplicação deve funcionar independentemente da integração opcional com Google Calendar.
 
-**Atores:** Participante do vínculo; treinador para concluir
+**Ator Principal:** Participante do vínculo; treinador para concluir
 
 **Pré-condições:** Vínculo e acesso válidos; horário permitido.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Definir início, duração e objetivo.
+1.	Definir início, duração e objetivo.
 
-2. Bloquear agendas em ordem e verificar conflito antes de persistir.
+2.	Bloquear agendas em ordem e verificar conflito antes de persistir.
 
-3. Notificar as partes; registrar alterações motivadas e conclusão autorizada após o início.
+3.	Notificar as partes; registrar alterações motivadas e conclusão autorizada após o início.
 
-**Alternativas e exceções:** Terceiro, sobreposição, horário passado ou motivo ausente são recusados. Integração Google é opcional, depende de OAuth e ação do treinador; sincronização bidirecional de alteração/cancelamento é futura.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Reserva não se confunde com disponibilidade usada na nota do match.
+A1 - Terceiro, sobreposição, horário passado ou motivo ausente são recusados.
 
-### RF-A04 - Consentimento, exportação e encerramento de conta
+A2 - Integração Google é opcional, depende de OAuth e ação do treinador; sincronização bidirecional de alteração/cancelamento é futura.
 
-**Prioridade:** P0. Estado e limite: Controles locais testados; não constitui certificação jurídica.
+### [RF A04] – Consentimento, exportação e encerramento de conta
 
-**Descrição:** Gerenciar finalidades versionadas, exportar dados próprios e encerrar conta com anonimização/remoção de conteúdo privado conforme política e retenção aplicáveis.
+**Descrição:** O sistema deve permitir gerenciar consentimentos por finalidade e versão, exportar os próprios dados e solicitar encerramento de conta, com anonimização ou remoção de conteúdo privado conforme política e retenção aplicáveis.
 
-**Atores:** Titular autenticado
+**Ator Principal:** Titular autenticado
 
 **Pré-condições:** Conta ativa; senha confirmada para encerramento.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Consultar política e conceder ou revogar consentimentos separados.
+1.	Consultar política e conceder ou revogar consentimentos separados.
 
-2. Exportar os próprios dados quando solicitado.
+2.	Exportar os próprios dados quando solicitado.
 
-3. Confirmar senha para encerrar; conciliar financeiro, remover conteúdo abrangido, anonimizar e invalidar sessões.
+3.	Confirmar senha para encerrar; conciliar financeiro, remover conteúdo abrangido, anonimizar e invalidar sessões.
 
-**Alternativas e exceções:** Senha incorreta ou pendência financeira/remoção não conciliada impede apresentar encerramento concluído. Backups restaurados devem reaplicar pedidos de eliminação.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Revogação e encerramento não permitem reaparecimento indevido de dados/sessões; retenção legal depende de política operacional definida.
+A1 - Senha incorreta ou pendência financeira/remoção não conciliada impede apresentar encerramento concluído.
 
-### RF-A05 - Validade e suspensão profissional
+A2 - Backups restaurados devem reaplicar pedidos de eliminação.
 
-**Prioridade:** P0. Estado e limite: Implementado e testado.
+### [RF A05] – Validade e suspensão profissional
 
-**Descrição:** Expirar aprovação por prazo e suspender/revogar profissional com motivo e auditoria, retirando elegibilidade para novas ações protegidas.
+**Descrição:** O sistema deve controlar o prazo da aprovação profissional e permitir à administração suspender ou revogar a aprovação, registrando motivo e auditoria e retirando a elegibilidade para novas ações protegidas.
 
-**Atores:** Administrador e jobs
+**Ator Principal:** Administrador e jobs
 
 **Pré-condições:** Verificação existente e administrador autorizado para decisões manuais.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Verificar prazo nos jobs ou receber decisão administrativa.
+1.	Verificar prazo nos jobs ou receber decisão administrativa.
 
-2. Persistir alteração e auditoria.
+2.	Persistir alteração e auditoria.
 
-3. Negar descoberta e novas operações incompatíveis com a situação profissional.
+3.	Negar descoberta e novas operações incompatíveis com a situação profissional.
 
-**Alternativas e exceções:** Uma tela já aberta precisa de nova consulta; não há promessa de atualização instantânea de todos os clientes. Nova comprovação segue RF-03/04.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Expirado/suspenso não é elegível na consulta e nas operações protegidas.
+A1 - Uma tela já aberta precisa de nova consulta; não há promessa de atualização instantânea de todos os clientes.
 
-### RF-A06 - Aplicativo do atleta
+A2 - Nova comprovação segue RF-03/04.
 
-**Prioridade:** P1. Estado e limite: Android em emulador aprovado; iOS, aparelhos e distribuição não homologados.
+### [RF A06] – Aplicativo do atleta
 
-**Descrição:** Usar a mesma API pelo cliente React Native/Expo, sessão no SecureStore, treino, mensagens, agenda, mídias, notificações e privacidade.
+**Descrição:** O sistema deve disponibilizar cliente React Native/Expo para o atleta, integrado à mesma API, com sessão no SecureStore e acesso a treinos, mensagens, agenda, mídias, notificações e privacidade.
 
-**Atores:** Atleta
+**Ator Principal:** Atleta
 
 **Pré-condições:** APK/perfil configurado e API acessível.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Instalar o APK local de demonstração e conectar à API via ambiente configurado.
+1.	Instalar o APK e conectar à API do ambiente configurado.
 
-2. Autenticar e executar funções autorizadas.
+2.	Autenticar e executar funções autorizadas.
 
-3. Restaurar a sessão com segurança e tratar falhas de transporte.
+3.	Restaurar a sessão com segurança e tratar falhas de transporte.
 
-**Alternativas e exceções:** Perfil normal exige HTTPS; demonstração local restringe HTTP a loopback/emulador. Bundle iOS não equivale a IPA, iPhone ou publicação em loja.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** O ensaio integrado de 18 etapas no emulador é evidência da configuração declarada, sem extrapolar a aparelhos físicos.
+A1 - Perfil normal exige HTTPS; demonstração local restringe HTTP a loopback/emulador.
 
-### RF-A07 - Operação e recuperação
+A2 - Bundle iOS não equivale a IPA, iPhone ou publicação em loja.
 
-**Prioridade:** P1. Estado e limite: Operação local e CI verificadas; implantação remota ainda não executada.
+### [RF A07] – Operação e recuperação
 
-**Descrição:** Executar API, banco, SMTP e armazenamento; aplicar migrations e jobs, configurar TLS e realizar backup/restauração SQL/S3. A implantação em nuvem permanece pendente.
+**Descrição:** A operação deve permitir executar e configurar API, banco, SMTP e armazenamento, aplicar migrações e jobs e realizar procedimentos de backup e restauração. A implantação remota utiliza Vercel, Neon, Tigris, Brevo e cron-job.org; o ambiente local permanece independente.
 
-**Atores:** Responsável técnico
+**Ator Principal:** Responsável técnico
 
 **Pré-condições:** Configuração, segredos e chave de cifra preservados.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Preparar serviços/configuração e aplicar migrations sem apagar dados existentes.
+1.	Preparar serviços/configuração e aplicar migrations sem apagar dados existentes.
 
-2. Iniciar aplicação e verificar saúde; agendar jobs conforme ambiente.
+2.	Iniciar aplicação e verificar saúde; agendar jobs conforme ambiente.
 
-3. Gerar backup com chave preservada e testar restauração isolada.
+3.	Gerar backup com chave preservada e testar restauração isolada.
 
-**Alternativas e exceções:** Sem segredos/configuração válidos, impedir ativação externa indevida. Docker/TLS local não comprovam hospedagem pública, balanceamento ou autoescala.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Serviços e recuperação são reproduzíveis no ambiente registrado, com integridade verificada.
+A1 - Configuração inválida: impedir a operação externa e informar a falha sem expor segredos.
 
-### RF-A08 - Moderação de avaliações
+A2 - Recuperação: executar o procedimento documentado e conferir integridade e contagens; os ensaios realizados não substituem uma rotina recorrente de backup.
 
-**Prioridade:** P1. Estado e limite: Implementado e testado.
+### [RF A08] – Moderação de avaliações
 
-**Descrição:** Denunciar avaliação e ocultar/restaurar conteúdo com decisão motivada e histórico.
+**Descrição:** O sistema deve permitir denunciar avaliações e à administração ocultar ou restaurar o conteúdo após análise, registrando decisão motivada e histórico.
 
-**Atores:** Usuário denunciante e administrador
+**Ator Principal:** Usuário denunciante e administrador
 
 **Pré-condições:** Avaliação existente; administrador autorizado para moderar.
 
-Fluxo principal:
+**Fluxo Principal:**
 
-1. Registrar denúncia vinculada à avaliação.
+1.	Registrar denúncia vinculada à avaliação.
 
-2. Administrador analisa e informa motivo da ocultação/restauração.
+2.	Administrador analisa e informa motivo da ocultação/restauração.
 
-3. Persistir decisão; média e listagem públicas usam somente conteúdo visível.
+3.	Persistir decisão; média e listagem públicas usam somente conteúdo visível.
 
-**Alternativas e exceções:** Terceiro não altera avaliação; denúncia não é ocultação automática sem análise administrativa.
+**Fluxos Alternativos / Subfluxos:**
 
-**Pós-condição e aceite:** Decisão auditável e média consistente com os itens visíveis.
+A1 - Terceiro não altera avaliação; denúncia não é ocultação automática sem análise administrativa.
 
-### 2.2 Requisitos não funcionais
+### 2.2 Requisitos Não Funcionais (RNF)
 
-Os cenários abaixo são procedimentos de verificação. Resultados efetivamente executados, datas e ambientes estão na seção 6 e no relatório referenciado. Critério futuro não é resultado aprovado por presunção.
+Os requisitos não funcionais definem qualidades e restrições técnicas. Os fluxos abaixo também orientam os cenários de verificação; os resultados executados estão na seção 6 e nos relatórios de testes.
 
-### RNF-01 LGPD
+### [RNF-01] – Conformidade com a LGPD
 
-**Cenário de verificação e critério:** Conceder/revogar, exportar só dados próprios, reautenticar exclusão, negar terceiros; conferir SQL/objetos
+**Descrição:** A plataforma deve fornecer transparência sobre o tratamento de dados e exigir consentimento específico para dados sensíveis e mídia de performance. Os controles técnicos não equivalem a certificação jurídica de conformidade.
 
-**Alcance e limite:** Controles de privacidade locais; parecer jurídico e operação pública não homologados
+**Ator Principal:** Sistema / Usuário
 
-### RNF-02 Criptografia saúde/biometria
+**Pré-condições:** Acesso à política de privacidade e às funcionalidades que tratam dados pessoais.
 
-**Cenário de verificação e critério:** Consultar SQL/S3: ausência de texto em claro; decrypt roundtrip; IV/tag íntegros; executar TLS local
+**Fluxo Principal:**
 
-**Alcance e limite:** AES-256-GCM e gestão de chave implementados; relatório deve distinguir TLS local de domínio público
+1.	Consultar a política e as finalidades de tratamento.
 
-### RNF-03 Auditoria profissional
+2.	Conceder consentimento específico e registrar sua versão e data.
 
-**Cenário de verificação e critério:** Conferir registro/titular/situação na fonte oficial; registrar fonte/data/resultado no motivo; decidir/suspender/expirar e verificar revisor, motivo, prazo e auditoria transacional
+3.	Solicitar exportação dos próprios dados ou encerramento mediante reautenticação.
 
-**Alcance e limite:** Evidência do treinador é distinta do motivo administrativo; testes locais comprovam fluxo/persistência, sem consulta automática ou habilitação de dados fictícios. Não há imutabilidade contra administrador direto do banco
+**Fluxos Alternativos / Subfluxos:**
 
-### RNF-04 Ocultar não validados
+A1 - Revogação: bloquear novos tratamentos da finalidade e remover dados ou mídias conforme a política.
 
-**Cenário de verificação e critério:** Pendentes, suspensos/vencidos/rejeitados fora da busca e ações protegidas
+A2 - Acesso de terceiros: negar exportação ou alteração de consentimento de outro usuário.
 
-**Alcance e limite:** Regra no servidor; uma lista já aberta precisa ser consultada novamente
+### [RNF-02] – Criptografia de Dados de Saúde e Biometria
 
-### RNF-05 Cartão/PCI
+**Descrição:** Dados sensíveis e arquivos privados devem ser protegidos em trânsito por HTTPS na implantação pública e cifrados em repouso pela aplicação com AES-256-GCM. Chaves permanecem somente no servidor.
 
-**Cenário de verificação e critério:** Conferir checkout hospedado, ausência de PAN/CVV SQL/logs e minimização do webhook
+**Ator Principal:** Sistema / Infraestrutura de Nuvem
 
-**Alcance e limite:** Adaptador e teste HTTP controlado; não certifica PCI ou conta gateway real
+**Pré-condições:** Transmissão ou gravação de informações sensíveis e mídia privada.
 
-### RNF-06 Match até 2 s
+**Fluxo Principal:**
 
-**Cenário de verificação e critério:** Dataset/ambiente declarados; aquecer, medir concorrência e p50/p95/p99; p95 ≤2 s no cenário
+1.	Estabelecer comunicação HTTPS com a aplicação remota.
 
-**Alcance e limite:** Carga local de 14/10: 500 treinadores sintéticos, 200 chamadas, concorrência 10, p95 97,78 ms; sem cache. Não extrapolar base sintética ou produção
+2.	Autorizar a operação e cifrar os campos sensíveis ou os bytes do arquivo antes da persistência.
 
-### RNF-07 Métricas extensíveis
+3.	Conferir ausência de conteúdo em claro no banco e armazenamento e validar a recuperação autorizada.
 
-**Cenário de verificação e critério:** Consultar catálogo, gravar chaves válidas e rejeitar desconhecidas/fora de limite; tela dinâmica
+**Fluxos Alternativos / Subfluxos:**
 
-**Alcance e limite:** Modalidades principais fixadas em contratos; catálogo administrativo/novos esportes ainda podem exigir código/migração
+A1 - Integridade inválida: rejeitar conteúdo cuja autenticação criptográfica falhe.
 
-### RNF-08 Escalabilidade
+A2 - Ambiente local: HTTP de desenvolvimento não comprova proteção de trânsito; testes TLS e HTTPS remoto têm evidências próprias.
 
-**Cenário de verificação e critério:** Na versão atual, executar carga no ambiente declarado e registrar latência/erros. Evolução: medir recursos e validar expansão/balanceamento na infraestrutura escolhida
+### [RNF-03] – Trilha de Auditoria das Validações Profissionais
 
-**Alcance e limite:** Meta original de autoescala em 70%, fila e balanceador permanece evolução, fora do aceite local atual; hospedagem em nuvem continua pendente e não equivale a autoescala
+**Descrição:** O sistema deve registrar as decisões administrativas sobre o CREF, com responsável, data, motivo e validade, na mesma transação que altera o estado profissional. Não há consulta automática ao conselho nem imutabilidade contra administração direta do banco.
 
-### RNF-09 App responsivo
+**Ator Principal:** Sistema / Administrador
 
-**Cenário de verificação e critério:** Web autenticada em 390/1440 e página pública em 320/390/1440 sem overflow; cliente Expo com tipos/bundles e fluxo Android
+**Pré-condições:** Submissão profissional pendente e administrador autenticado.
 
-**Alcance e limite:** Capturas conforme relatório; bundle não equivale a aparelho físico. Material/HIG, contraste do sistema e fontes ampliadas exigem verificação própria ainda não homologada
+**Fluxo Principal:**
 
-### RNF-10 Usabilidade
+1.	O administrador confere registro, titularidade e situação na fonte oficial.
 
-**Cenário de verificação e critério:** Completar prescrição/publicação, salvar e reabrir rascunho com dados iguais; verificar teclado/foco, instruções e confirmação, sem bloqueio por erro tratado
+2.	Registra fonte, data e resultado no motivo da decisão.
 
-**Alcance e limite:** Rascunho explícito testado; autosave contínuo futuro. Não se adota menor número de cliques sem medição como critério aprovado
+3.	O sistema persiste decisão, revisor, prazo e auditoria em transação.
 
-### RNF-11 Feedback visual
+**Fluxos Alternativos / Subfluxos:**
 
-**Cenário de verificação e critério:** Verificar espera durante envio, tratamento de rede/validação e confirmação apenas após resposta positiva; evitar duplicidade e falso pagamento
+A1 - Falha transacional: não concluir a mudança de estado sem gravar sua auditoria.
 
-**Alcance e limite:** Indicador de espera não significa porcentagem real de progresso. E2E e capturas têm o alcance registrado no relatório
+A2 - Fonte indisponível: manter a submissão pendente e retomar a conferência posteriormente.
 
-### RNF-12 Android/iOS
+### [RNF-04] – Restrição de Exibição de Perfil Não Validado
 
-**Cenário de verificação e critério:** Compilar/instalar em versões definidas, executar armazenamento/upload/chat/treino
+**Descrição:** Somente treinadores ativos, aprovados e com validade administrativa vigente podem aparecer na descoberta e receber novas solicitações de contratação.
 
-**Alcance e limite:** APK local compilado e 18 etapas integradas aprovadas no emulador Android API 35; aparelho físico, distribuição e IPA pendentes
+**Ator Principal:** Sistema
 
-### RNF-13 Navegadores
+**Pré-condições:** Consulta de treinadores ou solicitação de vínculo.
 
-**Cenário de verificação e critério:** Fluxo em Chromium/Firefox/WebKit; registrar versões e axe
+**Fluxo Principal:**
 
-**Alcance e limite:** Engines testados não são automaticamente Edge/Safari reais; leitor de tela exige avaliação própria
+1.	Consultar a situação profissional no servidor.
 
-### RNF-14 REST/OpenAPI
+2.	Excluir perfis pendentes, rejeitados, suspensos ou vencidos.
 
-**Cenário de verificação e critério:** Swagger runtime e schemas reais; exemplo inválido devolve campo/erro
+3.	Aplicar os filtros esportivos e apresentar os profissionais elegíveis.
 
-**Alcance e limite:** API compartilhada web/nativo, sem segredos no cliente
+**Fluxos Alternativos / Subfluxos:**
 
-### RNF-15 Idempotência financeira
+A1 - Mudança de situação: verificar novamente a elegibilidade em novas consultas e ações protegidas; uma lista já aberta precisa ser atualizada.
 
-**Cenário de verificação e critério:** Checkout concorrente, webhook repetido/antigo, timeout e cancelamento incerto; verificar locks/unicidade locais e conciliar sem repetir criação incerta
+### [RNF-05] – Proteção de Dados de Cartão
 
-**Alcance e limite:** HTTP controlado; homologação do provedor pendente. O adaptador não envia chave de idempotência externa, portanto não garante deduplicação pelo gateway. Jobs exigem execução/agendamento operacional; não há garantia automática de rotina noturna
+**Descrição:** O LinkAtletas não deve coletar nem armazenar PAN ou CVV. O pagamento deve ocorrer em checkout hospedado pelo provedor. A integração foi testada com respostas controladas e não constitui certificação PCI-DSS ou homologação de cobrança real.
 
-### RNF-16 Logs sanitizados
+**Ator Principal:** Sistema / Gateway de Pagamentos
 
-**Cenário de verificação e critério:** Marcadores sensíveis não aparecem em logs públicos; token reset em fragmento, Bearer fora de URL
+**Pré-condições:** Modo financeiro externo configurado; no modo acadêmico não há cobrança.
 
-**Alcance e limite:** Revisão/teste local não substituem monitoramento/auditoria independente
+**Fluxo Principal:**
 
-### 2.3 Regras de negócio
+1.	Solicitar checkout somente após o aceite do vínculo.
 
-### RN-01
+2.	Receber a referência e URL do provedor e direcionar o usuário ao ambiente externo.
 
-Somente treinador aprovado/elegível aparece na descoberta
+3.	Verificar que banco e logs mantêm somente referências necessárias, sem dados brutos de cartão.
 
-### RN-02
+**Fluxos Alternativos / Subfluxos:**
 
-Administrador confere registro, titularidade e situação na fonte oficial e inclui fonte/data/resultado no motivo. Decisão e auditoria registram revisor, horário, origem manual e prazo: futuro explícito ou 365 dias administrativos por padrão na aprovação. Documento do treinador é opcional; evidence da submissão não é campo separado da conferência administrativa. Formato do número não comprova habilitação
+A1 - Modo acadêmico: manter a jornada esportiva sem operação financeira.
 
-### RN-03
+A2 - Falha do provedor: apresentar erro e preservar o estado financeiro para verificação segura.
 
-Expiração, suspensão e revogação retiram visibilidade e bloqueiam novas ações protegidas
+### [RNF-06] – Desempenho do Algoritmo de Matchmaking
 
-### RN-04
+**Descrição:** A descoberta deve apresentar p95 de resposta de até dois segundos no cenário de carga definido. A medição local com base sintética não deve ser extrapolada para a produção.
 
-Mensalidade em modo Asaas solicita split para carteira elegível; só evento autenticado confirma estado financeiro
+**Ator Principal:** Sistema / Equipe de Testes
 
-### RN-05
+**Pré-condições:** Dataset, concorrência e ambiente de medição declarados.
 
-Administrador configura comissão 0–50% (basis points) e carência 0–30 dias
+**Fluxo Principal:**
 
-### RN-06
+1.	Preparar os perfis e preferências do cenário e aquecer a aplicação.
 
-Pendência financeira mantém jobs/eventos e conciliação; carência vencida bloqueia novas interações; resultado incerto não é reemitido cegamente
+2.	Executar as consultas concorrentes de descoberta.
 
-### RN-07
+3.	Registrar respostas, erros, p50, p95 e p99 e comparar o p95 com o limite de dois segundos.
 
-Eventos/chaves de provedor únicos, intenção única por ciclo e lock transacional impedem duplicação local
+**Fluxos Alternativos / Subfluxos:**
 
-### RN-08
+A1 - Tempo excedido ou falha: registrar a ocorrência e investigar antes de aceitar o cenário. Não há entrega de recomendações antigas por cache no caminho testado.
 
-Match considera modalidade, nível, objetivos, orçamento e horários, com razões explícitas
+### [RNF-07] – Modelo de Métricas por Modalidade
 
-### RN-09
+**Descrição:** Treinos e execuções devem utilizar métricas válidas para a modalidade, persistidas de forma extensível. A inclusão de esportes ou novas regras pode exigir alteração de contratos, código ou migração.
 
-Disponibilidade compõe pontuação; não reserva agenda. Recusa não reduz nota. Esta é mudança documentada da redação original
+**Ator Principal:** Sistema / Treinador / Atleta
 
-### RN-10
+**Pré-condições:** Modalidade e catálogo de métricas disponíveis na versão da aplicação.
 
-Solicitação/decisão e interações persistem; treinamento/retroalimentação automática do match permanece futuro
+**Fluxo Principal:**
 
-### RN-11
+1.	Consultar os campos de métricas da modalidade escolhida.
 
-Novas prescrições exigem ciclo ativo e acesso profissional/financeiro válido
+2.	Preencher a ficha ou execução com valores e limites válidos.
 
-### RN-12
+3.	Validar as chaves e persistir o registro para posterior consulta.
 
-Métricas respeitam chave, unidade e limites da modalidade; execução é única por ficha
+**Fluxos Alternativos / Subfluxos:**
 
-### RN-13
+A1 - Chave desconhecida ou valor fora do limite: rejeitar a entrada e indicar a correção necessária.
 
-Avaliação exige vínculo ativo há sete dias por padrão; uma por ciclo; alteração da configuração precisa ser explicitada
+### [RNF-08] – Escalabilidade da Base de Usuários
 
-### RN-14
+**Descrição:** A arquitetura deve permitir evolução da capacidade conforme o crescimento da base. A Sprint 2 utiliza Vercel, Neon e Tigris; a existência desses serviços não comprova autoescala da solução, balanceamento próprio ou disponibilidade ilimitada.
 
-Saúde e performance exigem consentimento separado e finalidade, com revogação registrada
+**Ator Principal:** Sistema / Equipe de Operação
 
-### RN-15
+**Pré-condições:** Ambiente de implantação identificado e carga de teste definida.
 
-Conteúdo privado utiliza AES-256-GCM em repouso e HTTPS na implantação configurada; chave fora do Git e preservada no backup
+**Fluxo Principal:**
 
-### RN-16
+1.	Executar a carga no ambiente declarado e observar latência e erros.
 
-Cartão bruto não é coletado/armazenado pela aplicação; meio de pagamento gerenciado pelo checkout hospedado
+2.	Conferir limites e métricas dos serviços de hospedagem, banco e armazenamento.
+
+3.	Registrar o resultado e planejar ajustes de capacidade quando necessários.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Limite de serviço atingido: tratar a falha e avaliar a capacidade antes de ampliar a operação. Autoescala por limiar de CPU e fila de processamento de vídeos são evoluções.
+
+### [RNF-09] – Usabilidade do Aplicativo Mobile e Interface Responsiva
+
+**Descrição:** A navegação deve permitir consultar recomendações, treinos e feedback com componentes legíveis. A web deve adaptar o conteúdo às larguras testadas sem rolagem horizontal indevida.
+
+**Ator Principal:** Atleta / Sistema
+
+**Pré-condições:** Cliente móvel instalado no ambiente de teste ou interface web aberta em viewport definido.
+
+**Fluxo Principal:**
+
+1.	Abrir a navegação e consultar as telas principais.
+
+2.	Verificar a web nas larguras registradas no relatório e o cliente móvel no emulador Android.
+
+3.	Confirmar acesso aos comandos e legibilidade do conteúdo.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Falha de rede: exibir erro tratado e permitir retomar a operação.
+
+A2 - Acessibilidade ampliada: validar separadamente fonte do sistema, leitor de tela e diretrizes nativas; esses ensaios não estão todos homologados.
+
+### [RNF-10] – Usabilidade do Painel Web do Treinador
+
+**Descrição:** O painel deve organizar a gestão de alunos, prescrição e publicação de treinos, permitindo salvar e reabrir rascunhos explicitamente. Autosave contínuo permanece evolução.
+
+**Ator Principal:** Treinador / Sistema
+
+**Pré-condições:** Treinador autenticado com vínculo autorizado.
+
+**Fluxo Principal:**
+
+1.	Acessar a carteira de alunos e selecionar o vínculo.
+
+2.	Preencher uma ficha e salvar o rascunho.
+
+3.	Reabrir o rascunho, conferir os dados e publicar a ficha.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Validação inválida: manter o formulário e informar o campo que precisa de correção.
+
+A2 - Falha ao salvar: não apresentar confirmação de sucesso antes da resposta do servidor.
+
+### [RNF-11] – Feedback Visual em Fluxos Críticos
+
+**Descrição:** As operações críticas devem informar espera, sucesso confirmado ou erro. Indicador de carregamento não equivale a porcentagem real de progresso nem comprova pagamento.
+
+**Ator Principal:** Atleta / Treinador / Administrador
+
+**Pré-condições:** Envio de formulário, documento ou arquivo, ou operação sujeita a espera.
+
+**Fluxo Principal:**
+
+1.	Acionar a operação e apresentar o estado de processamento.
+
+2.	Aguardar a resposta do servidor, evitando submissões duplicadas.
+
+3.	Exibir a confirmação apenas após o resultado positivo.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Falha de validação ou rede: encerrar a espera, apresentar mensagem compreensível e permitir correção ou nova tentativa segura.
+
+### [RNF-12] – Compatibilidade do Aplicativo Mobile
+
+**Descrição:** O cliente móvel deve compilar e executar os fluxos suportados no Android testado. O suporte iOS, a execução em aparelho físico e a publicação nas lojas exigem homologações próprias.
+
+**Ator Principal:** Atleta / Equipe de Testes
+
+**Pré-condições:** APK compilado e ambiente Android de teste identificado.
+
+**Fluxo Principal:**
+
+1.	Compilar o APK e registrar versão, artefato e ambiente.
+
+2.	Instalar e iniciar no emulador Android.
+
+3.	Exercitar os fluxos previstos e registrar suas evidências, distinguindo ensaio integrado local e inicialização do APK com HTTPS.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Ambiente não testado: registrar a limitação e executar a homologação específica antes de declarar compatibilidade.
+
+### [RNF-13] – Compatibilidade de Navegadores no Painel Web
+
+**Descrição:** A web deve funcionar nos cenários automatizados em Chromium, Firefox e WebKit, com interface responsiva. Esses engines não substituem homologação específica de Safari ou Edge reais.
+
+**Ator Principal:** Usuário / Equipe de Testes
+
+**Pré-condições:** Navegadores ou engines de teste identificados e aplicação disponível.
+
+**Fluxo Principal:**
+
+1.	Executar a jornada principal em cada engine definido.
+
+2.	Verificar navegação, formulários, mensagens de erro e persistência.
+
+3.	Registrar resultados, capturas e os limites da verificação de acessibilidade.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Navegador ou recurso incompatível: registrar a falha e tratar o problema antes de declarar o cenário aprovado.
+
+### [RNF-14] – Arquitetura de APIs Preparada para Integrações
+
+**Descrição:** O backend deve expor rotas HTTP com dados JSON, schemas de validação e documentação OpenAPI, compartilhadas entre web e cliente móvel. Integrações com wearables permanecem evolução.
+
+**Ator Principal:** Sistema / Desenvolvedor
+
+**Pré-condições:** API disponível e contrato OpenAPI da mesma versão.
+
+**Fluxo Principal:**
+
+1.	Consultar o contrato OpenAPI e a documentação Swagger.
+
+2.	Enviar requisição autenticada com os campos válidos.
+
+3.	Validar a resposta e consultar a persistência quando aplicável.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Payload incompatível: retornar erro de validação, sem persistir dados inválidos.
+
+A2 - CREF: usar as rotas internas de submissão e decisão manual; não existe API externa do conselho integrada.
+
+### [RNF-15] – Idempotência e Reconciliação Financeira
+
+**Descrição:** O módulo financeiro deve evitar processamento local duplicado de eventos e preservar resultados incertos para reconciliação. O adaptador não garante idempotência externa do provedor; cobrança real não foi homologada.
+
+**Ator Principal:** Sistema / Gateway de Pagamentos / Agendador
+
+**Pré-condições:** Integração financeira configurada ou cenário de teste controlado.
+
+**Fluxo Principal:**
+
+1.	Registrar a intenção financeira e controlar concorrência e unicidade no banco.
+
+2.	Receber o evento autenticado e impedir seu processamento local repetido.
+
+3.	Processar os jobs pendentes e reconciliar referências incertas sem repetir cegamente a criação externa.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Timeout: manter o resultado incerto para consulta segura.
+
+A2 - Agendador indisponível: manter o job pendente; cron-job.org aciona a rota protegida, mas sua ativação não homologa a conta de pagamentos.
+
+### [RNF-16] – Logging e Diagnóstico sem Exposição de Dados Sensíveis
+
+**Descrição:** O sistema deve registrar informações técnicas de diagnóstico sem expor senhas, tokens, dados de saúde ou conteúdo de arquivos privados nos logs públicos.
+
+**Ator Principal:** Sistema / Equipe de Operação
+
+**Pré-condições:** Ocorrência de eventos técnicos ou erros na API.
+
+**Fluxo Principal:**
+
+1.	Registrar a ocorrência com os metadados técnicos necessários.
+
+2.	Aplicar a sanitização aos campos sensíveis.
+
+3.	Conferir nos testes que os marcadores sensíveis não aparecem nos registros observados.
+
+**Fluxos Alternativos / Subfluxos:**
+
+A1 - Erro com dados sensíveis: omitir ou mascarar o conteúdo antes da gravação. Monitoramento e auditoria independentes permanecem atividades de operação.
+
+### 2.3 Regras de Negócio (RN)
+
+As Regras de Negócio definem as restrições lógicas e os processos que o software deve obedecer obrigatoriamente.
+
+**RN-01:** Somente treinador aprovado/elegível aparece na descoberta
+
+**RN-02:** Administrador confere registro, titularidade e situação na fonte oficial e inclui fonte/data/resultado no motivo. Decisão e auditoria registram revisor, horário, origem manual e prazo: futuro explícito ou 365 dias administrativos por padrão na aprovação. Documento do treinador é opcional; evidence da submissão não é campo separado da conferência administrativa. Formato do número não comprova habilitação
+
+**RN-03:** Expiração, suspensão e revogação retiram visibilidade e bloqueiam novas ações protegidas
+
+**RN-04:** Mensalidade em modo Asaas solicita split para carteira elegível; só evento autenticado confirma estado financeiro
+
+**RN-05:** Administrador configura comissão 0–50% (basis points) e carência 0–30 dias
+
+**RN-06:** Pendência financeira mantém jobs/eventos e conciliação; carência vencida bloqueia novas interações; resultado incerto não é reemitido cegamente
+
+**RN-07:** Eventos/chaves de provedor únicos, intenção única por ciclo e lock transacional impedem duplicação local
+
+**RN-08:** Match considera modalidade, nível, objetivos, orçamento e horários, com razões explícitas
+
+**RN-09:** Disponibilidade compõe pontuação; não reserva agenda. Recusa não reduz nota. Esta é mudança documentada da redação original
+
+**RN-10:** Solicitação/decisão e interações persistem; treinamento/retroalimentação automática do match permanece futuro
+
+**RN-11:** Novas prescrições exigem ciclo ativo e acesso profissional/financeiro válido
+
+**RN-12:** Métricas respeitam chave, unidade e limites da modalidade; execução é única por ficha
+
+**RN-13:** Avaliação exige vínculo ativo há sete dias por padrão; uma por ciclo; alteração da configuração precisa ser explicitada
+
+**RN-14:** Saúde e performance exigem consentimento separado e finalidade, com revogação registrada
+
+**RN-15:** Conteúdo privado utiliza AES-256-GCM em repouso e HTTPS na implantação configurada; chave fora do Git e preservada no backup
+
+**RN-16:** Cartão bruto não é coletado/armazenado pela aplicação; meio de pagamento gerenciado pelo checkout hospedado
 
 ## 3. Cronograma do Projeto
 
-### 3.1 Planejamento por sprint
+O desenvolvimento do sistema LinkAtletas é conduzido por uma abordagem ágil, com entregas contínuas e alinhamento às necessidades de atletas, treinadores e administradores. As atividades abrangem levantamento de requisitos, prototipação, modelagem, implementação do fluxo esportivo, segurança e evolução da solução.
 
-Sprint 1 — 03/08 a 14/09/2026: demanda, requisitos, fluxos, casos de uso, classes, DER, duas sequências, protótipos, matriz e estrutura inicial. A fonte original é preservada como documento histórico.
+### 3.1 Planejamento de Sprints
 
-Sprint 2 — 21/09 a 26/10/2026: código versionado, fluxo integrado, PostgreSQL, interface responsiva, validações, testes iniciais com evidências, API, ERS, diagramas, backlog e registro de decisões. Núcleo: RF-01–10, RF-14, RF-16–17, RF-23 e complementos efetivamente implementados. CREF é conferido manualmente; a demonstração atual usa serviços locais. Nuvem continua pendência de implantação.
+A execução segue o planejamento por sprints do calendário acadêmico, com encerramento previsto em 30 de novembro de 2026. Os períodos abaixo consideram as janelas de entrega do roteiro dos professores. Funcionalidades complementares da Sprint 3 antecipadas na Sprint 2 continuam sujeitas à estabilização e às dependências externas indicadas no backlog.
 
-Sprint 3 — 09/11 a 30/11/2026: estabilização do MVP, testes e documentos finais, rastreabilidade, manual, backlog final, limitações, apresentação da Mostra e participação individual. Financeiro avançado RF-11–13 e RF-24, validações externas e evolução dos RF-A dependem da configuração e das evidências efetivas. Parte dos complementos já foi antecipada na Sprint 2; isso não comprova homologação externa.
+• Sprint 01 — 03 de agosto a 14 de setembro de 2026: Planejamento, Requisitos e Modelagem
 
-Referência de calendário: roteiro dos professores, seção de entregas. Os antigos RF-25–32 não foram especificados na fonte e não são utilizados nesta revisão. Não se atribui conteúdo novo àquela numeração. As dependências e os estados detalhados permanecem no backlog versionado.
+○	Elaboração do documento inicial da demanda, com evidência de atividade na plataforma SAGA.
 
-[Backlog versionado](backlog.md)
+○	Criação da ERS com requisitos funcionais, requisitos não funcionais e regras de negócio.
 
-[Roteiro dos professores](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/referencias/Roteiro-professores-original.pdf)
+○	Estruturação da lista priorizada e dos cenários textuais de verificação de todos os requisitos não funcionais.
+
+○	Especificação dos fluxos principais, alternativos, subfluxos e exceções dos requisitos funcionais.
+
+○	Modelagem de casos de uso, classes e Diagrama Entidade-Relacionamento (DER).
+
+○	Produção dos diagramas de sequência dos processos principais da solução.
+
+○	Prototipação das três principais interfaces e mapeamento da navegação, com as referências do projeto no Stitch.
+
+○	Preenchimento da matriz de integração das unidades curriculares.
+
+○	Criação do repositório Git, README e organização inicial de pastas.
+
+• Sprint 02 — 21 de setembro a 26 de outubro de 2026: Fluxo Principal, Validações e Banco de Dados
+
+○	Atualização e versionamento do código-fonte no repositório do grupo.
+
+○	Desenvolvimento da autenticação, controle de acesso por papel e propriedade e controles de privacidade (RF-05, RNF-01 e RNF-02).
+
+○	Implementação dos cadastros de atleta e treinador, submissão de CREF e conferência manual administrativa na fonte oficial, com decisão e auditoria (RF-01 a RF-04, RNF-03 e RNF-04).
+
+○	Desenvolvimento do matchmaking por regras explicáveis, busca e consulta do portfólio do treinador (RF-06 a RF-08, RNF-06).
+
+○	Criação, migração e integração do PostgreSQL, incluindo catálogo de métricas e persistência das operações esportivas (RNF-07).
+
+○	Integração da interface web responsiva e do cliente móvel à API para contratação, aceite, prescrição, publicação, execução e feedback de treinos (RF-09, RF-10, RF-14, RF-16 e RF-17).
+
+○	Aplicação de validações de entrada, tratamento de falhas e feedback visual nos fluxos principais (RNF-11 a RNF-13).
+
+○	Execução dos testes iniciais de API, interface e cliente móvel, com relatórios e capturas de evidência.
+
+○	Documentação da API REST em OpenAPI e interface Swagger, incluindo as rotas internas de conferência manual do CREF (RNF-14).
+
+○	Atualização da ERS, diagramas, backlog e registro de dificuldades, decisões e mudanças de escopo.
+
+○	Implantação da web e API na Vercel, PostgreSQL no Neon, arquivos privados no Tigris, SMTP no Brevo e execução de tarefas pelo cron-job.org, com ambientes separados e testes remotos.
+
+○	Antecipação de comunicação, agenda, avaliações, mídia privada, recuperação de senha e rotinas de privacidade, mantendo o modo financeiro acadêmico sem cobrança real.
+
+• Sprint 03 — 09 a 30 de novembro de 2026: Estabilização do MVP e Entrega Final
+
+○	Consolidação do MVP funcional e estável, revisão das pendências e estabilização dos módulos antecipados na Sprint 2.
+
+○	Evolução e homologação externa do módulo financeiro, quando disponíveis os acessos: pagamentos recorrentes, split, inadimplência e reconciliação (RF-11 a RF-13, RF-24, RNF-05 e RNF-15).
+
+○	Aperfeiçoamento do envio e correção de vídeos, chat, avaliações e acompanhamento de resultados (RF-15 e RF-18 a RF-23).
+
+○	Consolidação das rotinas administrativas, suspensão de contas, configuração de taxas, auditoria e moderação (RF-A07 e RF-A08).
+
+○	Finalização do código-fonte versionado, ERS final e documentação da API.
+
+○	Atualização final dos diagramas UML e DER, coerentes com a solução implementada.
+
+○	Execução da bateria final de testes, com relatório e evidências.
+
+○	Finalização da matriz de rastreabilidade das unidades curriculares.
+
+○	Revisão do manual de instalação, implantação e execução, acompanhado do README.
+
+○	Consolidação do backlog final com itens concluídos, retirados e futuros.
+
+○	Registro das limitações e propostas de evolução, incluindo homologação em aparelho físico, iOS e distribuição em lojas.
+
+○	Preparação da apresentação da Mostra e das evidências de participação individual.
+
+### Cronograma visual do projeto
+
+![cronograma-original](template/originais/cronograma-original.png)
+
+Fonte: Planejamento inicial do grupo (2026). As janelas de entrega atualizadas constam na seção 3.1; o quadro preserva a distribuição de atividades do planejamento original.
+
+[Cronograma_Projeto_Integrador_LinkAtletas](https://docs.google.com/spreadsheets/d/18kTcqvdJ6_N9GXlvMkq4oABQzUAYpMNSPXozn0HHt14/edit?usp=sharing)
+
+[Backlog atualizado do projeto](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/backlog.md)
 
 ## 4. Protótipo do produto
 
-As figuras seguintes são capturas reais da interface integrada, com dados fictícios, provenientes das evidências existentes; não são capturas novas desta revisão documental. Complementam a concepção histórica no Stitch. Atleta, treinador e administrador utilizam a web; o app atende o atleta.
+Nesta seção, apresentam-se as interfaces de alta fidelidade elaboradas pelo grupo para orientar o desenvolvimento do Front-end. Os protótipos preservam a concepção original; as evidências da interface implementada e integrada estão no relatório de testes.
 
-[Stitch - concepção histórica do atleta](https://stitch.withgoogle.com/projects/8385490830921443646?pli=1)
+**Link para o Protótipo:**
 
-[Stitch - concepção histórica do treinador](https://stitch.withgoogle.com/projects/17299066006957473062)
+[Atleta — protótipo no Stitch](https://stitch.withgoogle.com/projects/8385490830921443646?pli=1)
 
-### 4.1 Administração — conferência profissional
+[Treinador — protótipo no Stitch](https://stitch.withgoogle.com/projects/17299066006957473062)
 
-Tela administrativa de aprovação de comprovação fictícia. Não representa consulta automática nem comprova registro real no conselho.
+**Principais Telas:**
 
-[evidencias/aprovacao-administrativa.png](evidencias/aprovacao-administrativa.png)
+### Tela principal mobile (atleta)
 
-![4.1 Administração — conferência profissional](evidencias/aprovacao-administrativa.png)
+![prototipo-atleta](template/originais/prototipo-atleta.png)
 
-### 4.2 Atleta — execução de treino
+Fonte: Elaboração Própria (2026).
 
-Ficha integrada e registro de execução pelo atleta na web. A consulta respeita o vínculo e a publicação da ficha.
+### Tela principal Web (treinador)
 
-[evidencias/execucao-desktop.png](evidencias/execucao-desktop.png)
+![prototipo-treinador](template/originais/prototipo-treinador.png)
 
-![4.2 Atleta — execução de treino](evidencias/execucao-desktop.png)
+Fonte: Elaboração Própria (2026).
 
-### 4.3 Treinador — acompanhamento e feedback
+### Tela de consultoria e alinhamentos (treinador)
 
-Consulta do retorno pelo treinador na interface integrada; dados e resultados são fictícios de teste.
+![prototipo-consultoria](template/originais/prototipo-consultoria.png)
 
-[evidencias/feedback-treinador.png](evidencias/feedback-treinador.png)
+Fonte: Elaboração Própria (2026).
 
-![4.3 Treinador — acompanhamento e feedback](evidencias/feedback-treinador.png)
+## 5. Diagramas UML
 
-## 5 Diagramas UML
+### 5.1 Diagrama de Casos de Uso
 
-As figuras correspondem aos modelos atuais do repositório. Classes representam o domínio conceitual e não classes ORM implementadas. O DER representa o esquema físico, com atributos selecionados para simplificar a visão. Cada figura referencia sua fonte ampliável; o dicionário de dados completo permanece em documento técnico separado.
+![casos-de-uso-original](template/originais/casos-de-uso-original.png)
 
-### 5.1 Diagrama de casos de uso
+O atleta gerencia seu perfil, busca treinadores, solicita contratação, consulta e executa treinos e envia feedback. O treinador administra seu perfil, aceita vínculos e prescreve treinos. O administrador confere os registros profissionais e administra a plataforma. A entidade certificadora representa a fonte oficial consultada manualmente pelo administrador, sem chamada automática a uma API do conselho. O gateway representa o modo financeiro condicionado à configuração externa.
 
-Dezesseis casos identificados, atores humanos e serviços secundários. O administrador é responsável pela conferência manual de CREF. Integrações externas dependem de configuração.
+Fonte: Elaboração Própria (2026).
 
-[diagramas/casos-de-uso.svg](diagramas/casos-de-uso.svg)
+### 5.1 Diagrama de Classes
 
-![5.1 Diagrama de casos de uso](diagramas/casos-de-uso.svg)
+![classes-original](template/originais/classes-original.png)
 
-### 5.2 Diagrama de classes
+O modelo conceitual relaciona usuário, atleta, treinador, modalidade, validação profissional, matchmaking, prescrição, treino, exercícios, execução, avaliação e pagamento. A validação profissional é executada pela administração. Classes e operações descrevem o domínio; a implementação utiliza serviços e tabelas PostgreSQL, cujo esquema atualizado é apresentado no DER. O módulo financeiro permanece acadêmico nesta entrega.
 
-Modelo conceitual de identidade, credenciais, ciclos, treinos, comunicação, privacidade e financeiro. Documento profissional é opcional; assinatura é condicional ao modo financeiro.
+Fonte: Elaboração Própria (2026).
 
-[diagramas/classes.png](diagramas/classes.png)
+### 5.2 Diagrama de Sequência
 
-![5.2 Diagrama de classes](diagramas/classes.png)
+Os seis diagramas detalham os processos da Sprint 2. As duas sequências de contratação e treino mantêm as versões atualizadas aprovadas pela equipe.
 
-### 5.3 Diagramas de sequência
+### 5.2.1 Diagrama de Sequência [RF 09 e RF 10] — Contratação e aceite
 
-### 5.3.1 Contratação e aceite
+![sequencia-contratacao](diagramas/sequencia-contratacao.png)
 
-RF-06–10, RF-11–13 e RF-24: solicitação e aceite precedem checkout; modo acadêmico não cobra. Evento autenticado confirma o financeiro; resultado incerto requer conciliação.
+Solicitação de vínculo, aceite do treinador e distinção entre modo acadêmico e integração financeira configurada.
 
-[diagramas/sequencia-contratacao.png](diagramas/sequencia-contratacao.png)
+### 5.2.2 Diagrama de Sequência [RF 14 a RF 18] — Gestão do treino e correção técnica
 
-![5.3.1 Contratação e aceite](diagramas/sequencia-contratacao.png)
+![sequencia-treino](diagramas/sequencia-treino.png)
 
-### 5.3.2 Prescrição e execução de treino
+Prescrição, publicação, consulta autorizada, execução, feedback e mídia privada.
 
-RF-14–18: verificar papel/vínculo, prescrever, publicar, consultar, registrar execução e controlar mídia privada com consentimento.
+### 5.2.3 Diagrama de Sequência [RF 05] — Autenticação e sessão
 
-[diagramas/sequencia-treino.png](diagramas/sequencia-treino.png)
+![sequencia-autenticacao](diagramas/sequencia-autenticacao.png)
 
-![5.3.2 Prescrição e execução de treino](diagramas/sequencia-treino.png)
+Validação das credenciais, emissão de sessão e consulta autorizada do usuário autenticado.
 
-### 5.4 Diagrama entidade-relacionamento
+### 5.2.4 Diagrama de Sequência [RF 03 e RF 04] — Conferência manual do CREF
 
-Visão geral do DER atual: 35 tabelas de domínio e schema_migrations, totalizando 36 tabelas, 257 colunas e 45 FKs no retrato do banco. A figura vetorial pode ser ampliada; o detalhe de campos e restrições está no dicionário de dados separado.
+![sequencia-cref-manual](diagramas/sequencia-cref-manual.png)
 
-[diagramas/der.svg](diagramas/der.svg)
+Submissão pelo treinador, consulta humana à fonte oficial, decisão administrativa e auditoria transacional.
 
-![5.4 Diagrama entidade-relacionamento](diagramas/der.svg)
+### 5.2.5 Diagrama de Sequência [RF-A01] — Recuperação de senha
+
+![sequencia-recuperacao](diagramas/sequencia-recuperacao.png)
+
+Solicitação com resposta genérica, outbox cifrada, envio SMTP e redefinição com token de uso único.
+
+### 5.2.6 Diagrama de Sequência [RF 18] — Arquivo privado na nuvem
+
+![sequencia-upload-privado](diagramas/sequencia-upload-privado.png)
+
+Upload em partes, autorização, cifra, finalização e download privado com controle de acesso.
+
+### 5.3 Diagrama de Atividade
+
+Os diagramas apresentam as decisões e os caminhos dos processos de validação profissional e acompanhamento esportivo.
+
+### 5.3.1 Diagrama de Atividade [RF 03 e RF 04] — Validação profissional
+
+![atividade-cref](diagramas/atividade-cref.png)
+
+Análise manual com aprovação, rejeição ou manutenção da pendência quando não for possível concluir a conferência.
+
+### 5.3.2 Diagrama de Atividade [RF 09 a RF 17] — Acompanhamento esportivo
+
+![atividade-acompanhamento](diagramas/atividade-acompanhamento.png)
+
+Da descoberta de um treinador elegível ao aceite, prescrição, execução e acompanhamento do feedback.
+
+### 5.4 DER
+
+O modelo representa as 37 tabelas do esquema PostgreSQL exportado. O banco remoto utiliza Neon; o banco Docker é independente. A figura apresenta atributos selecionados; os campos, índices e restrições completos estão no dicionário de dados.
+
+![der](diagramas/der.png)
+
+[DER vetorial ampliável](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/diagramas/der.svg)
+
+[Dicionário de dados e relacionamentos](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/dicionario-dados.md)
 
 ## 6. Casos de Testes
 
-Esta seção desenvolve os testes iniciais exigidos na Sprint 2 e referencia evidências já executadas. A revisão de 24/10/2026 verifica os registros e corrige a documentação; não representa nova execução da aplicação. Entradas são contas, perfis, vínculos e arquivos fictícios preparados pelas suítes; não são dados de atletas reais.
+Os casos a seguir registram os testes iniciais exigidos na Sprint 2, com dados fictícios, resultados esperados, resultados observados e referências das evidências. Os relatórios distinguem execução local, Preview e produção. Esta revisão documental não representa uma nova execução de todos os testes.
 
-Resultados consolidados: 82/82 testes de API/unidade; 15/15 cenários E2E em Chromium, Firefox e WebKit; 22/22 testes móveis de transporte/configuração; 18/18 etapas integradas do APK em emulador Android API 35 x86_64. São conjuntos de natureza diferente e não devem ser somados como cobertura integral. Serviços PostgreSQL, SMTP e S3 locais foram reais; não houve cobrança externa nem homologação em aparelho físico/iOS.
+Na etapa de implantação de 26/10/2026 foram aprovados 99 testes de API/unidade, 15 cenários de interface em Chromium, Firefox e WebKit e 22 testes do cliente móvel. O ensaio anterior do APK registrou 18 etapas integradas em emulador; o APK configurado para HTTPS também foi compilado, instalado e iniciado. Não houve homologação em aparelho físico, iOS, lojas ou cobrança real.
 
-O ensaio APK utiliza o artefato SHA-256 5e8365264c329bbb5539b0ab3b5affb664440705c3fe12ec9eb833dbf39fdc0b, build 39518119323 e execução 39522996463, tentativa 2. A fixture isolada do APK reduz o prazo da avaliação para zero; CT016 confere separadamente a regra padrão de sete dias com datas preparadas. Encerramento de conta significa remoção/anonimização segundo a política, não apagamento indiscriminado de todo registro SQL.
+A jornada principal foi exercitada em Preview por HTTPS, com CREF manual, vínculo, prescrição, execução, feedback e mensagens. Em produção foram conferidos saúde da API/PostgreSQL, sessão, permissões, armazenamento privado e recuperação de senha com aceite SMTP. O aceite SMTP não comprova chegada à caixa de entrada. Os CT abaixo mantêm as datas e evidências das execuções que os sustentam.
 
-A carga sintética de 14/10/2026 usou 500 treinadores, 200 chamadas e concorrência 10, em loopback/API/PostgreSQL sem cache: 200 respostas HTTP 200; p50 78,54 ms, p95 97,78 ms e p99 132,54 ms. Atende p95 ≤2 s nesse cenário; não comprova capacidade em nuvem, dataset representativo ou autoescala.
+[Relatório de testes e evidências](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/relatorio-testes.md)
 
-### CT001 - Cadastro de usuário atleta válido
+[Implantação e testes remotos de 26/10/2026](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/implantacao-2026-10-26.md)
+
+### CT001 – Cadastro de usuário atleta válido
 
 **Rastreabilidade:** RF-01, RF-A06
 
 **Pré-condições:** APK local instalado no emulador e serviços de teste disponíveis; conta fictícia nova.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Abrir cadastro como atleta e informar dados válidos.
+1.	Abrir cadastro como atleta e informar dados válidos.
 
-2. Confirmar o envio e consultar o usuário persistido no servidor.
+2.	Confirmar o envio e consultar o usuário persistido no servidor.
 
 **Resultado esperado:** Conta de atleta persistida e acesso iniciado, sem criar administrador.
 
@@ -1014,19 +1390,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026; CI Linux, emulador Android API 35 x86_64 e API/PostgreSQL/SMTP/S3 locais reais. Dados fictícios; sem aparelho físico ou financeiro externo.
 
-[evidencias/android-integrated-result.json](evidencias/android-integrated-result.json)
+[Evidência CT001](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/android-integrated-result.json)
 
-### CT002 - Cadastro e perfil de treinador válido
+### CT002 – Cadastro e perfil de treinador válido
 
 **Rastreabilidade:** RF-02, RF-03, RF-05
 
 **Pré-condições:** Treinador fictício criado pelo cadastro público na preparação da suíte de API.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Completar o perfil do treinador com as opções do catálogo.
+1.	Completar o perfil do treinador com as opções do catálogo.
 
-2. Exercitar validações de perfil e tentativa de decisão de CREF pelo papel atleta.
+2.	Exercitar validações de perfil e tentativa de decisão de CREF pelo papel atleta.
 
 **Resultado esperado:** Preparação do cadastro/perfil concluída; dados inválidos e decisão pelo atleta são negados.
 
@@ -1034,19 +1410,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT002](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT003 - Credencial inválida e unicidade de e-mail
+### CT003 – Credencial inválida e unicidade de e-mail
 
 **Rastreabilidade:** RF-01, RF-05, RNF-11
 
 **Pré-condições:** Conta fictícia já cadastrada.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Tentar cadastro com o mesmo e-mail variando maiúsculas/minúsculas.
+1.	Tentar cadastro com o mesmo e-mail variando maiúsculas/minúsculas.
 
-2. Tentar autenticar com senha incorreta.
+2.	Tentar autenticar com senha incorreta.
 
 **Resultado esperado:** Duplicidade e login inválido são recusados com tratamento de erro.
 
@@ -1054,21 +1430,21 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT003](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT004 - Conferência manual e auditoria de CREF
+### CT004 – Conferência manual e auditoria de CREF
 
 **Rastreabilidade:** RF-03, RF-04, RN-01, RN-02, RNF-03
 
 **Pré-condições:** Treinador com perfil completo, submissão fictícia e administrador de teste.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Submeter comprovação de teste.
+1.	Submeter comprovação de teste.
 
-2. Administrador aprova pela API com motivo.
+2.	Administrador aprova pela API com motivo.
 
-3. Conferir decisão e auditoria persistidas.
+3.	Conferir decisão e auditoria persistidas.
 
 **Resultado esperado:** Decisão administrativa rastreável atualiza o perfil. O teste não consulta nem comprova registro profissional real.
 
@@ -1076,19 +1452,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT004](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT005 - Profissional pendente fora da descoberta
+### CT005 – Profissional pendente fora da descoberta
 
 **Rastreabilidade:** RF-04, RF-06, RNF-04
 
 **Pré-condições:** Treinador fictício ainda não aprovado e atleta autenticado.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Consultar descoberta.
+1.	Consultar descoberta.
 
-2. Tentar contratar diretamente o profissional pendente.
+2.	Tentar contratar diretamente o profissional pendente.
 
 **Resultado esperado:** Profissional não aparece e a contratação direta é impedida.
 
@@ -1096,19 +1472,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT005](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT006 - Matching calculado e filtros suportados
+### CT006 – Matching calculado e filtros suportados
 
 **Rastreabilidade:** RF-06, RF-07, RN-08, RN-09
 
 **Pré-condições:** Perfis fictícios com preferências e profissional aprovado.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Consultar a recomendação e conferir score/razões.
+1.	Consultar a recomendação e conferir score/razões.
 
-2. Aplicar os filtros implementados e comparar a resposta.
+2.	Aplicar os filtros implementados e comparar a resposta.
 
 **Resultado esperado:** Ranking respeita pontuação e filtros; não se presume filtro por nota média.
 
@@ -1116,19 +1492,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT006](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT007 - Solicitação, duplicidade e acesso por terceiro
+### CT007 – Solicitação, duplicidade e acesso por terceiro
 
 **Rastreabilidade:** RF-09, RF-10, RN-07
 
 **Pré-condições:** Atleta e treinador elegíveis; outro usuário de teste.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Criar solicitação pendente.
+1.	Criar solicitação pendente.
 
-2. Repetir a solicitação e tentar decidir com terceiro.
+2.	Repetir a solicitação e tentar decidir com terceiro.
 
 **Resultado esperado:** Pedido inicial persiste; duplicidade e decisão por terceiro são negadas.
 
@@ -1136,19 +1512,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT007](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT008 - Aceite concorrente de solicitação
+### CT008 – Aceite concorrente de solicitação
 
 **Rastreabilidade:** RF-10, RN-07
 
 **Pré-condições:** Solicitação pendente destinada ao treinador autenticado.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Enviar decisões simultâneas para a mesma solicitação.
+1.	Enviar decisões simultâneas para a mesma solicitação.
 
-2. Consultar o estado final.
+2.	Consultar o estado final.
 
 **Resultado esperado:** Somente uma decisão efetiva; não são criados ciclos duplicados.
 
@@ -1156,19 +1532,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT008](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT009 - Prescrição válida e rascunho privado
+### CT009 – Prescrição válida e rascunho privado
 
 **Rastreabilidade:** RF-14, RNF-10
 
 **Pré-condições:** Vínculo ativo e treinador com acesso autorizado.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Tentar prescrição inválida.
+1.	Tentar prescrição inválida.
 
-2. Salvar ficha como rascunho e tentar acesso sem permissão.
+2.	Salvar ficha como rascunho e tentar acesso sem permissão.
 
 **Resultado esperado:** Dados inválidos são recusados e o rascunho permanece privado.
 
@@ -1176,19 +1552,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT009](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT010 - Publicação e consulta da ficha pelo atleta
+### CT010 – Publicação e consulta da ficha pelo atleta
 
 **Rastreabilidade:** RF-14, RF-16, RN-11
 
 **Pré-condições:** Ficha em vínculo de teste e usuário alheio.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Publicar a ficha.
+1.	Publicar a ficha.
 
-2. Consultar com atleta do vínculo e com terceiro.
+2.	Consultar com atleta do vínculo e com terceiro.
 
 **Resultado esperado:** Somente o atleta autorizado acessa a ficha publicada.
 
@@ -1196,19 +1572,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT010](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT011 - Métricas inválidas recusadas
+### CT011 – Métricas inválidas recusadas
 
 **Rastreabilidade:** RF-17, RN-12, RNF-07
 
 **Pré-condições:** Ficha publicada e atleta autorizado.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Enviar métrica desconhecida ou fora do catálogo/limite.
+1.	Enviar métrica desconhecida ou fora do catálogo/limite.
 
-2. Informar bloco inexistente.
+2.	Informar bloco inexistente.
 
 **Resultado esperado:** Entradas inválidas não produzem execução inconsistente.
 
@@ -1216,19 +1592,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT011](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT012 - Execução e atualização sem duplicidade
+### CT012 – Execução e atualização sem duplicidade
 
 **Rastreabilidade:** RF-17, RN-12
 
 **Pré-condições:** Ficha publicada, atleta e treinador do vínculo.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Gravar execução e feedback.
+1.	Gravar execução e feedback.
 
-2. Atualizar a execução e consultar como treinador.
+2.	Atualizar a execução e consultar como treinador.
 
 **Resultado esperado:** Uma execução por ficha, visível somente a quem tem autorização.
 
@@ -1236,19 +1612,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT012](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT013 - Arquivo privado cifrado e recuperação autorizada
+### CT013 – Arquivo privado cifrado e recuperação autorizada
 
 **Rastreabilidade:** RF-18, RNF-02, RF-A04
 
 **Pré-condições:** Consentimento e recurso de teste autorizados; S3 local real.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Enviar arquivo permitido.
+1.	Enviar arquivo permitido.
 
-2. Inspecionar bytes cifrados no armazenamento e baixar pelo usuário autorizado.
+2.	Inspecionar bytes cifrados no armazenamento e baixar pelo usuário autorizado.
 
 **Resultado esperado:** Objeto privado e cifrado; recuperação autorizada retorna o original.
 
@@ -1256,19 +1632,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT013](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT014 - Mensagens cifradas e paginação
+### CT014 – Mensagens cifradas e paginação
 
 **Rastreabilidade:** RF-19, RNF-02
 
 **Pré-condições:** Participantes de vínculo válido e conversa de teste.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Enviar mensagens.
+1.	Enviar mensagens.
 
-2. Consultar histórico em páginas e verificar persistência/cifra.
+2.	Consultar histórico em páginas e verificar persistência/cifra.
 
 **Resultado esperado:** Ordem e paginação sem perda/duplicação, com conteúdo cifrado no banco.
 
@@ -1276,19 +1652,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT014](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT015 - Recuperação de senha por SMTP local
+### CT015 – Recuperação de senha por SMTP local
 
 **Rastreabilidade:** RF-A01, RF-05
 
 **Pré-condições:** Conta fictícia, SMTP Mailpit e outbox de teste.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Solicitar recuperação e obter mensagem enviada ao SMTP local.
+1.	Solicitar recuperação e obter mensagem enviada ao SMTP local.
 
-2. Consumir token para alterar senha e tentar reutilizá-lo e usar sessões antigas.
+2.	Consumir token para alterar senha e tentar reutilizá-lo e usar sessões antigas.
 
 **Resultado esperado:** Uso único, token em hash SQL e invalidação de sessões anteriores.
 
@@ -1296,19 +1672,19 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT015](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
-### CT016 - Avaliação elegível e unicidade por ciclo
+### CT016 – Avaliação elegível e unicidade por ciclo
 
 **Rastreabilidade:** RF-20, RN-13
 
 **Pré-condições:** Vínculo ativo com data de aceite preparada para verificar a regra temporal.
 
-Fluxo principal:
+**Fluxo de Teste:**
 
-1. Tentar avaliar antes do prazo e após a elegibilidade de teste.
+1.	Tentar avaliar antes do prazo e após a elegibilidade de teste.
 
-2. Repetir avaliação do mesmo vínculo.
+2.	Repetir avaliação do mesmo vínculo.
 
 **Resultado esperado:** Prazo mínimo é respeitado e duplicidade é recusada; preparação de datas não comprova sete dias reais de uso.
 
@@ -1316,8 +1692,8 @@ Fluxo principal:
 
 **Data e ambiente:** 21/10/2026 14:36:01 UTC-03:00. Windows, API Fastify/PostgreSQL e serviços locais; dados fictícios. Data derivada do startTime do arquivo Vitest, preservado sem reexecução.
 
-[evidencias/vitest-results.json](evidencias/vitest-results.json)
+[Evidência CT016](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/evidencias/vitest-results.json)
 
 ## 7. Apêndices
 
-Não se aplica nesta entrega. Os documentos de apoio e as evidências de teste são mantidos separadamente no repositório.
+Não se aplica nesta entrega. A documentação da API, o backlog e os relatórios de testes são entregues como documentos de apoio separados.

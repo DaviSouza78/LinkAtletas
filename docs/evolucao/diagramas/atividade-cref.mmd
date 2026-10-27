@@ -1,0 +1,16 @@
+flowchart TD
+  A([Inicio]) --> B[Treinador preenche perfil e submete CREF]
+  B --> C{Entrada valida?}
+  C -- Nao --> D[Informar campos a corrigir]
+  D --> B
+  C -- Sim --> E[Registrar submissao pendente]
+  E --> F[Administrador consulta a fonte oficial]
+  F --> G{Consulta suficiente?}
+  G -- Nao --> H[Manter pendente para nova conferencia]
+  H --> F
+  G -- Sim --> I{Registro conferido e regular?}
+  I -- Nao --> J[Rejeitar com motivo e auditoria]
+  I -- Sim --> K[Aprovar com motivo, validade e auditoria]
+  K --> L[Permitir descoberta enquanto elegivel]
+  J --> M([Fim])
+  L --> M

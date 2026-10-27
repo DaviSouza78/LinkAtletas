@@ -5,13 +5,13 @@
     "priority": "P0",
     "actor": "Atleta",
     "pre": "Visitante para criar conta; titular autenticado para manter o perfil.",
-    "description": "Criar conta de atleta e manter nome, cidade, modalidades, objetivos, níveis, orçamento, disponibilidade e atendimento. Dados privados de saúde são opcionais e dependem de consentimento específico.",
+    "description": "O sistema deve permitir que o atleta crie sua conta e mantenha atualizadas suas informações pessoais, localização e preferências esportivas para direcionamento na plataforma. Dados privados de saúde são opcionais e exigem consentimento específico.",
     "steps": [
       "Informar nome, e-mail e senha; o servidor valida a entrada, cria conta e perfil e inicia sessão.",
       "Completar as preferências esportivas e salvar o perfil.",
       "O servidor valida as opções e persiste as alterações; a próxima busca usa os dados atuais."
     ],
-    "alternative": "E-mail duplicado, senha inadequada ou opções inválidas impedem a gravação e exibem erro. Não há fila de aprendizagem ou recomendação em segundo plano.",
+    "alternative": "E-mail já cadastrado: impedir a criação de conta duplicada e informar o erro. Campos inválidos: destacar a informação que precisa de correção e impedir a gravação até o ajuste.",
     "acceptance": "O titular reabre o perfil persistido; terceiros não podem alterá-lo.",
     "status": "Implementado; evidências de API e interface."
   },
@@ -21,7 +21,7 @@
     "priority": "P0",
     "actor": "Treinador",
     "pre": "Visitante para criar conta; treinador autenticado para editar o próprio perfil.",
-    "description": "Manter nome, bio, cidade, modalidades, objetivos, níveis atendidos, disponibilidade, formato de atendimento e preço. Bio reúne a apresentação profissional; não há cadastro separado de planos comerciais Starter/Pro/Business.",
+    "description": "O sistema deve permitir que o treinador cadastre e mantenha seu perfil profissional, incluindo nome, apresentação, cidade, modalidades, objetivos, níveis atendidos, disponibilidade, formato de atendimento e preço.",
     "steps": [
       "Criar conta com papel treinador e acessar o perfil.",
       "Preencher os campos profissionais e salvar.",
@@ -37,7 +37,7 @@
     "priority": "P0",
     "actor": "Treinador",
     "pre": "Conta autenticada e perfil com modalidade, nível, objetivos e disponibilidade preenchidos.",
-    "description": "Submeter CREF e evidência textual para análise administrativa. Documento privado de imagem/PDF é opcional; vídeo não é aceito como comprovação profissional. CREF deve ter de 4 a 50 caracteres e a evidência de 10 a 2.000 caracteres, conforme schema vigente.",
+    "description": "O sistema deve permitir ao treinador submeter seu número de CREF e evidência textual para análise administrativa, com documento privado de imagem ou PDF opcional. O número deve ter de 4 a 50 caracteres e a evidência, de 10 a 2.000 caracteres.",
     "steps": [
       "Informar CREF e evidência; anexar documento próprio se necessário.",
       "O servidor valida formato, propriedade e finalidade do arquivo.",
@@ -53,7 +53,7 @@
     "priority": "P0",
     "actor": "Administrador",
     "pre": "Submissão pendente e administrador autenticado.",
-    "description": "O administrador consulta o portal oficial do conselho, compara CREF, titularidade e situação e registra a decisão. A consulta é humana: a aplicação não acessa nem certifica automaticamente os dados do conselho.",
+    "description": "O sistema deve permitir que o administrador registre a decisão sobre o registro profissional após consultar manualmente a fonte oficial do conselho e conferir CREF, titularidade e situação. A aplicação mantém a decisão, o responsável, o motivo e a validade administrativa.",
     "steps": [
       "Abrir a submissão e conferir a fonte oficial.",
       "Registrar no motivo a fonte, a data e o resultado da conferência; a evidência enviada pelo treinador permanece distinta desse registro administrativo.",
@@ -70,7 +70,7 @@
     "priority": "P0",
     "actor": "Atleta, treinador e administrador",
     "pre": "Conta existente e ativa; administrador provisionado por procedimento próprio.",
-    "description": "Autenticar e autorizar por papel, propriedade e estado. A web usa cookie HttpOnly; o app usa token Bearer opaco guardado no SecureStore. Atletas também acessam a web.",
+    "description": "O sistema deve autenticar atletas, treinadores e administradores e restringir as operações conforme papel, propriedade do recurso e estado da conta. A web utiliza sessão em cookie HttpOnly; o aplicativo utiliza token Bearer opaco armazenado no SecureStore.",
     "steps": [
       "Informar e-mail e senha; o servidor verifica a credencial e inicia sessão.",
       "Acessar funções permitidas ao papel e ao recurso solicitado.",
@@ -86,13 +86,13 @@
     "priority": "P0",
     "actor": "Sistema, solicitado pelo atleta",
     "pre": "Atleta autenticado com preferências; profissionais aprovados e elegíveis.",
-    "description": "Filtrar modalidade e compatibilidade de atendimento/cidade e calcular nota explicável: objetivos 30, nível 20, orçamento 25 e horário em comum 25. Sem correspondência, o critério não soma pontos. Não há modelo treinado.",
+    "description": "O sistema deve calcular a compatibilidade entre atleta e treinadores elegíveis por regras explicáveis. Após filtrar modalidade e atendimento/cidade, a pontuação considera objetivos (30), nível (20), orçamento (25) e horário em comum (25), somando até 100 pontos.",
     "steps": [
       "Consultar profissionais aprovados, ativos e com validade vigente.",
       "Excluir incompatíveis em modalidade e atendimento; quando presencial exigir cidade, excluir cidade incompatível ou ausente.",
       "Calcular score e razões; ordenar por score, nome e identificador para desempate."
     ],
-    "alternative": "Não há resultado quando os filtros eliminam todos os candidatos. A cidade incompatível no presencial não é apenas penalidade de nota. Não há cache de recomendações no caminho testado.",
+    "alternative": "Sem candidatos: informar a ausência de resultados quando os filtros eliminarem os profissionais disponíveis. Atendimento presencial incompatível: excluir candidatos cuja cidade seja incompatível ou não esteja informada.",
     "acceptance": "Mesmas entradas produzem resultado determinístico e razões verificáveis.",
     "status": "Implementado; testes unitários, API e carga sintética."
   },
@@ -102,7 +102,7 @@
     "priority": "P0",
     "actor": "Atleta",
     "pre": "Sessão válida.",
-    "description": "Consultar a descoberta por modalidade, texto, preço máximo e atendimento. O texto pesquisa nome, cidade e bio. Avaliações públicas não constituem filtro de nota mínima na versão atual.",
+    "description": "O sistema deve permitir ao atleta buscar treinadores por modalidade, texto, preço máximo e formato de atendimento. A busca textual deve considerar nome, cidade e apresentação profissional.",
     "steps": [
       "Abrir a descoberta e informar filtros disponíveis.",
       "O servidor aplica elegibilidade, matching e filtros.",
@@ -118,13 +118,13 @@
     "priority": "P1",
     "actor": "Atleta",
     "pre": "Acesso autorizado à descoberta.",
-    "description": "Apresentar bio, modalidades, atendimento, cidade, preço, registro profissional, compatibilidade e avaliações publicadas. Documentos profissionais e mídias privadas não são portfólio público.",
+    "description": "O sistema deve apresentar o portfólio do treinador com apresentação, modalidades, atendimento, cidade, preço, registro profissional, compatibilidade e avaliações publicadas, preservando a privacidade dos documentos e mídias restritos.",
     "steps": [
       "Selecionar um profissional exibido na descoberta.",
       "Consultar os dados públicos e avaliações visíveis.",
       "Iniciar solicitação de vínculo se o profissional continuar elegível."
     ],
-    "alternative": "Perfil indisponível ou inelegível não autoriza contratação. Não há biblioteca pública de vídeos ou campos de especialização independentes da bio.",
+    "alternative": "Perfil indisponível ou inelegível: impedir a contratação e informar que o profissional não está disponível para um novo vínculo.",
     "acceptance": "Nenhum documento privado é exposto ao visitante da descoberta.",
     "status": "Implementado; dados persistidos."
   },
@@ -134,7 +134,7 @@
     "priority": "P0",
     "actor": "Atleta",
     "pre": "Atleta autenticado e treinador elegível.",
-    "description": "Criar solicitação pendente de vínculo. O treinador decide antes da intenção financeira; não há pré-autorização de cartão durante o pedido.",
+    "description": "O sistema deve permitir ao atleta solicitar um vínculo com treinador elegível. A solicitação deve permanecer pendente até a decisão do profissional, antes de qualquer intenção financeira.",
     "steps": [
       "Confirmar interesse no treinador.",
       "O servidor revalida elegibilidade e unicidade de ciclo vigente e persiste o pedido.",
@@ -150,7 +150,7 @@
     "priority": "P0",
     "actor": "Treinador destinatário",
     "pre": "Solicitação pendente e profissional elegível para aceitar.",
-    "description": "Decidir exclusivamente sobre os pedidos destinados ao treinador, com transação e preservação do ciclo.",
+    "description": "O sistema deve permitir que o treinador aceite ou recuse exclusivamente as solicitações destinadas ao seu perfil, registrando a decisão e preservando o histórico do ciclo.",
     "steps": [
       "Consultar pedidos e perfil do solicitante.",
       "Aceitar ou recusar; o servidor bloqueia o registro e verifica o destinatário e estado.",
@@ -166,7 +166,7 @@
     "priority": "P1",
     "actor": "Atleta, sistema e Asaas configurado",
     "pre": "Ciclo aceito; modo Asaas, plano, carteira e credenciais configurados.",
-    "description": "Preparar checkout hospedado e acompanhar assinatura por eventos autenticados. O provedor gerencia cobrança; a aplicação não recebe dados brutos de cartão.",
+    "description": "No modo financeiro configurado, o sistema deve preparar checkout hospedado e acompanhar a assinatura por eventos autenticados. O provedor gerencia a cobrança, sem transmitir dados brutos de cartão ao LinkAtletas.",
     "steps": [
       "Persistir intenção única e solicitar checkout recorrente ao provedor.",
       "Apresentar URL hospedada ao atleta.",
@@ -183,7 +183,7 @@
     "priority": "P1",
     "actor": "Sistema e provedor financeiro",
     "pre": "Carteira elegível, comissão configurada e modo Asaas.",
-    "description": "Solicitar split no checkout e registrar eventos/valores. Estimativa de participação não é comprovação de liquidação ou repasse bancário.",
+    "description": "No modo financeiro configurado, o sistema deve solicitar ao provedor a divisão do pagamento entre a taxa da plataforma e a participação do treinador e registrar as referências e valores retornados.",
     "steps": [
       "Ler carteira e comissão administrativa.",
       "Enviar a participação ao provedor no checkout.",
@@ -199,7 +199,7 @@
     "priority": "P1",
     "actor": "Sistema e jobs",
     "pre": "Assinatura financeira e eventos válidos.",
-    "description": "Manter estados de pagamento, período pago e carência configurada; suspender novas interações quando a regra de acesso exigir.",
+    "description": "No modo financeiro configurado, o sistema deve acompanhar o estado do pagamento, o período pago e a carência definida, suspendendo novas interações quando a regra de acesso exigir.",
     "steps": [
       "Registrar evento e preservar a vigência confirmada.",
       "Aplicar carência e conciliar pendências por jobs.",
@@ -215,7 +215,7 @@
     "priority": "P0",
     "actor": "Treinador",
     "pre": "Ciclo ativo, aprovação profissional e acesso financeiro aplicável válidos.",
-    "description": "Criar ficha com modalidade, data e blocos com orientações, metas e métricas; salvar rascunho por ação explícita ou publicar.",
+    "description": "O sistema deve permitir ao treinador criar fichas de treino com modalidade, data e blocos de exercícios, orientações, metas e métricas, com ações explícitas de salvar rascunho e publicar.",
     "steps": [
       "Selecionar o atleta do vínculo e preencher ficha/blocos.",
       "Salvar rascunho privado ou solicitar publicação.",
@@ -231,13 +231,13 @@
     "priority": "P1",
     "actor": "Treinador",
     "pre": "Ficha e vínculo autorizados.",
-    "description": "Associar referência HTTPS por bloco e mídia privada de orientação ligada à ficha. Não existe biblioteca pública de exercícios gerida separadamente.",
+    "description": "O sistema deve permitir ao treinador associar referências HTTPS aos blocos e mídias privadas de orientação à ficha, disponibilizando-as somente aos participantes autorizados.",
     "steps": [
       "Informar referência HTTPS no bloco ou selecionar arquivo de orientação para a ficha.",
       "O servidor valida finalidade, arquivo e autorização.",
       "Armazenar mídia privada cifrada e permitir recuperação somente ao usuário autorizado."
     ],
-    "alternative": "Formato, tamanho ou propriedade inválidos são recusados. S3 local em desenvolvimento não comprova armazenamento hospedado em nuvem.",
+    "alternative": "Arquivo inválido: recusar formato ou tamanho não permitido. Acesso indevido: negar a associação ou leitura de mídia que não pertença ao usuário ou ao recurso autorizado.",
     "acceptance": "Atleta do vínculo acessa orientação permitida; terceiros não baixam o arquivo.",
     "status": "Implementado; serviços locais testados."
   },
@@ -247,7 +247,7 @@
     "priority": "P0",
     "actor": "Atleta",
     "pre": "Sessão válida e acesso autorizado ao vínculo/ficha.",
-    "description": "Listar fichas publicadas, blocos e referências de orientação; preservar o histórico do ciclo conforme autorização.",
+    "description": "O sistema deve permitir ao atleta consultar suas fichas publicadas, blocos de exercícios e referências de orientação, preservando o histórico conforme as regras de autorização do ciclo.",
     "steps": [
       "Abrir a área de treinos.",
       "Selecionar ficha publicada e consultar blocos, metas e orientação.",
@@ -263,7 +263,7 @@
     "priority": "P0",
     "actor": "Atleta",
     "pre": "Ficha publicada autorizada e acesso válido.",
-    "description": "Registrar blocos realizados, métricas do catálogo, esforço de 1 a 10 e observações, com payload privado cifrado e uma execução por ficha.",
+    "description": "O sistema deve permitir ao atleta registrar os blocos realizados, métricas do catálogo, percepção de esforço de 1 a 10 e observações, mantendo uma execução por ficha e os dados privados cifrados.",
     "steps": [
       "Marcar blocos concluídos e preencher métricas/esforço/observações.",
       "O servidor valida chaves, limites e índices e grava a execução.",
@@ -279,7 +279,7 @@
     "priority": "P1",
     "actor": "Atleta e treinador do vínculo",
     "pre": "Recurso autorizado e consentimento específico de performance concedido.",
-    "description": "Selecionar e enviar mídia privada de performance para análise do treinador. A versão móvel usa seletor de arquivos; câmera própria e upload retomável automático não são funcionalidades comprovadas. Tipos reconhecidos pelo módulo: PNG, JPEG, WebP, PDF, MP4 e WebM, respeitando a finalidade. Limites: 50 MiB por vídeo e 10 MiB nos demais tipos; a requisição multipart aceita um arquivo, sem campos adicionais, com teto global de 50 MiB. Comprovação profissional não aceita vídeo.",
+    "description": "O sistema deve permitir ao atleta enviar mídia privada de performance e ao treinador autorizado registrar a correção técnica. Os arquivos devem respeitar tipo e finalidade, com limite de 50 MiB para vídeo e 10 MiB para os demais tipos permitidos. O cliente móvel utiliza seletor de arquivos; a implantação remota realiza upload em partes.",
     "steps": [
       "Selecionar arquivo e enviar para o recurso autorizado.",
       "Validar assinatura, MIME, extensão, tamanho, finalidade e consentimento; cifrar e armazenar.",
@@ -295,7 +295,7 @@
     "priority": "P1",
     "actor": "Participantes do vínculo",
     "pre": "Sessão e vínculo válidos para envio.",
-    "description": "Manter histórico paginado e cifrado, envio REST, eventos WebSocket, leitura e anexos privados. Notificações são internas; não se afirma push do sistema operacional.",
+    "description": "O sistema deve permitir a troca de mensagens entre participantes autorizados de um vínculo, com histórico paginado e cifrado, registro de leitura, anexos privados e atualização por eventos quando conectados.",
     "steps": [
       "Abrir conversa e recuperar histórico persistido.",
       "Enviar texto/anexo autorizado; após commit o servidor publica para as partes.",
@@ -311,13 +311,13 @@
     "priority": "P1",
     "actor": "Atleta",
     "pre": "Vínculo elegível ativo há sete dias por padrão, conforme configuração.",
-    "description": "Publicar nota de 1 a 5 e texto, uma avaliação por ciclo, com edição pelo autor e média calculada sobre conteúdo visível.",
+    "description": "O sistema deve permitir ao atleta elegível publicar nota de 1 a 5 e comentário sobre o treinador, com uma avaliação por ciclo, edição pelo autor e média calculada sobre o conteúdo visível.",
     "steps": [
       "Selecionar vínculo elegível e preencher nota e comentário.",
       "Validar papel, vigência e período mínimo e persistir uma avaliação por ciclo.",
       "Exibir avaliações visíveis e sua média; autor pode editar conforme autorização."
     ],
-    "alternative": "Avaliação precoce, duplicada, de terceiro ou sem vínculo ativo é recusada. Período reduzido em fixture não comprova transcurso real de sete dias.",
+    "alternative": "Avaliação não elegível: recusar envio antes do prazo mínimo, sem vínculo ativo ou por terceiro. Duplicidade: impedir uma segunda avaliação para o mesmo ciclo.",
     "acceptance": "Critério temporal e unicidade são aplicados no servidor; comentário oculto não compõe a média pública.",
     "status": "Implementado e testado com condições de fixture identificadas."
   },
@@ -327,7 +327,7 @@
     "priority": "P1",
     "actor": "Treinador avaliado",
     "pre": "Avaliação visível do próprio treinador.",
-    "description": "Responder à avaliação e permitir denúncia/moderação pelo fluxo RF-A08.",
+    "description": "O sistema deve permitir ao treinador responder às avaliações do seu perfil, observando a visibilidade do conteúdo e o fluxo de denúncia e moderação descrito em RF-A08.",
     "steps": [
       "Consultar avaliações recebidas.",
       "Informar resposta e confirmar.",
@@ -343,7 +343,7 @@
     "priority": "P1",
     "actor": "Participante autorizado",
     "pre": "Ciclo acessível ao participante.",
-    "description": "Retirar pedido pendente ou encerrar vínculo conforme estado. No acadêmico, encerrar sem cobrança; no Asaas, confirmar cancelamento da renovação e preservar período pago aplicável.",
+    "description": "O sistema deve permitir a retirada de pedido pendente ou o encerramento do vínculo conforme seu estado. No modo acadêmico não há cobrança; no modo Asaas configurado, deve confirmar o cancelamento da renovação e preservar o período pago aplicável.",
     "steps": [
       "Informar motivo e confirmar a operação.",
       "Autorizar o participante e bloquear o ciclo na transação.",
@@ -359,7 +359,7 @@
     "priority": "P0",
     "actor": "Treinador",
     "pre": "Treinador autenticado.",
-    "description": "Consultar solicitações e ciclos, prescrever, consultar execução, conversar, agendar e acompanhar o estado financeiro aplicável.",
+    "description": "O sistema deve permitir ao treinador gerenciar suas solicitações e ciclos de acompanhamento, prescrever treinos, consultar execuções, trocar mensagens, agendar consultorias e acompanhar o estado financeiro aplicável.",
     "steps": [
       "Abrir carteira e selecionar o aluno/ciclo autorizado.",
       "Consultar estado e histórico e acessar ações permitidas.",
@@ -375,7 +375,7 @@
     "priority": "P1",
     "actor": "Atleta e provedor configurado",
     "pre": "Modo Asaas configurado e ciclo elegível.",
-    "description": "Encaminhar o atleta ao checkout hospedado; não manter formulário próprio de cartão ou carteira local de PAN/CVV.",
+    "description": "No modo financeiro configurado, o sistema deve encaminhar o atleta ao checkout hospedado do provedor para gestão do pagamento, sem coletar ou armazenar número completo de cartão ou CVV.",
     "steps": [
       "Preparar intenção e obter URL de checkout pelo fluxo financeiro.",
       "O atleta informa os dados somente no provedor.",
@@ -391,15 +391,15 @@
     "priority": "P0",
     "actor": "Titular da conta",
     "pre": "Acesso ao endereço cadastrado e serviço SMTP configurado.",
-    "description": "Recuperar senha por token aleatório de uso único, hash persistido, expiração de 30 minutos e outbox SMTP.",
+    "description": "O sistema deve permitir a recuperação de senha por e-mail, utilizando token aleatório de uso único com expiração de 30 minutos, hash persistido e fila de envio SMTP.",
     "steps": [
       "Solicitar recuperação por e-mail; devolver resposta genérica.",
       "Enviar link pelo SMTP; o titular informa token e nova senha.",
       "Verificar/bloquear token, alterar hash e revogar sessões anteriores."
     ],
-    "alternative": "Token inválido, usado ou expirado não altera senha. Mailpit captura mensagens locais, sem provar entrega à caixa externa.",
+    "alternative": "Token inválido: recusar tokens utilizados ou expirados. Falha de envio: manter a tentativa na fila para processamento conforme a política de envio.",
     "acceptance": "A nova senha autentica e o token/sessões antigos não permitem reutilização.",
-    "status": "Implementado; SMTP local testado."
+    "status": "Implementado; SMTP local e recuperação remota testados, com aceite SMTP e sem confirmação de chegada à caixa de entrada."
   },
   {
     "id": "RF-A02",
@@ -407,7 +407,7 @@
     "priority": "P1",
     "actor": "Destinatário autenticado",
     "pre": "Evento persistido destinado ao usuário.",
-    "description": "Consultar notificações internas, contador e leitura individual/em lote, com atualização por eventos em tempo real quando conectados.",
+    "description": "O sistema deve permitir consultar notificações internas, seu contador e estado de leitura, com marcação individual ou em lote e atualização por eventos quando conectado.",
     "steps": [
       "Abrir a lista do destinatário.",
       "Consultar contador e marcar itens ou todos como lidos.",
@@ -423,7 +423,7 @@
     "priority": "P1",
     "actor": "Participante do vínculo; treinador para concluir",
     "pre": "Vínculo e acesso válidos; horário permitido.",
-    "description": "Criar, reagendar, cancelar e concluir consultorias, com histórico e bloqueio de sobreposição. Agenda própria funciona sem Google.",
+    "description": "O sistema deve permitir criar, reagendar, cancelar e concluir consultorias, mantendo histórico e bloqueando sobreposição de horários. A agenda da aplicação deve funcionar independentemente da integração opcional com Google Calendar.",
     "steps": [
       "Definir início, duração e objetivo.",
       "Bloquear agendas em ordem e verificar conflito antes de persistir.",
@@ -439,7 +439,7 @@
     "priority": "P0",
     "actor": "Titular autenticado",
     "pre": "Conta ativa; senha confirmada para encerramento.",
-    "description": "Gerenciar finalidades versionadas, exportar dados próprios e encerrar conta com anonimização/remoção de conteúdo privado conforme política e retenção aplicáveis.",
+    "description": "O sistema deve permitir gerenciar consentimentos por finalidade e versão, exportar os próprios dados e solicitar encerramento de conta, com anonimização ou remoção de conteúdo privado conforme política e retenção aplicáveis.",
     "steps": [
       "Consultar política e conceder ou revogar consentimentos separados.",
       "Exportar os próprios dados quando solicitado.",
@@ -455,7 +455,7 @@
     "priority": "P0",
     "actor": "Administrador e jobs",
     "pre": "Verificação existente e administrador autorizado para decisões manuais.",
-    "description": "Expirar aprovação por prazo e suspender/revogar profissional com motivo e auditoria, retirando elegibilidade para novas ações protegidas.",
+    "description": "O sistema deve controlar o prazo da aprovação profissional e permitir à administração suspender ou revogar a aprovação, registrando motivo e auditoria e retirando a elegibilidade para novas ações protegidas.",
     "steps": [
       "Verificar prazo nos jobs ou receber decisão administrativa.",
       "Persistir alteração e auditoria.",
@@ -471,9 +471,9 @@
     "priority": "P1",
     "actor": "Atleta",
     "pre": "APK/perfil configurado e API acessível.",
-    "description": "Usar a mesma API pelo cliente React Native/Expo, sessão no SecureStore, treino, mensagens, agenda, mídias, notificações e privacidade.",
+    "description": "O sistema deve disponibilizar cliente React Native/Expo para o atleta, integrado à mesma API, com sessão no SecureStore e acesso a treinos, mensagens, agenda, mídias, notificações e privacidade.",
     "steps": [
-      "Instalar o APK local de demonstração e conectar à API via ambiente configurado.",
+      "Instalar o APK e conectar à API do ambiente configurado.",
       "Autenticar e executar funções autorizadas.",
       "Restaurar a sessão com segurança e tratar falhas de transporte."
     ],
@@ -487,15 +487,15 @@
     "priority": "P1",
     "actor": "Responsável técnico",
     "pre": "Configuração, segredos e chave de cifra preservados.",
-    "description": "Executar API, banco, SMTP e armazenamento; aplicar migrations e jobs, configurar TLS e realizar backup/restauração SQL/S3. A implantação em nuvem permanece pendente.",
+    "description": "A operação deve permitir executar e configurar API, banco, SMTP e armazenamento, aplicar migrações e jobs e realizar procedimentos de backup e restauração. A implantação remota utiliza Vercel, Neon, Tigris, Brevo e cron-job.org; o ambiente local permanece independente.",
     "steps": [
       "Preparar serviços/configuração e aplicar migrations sem apagar dados existentes.",
       "Iniciar aplicação e verificar saúde; agendar jobs conforme ambiente.",
       "Gerar backup com chave preservada e testar restauração isolada."
     ],
-    "alternative": "Sem segredos/configuração válidos, impedir ativação externa indevida. Docker/TLS local não comprovam hospedagem pública, balanceamento ou autoescala.",
+    "alternative": "Configuração inválida: impedir a operação externa e informar a falha sem expor segredos. Recuperação: executar o procedimento documentado e conferir integridade e contagens; os ensaios realizados não substituem uma rotina recorrente de backup.",
     "acceptance": "Serviços e recuperação são reproduzíveis no ambiente registrado, com integridade verificada.",
-    "status": "Operação local e CI verificadas; implantação remota ainda não executada."
+    "status": "Operação local, CI e implantação remota verificadas; serviços e evidências registrados em 26/10/2026."
   },
   {
     "id": "RF-A08",
@@ -503,7 +503,7 @@
     "priority": "P1",
     "actor": "Usuário denunciante e administrador",
     "pre": "Avaliação existente; administrador autorizado para moderar.",
-    "description": "Denunciar avaliação e ocultar/restaurar conteúdo com decisão motivada e histórico.",
+    "description": "O sistema deve permitir denunciar avaliações e à administração ocultar ou restaurar o conteúdo após análise, registrando decisão motivada e histórico.",
     "steps": [
       "Registrar denúncia vinculada à avaliação.",
       "Administrador analisa e informa motivo da ocultação/restauração.",

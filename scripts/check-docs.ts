@@ -74,7 +74,14 @@ const useCaseIds = [...useCases.matchAll(/usecase "(UC-[\d.]+) /g)].map((match) 
 assert.equal(new Set(useCaseIds).size, useCaseIds.length, 'Identificadores de casos de uso repetidos.')
 const useCaseSvg = await readFile('docs/evolucao/diagramas/casos-de-uso.svg', 'utf8')
 for (const id of useCaseIds) assert(useCaseSvg.includes('>' + id + '<'), `Caso de uso ausente na imagem: ${id}`)
-for (const name of ['sequencia-contratacao', 'sequencia-treino']) {
+for (const name of [
+  'sequencia-contratacao',
+  'sequencia-treino',
+  'sequencia-autenticacao',
+  'sequencia-cref-manual',
+  'sequencia-recuperacao',
+  'sequencia-upload-privado',
+]) {
   const sequence = await readFile(`docs/evolucao/diagramas/${name}.mmd`, 'utf8')
   for (const call of sequence.matchAll(/->>API: (GET|POST|PUT|PATCH|DELETE) (\/[\w/:?-]+)/g)) {
     const endpoint = '/api' + call[2].split('?')[0].replace(/:(\w+)/g, '{$1}')

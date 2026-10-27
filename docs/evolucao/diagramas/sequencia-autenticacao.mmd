@@ -1,0 +1,20 @@
+sequenceDiagram
+  actor U as Usuario
+  participant W as Web
+  participant API as API LinkAtletas
+  participant DB as PostgreSQL
+  U->>W: Informar email e senha
+  W->>API: POST /auth/login
+  API->>DB: Consultar conta e conferir senha
+  alt Conta ativa e credencial valida
+    API->>DB: Persistir sessao
+    API-->>W: Cookie HttpOnly e usuario
+    W->>API: GET /auth/session
+    API->>DB: Validar sessao e papel
+    API-->>W: Usuario autenticado
+    W-->>U: Abrir area do perfil
+  else Credencial invalida ou conta indisponivel
+    API-->>W: Erro de autenticacao
+    W-->>U: Exibir mensagem
+  end
+  Note over W,API: Em producao o cookie usa Secure. O app usa Bearer opaco

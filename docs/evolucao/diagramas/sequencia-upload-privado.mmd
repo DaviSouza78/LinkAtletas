@@ -1,0 +1,24 @@
+sequenceDiagram
+  actor U as Usuario autorizado
+  participant API as API LinkAtletas
+  participant DB as PostgreSQL
+  participant S3 as Tigris privado
+  U->>API: POST /media/uploads
+  API->>DB: Conferir papel, finalidade, vinculo e consentimento
+  API-->>U: Identificador da sessao de upload
+  loop Cada parte do arquivo
+    U->>API: PUT /media/uploads/:id/parts/:part
+    API->>API: Validar parte e cifrar
+    API->>S3: Persistir parte privada cifrada
+    API-->>U: Parte recebida
+  end
+  U->>API: POST /media/uploads/:id/complete
+  API->>DB: Conferir partes e bloquear finalizacao concorrente
+  API->>S3: Consolidar arquivo privado cifrado
+  API->>DB: Persistir metadados e finalizar sessao
+  API-->>U: Identificador da midia
+  U->>API: GET /media/:id/content
+  API->>DB: Autorizar acesso ao recurso
+  API->>S3: Ler conteudo cifrado
+  API-->>U: Stream decifrado autorizado, com suporte a Range
+  Note over U,S3: Acesso indevido e rejeitado sem expor o objeto privado

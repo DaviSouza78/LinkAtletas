@@ -1,0 +1,66 @@
+[
+  {
+    "key": "tecnicas",
+    "text": "1.4 Técnica(s) utilizada(s) para levantamento de requisitos"
+  },
+  {
+    "key": "requisitos",
+    "text": "2. Requisitos Específicos"
+  },
+  {
+    "key": "funcionais",
+    "text": "2.1 Requisitos Funcionais (RF)"
+  },
+  {
+    "key": "nao_funcionais",
+    "text": "2.2 Requisitos Não Funcionais (RNF)"
+  },
+  {
+    "key": "regras",
+    "text": "2.3 Regras de Negócio (RN)"
+  },
+  {
+    "key": "cronograma",
+    "text": "3. Cronograma do Projeto"
+  },
+  {
+    "key": "sprints",
+    "text": "3.1 Planejamento de Sprints"
+  },
+  {
+    "key": "prototipos",
+    "text": "4. Protótipo do produto"
+  },
+  {
+    "key": "uml",
+    "text": "5. Diagramas UML"
+  },
+  {
+    "key": "casos_uso",
+    "text": "5.1 Diagrama de Casos de Uso"
+  },
+  {
+    "key": "classes",
+    "text": "5.1 Diagrama de Classes"
+  },
+  {
+    "key": "sequencias",
+    "text": "5.2 Diagrama de Sequência"
+  },
+  {
+    "key": "atividades",
+    "text": "5.3 Diagrama de Atividade"
+  },
+  {
+    "key": "der",
+    "text": "5.4 DER"
+  },
+  {
+    "key": "testes",
+    "text": "6. Casos de Testes"
+  },
+  {
+    "key": "apendices",
+    "text": "7. Apêndices"
+  }
+]
