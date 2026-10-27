@@ -48,3 +48,7 @@ Não houve cobrança Asaas, Google OAuth real, envio a terceiros reais, publica�
 - Uma execução intermediária do navegador falhou ao carregar a sessão, com erro de conexão visível; não foi considerada aprovada. A execução final estável repetiu os cinco cenários, sem retries, e passou.
 - [Verificações HTTP adicionais e limpeza](evidencias/manual-2026-10-27/http-checks.json): download privado com bytes idênticos; acesso anônimo recusado; exportação dos dados das duas contas; encerramento bloqueado com senha incorreta; encerramento/anônimização com senha correta; login posterior recusado. Esses são testes de API, não ações manuais pela interface.
 - As duas contas sintéticas de produção foram encerradas/anônimizadas pela API, os arquivos da fixture removidos pelo fluxo de encerramento e a sessão administrativa temporária finalizada. Não foram removidas contas reais ou a conta administrativa do titular.
+
+## Publicação das correções
+
+Correções integradas no commit `ee16f10`, com autoria Lucca. A Vercel concluiu a publicação de produção e o domínio principal recebeu os novos arquivos. A [conferência pós-publicação](evidencias/manual-2026-10-27/publicacao.json) confirmou API saudável com PostgreSQL, os três textos corrigidos no bundle e o endpoint administrativo devolvendo situação atual e justificativa. A sessão administrativa usada nessa conferência foi encerrada. Essa etapa não repete integralmente a jornada manual anterior.
