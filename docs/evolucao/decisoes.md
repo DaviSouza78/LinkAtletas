@@ -1,8 +1,14 @@
 # Decisões, dificuldades e mudanças de escopo
 
-Revisão documental de 24/10/2026: a [auditoria aplicada à ERS v2.4](revisao-ers-aplicada-2026-10-24.md) integra os requisitos nas seções do template, desenvolve os casos iniciais com evidências existentes e substitui figuras/sumário. Apêndices duplicados removidos; original da Sprint 1 preservado. Sem mudança no código da aplicação ou nova homologação externa nesta revisão.
+## Organização do repositório em 26/10/2026
 
-Data: 14/10/2026. [Proposta aprovada por Lucca](../superpowers/specs/2026-10-14-expansao-completa-design.md). Este registro não atribui decisões ao professor ou a integrantes sem evidência.
+O README passou a apresentar acesso, funcionalidades, instalação e documentos principais. Um [índice único](../README.md) distingue a ERS completa de suas fontes auxiliares. Planos anteriores e revisões da ERS foram separados em diretórios históricos, com links relativos atualizados. Materiais originais e evidências acadêmicas foram preservados; um relatório HTML gerado sem referências foi retirado, mantendo os resultados JSON e as capturas correspondentes.
+
+Quinze arquivos de telas, componentes e dados fictícios do protótipo foram removidos após conferir o grafo de importações a partir de `src/main.tsx`. Não pertenciam à aplicação integrada nem eram carregados dinamicamente; permanecem recuperáveis no histórico Git. Os 95 arquivos de código ativo e configuração de API, app, serviços, infraestrutura e CI comparados conservaram seus hashes. O build web gerou JavaScript/CSS byte a byte idênticos aos anteriores; 99 testes de unidade/integração e a conferência documental passaram. ERS em PDF/Word, banco, segredos, migrações e configurações dos serviços não foram alterados por esta organização.
+
+Revisão documental de 24/10/2026: a [auditoria aplicada à ERS v2.4](historico/revisao-ers-aplicada-2026-10-24.md) integra os requisitos nas seções do template, desenvolve os casos iniciais com evidências existentes e substitui figuras/sumário. Apêndices duplicados removidos; original da Sprint 1 preservado. Sem mudança no código da aplicação ou nova homologação externa nesta revisão.
+
+Data: 14/10/2026. [Proposta aprovada por Lucca](../historico/planejamento/specs/2026-10-14-expansao-completa-design.md). Este registro não atribui decisões ao professor ou a integrantes sem evidência.
 
 | Decisão | Motivo e efeito |
 |---|---|

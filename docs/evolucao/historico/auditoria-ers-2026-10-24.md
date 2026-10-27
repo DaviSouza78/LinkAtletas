@@ -6,14 +6,14 @@ Data: 24/10/2026. Responsável: Lucca Castilho Costa. Base do repositório: `ca0
 
 ## Parecer
 
-A [cópia no template original](ERS-template-original-atualizada.pdf) ainda precisa de revisão de conteúdo antes de ser adotada como ERS final da Sprint 2. A preservação gráfica foi verificada anteriormente, mas não comprova coerência semântica. O documento mistura partes da especificação inicial, alterações pontuais e uma segunda especificação nos apêndices, permitindo interpretações conflitantes.
+A [cópia no template original](../ERS-template-original-atualizada.pdf) ainda precisa de revisão de conteúdo antes de ser adotada como ERS final da Sprint 2. A preservação gráfica foi verificada anteriormente, mas não comprova coerência semântica. O documento mistura partes da especificação inicial, alterações pontuais e uma segunda especificação nos apêndices, permitindo interpretações conflitantes.
 
 Esta auditoria recomenda corrigir o documento existente, sem desenvolver funcionalidades novas para cumprir promessas antigas que a equipe já retirou ou adiou. As decisões de escopo são da equipe. Não se cria pendência de aceite docente.
 
 ## 1. Por que passou de 47 para 61 páginas
 
 - Páginas 1–47: cópia da ERS original com 49 campos atualizados e histórico ampliado.
-- Páginas 48–61: 14 páginas de continuação dos Apêndices, produzidas a partir da [ERS v2.3](ERS-v2.md): requisitos, requisitos adicionais, fluxos, RNFs, regras, estados e evidências.
+- Páginas 48–61: 14 páginas de continuação dos Apêndices, produzidas a partir da [ERS v2.3](../ERS-v2.md): requisitos, requisitos adicionais, fluxos, RNFs, regras, estados e evidências.
 - O acréscimo veio dessa consolidação duplicada. Não decorre de exigência de 61 páginas pelo professor, nem significa que foram implementadas 14 páginas de funcionalidades novas.
 
 **Decisão recomendada:** retirar as 14 páginas de duplicação depois de integrar os conteúdos necessários nas seções 1–6. Não basta cortar o PDF na página 47: atualmente os apêndices contêm informações indispensáveis que ainda não foram incorporadas ao corpo, como requisitos adicionais, critérios de RNF e limites efetivos.
@@ -22,7 +22,7 @@ Manter apenas o primeiro título **7. Apêndices**, em preto, como solicitado, r
 
 ## 2. O que a Sprint 2 exige sobre testes e apêndices
 
-O [roteiro, seção 9.6, página 9](../referencias/Roteiro-professores-original.pdf#page=9) exige testes iniciais com evidências e ERS, diagramas e backlog atualizados. Não lista uma seção de apêndices nem uma segunda especificação integral como entregável.
+O [roteiro, seção 9.6, página 9](../../referencias/Roteiro-professores-original.pdf#page=9) exige testes iniciais com evidências e ERS, diagramas e backlog atualizados. Não lista uma seção de apêndices nem uma segunda especificação integral como entregável.
 
 **Seção 6 — Casos de Testes: deve ser desenvolvida agora.** É a seção já disponível no template para apresentar os testes iniciais e a rastreabilidade às evidências. O relatório completo pode continuar separado, referenciado por links. Não é necessário executar testes financeiros externos, publicar em lojas ou concluir toda a bateria final da Sprint 3 para preencher esta seção com os testes que já existem.
 
@@ -34,12 +34,12 @@ Foram conferidos o texto das 61 páginas, a estrutura e as figuras da cópia; a 
 
 Fontes principais:
 
-- [ERS no template, objeto principal da auditoria](ERS-template-original-atualizada.pdf).
-- [ERS original preservada](../referencias/ERS-Sprint-1-original.pdf).
-- [ERS editável atual](ERS-v2.md), [backlog](backlog.md), [matriz](rastreabilidade.md), [modelos](diagramas.md), [relatório](relatorio-testes.md).
-- [Verificação profissional](../../server/modules/verification.ts), [matching](../../server/modules/matching.ts), [interações](../../server/modules/interactions.ts), [mídias](../../server/modules/media.ts), [Asaas](../../server/services/asaas.ts), [jobs](../../server/jobs.ts).
-- [App de treino](../../mobile/src/screens/WorkoutsScreen.tsx), [transporte móvel](../../mobile/src/api.ts), [contratos](../../shared/contracts.ts).
-- [Ensaio APK](evidencias/android-integrated-result.json), [carga](evidencias/carga-matchmaking.json), [banco](evidencias/database-schema.json), [verificação gráfica anterior](evidencias/ers-template-verificacao.json).
+- [ERS no template, objeto principal da auditoria](../ERS-template-original-atualizada.pdf).
+- [ERS original preservada](../../referencias/ERS-Sprint-1-original.pdf).
+- [ERS editável atual](../ERS-v2.md), [backlog](../backlog.md), [matriz](../rastreabilidade.md), [modelos](../diagramas.md), [relatório](../relatorio-testes.md).
+- [Verificação profissional](../../../server/modules/verification.ts), [matching](../../../server/modules/matching.ts), [interações](../../../server/modules/interactions.ts), [mídias](../../../server/modules/media.ts), [Asaas](../../../server/services/asaas.ts), [jobs](../../../server/jobs.ts).
+- [App de treino](../../../mobile/src/screens/WorkoutsScreen.tsx), [transporte móvel](../../../mobile/src/api.ts), [contratos](../../../shared/contracts.ts).
+- [Ensaio APK](../evidencias/android-integrated-result.json), [carga](../evidencias/carga-matchmaking.json), [banco](../evidencias/database-schema.json), [verificação gráfica anterior](../evidencias/ers-template-verificacao.json).
 
 Não houve nova execução da aplicação, homologação externa, teste em aparelho ou pesquisa dos preços comerciais nesta auditoria. Resultados históricos não foram tratados como testes executados em 24/10. Leitura direcionada de código não equivale a auditoria exaustiva de segurança do software. Não se emite certificação jurídica, PCI ou de acessibilidade.
 
@@ -146,11 +146,11 @@ As figuras das pp. 44–47 foram preservadas por fidelidade visual, mas não rep
 
 Usar os modelos atuais já existentes, sem criar diagramas adicionais apenas para aumentar a entrega:
 
-1. [Casos de uso](diagramas/casos-de-uso.puml): remover automação do conselho como interação obrigatória; manter administrador responsável pela decisão manual.
-2. [Classes](diagramas/classes.mmd): compatibilizar atores, verificação/documento opcional, contratos/ciclos e principais entidades. Modelo conceitual não deve ser apresentado como classes ORM implementadas.
-3. [DER](diagramas/der.mmd): distinguir 35 tabelas de domínio e `schema_migrations`, 45 FKs e relações polimórficas sem FK. Dimensionar para leitura, sem comprimir tudo numa figura ilegível.
-4. [Sequência de contratação](diagramas/sequencia-contratacao.mmd): solicitação, aceite, modo acadêmico ou checkout posterior, webhook e resultado incerto.
-5. [Sequência de treino](diagramas/sequencia-treino.mmd): papel, vínculo, publicação, execução, consentimento e mídia privada conforme fluxo implementado.
+1. [Casos de uso](../diagramas/casos-de-uso.puml): remover automação do conselho como interação obrigatória; manter administrador responsável pela decisão manual.
+2. [Classes](../diagramas/classes.mmd): compatibilizar atores, verificação/documento opcional, contratos/ciclos e principais entidades. Modelo conceitual não deve ser apresentado como classes ORM implementadas.
+3. [DER](../diagramas/der.mmd): distinguir 35 tabelas de domínio e `schema_migrations`, 45 FKs e relações polimórficas sem FK. Dimensionar para leitura, sem comprimir tudo numa figura ilegível.
+4. [Sequência de contratação](../diagramas/sequencia-contratacao.mmd): solicitação, aceite, modo acadêmico ou checkout posterior, webhook e resultado incerto.
+5. [Sequência de treino](../diagramas/sequencia-treino.mmd): papel, vínculo, publicação, execução, consentimento e mídia privada conforme fluxo implementado.
 
 Preservar fontes e estilos do texto do template. Atualização de conteúdo de figura não é justificativa para redesenhar capa, margens e tipografia do documento. A numeração e as legendas precisam corresponder ao sumário e aos RFs efetivos.
 
@@ -169,11 +169,11 @@ Cada caso deve informar: ID, RF/RNF/RN relacionado, objetivo, papel e pré-condi
 
 Referenciar, sem copiar indiscriminadamente todos os logs para a ERS:
 
-- [82 testes de API/unidade](evidencias/vitest-results.json).
-- [15 E2E](evidencias/playwright-results.json).
-- [Testes móveis e limites](evidencias/mobile-verificacao.md).
-- [18 etapas de APK](evidencias/android-integrated-result.json): emulador, serviços locais reais, período de avaliação reduzido somente em fixture, sem aparelho físico ou financeiro externo.
-- [Relatório completo](relatorio-testes.md), [limites de carga](evidencias/carga-matchmaking.json) e [modelos/banco](diagramas.md).
+- [82 testes de API/unidade](../evidencias/vitest-results.json).
+- [15 E2E](../evidencias/playwright-results.json).
+- [Testes móveis e limites](../evidencias/mobile-verificacao.md).
+- [18 etapas de APK](../evidencias/android-integrated-result.json): emulador, serviços locais reais, período de avaliação reduzido somente em fixture, sem aparelho físico ou financeiro externo.
+- [Relatório completo](../relatorio-testes.md), [limites de carga](../evidencias/carga-matchmaking.json) e [modelos/banco](../diagramas.md).
 
 Não apresentar 18 etapas como 18 testes de todas as combinações de aparelhos. Não somar suítes heterogêneas para prometer cobertura integral. Evidência anterior deve conservar a sua data, commit e ambiente.
 

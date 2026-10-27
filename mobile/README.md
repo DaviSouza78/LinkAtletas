@@ -2,6 +2,8 @@
 
 Cliente React Native/Expo da mesma API Node/PostgreSQL. Perfis de treinador e administrador usam a interface web. Não há servidor nem dados fictícios próprios no aplicativo.
 
+API pública: `https://link-atletas.vercel.app/api`. O [APK HTTPS compilado e seu ensaio em emulador](../docs/evolucao/evidencias/android-nuvem-2026-10-26.json) estão identificados pelo commit e pelo hash do artefato. Os resultados históricos e locais nas seções seguintes conservam seu alcance; início em emulador não comprova uso em aparelho físico ou publicação nas lojas.
+
 ## Instalação e execução
 
 Pré-requisitos: Node 24, pnpm 10.33.2 e serviços da raiz em execução (`docker compose up -d --wait`, migrações, seed e API). Execute a partir deste diretório:

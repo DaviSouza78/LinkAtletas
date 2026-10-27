@@ -9,7 +9,7 @@ Data: 14/10/2026. Versão editável do incremento, derivada da ERS v1.0 de 21/08
 | 1.0 | [ERS original preservada](../referencias/ERS-Sprint-1-original.pdf), recebida como `LinkAtletas_Documento_ERS_2026.pdf`; 24 RF detalhados, 16 RNF e 16 RN |
 | 1.1 | Revisão Sprint 2: web responsiva, API e PostgreSQL, fluxos verificáveis, estados de atendimento, cenários RNF e rastreabilidade |
 
-Fontes: demanda SAGA nº 12871, [proposta inicial](../referencias/Proposta-inicial-original.pdf), [roteiro da disciplina](../referencias/Roteiro-professores-original.pdf), repositório original no commit `17b32c74cc79c1fab05d762cf6346ad87ecc749d` e [proposta aprovada](../superpowers/specs/2026-10-14-sprint-2-design.md). A proposta tem redação histórica anterior à aprovação; a alternativa A foi aprovada nesta conversa em 14/10/2026. Não foi verificada uma API pública de CREF nem a situação atual da demanda na SAGA.
+Fontes: demanda SAGA nº 12871, [proposta inicial](../referencias/Proposta-inicial-original.pdf), [roteiro da disciplina](../referencias/Roteiro-professores-original.pdf), repositório original no commit `17b32c74cc79c1fab05d762cf6346ad87ecc749d` e [proposta aprovada](../historico/planejamento/specs/2026-10-14-sprint-2-design.md). A proposta tem redação histórica anterior à aprovação; a alternativa A foi aprovada nesta conversa em 14/10/2026. Não foi verificada uma API pública de CREF nem a situação atual da demanda na SAGA.
 
 Correções: RF-02 nomeia corretamente o perfil do treinador. O corpo original detalha RF-01–24; RF-25–32 aparecem apenas no cronograma e não recebem especificações inventadas nesta revisão. Sequências usam os identificadores textuais corretos. PostgreSQL é o único banco relacional do incremento.
 

@@ -4,7 +4,7 @@ Registro histórico da aplicação da versão 2.4. A [versão 2.5](ajustes-ers-v
 
 Versão 2.4. Responsável: Lucca Castilho Costa. Aplicação autorizada pela equipe após a [auditoria de 24/10](auditoria-ers-2026-10-24.md). Este registro atualiza a situação dos apontamentos; a auditoria anterior permanece histórica, com as páginas e o hash do documento então analisado.
 
-Documento principal: [ERS no template original](ERS-template-original-atualizada.pdf). Fontes: [texto repaginado](ERS-template-original.md), [campos das páginas iniciais](template/primeiras-paginas.json), [32 RF completos](template/requisitos.json), [seções e histórico](template/secoes.json), [16 casos de teste](template/testes.json) e [síntese auxiliar v2.4](ERS-v2.md).
+Documento principal: [ERS no template original](../ERS-template-original-atualizada.pdf). Fontes: [texto repaginado](../ERS-template-original.md), [campos das páginas iniciais](../template/primeiras-paginas.json), [32 RF completos](../template/requisitos.json), [seções e histórico](../template/secoes.json), [16 casos de teste](../template/testes.json) e [síntese auxiliar v2.4](../ERS-v2.md).
 
 ## Estrutura e apresentação
 
@@ -49,7 +49,7 @@ Documento principal: [ERS no template original](ERS-template-original-atualizada
 
 ## Verificações e limites
 
-A [verificação reproduzível](evidencias/ers-template-verificacao.json) registra hashes, sumário, figuras, margens, fontes/tamanhos do corpo e a correspondência dos 16 casos com resultados aprovados. As 13 páginas iniciais são comparadas visualmente à fonte fora das áreas autorizadas; o restante é repaginado para corrigir o conteúdo. A seção de siglas preserva também a continuação da tabela original. O PDF original permanece com SHA-256 `b49d79d04aa8af4ef8762076d417c5cef67b1d5004171c7ff73996111fe42752`.
+A [verificação reproduzível](../evidencias/ers-template-verificacao.json) registra hashes, sumário, figuras, margens, fontes/tamanhos do corpo e a correspondência dos 16 casos com resultados aprovados. As 13 páginas iniciais são comparadas visualmente à fonte fora das áreas autorizadas; o restante é repaginado para corrigir o conteúdo. A seção de siglas preserva também a continuação da tabela original. O PDF original permanece com SHA-256 `b49d79d04aa8af4ef8762076d417c5cef67b1d5004171c7ff73996111fe42752`.
 
 O volume final não foi limitado artificialmente a 47 ou 61 páginas: acrescentaram-se os oito RF-A no corpo, fluxos completos, testes detalhados e a leitura do modelo físico; foram retiradas as 14 páginas de apêndices duplicados. Nenhuma fonte foi reduzida para ajustar contagem.
 

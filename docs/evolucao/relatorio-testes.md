@@ -1,6 +1,6 @@
 # Relatório de testes — ampliação LinkAtletas
 
-Consolidação revisada em 21/10/2026, com evidências datadas de cada execução; registros de 14–15/10 preservados quando não houve mudança no cenário. Este relatório registra evidência efetivamente produzida; testes escritos, aprovação técnica, build, sandbox e homologação de aparelho são estados distintos. As evidências históricas da Sprint 2 inicial permanecem em [docs/sprint-2/evidencias](../sprint-2/evidencias/).
+Consolidação revisada em 21/10/2026, com evidências datadas de cada execução; registros de 14–15/10 preservados quando não houve mudança no cenário. Este relatório registra evidência efetivamente produzida; testes escritos, aprovação técnica, build, sandbox e homologação de aparelho são estados distintos. As evidências históricas da Sprint 2 inicial permanecem em [docs/sprint-2/evidencias](../sprint-2/evidencias).
 
 ## Ambiente
 

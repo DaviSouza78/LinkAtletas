@@ -8,7 +8,7 @@ Data da revisão: 24/10/2026. Responsável pela revisão: Lucca Castilho Costa, 
 |---|---|---|---|
 | 21/08/2026 | 1.0 | [ERS original da Sprint 1](../referencias/ERS-Sprint-1-original.pdf): 24 RF especificados, 16 RNF e 16 RN; documento e template preservados | Equipe LinkAtletas |
 | 14/10/2026 | 1.1 | [Incremento web inicial](../sprint-2/ERS-v1.1.md): API, PostgreSQL, fluxo esportivo integrado e cenários de verificação | Lucca Castilho Costa |
-| 14/10/2026 | 2.0 | [Ampliação](../superpowers/specs/2026-10-14-expansao-completa-design.md): comunicação, mídia, privacidade, recuperação, ciclos, financeiro e cliente nativo | Lucca Castilho Costa |
+| 14/10/2026 | 2.0 | [Ampliação](../historico/planejamento/specs/2026-10-14-expansao-completa-design.md): comunicação, mídia, privacidade, recuperação, ciclos, financeiro e cliente nativo | Lucca Castilho Costa |
 | 21/10/2026 | 2.1 | Consolidação das revisões de 15–21/10: modelos físicos conferidos, correções de privacidade/backup/upload, perfil Android local, 18 etapas do APK, publicação e evidências de testes | Lucca Castilho Costa |
 | 23/10/2026 | 2.2 | RF-04 e UC-02 adequados à conferência manual de CREF; atualização de critérios, limites externos, Eletiva I, publicação e histórico de revisões | Lucca Castilho Costa |
 | 23/10/2026 | 2.3 | Consolidação das decisões de escopo pela equipe, retirada das pendências de aceite docente e preparação de cópia atualizada no template original, preservando a fonte da Sprint 1 | Lucca Castilho Costa |
@@ -17,9 +17,9 @@ Data da revisão: 24/10/2026. Responsável pela revisão: Lucca Castilho Costa, 
 
 As datas históricas seguem as versões preservadas e a consolidação registrada no Git. O autor da versão original permanece coletivo, sem atribuir individualmente alterações não identificadas. Esta fonte mantém o conteúdo atualizado e o histórico utilizado na cópia do template original.
 
-Documento de apresentação: [PDF atualizado no template original](ERS-template-original-atualizada.pdf) e [Word completo editável v2.5](ERS-completa-v2.5-editavel.docx), com [método e limites de preservação](template/README.md), [texto das seções repaginadas](ERS-template-original.md) e [ajustes de estrutura e Word](ajustes-ers-v2.5.md). A fonte original da Sprint 1 permanece intacta. O PDF integra o conteúdo nos capítulos 1–6, desenvolve a seção de testes e mantém o título 7 sem duplicar a especificação. Este Markdown e o arquivo ERS-v2.docx são sínteses auxiliares; o Word completo é o arquivo v2.5 identificado acima.
+Documento de apresentação: [PDF atualizado no template original](ERS-template-original-atualizada.pdf) e [Word completo editável v2.5](ERS-completa-v2.5-editavel.docx), com [método e limites de preservação](template/README.md), [texto das seções repaginadas](ERS-template-original.md) e [ajustes de estrutura e Word](historico/ajustes-ers-v2.5.md). A fonte original da Sprint 1 permanece intacta. O PDF integra o conteúdo nos capítulos 1–6, desenvolve a seção de testes e mantém o título 7 sem duplicar a especificação. Este Markdown e o arquivo ERS-v2.docx são sínteses auxiliares; o Word completo é o arquivo v2.5 identificado acima.
 
-Outras fontes: [proposta da demanda](../referencias/Proposta-inicial-original.pdf), [roteiro dos professores](../referencias/Roteiro-professores-original.pdf), [plano de execução](../superpowers/plans/2026-10-14-expansao-completa.md). O cronograma da ERS original cita RF-25–32 sem detalhá-los; esta revisão mantém RF-01–24 e identifica novos requisitos com prefixo RF-A, sem inventar o conteúdo original ausente. PostgreSQL é o único banco relacional desta implementação.
+Outras fontes: [proposta da demanda](../referencias/Proposta-inicial-original.pdf), [roteiro dos professores](../referencias/Roteiro-professores-original.pdf), [plano de execução](../historico/planejamento/plans/2026-10-14-expansao-completa.md). O cronograma da ERS original cita RF-25–32 sem detalhá-los; esta revisão mantém RF-01–24 e identifica novos requisitos com prefixo RF-A, sem inventar o conteúdo original ausente. PostgreSQL é o único banco relacional desta implementação.
 
 ## Objetivo, atores e escopo
 
@@ -161,7 +161,7 @@ Procedimentos são critérios de aceite, não resultados presumidos. Para cada e
 
 ## Dados e invariantes
 
-Migrações cumulativas [001–005](../../server/db/migrations/): usuário/perfil/sessão; verificação/auditoria; ciclos de contrato; treino/blocos/métricas/execução; consents/history/private_health; media/feedback; reset/outbox/privacy/auditoria; messages/notifications/reviews/reports/moderation/consultations/history; billing_settings/wallets/plans/subscriptions/payments/splits/events/jobs/audit. Chaves estrangeiras, índices e unicidade protegem referências, execução, review por ciclo e evento financeiro.
+Migrações cumulativas [001–005](../../server/db/migrations): usuário/perfil/sessão; verificação/auditoria; ciclos de contrato; treino/blocos/métricas/execução; consents/history/private_health; media/feedback; reset/outbox/privacy/auditoria; messages/notifications/reviews/reports/moderation/consultations/history; billing_settings/wallets/plans/subscriptions/payments/splits/events/jobs/audit. Chaves estrangeiras, índices e unicidade protegem referências, execução, review por ciclo e evento financeiro.
 
 Verificação: `unsubmitted`, `pending`, `approved`, `rejected`, `suspended`, `expired`. Contrato: `pending`, `active`, `rejected`, `cancelled`, `suspended`; índice parcial permite um vigente por par. Treino: `draft`/`published`. Financeiro: `awaiting_payment`, `regular`, `grace`, `suspended`, `cancellation_requested`, `ended`, `uncertain`. Agenda: `scheduled`, `cancelled`, `completed`. Uso de estados não implica comprovação de transação externa.
 

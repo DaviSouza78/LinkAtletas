@@ -1,18 +1,18 @@
 # Backlog consolidado — ampliação
 
-Revisado em 20/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Estados separam desenvolvimento de homologação; resultado executado está no [relatório](relatorio-testes.md). [Revisão dos materiais](revisao-materiais.md) e [dependências externas](servicos-externos-sprint-2.md) registram diferenças em relação à proposta/ERS originais. Não é planejamento de contribuições presumidas de colegas.
+Atualizado em 26/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Estados separam desenvolvimento de homologação; o [relatório](relatorio-testes.md) e as [verificações da implantação](implantacao-2026-10-26.md) identificam o ambiente e a data de cada resultado. [Revisão dos materiais](revisao-materiais.md) e [dependências externas](servicos-externos-sprint-2.md) registram diferenças em relação à proposta/ERS originais.
 
 | Item | Prioridade | Resultado da ampliação | Verificação/dependência |
 |---|---|---|---|
-| F01 App atleta React Native | P1 | Fonte Expo, API compartilhada, armazenamento seguro e perfil de APK local | APK Android compilado e inicializado em emulador; testes de transporte/configuração atualizados para 21. Ensaios integrados têm resultado próprio no relatório; aparelho físico, IPA e lojas não são presumidos |
+| F01 App atleta React Native | P1 | Fonte Expo, API compartilhada, armazenamento seguro e perfis local/HTTPS | APK HTTPS compilado e iniciado em emulador; 22 testes móveis e jornada local de 18 etapas têm registros próprios. Aparelho físico, IPA e lojas continuam pendentes |
 | F02 CREF, validade e revogação | P0 | Conferência manual, evidência privada, prazo, suspensão/revogação e job | Fluxo manual e auditoria testados; decisão da equipe registrada na ERS; consulta automática é evolução futura |
 | F03 Recorrência/split/financeiro | P1 | Adaptador Asaas e regras persistidas, checkout, webhook e conciliação | Servidor HTTP controlado; sandbox real/carteiras/repasse pendentes |
 | F04 Cancelamento e ciclos | P1 | Retirada, encerramento e período pago, unicidade de ciclo vigente | Testes financeiro/contrato e tela; preservar histórico |
-| F05 Upload S3 e correção | P1 | S3 privado, cifra, assinatura MIME/extensão, finalidade, consentimento e feedback | Testes S3 local/SQL; nuvem depende configuração |
+| F05 Upload S3 e correção | P1 | S3 privado, cifra, assinatura MIME/extensão, finalidade, consentimento e feedback | Tigris integrado; envio em partes e recuperação de 5/50 MiB com hash, Range e permissões verificados em Preview; armazenamento privado também testado em produção |
 | F06 Chat/notificações | P1 | WS autenticado, histórico paginado/cifrado, leitura e notificações persistidas | Testes duas sessões/isolações/persistência; broker multi-instância futuro |
 | F07 Reviews/respostas/moderação | P1 | Período mínimo de sete dias, uma por ciclo, edição/resposta, denúncia/ocultação | Testes interação; não gerar reputação fictícia |
-| F08 Privacidade/recuperação | P0 | Consentimento versionado, saúde cifrada, exportação/exclusão e SMTP/outbox/reset | Testes SMTP Mailpit e autorização; política jurídica operacional futura |
-| F09 Implantação/recuperação | P1 | Containers/TLS/backup/CI e scripts | TLS 1.3, reinício da aplicação, restauração SQL/S3 e CI executados com aprovação; [registros de publicação](publicacao.md). Docker local recuperado sem apagar volumes; publicação pública requer acessos |
+| F08 Privacidade/recuperação | P0 | Consentimento versionado, saúde cifrada, exportação/exclusão e SMTP/outbox/reset | Testes locais e recuperação remota com Brevo/SMTP aceito; token único e revogação de sessão verificados. Chegada à caixa de entrada e política jurídica operacional têm validação própria |
+| F09 Implantação/recuperação | P1 | Containers/TLS/backup/CI, Vercel, Neon e agendador | Produção pública verificada, cron automático com 200 OK e snapshot cifrado Neon restaurado em banco local isolado. Backup SQL/S3 local testado; rotina recorrente de backup permanece evolução |
 | F10 Match e ciência de dados | P0 no matching RF-06; P2 na evolução de IA | Regra explicável e carga HTTP com 500 perfis/200 chamadas | Percentis medidos; dataset representativo, retroalimentação e IA treinada futuros. Prioridade não comprova homologação externa |
 | F11 Compatibilidade/acessibilidade | P1 | Web responsiva e correções de foco/estados; três motores e axe | 15/15 E2E e seis telas por motor sem violações axe; aparelhos/Edge/Safari/leitor de tela reais pendentes |
 | F12 Documentação acadêmica | P0 | ERSv2, fluxos, modelos UML, checklist, API/manual/matriz | DOCX/PDF gerados, validados/renderizados; Eletiva I relacionada na matriz; revisão coletiva e entrega individual pendentes |
@@ -25,7 +25,7 @@ Revisado em 20/10/2026. Base: [backlog histórico](../sprint-2/backlog.md). Esta
 - Reconstruir o backend ou migrar o banco para MySQL foi descartado neste incremento: mantém-se API Node/PostgreSQL já integrada.
 - Pagamento fictício apresentado como aprovado foi descartado: modo acadêmico diz sem cobrança, adaptador não configurado não produz sucesso externo.
 - Consulta CREF por regex/seed não é aceita como validação oficial; substituída por conferência manual rastreável até receber serviço autorizado.
-- Telas ilustrativas antigas com dados mock permanecem como referência histórica em arquivos não usados nas rotas integradas. As novas páginas consomem dados persistidos.
+- Telas ilustrativas antigas com dados mock, sem importação pela aplicação integrada, foram retiradas da versão atual e permanecem recuperáveis no histórico Git. As páginas em uso consomem dados persistidos.
 - Captura própria de cartão foi substituída por checkout hospedado. Pré-autorização anterior ao aceite, quando citada no texto original, não é a sequência atual: o treinador aceita o ciclo antes da intenção financeira.
 
 ## Evolução após a entrega
