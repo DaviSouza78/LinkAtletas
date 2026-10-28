@@ -5,11 +5,27 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
     name: local ? 'LinkAtletas Local' : 'LinkAtletas',
-    slug: config.slug || 'linkatletas',
+    slug: 'linkatletas',
+    version: '0.3.0',
+    orientation: 'portrait',
+    userInterfaceStyle: 'dark',
+    scheme: 'linkatletas',
+    ios: {
+      ...config.ios,
+      supportsTablet: true,
+      bundleIdentifier: 'br.edu.linkatletas.app',
+    },
     android: {
       ...config.android,
       package: local ? 'br.edu.linkatletas.app.local' : 'br.edu.linkatletas.app',
     },
-    plugins: [...(config.plugins || []), './plugins/withLocalNetwork.cjs'],
+    plugins: [
+      'expo-secure-store',
+      'expo-document-picker',
+      'expo-sharing',
+      'expo-status-bar',
+      './plugins/withLocalNetwork.cjs',
+    ],
+    extra: { ...config.extra, projectScope: 'academic-athlete-client' },
   }
 }

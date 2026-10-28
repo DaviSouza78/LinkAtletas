@@ -1,8 +1,16 @@
 import { useState } from 'react'
-import type { AppUser } from '../../../shared/contracts'
-import { api, authenticate } from '../api'
-import { useAction } from '../hooks'
-import { Body, Button, Field, Heading, Notice, Panel, Row } from '../ui'
+import type { AppUser } from '../../../../shared/contracts'
+import { api, authenticate } from '../../services/api'
+import { useAction } from '../../hooks/useAction'
+import {
+  Body,
+  Button,
+  Field,
+  Heading,
+  Notice,
+  Panel,
+  Row,
+} from '../../components/ui'
 
 export function AuthScreen({
   onAuthenticated,

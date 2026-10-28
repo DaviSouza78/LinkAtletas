@@ -18,23 +18,20 @@ import {
   onSessionExpired,
   API_CONFIGURATION_ERROR,
   LOCAL_DEMO,
-} from './src/api'
-import { AuthScreen } from './src/screens/AuthScreen'
-import {
-  HomeScreen,
-  ConnectionsScreen,
-  DiscoverScreen,
-  ProfileScreen,
-} from './src/screens/CoreScreens'
-import { WorkoutsScreen } from './src/screens/WorkoutsScreen'
-import {
-  ChatScreen,
-  AgendaScreen,
-  ReviewsScreen,
-  NotificationsScreen,
-} from './src/screens/InteractionScreens'
-import { FinanceScreen, PrivacyScreen } from './src/screens/AccountScreens'
-import { Body, Button, Loading, colors } from './src/ui'
+} from './src/services/api'
+import { AuthScreen } from './src/screens/auth/AuthScreen'
+import { HomeScreen } from './src/screens/home/HomeScreen'
+import { ConnectionsScreen } from './src/screens/connections/ConnectionsScreen'
+import { DiscoverScreen } from './src/screens/connections/DiscoverScreen'
+import { ProfileScreen } from './src/screens/profile/ProfileScreen'
+import { WorkoutsScreen } from './src/screens/workouts/WorkoutsScreen'
+import { ChatScreen } from './src/screens/messages/ChatScreen'
+import { AgendaScreen } from './src/screens/agenda/AgendaScreen'
+import { ReviewsScreen } from './src/screens/reviews/ReviewsScreen'
+import { NotificationsScreen } from './src/screens/notifications/NotificationsScreen'
+import { FinanceScreen } from './src/screens/billing/FinanceScreen'
+import { PrivacyScreen } from './src/screens/privacy/PrivacyScreen'
+import { Body, Button, Loading, colors } from './src/components/ui'
 
 const tabs = [
   'Início',

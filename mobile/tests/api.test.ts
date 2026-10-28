@@ -74,7 +74,7 @@ async function loggedIn() {
       expiresAt: '2026-10-15T00:00:00Z',
     }),
   )
-  const client = await import('../src/api')
+  const client = await import('../src/services/api')
   await client.authenticate(athlete.email, 'SenhaTeste123!')
   return client
 }
@@ -93,7 +93,7 @@ describe('Transporte do cliente nativo com módulos nativos controlados', () => 
     expect(options!.headers).toEqual({ Authorization: `Bearer ${secret}` })
   })
   it('cadastro com nome vazio mantém a rota de cadastro e recebe validação do servidor', async () => {
-    const client = await import('../src/api')
+    const client = await import('../src/services/api')
     fetcher.mockResolvedValueOnce(
       response(
         { code: 'VALIDATION_ERROR', message: 'Informe um nome válido.' },
@@ -120,7 +120,7 @@ describe('Transporte do cliente nativo com módulos nativos controlados', () => 
     expect(options?.headers).not.toHaveProperty('Origin')
   })
   it('recusa perfil treinador e invalida sessão criada antes de persistir', async () => {
-    const client = await import('../src/api')
+    const client = await import('../src/services/api')
     fetcher
       .mockResolvedValueOnce(
         response({ user: { ...athlete, role: 'coach' }, token: secret }),
@@ -209,7 +209,7 @@ describe('Transporte do cliente nativo com módulos nativos controlados', () => 
   it('produção sem HTTPS apresenta erro de configuração sem transmitir credenciais', async () => {
     vi.stubGlobal('__DEV__', false)
     process.env.EXPO_PUBLIC_API_URL = 'http://localhost:3001/api'
-    const client = await import('../src/api')
+    const client = await import('../src/services/api')
     await expect(client.authenticate(athlete.email, 'senha')).rejects.toThrow(
       'HTTPS',
     )

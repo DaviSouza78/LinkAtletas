@@ -1,5 +1,5 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": { "strict": true, "noEmit": true },
-  "include": ["**/*.ts", "**/*.tsx", "../shared/**/*.ts"]
+  "include": ["App.tsx", "index.ts", "app.config.ts", "src", "tests", "vitest.config.ts", "../shared"]
 }

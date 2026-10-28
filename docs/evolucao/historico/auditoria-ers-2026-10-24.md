@@ -38,7 +38,7 @@ Fontes principais:
 - [ERS original preservada](../../referencias/ERS-Sprint-1-original.pdf).
 - [ERS editável atual](../requisitos/ERS-v2.md), [backlog](../requisitos/backlog.md), [matriz](../requisitos/rastreabilidade.md), [modelos](../diagramas.md), [relatório](../relatorio-testes.md).
 - [Verificação profissional](../../../server/modules/accounts/verification.ts), [matching](../../../server/modules/training/matching.ts), [interações](../../../server/modules/interactions), [mídias](../../../server/modules/media/routes.ts), [Asaas](../../../server/services/asaas.ts), [jobs](../../../server/jobs.ts).
-- [App de treino](../../../mobile/src/screens/WorkoutsScreen.tsx), [transporte móvel](../../../mobile/src/api.ts), [contratos](../../../shared/contracts.ts).
+- [App de treino](../../../mobile/src/screens/workouts/WorkoutsScreen.tsx), [transporte móvel](../../../mobile/src/services/api.ts), [contratos](../../../shared/contracts.ts).
 - [Ensaio APK](../evidencias/android/android-integrated-result.json), [carga](../evidencias/infraestrutura/carga-matchmaking.json), [banco](../evidencias/api/database-schema.json), [verificação gráfica anterior](../evidencias/documentacao/ers-template-verificacao.json).
 
 Não houve nova execução da aplicação, homologação externa, teste em aparelho ou pesquisa dos preços comerciais nesta auditoria. Resultados históricos não foram tratados como testes executados em 24/10. Leitura direcionada de código não equivale a auditoria exaustiva de segurança do software. Não se emite certificação jurídica, PCI ou de acessibilidade.

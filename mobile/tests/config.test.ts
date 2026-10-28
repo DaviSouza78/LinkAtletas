@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { nativeConfiguration } from '../src/config'
+import { nativeConfiguration } from '../src/config/api'
 
 describe('Configuração de rede do aplicativo', () => {
   it('usa loopback na demonstração local e mantém produção com HTTPS', () => {

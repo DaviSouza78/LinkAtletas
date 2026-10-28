@@ -4,8 +4,8 @@ import * as FileSystem from 'expo-file-system/legacy'
 import { File } from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
 import type { DocumentPickerAsset } from 'expo-document-picker'
-import type { AppUser } from '../../shared/contracts'
-import { nativeConfiguration } from './config'
+import type { AppUser } from '../../../shared/contracts'
+import { nativeConfiguration } from '../config/api'
 
 const configuration = nativeConfiguration(
   process.env.EXPO_PUBLIC_API_URL,

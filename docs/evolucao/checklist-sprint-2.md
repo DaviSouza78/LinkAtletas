@@ -33,7 +33,7 @@ Conferência de 26/10: [implantação pública verificada](operacao/implantacao-
 
 - [x] Web real para atleta, treinador e administrador; [rotas](../../src/App.tsx), [navegação](../../src/components/layout/AppShell.tsx), [cliente HTTP](../../src/services/api.ts).
 - [x] Formulários novos com rótulos/erro/espera/sucesso e layout responsivo: [CSS](../../src/styles/index.css) e páginas integradas.
-- [x] Fonte do app Expo com a mesma API e SecureStore: [app](../../mobile/App.tsx), [cliente](../../mobile/src/api.ts).
+- [x] Fonte do app Expo com a mesma API e SecureStore: [app](../../mobile/App.tsx), [cliente](../../mobile/src/services/api.ts).
 - [x] Evidências Chromium 390/1440 e seis telas sem violações axe: [E2E](evidencias/web/playwright-results.json), [axe](evidencias/web/chromium-axe.json), [chat desktop](evidencias/web/chromium-chat.png) e [privacidade mobile](evidencias/web/chromium-privacidade-mobile.png).
 - [x] App: tipos/dependências/Doctor, [22/22 testes de transporte/configuração](evidencias/android/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/android/mobile-bundles.json); ver [limites](evidencias/android/mobile-verificacao.md).
 - [x] Firefox e WebKit executados: [resultados](evidencias/web/playwright-results.json), [axe Firefox](evidencias/web/firefox-axe.json) e [axe WebKit](evidencias/web/webkit-axe.json).
