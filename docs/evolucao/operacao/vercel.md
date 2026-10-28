@@ -129,6 +129,8 @@ A conexão Tigris foi preparada no painel, limitada ao projeto LinkAtletas. A in
 
 O deploy do commit `6a9da16` falhou antes de compilar a aplicação: a CLI 65.4.0 tentou instalar `@vercel/build-utils@15.1.0`, mas o builder fixado `@vercel/fastify@22.0.0` exigia exatamente `15.0.0`. O `vercel.json` passou a usar `@vercel/fastify@23.0.0`, cujo peer declarado é `@vercel/build-utils@15.1.0`. Não foi necessário ignorar conflitos de dependências com `--force` ou `--legacy-peer-deps`.
 
+Os builds seguintes ainda receberam CLI 65.1.0 da plataforma, com `build-utils@15.0.0`. Por isso, `VERCEL_CLI_VERSION=vercel@65.5.0` foi configurado como variável de build não secreta em Production e Preview. A CLI 65.5.0 e o builder 23.0.0 usam a mesma versão 15.1.0. Ao atualizar esse par, conferir os peers declarados e testar um novo deploy. A variável pertence à configuração da Vercel, não aos segredos do servidor.
+
 Os registros acima sobre o builder 22 descrevem a preparação histórica. Rotas, entrada `server.ts`, inclusão de `dist/**` e variáveis dos serviços permanecem com a configuração existente. O aviso sobre `builds` prevalecer sobre as configurações do painel continua esperado e não corresponde ao erro de instalação.
 
 ## Referências
