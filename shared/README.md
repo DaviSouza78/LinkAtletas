@@ -33,7 +33,7 @@ A pasta contém dois tipos de recurso:
 - [Validação do servidor](../server/shared/validation.ts) utiliza os mesmos catálogos ao verificar entradas.
 - [WorkoutsScreen do aplicativo](../mobile/src/screens/WorkoutsScreen.tsx) utiliza os formatos de treino e métrica.
 - [useEvents](../src/hooks/useEvents.ts) usa o formato dos eventos de comunicação.
-- [Módulo financeiro](../server/modules/billing.ts) utiliza as definições financeiras.
+- [Módulo financeiro](../server/modules/billing) utiliza as definições financeiras.
 
 ## O que esta pasta não faz
 

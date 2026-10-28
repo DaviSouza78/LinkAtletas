@@ -3,7 +3,7 @@ import type { Pool, PoolClient } from 'pg'
 import { randomUUID } from 'node:crypto'
 import { basename, extname } from 'node:path'
 import { Readable } from 'node:stream'
-import { mediaUploadRoutes, deletePendingUploads } from './media-uploads.js'
+import { mediaUploadRoutes, deletePendingUploads } from './uploads.js'
 import {
   S3Client,
   CreateBucketCommand,
@@ -13,13 +13,13 @@ import {
   DeleteObjectCommand,
 } from '@aws-sdk/client-s3'
 import { z } from 'zod'
-import { requireUser } from '../shared/security.js'
-import { fail } from '../shared/errors.js'
-import { encryptPrivate, decryptPrivate } from '../shared/crypto.js'
-import { idSchema, bodySchema } from '../shared/validation.js'
-import { transaction } from '../db/pool.js'
-import { assertContractAccess } from './billing.js'
-import { notifyUsers } from './interactions.js'
+import { requireUser } from '../../shared/security.js'
+import { fail } from '../../shared/errors.js'
+import { encryptPrivate, decryptPrivate } from '../../shared/crypto.js'
+import { idSchema, bodySchema } from '../../shared/validation.js'
+import { transaction } from '../../db/pool.js'
+import { assertContractAccess } from '../billing/access.js'
+import { notifyUsers } from '../interactions/notifications.js'
 
 type MediaRow = {
   id: string

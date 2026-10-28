@@ -37,6 +37,9 @@ As terminações `.test.ts` e `.spec.ts` são convenções de identificação do
 | [static-security.test.ts](unit/static-security.test.ts) | Acesso normal a arquivo público e bloqueio de tentativas de sair da pasta pública. Usa arquivos temporários. |
 | [scheduled.test.ts](unit/scheduled.test.ts) | Autorização da rota de tarefas, exclusão mútua, execução e liberação da trava em caso de falha, com dependências controladas. |
 | [workout-reference.test.ts](unit/workout-reference.test.ts) | Referência externa do treino: HTTPS, ausência de credenciais, tamanho, tipo de entrada e rejeição de caracteres/protocolos indevidos. |
+| [transaction.test.ts](unit/transaction.test.ts) | Confirmação, rollback e descarte de conexão quando a transação não pode ser recuperada. |
+| [mail-cleanup.test.ts](unit/mail-cleanup.test.ts) | Fechamento do transporte SMTP inclusive quando o banco falha, sem envio a destinatários reais. |
+| [runtime-jobs.test.ts](unit/runtime-jobs.test.ts) | Uso do executor com trava pelo intervalo local e ausência de intervalo no modo Vercel. |
 
 Esses testes podem ser executados sem iniciar o ambiente completo em Docker. Ainda utilizam recursos locais quando necessário, como arquivos temporários ou um servidor HTTP de teste.
 
@@ -50,6 +53,7 @@ Esses testes podem ser executados sem iniciar o ambiente completo em Docker. Ain
 | [billing.test.ts](integration/billing.test.ts) | Adaptador financeiro com servidor HTTP controlado: checkout, eventos, repetição, falhas, cancelamento e conciliação. Não realiza pagamento real. |
 | [privacy-races.test.ts](integration/privacy-races.test.ts) | Concorrência durante alteração de perfil, troca de senha e eliminação de dados. Verifica ordenação com bloqueios reais do PostgreSQL. |
 | [vercel-runtime.test.ts](integration/vercel-runtime.test.ts) | Entrada HTTP da API destinada à Vercel, inicialização e contrato do handler em processo local. Não equivale a testar uma implantação real na nuvem. |
+| [permissions.test.ts](integration/permissions.test.ts) | Matriz de autenticação/papel das operações REST, titularidade de recursos, contas encerradas, validade profissional e jornada nas cinco modalidades. Usa somente fixtures e serviços isolados. |
 
 Grande parte dessas suítes chama as rotas com `app.inject`: a requisição percorre a aplicação Fastify sem precisar abrir o navegador. Isso permite conferir códigos HTTP, respostas e efeitos no banco. Outros testes abrem processos ou servidores locais para reproduzir condições específicas.
 
@@ -214,9 +218,9 @@ Uma CI aprovada de um commit anterior não comprova aprovação de alterações 
 
 ## Escopo publicado e trabalho em desenvolvimento
 
-As tabelas deste README descrevem os arquivos publicados que compõem a referência atual. Na revisão de **28/10/2026**, `integration/permissions.test.ts` e `e2e/roles.spec.ts` estavam em desenvolvimento local, fora do GitHub, como parte da auditoria ampliada de permissões. Alterações locais em testes existentes também podem estar pendentes de revisão.
+As tabelas deste README descrevem os arquivos publicados que compõem a referência atual. Na revisão do servidor de **28/10/2026**, `integration/permissions.test.ts` foi incorporado à regressão da API. O arquivo `e2e/roles.spec.ts` permanece em desenvolvimento local, fora do GitHub, como parte da auditoria ampliada da navegação.
 
-Se esses arquivos aparecerem no computador, eles podem ser descobertos pelos comandos locais do Vitest/Playwright e alterar a quantidade de casos. Isso não significa que foram publicados, aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. Atualizar esta seção quando a auditoria for revisada e integrada.
+Se arquivos locais ainda não publicados aparecerem no computador, eles podem ser descobertos pelos comandos e alterar a quantidade de casos. Isso não significa que foram aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. O [registro da revisão do servidor](../docs/evolucao/testes/auditoria-server-2026-10-28.md) distingue os resultados desta etapa da auditoria ampliada ainda não concluída.
 
 ## Limites das verificações
 

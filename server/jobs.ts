@@ -1,15 +1,12 @@
 import { pathToFileURL } from 'node:url'
 import type { Pool } from 'pg'
 import { createPool } from './db/pool.js'
-import { cleanupMediaUploads } from './modules/media-uploads.js'
-import { mediaStorage, mediaBucket } from './modules/media.js'
+import { cleanupMediaUploads } from './modules/media/uploads.js'
+import { mediaStorage, mediaBucket } from './modules/media/routes.js'
 import { deliverOutbox } from './services/mail.js'
-import { expireVerifications } from './modules/verification.js'
-import {
-  processBillingEvents,
-  expireBillingAccess,
-  reconcileBilling,
-} from './modules/billing.js'
+import { expireVerifications } from './modules/accounts/verification.js'
+import { processBillingEvents } from './modules/billing/events.js'
+import { expireBillingAccess, reconcileBilling } from './modules/billing/lifecycle.js'
 
 export async function runJobs(pool: Pool) {
   const verifications = await expireVerifications(pool)

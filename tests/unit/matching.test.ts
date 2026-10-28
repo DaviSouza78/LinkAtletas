@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Profile } from '../../shared/contracts.js'
-import { calculateMatch } from '../../server/modules/matching.js'
+import { calculateMatch } from '../../server/modules/training/matching.js'
 
 const athlete: Profile = {
   userId: '00000000-0000-4000-8000-000000000001',

@@ -7,15 +7,20 @@ export async function transaction<T>(
   work: (client: pg.PoolClient) => Promise<T>,
 ): Promise<T> {
   const client = await pool.connect()
+  let discard = false
   try {
     await client.query('BEGIN')
     const result = await work(client)
     await client.query('COMMIT')
     return result
   } catch (error) {
-    await client.query('ROLLBACK')
+    try {
+      await client.query('ROLLBACK')
+    } catch {
+      discard = true
+    }
     throw error
   } finally {
-    client.release()
+    client.release(discard)
   }
 }

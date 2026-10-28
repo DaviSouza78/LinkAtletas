@@ -1,19 +1,19 @@
 import type { FastifyInstance } from 'fastify'
 import type { Pool } from 'pg'
 import { z } from 'zod'
-import { transaction } from '../db/pool.js'
-import { fail } from '../shared/errors.js'
+import { transaction } from '../../db/pool.js'
+import { fail } from '../../shared/errors.js'
 import {
   requireUser,
   newToken,
   tokenHash,
   hashPassword,
   verifyPassword,
-} from '../shared/security.js'
-import { encryptPrivate, decryptPrivate } from '../shared/crypto.js'
-import { queueMail } from '../services/mail.js'
-import { bodySchema } from '../shared/validation.js'
-import { deleteMediaObjects } from './media.js'
+} from '../../shared/security.js'
+import { encryptPrivate, decryptPrivate } from '../../shared/crypto.js'
+import { queueMail } from '../../services/mail.js'
+import { bodySchema } from '../../shared/validation.js'
+import { deleteMediaObjects } from '../media/routes.js'
 
 export const privacyPolicy = {
   version: '2026-10-14',

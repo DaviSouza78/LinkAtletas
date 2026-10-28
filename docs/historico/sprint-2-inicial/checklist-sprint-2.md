@@ -20,12 +20,12 @@ Conferência: **14/10/2026**. Prazo informado no roteiro: **26/10/2026**. Branch
 ## 2. Fluxo principal funcional de ponta a ponta
 
 - [x] **Fluxo central integrado e testado no navegador**, usando três sessões distintas. Conferir [teste completo](../../../tests/e2e/sprint-2.spec.ts) e [resultado Playwright](evidencias/playwright-results.json).
-- [x] Cadastro de atleta/treinador, login, consulta de sessão e logout reais. Conferir [API de autenticação](../../../server/modules/auth.ts) e [contexto de sessão do frontend](../../../src/context/AuthContext.tsx).
-- [x] Perfis e preferências esportivas persistidos. Conferir [API de perfis](../../../server/modules/profiles.ts).
-- [x] Treinador submete CREF e referência de comprovação; administrador aprova ou reprova com justificativa e auditoria. Conferir [validação profissional](../../../server/modules/verification.ts) e [captura administrativa](evidencias/aprovacao-administrativa.png).
-- [x] Treinadores pendentes/reprovados ficam fora da busca; recomendações têm pontuação calculada e filtros. Conferir [matchmaking](../../../server/modules/matching.ts) e [testes das regras](../../../tests/unit/matching.test.ts).
-- [x] Atleta solicita contratação; apenas o treinador destinatário aceita ou recusa; o aceite cria vínculo ativo sem duplicação. Conferir [API de vínculos](../../../server/modules/contracts.ts).
-- [x] Treinador prescreve para um vínculo ativo, salva rascunho privado e publica a ficha. Conferir [API de treinos](../../../server/modules/workouts.ts).
+- [x] Cadastro de atleta/treinador, login, consulta de sessão e logout reais. Conferir [API de autenticação](../../../server/modules/accounts/auth.ts) e [contexto de sessão do frontend](../../../src/context/AuthContext.tsx).
+- [x] Perfis e preferências esportivas persistidos. Conferir [API de perfis](../../../server/modules/accounts/profiles.ts).
+- [x] Treinador submete CREF e referência de comprovação; administrador aprova ou reprova com justificativa e auditoria. Conferir [validação profissional](../../../server/modules/accounts/verification.ts) e [captura administrativa](evidencias/aprovacao-administrativa.png).
+- [x] Treinadores pendentes/reprovados ficam fora da busca; recomendações têm pontuação calculada e filtros. Conferir [matchmaking](../../../server/modules/training/matching.ts) e [testes das regras](../../../tests/unit/matching.test.ts).
+- [x] Atleta solicita contratação; apenas o treinador destinatário aceita ou recusa; o aceite cria vínculo ativo sem duplicação. Conferir [API de vínculos](../../../server/modules/training/contracts.ts).
+- [x] Treinador prescreve para um vínculo ativo, salva rascunho privado e publica a ficha. Conferir [API de treinos](../../../server/modules/training/workouts.ts).
 - [x] Atleta consulta sua ficha publicada e registra blocos executados, métricas, esforço e comentário. O treinador consulta o feedback. Conferir [execução do atleta](evidencias/execucao-desktop.png) e [feedback do treinador](evidencias/feedback-treinador.png).
 - [x] Dados permanecem após recarregar a página e reiniciar o processo servidor. Conferir [teste de navegador](../../../tests/e2e/sprint-2.spec.ts) e [evidência do reinício](evidencias/persistencia-servidor.json).
 
@@ -53,11 +53,11 @@ Conferência: **14/10/2026**. Prazo informado no roteiro: **26/10/2026**. Branch
 ## 5. Validações e tratamento básico de erros
 
 - [x] **Validações no servidor e tratamento padronizado de erros.** Conferir [schemas de entrada](../../../server/shared/validation.ts) e [tratamento de erros](../../../server/shared/errors.ts).
-- [x] E-mail duplicado, credenciais inválidas, sessão ausente/expirada e tentativa de criar administrador pelo cadastro público são rejeitados. Conferir [autenticação](../../../server/modules/auth.ts) e [testes negativos](../../../tests/integration/api.test.ts).
-- [x] Senhas com hash e sal; token opaco com hash persistido; cookie HttpOnly e validação de origem das mutações. Conferir [segurança](../../../server/shared/security.ts), [sessões](../../../server/modules/auth.ts) e [hooks da API](../../../server/app.ts).
-- [x] Controle de papéis e propriedade impede acessar ficha alheia, aprovar CREF como atleta ou prescrever para vínculo indevido. Conferir [verificação profissional](../../../server/modules/verification.ts), [treinos](../../../server/modules/workouts.ts) e [testes](../../../tests/integration/api.test.ts).
-- [x] Aceite concorrente e solicitação duplicada tratados; rascunho oculto do atleta. Conferir [vínculos](../../../server/modules/contracts.ts), [treinos](../../../server/modules/workouts.ts) e [suíte de integração](../../../tests/integration/api.test.ts).
-- [x] Esforço de 1 a 10, blocos existentes e métricas dentro do catálogo da modalidade são validados; reenvio atualiza a mesma execução. Conferir [registro de execução](../../../server/modules/workouts.ts) e [testes](../../../tests/integration/api.test.ts).
+- [x] E-mail duplicado, credenciais inválidas, sessão ausente/expirada e tentativa de criar administrador pelo cadastro público são rejeitados. Conferir [autenticação](../../../server/modules/accounts/auth.ts) e [testes negativos](../../../tests/integration/api.test.ts).
+- [x] Senhas com hash e sal; token opaco com hash persistido; cookie HttpOnly e validação de origem das mutações. Conferir [segurança](../../../server/shared/security.ts), [sessões](../../../server/modules/accounts/auth.ts) e [hooks da API](../../../server/app.ts).
+- [x] Controle de papéis e propriedade impede acessar ficha alheia, aprovar CREF como atleta ou prescrever para vínculo indevido. Conferir [verificação profissional](../../../server/modules/accounts/verification.ts), [treinos](../../../server/modules/training/workouts.ts) e [testes](../../../tests/integration/api.test.ts).
+- [x] Aceite concorrente e solicitação duplicada tratados; rascunho oculto do atleta. Conferir [vínculos](../../../server/modules/training/contracts.ts), [treinos](../../../server/modules/training/workouts.ts) e [suíte de integração](../../../tests/integration/api.test.ts).
+- [x] Esforço de 1 a 10, blocos existentes e métricas dentro do catálogo da modalidade são validados; reenvio atualiza a mesma execução. Conferir [registro de execução](../../../server/modules/training/workouts.ts) e [testes](../../../tests/integration/api.test.ts).
 - [x] Erro real de login apresentado na interface. Conferir [captura mobile](evidencias/login-mobile-erro.png).
 
 Essas medidas não equivalem a auditoria independente de segurança ou comprovação integral de LGPD.

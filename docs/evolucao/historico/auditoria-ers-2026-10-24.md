@@ -37,7 +37,7 @@ Fontes principais:
 - [ERS no template, objeto principal da auditoria](../ERS-template-original-atualizada.pdf).
 - [ERS original preservada](../../referencias/ERS-Sprint-1-original.pdf).
 - [ERS editável atual](../requisitos/ERS-v2.md), [backlog](../requisitos/backlog.md), [matriz](../requisitos/rastreabilidade.md), [modelos](../diagramas.md), [relatório](../relatorio-testes.md).
-- [Verificação profissional](../../../server/modules/verification.ts), [matching](../../../server/modules/matching.ts), [interações](../../../server/modules/interactions.ts), [mídias](../../../server/modules/media.ts), [Asaas](../../../server/services/asaas.ts), [jobs](../../../server/jobs.ts).
+- [Verificação profissional](../../../server/modules/accounts/verification.ts), [matching](../../../server/modules/training/matching.ts), [interações](../../../server/modules/interactions), [mídias](../../../server/modules/media/routes.ts), [Asaas](../../../server/services/asaas.ts), [jobs](../../../server/jobs.ts).
 - [App de treino](../../../mobile/src/screens/WorkoutsScreen.tsx), [transporte móvel](../../../mobile/src/api.ts), [contratos](../../../shared/contracts.ts).
 - [Ensaio APK](../evidencias/android/android-integrated-result.json), [carga](../evidencias/infraestrutura/carga-matchmaking.json), [banco](../evidencias/api/database-schema.json), [verificação gráfica anterior](../evidencias/documentacao/ers-template-verificacao.json).
 

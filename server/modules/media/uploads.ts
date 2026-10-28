@@ -8,11 +8,11 @@ import {
   DeleteObjectCommand,
 } from '@aws-sdk/client-s3'
 import { z } from 'zod'
-import { requireUser } from '../shared/security.js'
-import { fail } from '../shared/errors.js'
-import { idSchema, bodySchema } from '../shared/validation.js'
-import { encryptPrivate, decryptPrivate } from '../shared/crypto.js'
-import { transaction } from '../db/pool.js'
+import { requireUser } from '../../shared/security.js'
+import { fail } from '../../shared/errors.js'
+import { idSchema, bodySchema } from '../../shared/validation.js'
+import { encryptPrivate, decryptPrivate } from '../../shared/crypto.js'
+import { transaction } from '../../db/pool.js'
 
 const partSize = 3 * 1024 * 1024
 type Actor = { id: string; role: string }

@@ -1,14 +1,15 @@
 import type { FastifyInstance } from 'fastify'
 import type { Pool } from 'pg'
 import { z } from 'zod'
-import type { AppUser, Contract } from '../../shared/contracts.js'
-import { transaction } from '../db/pool.js'
-import { fail } from '../shared/errors.js'
-import { requireUser } from '../shared/security.js'
-import { bodySchema, idSchema } from '../shared/validation.js'
-import { profileFor } from './profiles.js'
+import type { AppUser, Contract } from '../../../shared/contracts.js'
+import { transaction } from '../../db/pool.js'
+import { fail } from '../../shared/errors.js'
+import { requireUser } from '../../shared/security.js'
+import { bodySchema, idSchema } from '../../shared/validation.js'
+import { profileFor } from '../accounts/profiles.js'
 import { calculateMatch } from './matching.js'
-import { cancelContractBilling, cancelReasonSchema } from './billing.js'
+import { cancelContractBilling } from '../billing/lifecycle.js'
+import { cancelReasonSchema } from '../billing/validation.js'
 const select = `SELECT c.id,c.athlete_id AS "athleteId",c.coach_id AS "coachId",a.name AS "athleteName",t.name AS "coachName",
  c.status,c.created_at AS "createdAt",c.decided_at AS "decidedAt" FROM contracts c JOIN users a ON a.id=c.athlete_id JOIN users t ON t.id=c.coach_id`
 export async function listContracts(
@@ -46,7 +47,7 @@ export async function contractsRoutes(app: FastifyInstance, pool: Pool) {
       const { coachId } = create.parse(req.body)
       const id = await transaction(pool, async (client) => {
         const { rows: coach } = await client.query(
-          `SELECT p.sports,p.verification_status FROM profiles p JOIN users u ON u.id=p.user_id WHERE u.id=$1 AND u.role='coach' FOR SHARE`,
+          `SELECT p.sports,p.verification_status FROM profiles p JOIN users u ON u.id=p.user_id WHERE u.id=$1 AND u.role='coach' AND u.disabled_at IS NULL AND (p.verification_expires_at IS NULL OR p.verification_expires_at>now()) FOR SHARE`,
           [coachId],
         )
         if (!coach.length || coach[0].verification_status !== 'approved')
@@ -123,10 +124,15 @@ export async function contractsRoutes(app: FastifyInstance, pool: Pool) {
         if (rows[0].status !== 'pending')
           fail(409, 'CONTRACT_STATE', 'Esta solicitação já foi respondida.')
         const { rows: coach } = await client.query(
-          'SELECT verification_status FROM profiles WHERE user_id=$1 FOR SHARE',
+          'SELECT verification_status,verification_expires_at FROM profiles WHERE user_id=$1 FOR SHARE',
           [user.id],
         )
-        if (status === 'active' && coach[0].verification_status !== 'approved')
+        if (
+          status === 'active' &&
+          (coach[0].verification_status !== 'approved' ||
+            (coach[0].verification_expires_at &&
+              new Date(coach[0].verification_expires_at).getTime() <= Date.now()))
+        )
           fail(
             403,
             'UNVERIFIED',

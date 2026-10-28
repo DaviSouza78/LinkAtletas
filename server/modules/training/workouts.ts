@@ -6,20 +6,20 @@ import type {
   MetricType,
   Workout,
   WorkoutInput,
-} from '../../shared/contracts.js'
-import { transaction } from '../db/pool.js'
-import { fail } from '../shared/errors.js'
-import { requireUser } from '../shared/security.js'
+} from '../../../shared/contracts.js'
+import { transaction } from '../../db/pool.js'
+import { fail } from '../../shared/errors.js'
+import { requireUser } from '../../shared/security.js'
 import {
   bodySchema,
   executionSchema,
   idSchema,
   workoutSchema,
-} from '../shared/validation.js'
+} from '../../shared/validation.js'
 import { listContracts } from './contracts.js'
-import { encryptPrivate, decryptPrivate } from '../shared/crypto.js'
-import { assertContractAccess } from './billing.js'
-import { notifyUsers } from './interactions.js'
+import { encryptPrivate, decryptPrivate } from '../../shared/crypto.js'
+import { assertContractAccess } from '../billing/access.js'
+import { notifyUsers } from '../interactions/notifications.js'
 
 const select = `SELECT w.id,w.contract_id AS "contractId",w.title,w.sport,to_char(w.scheduled_date,'YYYY-MM-DD') AS "scheduledDate",
  w.instructions,w.status,w.created_at AS "createdAt",c.athlete_id AS "athleteId",c.coach_id AS "coachId",

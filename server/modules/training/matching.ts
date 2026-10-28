@@ -1,9 +1,9 @@
 import type { FastifyInstance } from 'fastify'
 import type { Pool } from 'pg'
 import { z } from 'zod'
-import type { CoachCard, Profile } from '../../shared/contracts.js'
-import { requireUser } from '../shared/security.js'
-import { profileFor, profileSelect } from './profiles.js'
+import type { CoachCard, Profile } from '../../../shared/contracts.js'
+import { requireUser } from '../../shared/security.js'
+import { profileFor, profileSelect } from '../accounts/profiles.js'
 
 const normalized = (text: string) =>
   text

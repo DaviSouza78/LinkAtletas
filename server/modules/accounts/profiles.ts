@@ -1,10 +1,10 @@
 import type { FastifyInstance } from 'fastify'
 import type { Pool, PoolClient } from 'pg'
-import type { Profile } from '../../shared/contracts.js'
-import { transaction } from '../db/pool.js'
-import { fail } from '../shared/errors.js'
-import { requireUser } from '../shared/security.js'
-import { bodySchema, profileSchema } from '../shared/validation.js'
+import type { Profile } from '../../../shared/contracts.js'
+import { transaction } from '../../db/pool.js'
+import { fail } from '../../shared/errors.js'
+import { requireUser } from '../../shared/security.js'
+import { bodySchema, profileSchema } from '../../shared/validation.js'
 
 export const profileSelect = `SELECT u.id AS "userId",u.role,u.name,u.email,p.city,p.bio,p.sports,p.goals,p.levels,
  p.availability,p.mode,p.budget::float8,p.price::float8,p.cref,p.verification_status AS "verificationStatus",

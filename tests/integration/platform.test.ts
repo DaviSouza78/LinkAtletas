@@ -4,7 +4,7 @@ import { createPool } from '../../server/db/pool.js'
 import { migrate } from '../../server/db/migrate.js'
 import { buildApp } from '../../server/app.js'
 import { deliverOutbox } from '../../server/services/mail.js'
-import { expireVerifications } from '../../server/modules/verification.js'
+import { expireVerifications } from '../../server/modules/accounts/verification.js'
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
 const testUrl =

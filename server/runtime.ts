@@ -2,7 +2,6 @@ import { fileURLToPath } from 'node:url'
 import type { FastifyInstance } from 'fastify'
 import staticPlugin from '@fastify/static'
 import { apiPort, production } from './config.js'
-import { runJobs } from './jobs.js'
 import { createPool } from './db/pool.js'
 import { runScheduledJobs, scheduledRoutes } from './scheduled.js'
 
@@ -15,7 +14,7 @@ export async function startServer(app: FastifyInstance, options: { listen?: bool
       if (jobsRunning) return
       jobsRunning = true
       try {
-        await runJobs(jobsPool)
+        await runScheduledJobs(jobsPool)
       } catch {
         app.log.error(
           { code: 'JOBS_FAILED' },

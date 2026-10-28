@@ -1210,7 +1210,7 @@
     },
     "/api/auth/native/login": {
       "post": {
-        "summary": "Entrar e emitir cookie HttpOnly",
+        "summary": "Entrar e emitir token Bearer",
         "tags": [
           "Autenticação"
         ],

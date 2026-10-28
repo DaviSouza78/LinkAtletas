@@ -1,16 +1,16 @@
 import type { FastifyInstance, FastifyReply } from 'fastify'
 import type { Pool } from 'pg'
 import { z } from 'zod'
-import { transaction } from '../db/pool.js'
-import { fail } from '../shared/errors.js'
+import { transaction } from '../../db/pool.js'
+import { fail } from '../../shared/errors.js'
 import {
   hashPassword,
   newToken,
   tokenHash,
   verifyPassword,
-} from '../shared/security.js'
-import { bodySchema } from '../shared/validation.js'
-import type { AppUser } from '../../shared/contracts.js'
+} from '../../shared/security.js'
+import { bodySchema } from '../../shared/validation.js'
+import type { AppUser } from '../../../shared/contracts.js'
 
 export const COOKIE = 'la_session'
 const loginSchema = z
@@ -102,7 +102,7 @@ export async function authRoutes(
         config: { rateLimit: { max: 20, timeWindow: '1 minute' } },
         schema: {
           tags: ['Autenticação'],
-          summary: 'Entrar e emitir cookie HttpOnly',
+          summary: native ? 'Entrar e emitir token Bearer' : 'Entrar e emitir cookie HttpOnly',
           body: bodySchema(loginSchema),
         },
       },

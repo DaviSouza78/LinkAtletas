@@ -18,7 +18,7 @@ Conferência de 26/10: [implantação pública verificada](operacao/implantacao-
 
 - [x] Cadastro → perfil → CREF manual → descoberta → solicitação → aceite → prescrição → execução/feedback: [API original](../../tests/integration/api.test.ts), [web](../../src/App.tsx), [roteiro](operacao/manual.md) e [jornada real em Preview HTTPS](evidencias/nuvem/vercel-fluxo-2026-10-26.json).
 - [x] Funcionalidades antes abertas agora possuem código e telas: [mensagens](../../src/pages/messages), [agenda](../../src/pages/agenda), [avaliações](../../src/pages/reviews), [notificações](../../src/pages/notifications), [financeiro](../../src/pages/billing), [privacidade](../../src/pages/privacy), [mídia](../../src/components/media) e [recuperação de senha](../../src/pages/auth/PasswordRecoveryPage.tsx).
-- [x] Cancelamento, novos ciclos, carência e conciliação: [billing](../../server/modules/billing.ts), [contratos](../../server/modules/contracts.ts), [testes de financeiro](../../tests/integration/billing.test.ts).
+- [x] Cancelamento, novos ciclos, carência e conciliação: [billing](../../server/modules/billing), [contratos](../../server/modules/training/contracts.ts), [testes de financeiro](../../tests/integration/billing.test.ts).
 - [x] Fluxo ampliado em Chromium, Firefox e WebKit: [15/15 E2E da verificação final](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) e [relatório](relatorio-testes.md).
 
 ## 3. Banco de dados criado e integrado
@@ -44,10 +44,10 @@ Conferência de 26/10: [implantação pública verificada](operacao/implantacao-
 ## 5. Validações e tratamento básico de erros
 
 - [x] Papel/propriedade/estado, Zod, CSRF/Origin, sessão, limites e mensagens públicas sanitizadas: [segurança](../../server/shared/security.ts), [erros](../../server/shared/errors.ts).
-- [x] Arquivo por assinatura/MIME/extensão/limite, S3 privado e cifra: [media](../../server/modules/media.ts), [crypto](../../server/shared/crypto.ts).
-- [x] Consentimento/saúde/recuperação/encerramento com senha e sessão revogada: [platform](../../server/modules/platform.ts).
+- [x] Arquivo por assinatura/MIME/extensão/limite, S3 privado e cifra: [media](../../server/modules/media/routes.ts), [crypto](../../server/shared/crypto.ts).
+- [x] Consentimento/saúde/recuperação/encerramento com senha e sessão revogada: [platform](../../server/modules/privacy/routes.ts).
 - [x] Webhook autenticado/idempotente, resultado incerto e cancelamento sem falso sucesso: [Asaas](../../server/services/asaas.ts), billing e testes.
-- [x] Review elegível, moderação, horário/conflito e WS: [interactions](../../server/modules/interactions.ts).
+- [x] Review elegível, moderação, horário/conflito e WS: [interactions](../../server/modules/interactions).
 
 ## 6. Testes iniciais com evidências
 

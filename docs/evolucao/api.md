@@ -91,7 +91,7 @@ WebSocket `/api/events` autentica cookie/Bearer antes do upgrade e valida origem
 | GET `/billing/config` | `BillingConfig` direto: mode/environment/available/commissionBps/graceDays |
 | GET/PUT `/billing/wallet` | Treinador: `{wallet}`; PUT `{walletId:UUID}` elegível no provedor |
 | GET/PUT `/billing/plan` | Treinador: `{plan}`; PUT `{name,amountCents:int,active}` |
-| GET `/billing/plans?coachId=UUID` | Planos disponíveis |
+| GET `/billing/plans?coachId=UUID` | Planos ativos de treinadores com conta ativa e aprovação vigente; aprovação vencida ou conta encerrada não aparece |
 | PATCH `/admin/billing/settings` | Admin `{commissionBps:0..5000,graceDays:0..30}`; auditado |
 | POST `/billing/checkout` | Atleta `{contractId}`; `{subscription}` com checkout hospedado; academic retorna indisponibilidade |
 | GET `/billing/summary` | `BillingSummary` direto: assinaturas, pagamentos e totais |
@@ -107,3 +107,7 @@ GET `/privacy/policy` é público e retorna `{policy:{version,text,retention}}`.
 ## Fontes dos provedores
 
 [Asaas Checkout](https://docs.asaas.com/docs/introdu%C3%A7%C3%A3o-1), [webhooks](https://docs.asaas.com/docs/about-webhooks), [Google Calendar Events insert](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert), [Expo SecureStore](https://docs.expo.dev/versions/latest/sdk/securestore/), [Mailpit](https://mailpit.axllent.org/docs/), [SeaweedFS S3](https://github.com/seaweedfs/seaweedfs/blob/master/weed/command/s3.go). Configuração externa permanece responsabilidade do proprietário; testes não enviam convites nem cobram terceiros.
+
+## Elegibilidade profissional nas operações
+
+Novo vínculo exige treinador com conta ativa e aprovação vigente. Aceitar pedido antigo revalida a validade profissional. Checkout revalida essas condições antes de retornar ou criar uma assinatura; caso contrário responde `409 UNAVAILABLE_COACH` sem iniciar cobrança. O catálogo de planos também exclui contas desativadas e aprovações vencidas.

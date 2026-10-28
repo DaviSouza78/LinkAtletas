@@ -7,15 +7,11 @@ import { createPool } from '../../server/db/pool.js'
 import { migrate } from '../../server/db/migrate.js'
 import { hashPassword } from '../../server/shared/security.js'
 import { installErrors } from '../../server/shared/errors.js'
-import {
-  billingRoutes,
-  assertContractAccess,
-  processBillingEvents,
-  expireBillingAccess,
-  reconcileBilling,
-  cancelContractBilling,
-} from '../../server/modules/billing.js'
-import { contractsRoutes } from '../../server/modules/contracts.js'
+import { billingRoutes } from '../../server/modules/billing/routes.js'
+import { assertContractAccess } from '../../server/modules/billing/access.js'
+import { processBillingEvents } from '../../server/modules/billing/events.js'
+import { expireBillingAccess, reconcileBilling, cancelContractBilling } from '../../server/modules/billing/lifecycle.js'
+import { contractsRoutes } from '../../server/modules/training/contracts.js'
 import { AsaasClient, AsaasError } from '../../server/services/asaas.js'
 import type { AppUser } from '../../shared/contracts.js'
 
@@ -213,6 +209,30 @@ afterAll(async () => {
 })
 
 describe('Billing: controlled HTTP provider contract (not Asaas sandbox)', () => {
+  it.each(['suspended', 'expired', 'disabled'] as const)('refuses checkout for unavailable coach: %s', async (state) => {
+    const testAthlete = await actor('Atleta bloqueio checkout', 'athlete')
+    const testCoach = await actor('Treinador bloqueio checkout', 'coach')
+    const id = (await pool.query(
+      "INSERT INTO contracts(athlete_id,coach_id,status,decided_at) VALUES($1,$2,'active',now()) RETURNING id",
+      [testAthlete.id, testCoach.id],
+    )).rows[0].id
+    await pool.query(
+      "INSERT INTO billing_plans(coach_id,name,amount_cents,active) VALUES($1,'Plano ficticio',15000,true)", [testCoach.id],
+    )
+    await pool.query('INSERT INTO billing_wallets(coach_id,wallet_id) VALUES($1,$2)', [testCoach.id, randomUUID()])
+    if (state === 'suspended')
+      await pool.query("UPDATE profiles SET verification_status='suspended' WHERE user_id=$1", [testCoach.id])
+    else if (state === 'expired')
+      await pool.query("UPDATE profiles SET verification_expires_at=now()-interval '1 second' WHERE user_id=$1", [testCoach.id])
+    else
+      await pool.query('UPDATE users SET disabled_at=now() WHERE id=$1', [testCoach.id])
+    const count = createCount
+    const response = await api(testAthlete, 'POST', '/billing/checkout', { contractId: id })
+    expect(response.statusCode, response.body).toBe(409)
+    expect(response.json().code).toBe('UNAVAILABLE_COACH')
+    expect(createCount).toBe(count)
+    expect((await pool.query('SELECT 1 FROM billing_subscriptions WHERE contract_id=$1', [id])).rowCount).toBe(0)
+  })
   it('keeps academic access explicit and denies a foreign actor', async () => {
     process.env.BILLING_MODE = 'academic'
     await expect(
@@ -342,6 +362,16 @@ describe('Billing: controlled HTTP provider contract (not Asaas sandbox)', () =>
     await expect(
       assertContractAccess(pool, contractId, athlete.id),
     ).rejects.toMatchObject({ statusCode: 403 })
+  })
+  it('does not let admin or another coach cancel a private subscription', async () => {
+    const anotherCoach = await actor('Treinador sem vinculo financeiro', 'coach')
+    const previous = (await pool.query('SELECT state FROM billing_subscriptions WHERE id=$1', [subscriptionId])).rows[0].state
+    for (const user of [admin, stranger, anotherCoach]) {
+      const response = await api(user, 'POST', `/billing/subscriptions/${subscriptionId}/cancel`, { reason: 'Tentativa de terceiro' })
+      expect(response.statusCode, response.body).toBe(404)
+    }
+    expect((await api(anotherCoach, 'GET', '/billing/summary')).body).not.toContain(subscriptionId)
+    expect((await pool.query('SELECT state FROM billing_subscriptions WHERE id=$1', [subscriptionId])).rows[0].state).toBe(previous)
   })
   it('authenticates webhook before persistence; minimizes card data and consumes duplicate event only once', async () => {
     const payload = {
