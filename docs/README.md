@@ -27,11 +27,11 @@ Este índice reúne os documentos atuais da Sprint 2. A aplicação está dispon
 
 ## Fontes e histórico
 
-A ERS de apresentação é o PDF completo e seu Word editável, indicados acima. [ERS-v2.md](evolucao/ERS-v2.md) é uma síntese técnica auxiliar; seus arquivos Word/PDF não substituem o template completo. A [fonte textual](evolucao/ERS-template-original.md) e os [arquivos do template](evolucao/template/README.md) permitem manter e reproduzir o documento.
+A ERS oficial é o **PDF final ajustado pela equipe**, indicado acima. Não há um Word final equivalente publicado. [ERS-v2.md](evolucao/ERS-v2.md) é uma síntese técnica auxiliar. A [fonte textual](evolucao/ERS-template-original.md) e os [arquivos do template](evolucao/template/README.md) documentam a elaboração; não substituem os ajustes manuais do PDF final.
 
 - [Materiais originais e referências do grupo](referencias/).
 - [Primeira implementação da Sprint 2](sprint-2/entrega.md), com evidências datadas.
 - [Auditorias e revisões anteriores da ERS](evolucao/historico/).
-- [Planos e propostas anteriores](historico/README.md).
+- [Histórico e versões anteriores](historico/README.md).
 
 Registros históricos preservam o contexto de sua data e não devem ser usados para concluir o estado atual da aplicação. Resultados antigos de testes continuam identificados por execução.

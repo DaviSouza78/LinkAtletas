@@ -12,7 +12,7 @@ Quinze arquivos de telas, componentes e dados fictícios do protótipo foram rem
 
 Revisão documental de 24/10/2026: a [auditoria aplicada à ERS v2.4](historico/revisao-ers-aplicada-2026-10-24.md) integra os requisitos nas seções do template, desenvolve os casos iniciais com evidências existentes e substitui figuras/sumário. Apêndices duplicados removidos; original da Sprint 1 preservado. Sem mudança no código da aplicação ou nova homologação externa nesta revisão.
 
-Data: 14/10/2026. [Proposta aprovada por Lucca](../historico/planejamento/specs/2026-10-14-expansao-completa-design.md). Este registro não atribui decisões ao professor ou a integrantes sem evidência.
+Data: 14/10/2026. [Proposta aprovada por Lucca](https://github.com/DaviSouza78/LinkAtletas/blob/c472f2709d4053dda051d8d4da18fc9bf3096d8a/docs/historico/planejamento/specs/2026-10-14-expansao-completa-design.md). Este registro não atribui decisões ao professor ou a integrantes sem evidência.
 
 | Decisão | Motivo e efeito |
 |---|---|

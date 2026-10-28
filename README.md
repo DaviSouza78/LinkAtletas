@@ -27,6 +27,12 @@ O modo financeiro acadêmico não realiza cobranças. A integração Asaas depen
 | Nuvem | Vercel, Neon, Tigris, Brevo e cron-job.org |
 | Qualidade | Vitest, Playwright, axe e GitHub Actions |
 
+Veja a [função de cada serviço e a separação entre nuvem e ambiente local](docs/evolucao/servicos-externos-sprint-2.md).
+
+## Contas para demonstração
+
+O site público utiliza contas próprias de atleta, treinador e administrador. As credenciais são fornecidas pelo responsável pela demonstração fora do GitHub. As contas fictícias do [manual](docs/evolucao/manual.md) são exclusivas do banco local e não permitem entrar na implantação pública.
+
 ## Executar localmente
 
 Pré-requisitos: Node.js 24, pnpm 10.33.2 e Docker Desktop em execução. Na primeira instalação:

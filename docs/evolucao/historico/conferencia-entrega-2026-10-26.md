@@ -17,7 +17,7 @@ Portanto, demonstração local funcional atende ao núcleo executável da Sprint
 ## Material de entrega
 
 - [Checklist dos nove entregáveis, com referências](../checklist-sprint-2.md).
-- [ERS final em PDF no template](../ERS-template-original-atualizada.pdf) e [Word completo editável](../ERS-completa-v2.5-editavel.docx). `ERS-v2.md`, `ERS-v2.docx` e `ERS-v2.pdf` são fontes/sínteses auxiliares; não substituir o documento completo pelo resumo.
+- [ERS final em PDF no template](../ERS-template-original-atualizada.pdf) e [Word completo editável](https://github.com/DaviSouza78/LinkAtletas/blob/c472f2709d4053dda051d8d4da18fc9bf3096d8a/docs/evolucao/ERS-completa-v2.5-editavel.docx). `ERS-v2.md`, `ERS-v2.docx` e `ERS-v2.pdf` são fontes/sínteses auxiliares; não substituir o documento completo pelo resumo.
 - [Diagramas](../diagramas.md), [backlog](../backlog.md), [matriz de UCs](../rastreabilidade.md), [decisões](../decisoes.md) e [API](../api.md).
 - [Relatório de testes e limites das evidências](../relatorio-testes.md).
 - [Manual de execução](../manual.md), [README](../../../README.md) e [APK local](../manual-apk-local.md).

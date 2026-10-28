@@ -9,7 +9,7 @@ Solicitação de Lucca após conferir o PDF e o Word convertido da v2.4. Escopo:
 - [x] Versão e histórico atualizados para 2.5; sumário recalculado. PDF final com 60 páginas.
 - [x] Word completo reconstruído com parágrafos editáveis posicionados nas coordenadas do PDF. Isso evita a detecção incorreta de colunas e tabelas que prejudicou a conversão anterior.
 
-Documentos atuais: [PDF](../ERS-template-original-atualizada.pdf) e [Word completo](../ERS-completa-v2.5-editavel.docx). O arquivo ERS-v2.docx continua uma síntese auxiliar e não deve ser confundido com o Word completo.
+Documentos atuais: [PDF](../ERS-template-original-atualizada.pdf) e [Word completo](https://github.com/DaviSouza78/LinkAtletas/blob/c472f2709d4053dda051d8d4da18fc9bf3096d8a/docs/evolucao/ERS-completa-v2.5-editavel.docx). O arquivo ERS-v2.docx continua uma síntese auxiliar e não deve ser confundido com o Word completo.
 
 ## Funcionamento do Word
 
