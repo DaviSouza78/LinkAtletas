@@ -125,6 +125,12 @@ A conexão Tigris foi preparada no painel, limitada ao projeto LinkAtletas. A in
 - [ ] Conversas entre duas sessões, reconexão e atualização entre instâncias verificadas.
 - [ ] Administrador, backup cifrado e restauração da base de produção verificados.
 
+## Compatibilidade do builder em 28/10/2026
+
+O deploy do commit `6a9da16` falhou antes de compilar a aplicação: a CLI 65.4.0 tentou instalar `@vercel/build-utils@15.1.0`, mas o builder fixado `@vercel/fastify@22.0.0` exigia exatamente `15.0.0`. O `vercel.json` passou a usar `@vercel/fastify@23.0.0`, cujo peer declarado é `@vercel/build-utils@15.1.0`. Não foi necessário ignorar conflitos de dependências com `--force` ou `--legacy-peer-deps`.
+
+Os registros acima sobre o builder 22 descrevem a preparação histórica. Rotas, entrada `server.ts`, inclusão de `dist/**` e variáveis dos serviços permanecem com a configuração existente. O aviso sobre `builds` prevalecer sobre as configurações do painel continua esperado e não corresponde ao erro de instalação.
+
 ## Referências
 
 Verificação local desta preparação: TypeScript e build aprovados; 32 testes unitários e 3 testes da entrada de produção aprovados. O teste da entrada inicia o servidor real, serve a interface e a navegação, consulta a sessão e verifica o bloqueio do agendador sem credenciais externas. Usa configuração fictícia isolada e não comprova conexão com Neon, SMTP, S3 ou o runtime nativo da Vercel. O Docker estava indisponível durante a execução; a suíte completa com PostgreSQL não foi reexecutada nesta preparação.
