@@ -2,6 +2,8 @@
 
 Guia de fala, navegação e respostas para a apresentação. Usar como apoio, sem ler tudo. Tempo sugerido: 20–25 minutos. Para uma apresentação curta, usar o [roteiro resumido](roteiro-apresentacao-sprint-2.md). Os entregáveis e suas referências estão no [checklist](checklist-sprint-2.md).
 
+**Se o professor perguntar pelos casos de teste, resultados ou commits:** abrir a [seção de consulta rápida](#consulta-rápida--casos-de-teste-resultados-e-commits-no-github), ao final deste guia.
+
 ## Preparação antes de apresentar
 
 1. Abrir a [ERS final](ERS-template-original-atualizada.pdf), o [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas), o [site](https://link-atletas.vercel.app/), o [Neon](https://console.neon.tech/), a [API](https://link-atletas.vercel.app/api/docs/) e os [resultados de testes](relatorio-testes.md).
@@ -246,3 +248,64 @@ As consultas são apenas `SELECT`; não removem nem alteram dados. Não usar `SE
 ## Fechamento dos critérios
 
 Fluxo completo: treino publicado → execução → feedback. Banco: alteração no site → registro no Neon → releitura. Interface: desktop e celular com gravação real. Validações: campo vazio, senha incorreta e papel indevido. Testes: resultados e CI identificados. Código: main, commits, fontes e README. ERS, diagramas, backlog, API e decisões permanecem acessíveis pelo checklist.
+
+## Consulta rápida — casos de teste, resultados e commits no GitHub
+
+**Resposta direta ao professor:** “Sim, os casos documentados, os testes automatizados, os resultados de execução, as evidências e os commits estão no GitHub. São artefatos diferentes: o caso descreve o cenário e o resultado esperado; o código implementa a verificação; o relatório registra o resultado de uma execução; o commit identifica a alteração realizada.”
+
+### 1. Onde estão os casos documentados?
+
+Abrir a [ERS final no GitHub](https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/ERS-template-original-atualizada.pdf), na seção **6 — Casos de teste**. Selecionar um CT e explicar o cenário, as condições, a ação e o resultado esperado que constam nele. Relacionar o caso ao requisito e à funcionalidade demonstrada.
+
+O [relatório geral de testes](relatorio-testes.md) complementa a ERS com camadas verificadas, resultados e limites. A tabela histórica do relatório não deve ser somada às contagens atuais: são execuções de datas diferentes, com parte dos mesmos testes.
+
+### 2. Onde estão os testes automatizados e o que mostrar?
+
+| Abrir | Exemplos para explicar ao professor |
+|---|---|
+| [Testes de API do fluxo principal](../../tests/integration/api.test.ts) | Cadastro sem permissão para criar administrador; senha fraca; e-mail duplicado; sessão expirada; atleta impedido de aprovar CREF; treinador não aprovado fora da busca; vínculo e aceite; rascunho privado; publicação e execução persistida. |
+| [Jornada principal no navegador](../../tests/e2e/sprint-2.spec.ts) | Cenário de cadastro → aprovação → contratação → publicação → execução persistida; teste de login inválido em tela móvel. |
+| [Jornadas ampliadas no navegador](../../tests/e2e/expansion.spec.ts) | Chat, agenda, avaliação, consentimento, mídia e financeiro acadêmico; recuperação por SMTP local; teclado, responsividade e axe. |
+| [Plataforma e arquivos](../../tests/integration/platform.test.ts) | Consentimento, armazenamento privado, cifra, recuperação, sessão e encerramento de conta. |
+| [Mensagens, avaliações e agenda](../../tests/integration/interactions.test.ts) | Persistência, isolamento entre participantes, leitura, regras das avaliações e conflitos de horário. |
+| [Financeiro](../../tests/integration/billing.test.ts) | Contratos HTTP controlados, webhook, repetição de eventos e conciliação. Explicar que isso não comprova pagamento real no Asaas. |
+| [Concorrência e privacidade](../../tests/integration/privacy-races.test.ts) | Operações concorrentes envolvendo eliminação de dados, perfil e sessão. |
+| [Testes unitários](../../tests/unit) | Compatibilidade de perfis, criptografia, segurança de arquivos, chave de backup e tarefas agendadas. |
+| [Testes do aplicativo](../../mobile/tests) | Transporte da API e configuração do cliente móvel; não equivalem a teste em aparelho físico. |
+
+Ao abrir um teste, mostrar: **preparação → ação → asserção**. Por exemplo, no teste “não cria administrador pelo cadastro público nem aceita senha fraca”, explicar a entrada indevida e a resposta esperada do servidor. No teste “grava e atualiza uma única execução visível ao treinador”, mostrar a gravação e a leitura do resultado. Não é necessário explicar cada linha do arquivo.
+
+### 3. Onde está a prova de que foram executados?
+
+- [Resultado de API/unidade registrado](evidencias/nuvem-2026-10-26-vitest.json): localizar `numPassedTests: 99`, `numFailedTests: 0` e `success: true`.
+- [Resultado de navegador registrado](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json): localizar `stats`, com `expected: 15`, `unexpected: 0` e `flaky: 0`. São cinco cenários nos três motores daquela execução, não quinze funcionalidades independentes.
+- [Resultado dos testes móveis](evidencias/mobile-tests.json): 22 testes aprovados na execução registrada; apresentar separadamente dos 99 testes da raiz.
+- [Relato da revisão manual](testes-manuais-2026-10-27.md): mostrar cenários, bugs encontrados e correções. [Regressão Chromium posterior](evidencias/manual-2026-10-27/playwright-results.json): cinco testes aprovados nessa execução específica.
+- [Verificação da preparação e do banco em produção](evidencias/demonstracao-preparada-2026-10-27.json): logins, dados fictícios e gravação pela API com leitura direta no Neon. Não é teste manual de navegador.
+- [Pasta de evidências](evidencias/): capturas, JSON e logs vinculados aos relatórios. Selecionar uma captura de execução e sua referência no relatório, em vez de mostrar arquivos sem contexto.
+
+**Fala sugerida:** “Aqui está o teste escrito, e aqui está o resultado da execução identificada. Temos cenários positivos e negativos, como entrada inválida, acesso indevido e dados persistidos. As evidências não significam que todas as funcionalidades possíveis estejam livres de falhas.”
+
+### 4. Como mostrar a automação no GitHub Actions?
+
+Abrir o [histórico de Actions](https://github.com/DaviSouza78/LinkAtletas/actions) e a [execução aprovada registrada](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40420233293/attempts/2). Mostrar o commit associado à execução e expandir as etapas de build, testes de API, navegador e verificações móveis. O [workflow](../../.github/workflows/ci.yml) descreve os comandos; a execução contém o resultado.
+
+Uma execução aprovada de um commit anterior não comprova que um commit posterior passou pela mesma suíte. Alterações apenas documentais podem não disparar o workflow, conforme os filtros configurados. O teste inicial exigido está documentado nas execuções referenciadas; não apresentar a auditoria ampliada ainda local como concluída ou publicada.
+
+### 5. Onde estão os commits e quais abrir?
+
+Abrir os [commits da main](https://github.com/DaviSouza78/LinkAtletas/commits/main/). Exemplos úteis:
+
+- [Implementação ampliada — fca8a18](https://github.com/DaviSouza78/LinkAtletas/commit/fca8a18): evolução funcional da aplicação.
+- [Correções após os testes manuais — ee16f10](https://github.com/DaviSouza78/LinkAtletas/commit/ee16f10): status profissional e mensagens da interface.
+- [Conferência das correções publicadas — c472f27](https://github.com/DaviSouza78/LinkAtletas/commit/c472f27): registro posterior à publicação.
+- [Organização dos documentos — f2f9739](https://github.com/DaviSouza78/LinkAtletas/commit/f2f9739): retirada de arquivos antigos e ajuste das referências.
+- [Preparação da apresentação e integração do banco — de3dcc8](https://github.com/DaviSouza78/LinkAtletas/commit/de3dcc8): guia completo e evidência de persistência.
+
+Mostrar autor, mensagem, data e arquivos alterados. Um commit documental comprova essa contribuição documental; ele não deve ser apresentado como implementação de uma funcionalidade. O próprio guia também fica versionado, e sua atualização aparece no histórico da main.
+
+### 6. Se o professor pedir para executar os testes novamente
+
+Os comandos estão no [README](../../README.md): `pnpm test` para unidade/integração, `pnpm test:e2e` para navegador, `pnpm --dir mobile test` para o cliente móvel, `pnpm build` para tipos/compilação e `pnpm docs:check` para documentação. Os testes de integração exigem serviços locais e banco isolado com sufixo `_test`.
+
+**Não executar as suítes contra o Neon de produção.** Elas usam preparação e limpeza de dados de teste. Não executar simultaneamente suítes que compartilhem o mesmo banco de teste. Na apresentação, é válido mostrar as execuções anteriores identificadas e demonstrar ao vivo a persistência da conta fictícia; se houver reexecução, apresentar seu resultado real, inclusive falhas.
