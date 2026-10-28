@@ -1,4 +1,4 @@
-import type { Verification, VerificationStatus } from '../../../shared/contracts'
+import type { Verification } from '../../../shared/contracts'
 import { useAuth } from '../../context/AuthContext'
 import { useRemote } from '../../hooks/useRemote'
 import { useState } from 'react'
@@ -9,14 +9,6 @@ import { ShieldCheck } from 'lucide-react'
 import { State, Notice } from '../../components/ui/Feedback'
 import { Badge } from '../../components/ui/Badge'
 
-export type ExtendedVerification = Verification & {
-  currentStatus?: VerificationStatus
-  currentReason?: string
-  documentId?: string | null
-  expiresAt?: string | null
-  source?: string
-}
-
 export function VerificationForm({
   onChange,
   currentStatus,
@@ -25,7 +17,7 @@ export function VerificationForm({
   currentStatus: string
 }) {
   const { user } = useAuth()
-  const remote = useRemote<{ verifications: ExtendedVerification[] }>(
+  const remote = useRemote<{ verifications: Verification[] }>(
     '/verifications',
   )
   const [cref, setCref] = useState('')

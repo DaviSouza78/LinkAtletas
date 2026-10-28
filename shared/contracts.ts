@@ -78,6 +78,8 @@ export interface Verification {
   documentId?: string | null
   expiresAt?: string | null
   source?: string
+  currentStatus?: VerificationStatus
+  currentReason?: string
 }
 export interface Contract {
   id: string
@@ -144,19 +146,3 @@ export interface ApiErrorBody {
   message: string
   fields?: Record<string, string[]>
 }
-
-/** HTTP contract: all endpoints are relative to /api. Cookie credentials are mandatory.
- * POST /auth/register {name,email,password,role:'athlete'|'coach'} -> 201 {user}
- * POST /auth/login {email,password} -> {user}; GET /auth/session -> {user: AppUser|null}
- * POST /auth/logout {} -> {ok:true}
- * GET /profiles/me -> {profile}; PUT /profiles/me ProfileInput -> {profile}
- * GET /coaches?sport=&query=&maxPrice=&mode= -> {coaches:CoachCard[]}
- * POST /verifications {cref,evidence} -> 201 {verification}; GET /verifications -> {verifications}
- * GET /admin/verifications -> {verifications}; PATCH /admin/verifications/:id {status:'approved'|'rejected',reason} -> {verification}
- * GET /contracts -> {contracts}; POST /contracts {coachId} -> 201 {contract}
- * PATCH /contracts/:id {status:'active'|'rejected'} -> {contract}
- * GET /workouts -> {workouts}; POST /workouts WorkoutInput -> 201 {workout}
- * GET /workouts/:id -> {workout}; PUT /workouts/:id WorkoutInput -> {workout}
- * PUT /workouts/:id/execution ExecutionInput -> {workout}
- * GET /metrics?sport= -> {metrics:MetricType[]}; GET /dashboard -> Dashboard
- */

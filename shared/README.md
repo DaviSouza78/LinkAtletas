@@ -53,7 +53,19 @@ O dado real passa pela API e pelo banco. A definição compartilhada descreve o 
 | `shared/` | Tipos e catálogos que podem ser reutilizados pelo site, API e aplicativo. |
 | [server/shared/](../server/shared/) | Recursos internos do servidor: segurança, erros, validação, criptografia e documentação de respostas. Não devem ser importados pelo navegador para executar operações privadas. |
 
-Os formatos TypeScript também não substituem a [documentação OpenAPI](../docs/evolucao/openapi.json). O [guia da API](../docs/evolucao/api.md) e o Swagger descrevem as rotas HTTP. O resumo textual ao final de `contracts.ts` cobre parte do fluxo; não deve ser tratado como inventário completo ou contrato atualizado de todas as rotas.
+Os formatos TypeScript também não substituem a [documentação OpenAPI](../docs/evolucao/openapi.json). O [guia da API](../docs/evolucao/api.md) e o Swagger descrevem as rotas HTTP. A autenticação web utiliza sessão por cookie; as rotas nativas fornecem token Bearer ao aplicativo. O resumo antigo de rotas foi retirado de `contracts.ts` para evitar duplicidade e a indicação incorreta de cookie obrigatório para todos os clientes.
+
+## Conferência dos contratos — 28/10/2026
+
+Os três arquivos TypeScript foram comparados com os campos selecionados e retornados pelos módulos da API, os schemas de entrada e os consumidores web/móveis.
+
+| Arquivo | Resultado da revisão |
+|---|---|
+| `contracts.ts` | Acrescentados `currentStatus` e `currentReason` em `Verification`, já retornados pela API. O estado atual do perfil é diferente da decisão histórica da solicitação. A definição duplicada nas páginas de CREF foi removida. Os campos adicionais permanecem opcionais para preservar compatibilidade com consumidores e respostas anteriores. |
+| `interaction-contracts.ts` | `ConsultationInput.description` passou a ser opcional, conforme a API: quando omitida na criação, o servidor usa texto vazio. Na resposta `Consultation`, a descrição continua obrigatória. Mensagens, notificações, avaliações e eventos foram conferidos sem necessidade de alteração. |
+| `billing-contracts.ts` | Configuração, planos, carteira, assinaturas, pagamentos, totais e estados conferidos contra a API e as restrições do banco. Não foi identificada divergência que justificasse mudança. Os valores `amountCents` estão em centavos e `commissionBps` em pontos-base: 100 pontos-base equivalem a 1%. |
+
+Esta revisão alinha as definições ao comportamento existente. Não ativa integrações externas, não altera tabelas e não representa conclusão da auditoria ampliada de permissões. As verificações de tipo e os testes complementam a comparação; os tipos sozinhos não fiscalizam respostas JSON em execução.
 
 ## Cuidados ao alterar um contrato
 

@@ -1,5 +1,5 @@
 import { useRemote } from '../../hooks/useRemote'
-import type { ExtendedVerification } from './VerificationForm'
+import type { Verification } from '../../../shared/contracts'
 import { useState } from 'react'
 import { api, json } from '../../services/api'
 import { message } from '../../utils/errors'
@@ -8,7 +8,7 @@ import { Notice, State, Empty } from '../../components/ui/Feedback'
 import { Badge } from '../../components/ui/Badge'
 
 export function AdminPage() {
-  const remote = useRemote<{ verifications: ExtendedVerification[] }>(
+  const remote = useRemote<{ verifications: Verification[] }>(
     '/admin/verifications',
   )
   const [reasons, setReasons] = useState<Record<string, string>>({})
@@ -55,7 +55,7 @@ export function AdminPage() {
     }
   }
   async function suspend(
-    v: ExtendedVerification,
+    v: Verification,
     status: 'suspended' | 'rejected',
   ) {
     if ((reasons[v.id] || '').trim().length < 5) {

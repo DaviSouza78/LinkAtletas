@@ -51,7 +51,7 @@ export interface Consultation {
 export interface ConsultationInput {
   contractId: string
   title: string
-  description: string
+  description?: string
   startsAt: string
   durationMinutes: number
   meetingUrl?: string
