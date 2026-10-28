@@ -4,7 +4,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const directory = path.resolve(
-  process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias',
+  process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias/web',
 )
 const password = 'SenhaTeste123!'
 async function login(page: Page, email: string, pass = password) {

@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 import 'dotenv/config'
-const evidenceDir = process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias'
+const evidenceDir = process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias/web'
 
 const testDatabase =
   process.env.TEST_DATABASE_URL ??

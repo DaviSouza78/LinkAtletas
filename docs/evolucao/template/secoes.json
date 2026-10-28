@@ -90,17 +90,17 @@
   "prototypes": [
     {
       "title": "4.1 Administração — conferência profissional",
-      "file": "evidencias/aprovacao-administrativa.png",
+      "file": "evidencias/web/aprovacao-administrativa.png",
       "caption": "Tela administrativa de aprovação de comprovação fictícia. Não representa consulta automática nem comprova registro real no conselho."
     },
     {
       "title": "4.2 Atleta — execução de treino",
-      "file": "evidencias/execucao-desktop.png",
+      "file": "evidencias/web/execucao-desktop.png",
       "caption": "Ficha integrada e registro de execução pelo atleta na web. A consulta respeita o vínculo e a publicação da ficha."
     },
     {
       "title": "4.3 Treinador — acompanhamento e feedback",
-      "file": "evidencias/feedback-treinador.png",
+      "file": "evidencias/web/feedback-treinador.png",
       "caption": "Consulta do retorno pelo treinador na interface integrada; dados e resultados são fictícios de teste."
     }
   ],

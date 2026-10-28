@@ -4,7 +4,7 @@ import { expect, test, type Page } from '@playwright/test'
 
 const password = 'SenhaTeste123!'
 const evidenceDir = path.resolve(
-  process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias',
+  process.env.EVIDENCE_DIR || 'docs/evolucao/evidencias/web',
 )
 async function noHorizontalOverflow(page: Page) {
   expect(

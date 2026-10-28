@@ -13,7 +13,7 @@ Esta auditoria recomenda corrigir o documento existente, sem desenvolver funcion
 ## 1. Por que passou de 47 para 61 páginas
 
 - Páginas 1–47: cópia da ERS original com 49 campos atualizados e histórico ampliado.
-- Páginas 48–61: 14 páginas de continuação dos Apêndices, produzidas a partir da [ERS v2.3](../ERS-v2.md): requisitos, requisitos adicionais, fluxos, RNFs, regras, estados e evidências.
+- Páginas 48–61: 14 páginas de continuação dos Apêndices, produzidas a partir da [ERS v2.3](../requisitos/ERS-v2.md): requisitos, requisitos adicionais, fluxos, RNFs, regras, estados e evidências.
 - O acréscimo veio dessa consolidação duplicada. Não decorre de exigência de 61 páginas pelo professor, nem significa que foram implementadas 14 páginas de funcionalidades novas.
 
 **Decisão recomendada:** retirar as 14 páginas de duplicação depois de integrar os conteúdos necessários nas seções 1–6. Não basta cortar o PDF na página 47: atualmente os apêndices contêm informações indispensáveis que ainda não foram incorporadas ao corpo, como requisitos adicionais, critérios de RNF e limites efetivos.
@@ -36,10 +36,10 @@ Fontes principais:
 
 - [ERS no template, objeto principal da auditoria](../ERS-template-original-atualizada.pdf).
 - [ERS original preservada](../../referencias/ERS-Sprint-1-original.pdf).
-- [ERS editável atual](../ERS-v2.md), [backlog](../backlog.md), [matriz](../rastreabilidade.md), [modelos](../diagramas.md), [relatório](../relatorio-testes.md).
+- [ERS editável atual](../requisitos/ERS-v2.md), [backlog](../requisitos/backlog.md), [matriz](../requisitos/rastreabilidade.md), [modelos](../diagramas.md), [relatório](../relatorio-testes.md).
 - [Verificação profissional](../../../server/modules/verification.ts), [matching](../../../server/modules/matching.ts), [interações](../../../server/modules/interactions.ts), [mídias](../../../server/modules/media.ts), [Asaas](../../../server/services/asaas.ts), [jobs](../../../server/jobs.ts).
 - [App de treino](../../../mobile/src/screens/WorkoutsScreen.tsx), [transporte móvel](../../../mobile/src/api.ts), [contratos](../../../shared/contracts.ts).
-- [Ensaio APK](../evidencias/android-integrated-result.json), [carga](../evidencias/carga-matchmaking.json), [banco](../evidencias/database-schema.json), [verificação gráfica anterior](../evidencias/ers-template-verificacao.json).
+- [Ensaio APK](../evidencias/android/android-integrated-result.json), [carga](../evidencias/infraestrutura/carga-matchmaking.json), [banco](../evidencias/api/database-schema.json), [verificação gráfica anterior](../evidencias/documentacao/ers-template-verificacao.json).
 
 Não houve nova execução da aplicação, homologação externa, teste em aparelho ou pesquisa dos preços comerciais nesta auditoria. Resultados históricos não foram tratados como testes executados em 24/10. Leitura direcionada de código não equivale a auditoria exaustiva de segurança do software. Não se emite certificação jurídica, PCI ou de acessibilidade.
 
@@ -169,11 +169,11 @@ Cada caso deve informar: ID, RF/RNF/RN relacionado, objetivo, papel e pré-condi
 
 Referenciar, sem copiar indiscriminadamente todos os logs para a ERS:
 
-- [82 testes de API/unidade](../evidencias/vitest-results.json).
-- [15 E2E](../evidencias/playwright-results.json).
-- [Testes móveis e limites](../evidencias/mobile-verificacao.md).
-- [18 etapas de APK](../evidencias/android-integrated-result.json): emulador, serviços locais reais, período de avaliação reduzido somente em fixture, sem aparelho físico ou financeiro externo.
-- [Relatório completo](../relatorio-testes.md), [limites de carga](../evidencias/carga-matchmaking.json) e [modelos/banco](../diagramas.md).
+- [82 testes de API/unidade](../evidencias/api/vitest-results.json).
+- [15 E2E](../evidencias/web/playwright-results.json).
+- [Testes móveis e limites](../evidencias/android/mobile-verificacao.md).
+- [18 etapas de APK](../evidencias/android/android-integrated-result.json): emulador, serviços locais reais, período de avaliação reduzido somente em fixture, sem aparelho físico ou financeiro externo.
+- [Relatório completo](../relatorio-testes.md), [limites de carga](../evidencias/infraestrutura/carga-matchmaking.json) e [modelos/banco](../diagramas.md).
 
 Não apresentar 18 etapas como 18 testes de todas as combinações de aparelhos. Não somar suítes heterogêneas para prometer cobertura integral. Evidência anterior deve conservar a sua data, commit e ambiente.
 

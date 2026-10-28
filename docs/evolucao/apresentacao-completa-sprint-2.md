@@ -1,6 +1,6 @@
 # Apresentação completa — LinkAtletas, Sprint 2
 
-Guia de fala, navegação e respostas para a apresentação. Usar como apoio, sem ler tudo. Tempo sugerido: 20–25 minutos. Para uma apresentação curta, usar o [roteiro resumido](roteiro-apresentacao-sprint-2.md). Os entregáveis e suas referências estão no [checklist](checklist-sprint-2.md).
+Guia de fala, navegação e respostas para a apresentação. Usar como apoio, sem ler tudo. Tempo sugerido: 20–25 minutos. Para uma apresentação curta, usar o [roteiro resumido](apresentacao/roteiro-apresentacao-sprint-2.md). Os entregáveis e suas referências estão no [checklist](checklist-sprint-2.md).
 
 **Se o professor perguntar pelos casos de teste, resultados ou commits:** abrir a [seção de consulta rápida](#consulta-rápida--casos-de-teste-resultados-e-commits-no-github), ao final deste guia.
 
@@ -10,9 +10,9 @@ Guia de fala, navegação e respostas para a apresentação. Usar como apoio, se
 
 1. Abrir a [ERS final](ERS-template-original-atualizada.pdf), o [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas), o [site](https://link-atletas.vercel.app/), o [Neon](https://console.neon.tech/), a [API](https://link-atletas.vercel.app/api/docs/) e os [resultados de testes](relatorio-testes.md).
 2. Separar as sessões de administrador, treinador e atleta em perfis de navegador distintos. Abas comuns do mesmo perfil compartilham o login. A janela anônima serve como sessão adicional; várias janelas anônimas do mesmo navegador podem compartilhar a mesma sessão.
-3. Consultar as senhas no arquivo privado `C:\Users\user\Downloads\integrador\acessos-demonstracao.local.txt`. Não projetar esse arquivo nem arquivos `.env`.
+3. Consultar as senhas no arquivo privado `C:\Users\user\Downloads\integrador\privado\acessos-demonstracao.local.txt`. Não projetar esse arquivo nem arquivos `.env`.
 4. No Neon, escolher o banco de **produção** conectado ao site. O banco de Preview e o banco do Docker são separados.
-5. Manter o [registro de implantação](implantacao-2026-10-26.md) e as capturas como alternativa se houver problema de rede. Identificar registros históricos como evidências anteriores, não como demonstração ao vivo.
+5. Manter o [registro de implantação](operacao/implantacao-2026-10-26.md) e as capturas como alternativa se houver problema de rede. Identificar registros históricos como evidências anteriores, não como demonstração ao vivo.
 
 ## Dados fictícios disponíveis
 
@@ -24,7 +24,7 @@ As contas principais são administrador, atleta e treinador. O par atleta/treina
 - **Agenda:** `DEMO - consultoria ficticia`, para mostrar o mesmo compromisso nas duas contas.
 - **Administração:** um treinador adicional chamado `Treinador Pendente Demonstracao`, com solicitação de CREF fictícia pendente. Suas credenciais auxiliares estão no mesmo arquivo privado.
 
-Esses dados foram preparados pela API, não por uma nova sessão de teste manual no navegador. O [registro da preparação e da integração com o banco](evidencias/demonstracao-preparada-2026-10-27.json) identifica o que foi verificado. Se alguém executar o treino, publicar o rascunho ou decidir a solicitação antes da apresentação, o estado muda: mostrar o estado real, sem fingir que continua pendente.
+Esses dados foram preparados pela API, não por uma nova sessão de teste manual no navegador. O [registro da preparação e da integração com o banco](evidencias/api/demonstracao-preparada-2026-10-27.json) identifica o que foi verificado. Se alguém executar o treino, publicar o rascunho ou decidir a solicitação antes da apresentação, o estado muda: mostrar o estado real, sem fingir que continua pendente.
 
 ## Etapa 1 — contexto e ERS | 3 minutos
 
@@ -52,7 +52,7 @@ Esses dados foram preparados pela API, não por uma nova sessão de teste manual
 
 ## Etapa 3 — arquitetura e serviços | 2 minutos
 
-**Abrir:** [guia dos serviços](servicos-externos-sprint-2.md) e [saúde da API](https://link-atletas.vercel.app/api/health).
+**Abrir:** [guia dos serviços](operacao/servicos-externos-sprint-2.md) e [saúde da API](https://link-atletas.vercel.app/api/health).
 
 **Fala sugerida:** “O navegador usa a interface React, preparada com Vite. Ela chama nossa API Node com Fastify, publicada na Vercel. A API valida a sessão e os dados e acessa o PostgreSQL no Neon. Os arquivos ficam no Tigris. Brevo envia e-mails, e cron-job.org dispara os trabalhos pendentes.”
 
@@ -116,7 +116,7 @@ Esses dados foram preparados pela API, não por uma nova sessão de teste manual
 
 ## Etapa 6 — comprovar integração com o banco | 3 minutos
 
-**Abrir:** [perfil do atleta](https://link-atletas.vercel.app/atleta/perfil), [saúde da API](https://link-atletas.vercel.app/api/health), [Neon](https://console.neon.tech/) e [DER/dicionário](dicionario-dados.md).
+**Abrir:** [perfil do atleta](https://link-atletas.vercel.app/atleta/perfil), [saúde da API](https://link-atletas.vercel.app/api/health), [Neon](https://console.neon.tech/) e [DER/dicionário](banco/dicionario-dados.md).
 
 **Demonstração mais forte:**
 
@@ -199,11 +199,11 @@ As consultas são apenas `SELECT`; não removem nem alteram dados. Não usar `SE
 
 **Mostrar os resultados registrados:**
 
-- [API/unidade](evidencias/nuvem-2026-10-26-vitest.json): `numPassedTests: 99`, `numFailedTests: 0`, `success: true`.
-- [Navegador](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json): `expected: 15`, `unexpected: 0`, `flaky: 0`, nos três motores daquela execução.
+- [API/unidade](evidencias/api/nuvem-2026-10-26-vitest.json): `numPassedTests: 99`, `numFailedTests: 0`, `success: true`.
+- [Navegador](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/playwright-results.json): `expected: 15`, `unexpected: 0`, `flaky: 0`, nos três motores daquela execução.
 - [CI aprovada registrada](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40420233293/attempts/2): abrir as etapas e identificar a execução exibida.
-- [Revisão manual](testes-manuais-2026-10-27.md): cenários, bugs encontrados, correções e limites.
-- [Preparação desta demonstração](evidencias/demonstracao-preparada-2026-10-27.json): logins e persistência real na produção.
+- [Revisão manual](testes/testes-manuais-2026-10-27.md): cenários, bugs encontrados, correções e limites.
+- [Preparação desta demonstração](evidencias/api/demonstracao-preparada-2026-10-27.json): logins e persistência real na produção.
 
 **Pergunta: “Vocês testaram tudo?”**
 
@@ -215,7 +215,7 @@ As consultas são apenas `SELECT`; não removem nem alteram dados. Não usar `SE
 
 ## Etapa 9 — limites, decisões e encerramento | 2 minutos
 
-**Abrir:** [decisões](decisoes.md), [backlog](backlog.md), [checklist](checklist-sprint-2.md) e [matriz de UCs](rastreabilidade.md).
+**Abrir:** [decisões](gestao/decisoes.md), [backlog](requisitos/backlog.md), [checklist](checklist-sprint-2.md) e [matriz de UCs](requisitos/rastreabilidade.md).
 
 **Fala sugerida:** “Os entregáveis possuem implementação ou documento referenciado. O fluxo demonstrado usa a aplicação pública, API e banco integrados. As decisões de escopo estão registradas, incluindo CREF manual. As evidências têm limites explícitos, e as evoluções estão no backlog.”
 
@@ -279,12 +279,12 @@ Ao abrir um teste, mostrar: **preparação → ação → asserção**. Por exem
 
 ### 3. Onde está a prova de que foram executados?
 
-- [Resultado de API/unidade registrado](evidencias/nuvem-2026-10-26-vitest.json): localizar `numPassedTests: 99`, `numFailedTests: 0` e `success: true`.
-- [Resultado de navegador registrado](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json): localizar `stats`, com `expected: 15`, `unexpected: 0` e `flaky: 0`. São cinco cenários nos três motores daquela execução, não quinze funcionalidades independentes.
-- [Resultado dos testes móveis](evidencias/mobile-tests.json): 22 testes aprovados na execução registrada; apresentar separadamente dos 99 testes da raiz.
-- [Relato da revisão manual](testes-manuais-2026-10-27.md): mostrar cenários, bugs encontrados e correções. [Regressão Chromium posterior](evidencias/manual-2026-10-27/playwright-results.json): cinco testes aprovados nessa execução específica.
-- [Verificação da preparação e do banco em produção](evidencias/demonstracao-preparada-2026-10-27.json): logins, dados fictícios e gravação pela API com leitura direta no Neon. Não é teste manual de navegador.
-- [Pasta de evidências](evidencias/): capturas, JSON e logs vinculados aos relatórios. Selecionar uma captura de execução e sua referência no relatório, em vez de mostrar arquivos sem contexto.
+- [Resultado de API/unidade registrado](evidencias/api/nuvem-2026-10-26-vitest.json): localizar `numPassedTests: 99`, `numFailedTests: 0` e `success: true`.
+- [Resultado de navegador registrado](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/playwright-results.json): localizar `stats`, com `expected: 15`, `unexpected: 0` e `flaky: 0`. São cinco cenários nos três motores daquela execução, não quinze funcionalidades independentes.
+- [Resultado dos testes móveis](evidencias/android/mobile-tests.json): 22 testes aprovados na execução registrada; apresentar separadamente dos 99 testes da raiz.
+- [Relato da revisão manual](testes/testes-manuais-2026-10-27.md): mostrar cenários, bugs encontrados e correções. [Regressão Chromium posterior](evidencias/execucoes/manual-2026-10-27/playwright-results.json): cinco testes aprovados nessa execução específica.
+- [Verificação da preparação e do banco em produção](evidencias/api/demonstracao-preparada-2026-10-27.json): logins, dados fictícios e gravação pela API com leitura direta no Neon. Não é teste manual de navegador.
+- [Pasta de evidências](evidencias): capturas, JSON e logs vinculados aos relatórios. Selecionar uma captura de execução e sua referência no relatório, em vez de mostrar arquivos sem contexto.
 
 **Fala sugerida:** “Aqui está o teste escrito, e aqui está o resultado da execução identificada. Temos cenários positivos e negativos, como entrada inválida, acesso indevido e dados persistidos. As evidências não significam que todas as funcionalidades possíveis estejam livres de falhas.”
 

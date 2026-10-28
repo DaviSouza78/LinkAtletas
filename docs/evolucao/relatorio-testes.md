@@ -20,16 +20,16 @@ Este relatorio identifica cada cenario executado, seu resultado e o arquivo que 
 
 | Execucao | Quantidade e significado | Evidencia |
 |---|---|---|
-| Raiz: unidade e integracao | 99 casos aprovados, zero reprovados, distribuidos pelos 11 arquivos detalhados abaixo | [JSON Vitest](evidencias/nuvem-2026-10-26-vitest.json) |
-| Navegador | 5 cenarios repetidos em Chromium, Firefox e WebKit: 15 execucoes aprovadas, zero inesperadas e zero instaveis | [JSON Playwright](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) |
-| Aplicativo | 22 casos de transporte e configuracao aprovados, detalhados abaixo | [JSON mobile](evidencias/mobile-tests.json) |
-| Referencia externa do treino | 12 casos de validacao executados nesta revisao, separados da base historica de 99 | [JSON da correcao](evidencias/referencia-treino-2026-10-27.json) |
+| Raiz: unidade e integracao | 99 casos aprovados, zero reprovados, distribuidos pelos 11 arquivos detalhados abaixo | [JSON Vitest](evidencias/api/nuvem-2026-10-26-vitest.json) |
+| Navegador | 5 cenarios repetidos em Chromium, Firefox e WebKit: 15 execucoes aprovadas, zero inesperadas e zero instaveis | [JSON Playwright](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) |
+| Aplicativo | 22 casos de transporte e configuracao aprovados, detalhados abaixo | [JSON mobile](evidencias/android/mobile-tests.json) |
+| Referencia externa do treino | 12 casos de validacao executados nesta revisao, separados da base historica de 99 | [JSON da correcao](evidencias/api/referencia-treino-2026-10-27.json) |
 
 ## Casos da API interna e testes unitarios
 
 ### Execucao de referencia: raiz
 
-Inicio registrado (UTC): `2026-10-26T22:51:37.515000+00:00`. Fonte: [nuvem-2026-10-26-vitest.json](evidencias/nuvem-2026-10-26-vitest.json).
+Inicio registrado (UTC): `2026-10-26T22:51:37.515000+00:00`. Fonte: [nuvem-2026-10-26-vitest.json](evidencias/api/nuvem-2026-10-26-vitest.json).
 
 #### integration/api.test.ts
 
@@ -231,7 +231,7 @@ Protecao contra acesso a arquivos fora da raiz publica.
 
 ### Execucao de referencia: aplicativo
 
-Inicio registrado (UTC): `2026-10-20T23:55:42.832000+00:00`. Fonte: [mobile-tests.json](evidencias/mobile-tests.json).
+Inicio registrado (UTC): `2026-10-20T23:55:42.832000+00:00`. Fonte: [mobile-tests.json](evidencias/android/mobile-tests.json).
 
 #### api.test.ts
 
@@ -275,7 +275,7 @@ Transporte e configuracao do cliente movel.
 
 ### Regressao adicional: referencia externa
 
-Inicio registrado (UTC): `2026-10-28T01:31:44.935000+00:00`. Fonte: [referencia-treino-2026-10-27.json](evidencias/referencia-treino-2026-10-27.json).
+Inicio registrado (UTC): `2026-10-28T01:31:44.935000+00:00`. Fonte: [referencia-treino-2026-10-27.json](evidencias/api/referencia-treino-2026-10-27.json).
 
 #### unit/workout-reference.test.ts
 
@@ -302,7 +302,7 @@ HTTPS, tipo de entrada, tamanho, caracteres de controle e credenciais na referen
 
 O [codigo do fluxo principal](../../tests/e2e/sprint-2.spec.ts) verifica login invalido e a jornada de cadastro ate execucao persistida. O [codigo dos cenarios ampliados](../../tests/e2e/expansion.spec.ts) verifica comunicacao/agenda/privacidade/financeiro academico, recuperacao e acessibilidade/responsividade. Cada um dos cinco cenarios e repetido nos tres motores; isso explica 15, sem afirmar quinze funcionalidades distintas.
 
-[Resultados completos por cenario, motor e tentativa](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json). [Captura administrativa](evidencias/verificacao-nuvem-entrega-2026-10-26/aprovacao-administrativa.png) e [captura movel](evidencias/verificacao-nuvem-entrega-2026-10-26/execucao-mobile.png).
+[Resultados completos por cenario, motor e tentativa](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/playwright-results.json). [Captura administrativa](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/aprovacao-administrativa.png) e [captura movel](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/execucao-mobile.png).
 
 ### Lista das execucoes de navegador
 
@@ -328,11 +328,11 @@ O [codigo do fluxo principal](../../tests/e2e/sprint-2.spec.ts) verifica login i
 
 | Verificacao | O que foi conferido | Evidencia e limites |
 |---|---|---|
-| Revisao manual | Login, perfis, vinculo, treino, execucao, mensagens, agenda e erros | [Cenarios, resultados e limites](testes-manuais-2026-10-27.md); administracao manual local distinguida da preparacao por API em producao |
-| Banco em producao | Gravacao por HTTPS, leitura direta no Neon e releitura pela API; perfil restaurado | [Registro da demonstracao](evidencias/demonstracao-preparada-2026-10-27.json); nao e teste manual de navegador |
-| Producao e Preview | Banco, arquivos privados, recuperacao, jobs e APK | [Registro por ambiente](implantacao-2026-10-26.md); aceite SMTP nao comprova caixa de entrada |
-| Backup | Restauracao isolada de banco e arquivos cifrados | [Resultados e verificacoes](evidencias/backup-restore.json); nao comprova rotina recorrente automatizada de backup da producao |
-| Carga | 200 chamadas com 500 perfis sinteticos | [Metricas](evidencias/carga-matchmaking.json); nao extrapolar para capacidade de producao |
+| Revisao manual | Login, perfis, vinculo, treino, execucao, mensagens, agenda e erros | [Cenarios, resultados e limites](testes/testes-manuais-2026-10-27.md); administracao manual local distinguida da preparacao por API em producao |
+| Banco em producao | Gravacao por HTTPS, leitura direta no Neon e releitura pela API; perfil restaurado | [Registro da demonstracao](evidencias/api/demonstracao-preparada-2026-10-27.json); nao e teste manual de navegador |
+| Producao e Preview | Banco, arquivos privados, recuperacao, jobs e APK | [Registro por ambiente](operacao/implantacao-2026-10-26.md); aceite SMTP nao comprova caixa de entrada |
+| Backup | Restauracao isolada de banco e arquivos cifrados | [Resultados e verificacoes](evidencias/infraestrutura/backup-restore.json); nao comprova rotina recorrente automatizada de backup da producao |
+| Carga | 200 chamadas com 500 perfis sinteticos | [Metricas](evidencias/infraestrutura/carga-matchmaking.json); nao extrapolar para capacidade de producao |
 
 ## CI, casos na ERS e reproducao
 
@@ -343,7 +343,7 @@ O [codigo do fluxo principal](../../tests/e2e/sprint-2.spec.ts) verifica login i
 
 ## Limites e documentos anteriores
 
-Na revisao da referencia externa, os 12 testes unitarios passaram, o build web passou e os tipos e 22 testes do aplicativo passaram. A tentativa adicional de repetir os 20 testes de integracao da API **nao executou os casos**, pois o Docker/banco local estava indisponivel: [resultado com 20 pendentes](evidencias/regressao-api-referencia-2026-10-27.json). Isso nao e uma nova aprovacao dos 20 casos nem altera o resultado da execucao historica de referencia.
+Na revisao da referencia externa, os 12 testes unitarios passaram, o build web passou e os tipos e 22 testes do aplicativo passaram. A tentativa adicional de repetir os 20 testes de integracao da API **nao executou os casos**, pois o Docker/banco local estava indisponivel: [resultado com 20 pendentes](evidencias/api/regressao-api-referencia-2026-10-27.json). Isso nao e uma nova aprovacao dos 20 casos nem altera o resultado da execucao historica de referencia.
 
 A referencia externa e recebida como string JSON, validada no servidor e mostrada como texto sem abertura automatica na web e no aplicativo. Foram acrescentadas recusas para protocolos diferentes de HTTPS, credenciais, caracteres de controle e tamanho excessivo. Nao foi demonstrada exploracao de XSS no fluxo anterior; esta revisao reduz a superficie de navegacao externa. HTTPS e conversao para texto nao certificam a confiabilidade do destino. [Referencia tecnica OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
 

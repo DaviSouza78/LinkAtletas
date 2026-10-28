@@ -15,17 +15,17 @@ Preservam-se as fontes, cores, dimensões de página, cabeçalhos, capa, identif
 - [requisitos.json](requisitos.json): requisitos funcionais e fluxos; prioridade, estado e aceite ficam disponíveis como metadados, sem criar campos extras na ficha do professor.
 - [nao-funcionais.json](nao-funcionais.json): requisitos não funcionais com fluxos de verificação e limites reais.
 - [testes.json](testes.json): CT001–CT016 e asserções correspondentes a registros aprovados.
-- [originais](originais/): imagens extraídas da ERS original sem redesenhar o trabalho do grupo.
+- [originais](originais): imagens extraídas da ERS original sem redesenhar o trabalho do grupo.
 
 ## Reprodução
 
-O gerador atual é [build-ers-template.py](../../../scripts/build-ers-template.py). Requer Python com python-docx, PyMuPDF e Pillow. O Word base é aberto em cópia e permanece inalterado. Após gerar o Word, exportá-lo para PDF com Word ou LibreOffice e conferir todas as páginas. Para o sumário, o documento possui campo TOC e entradas TC; o cache deve refletir a exportação final. Ao editar e repaginar no Word, atualizar o sumário.
+O gerador atual é [build-ers-template.py](../../../scripts/documentacao/build-ers-template.py). Requer Python com python-docx, PyMuPDF e Pillow. O Word base é aberto em cópia e permanece inalterado. Após gerar o Word, exportá-lo para PDF com Word ou LibreOffice e conferir todas as páginas. Para o sumário, o documento possui campo TOC e entradas TC; o cache deve refletir a exportação final. Ao editar e repaginar no Word, atualizar o sumário.
 
 ```powershell
-python -X utf8 scripts/build-ers-template.py --reference docs/referencias/ERS-base-editavel-sprint-2.docx
+python -X utf8 scripts/documentacao/build-ers-template.py --reference docs/referencias/ERS-base-editavel-sprint-2.docx
 pnpm docs:check
 ```
 
-O parâmetro opcional `--page-map` recebe um JSON com as páginas observadas após a exportação para atualizar o cache do sumário. Os identificadores estão em [cabecalhos-modelo.json](cabecalhos-modelo.json). O PDF final deve ser reexportado do Word após essa atualização e novamente conferido. O [registro de verificação](../evidencias/ers-modelo-verificacao.json) associa a revisão às fontes, contagens e evidências.
+O parâmetro opcional `--page-map` recebe um JSON com as páginas observadas após a exportação para atualizar o cache do sumário. Os identificadores estão em [cabecalhos-modelo.json](cabecalhos-modelo.json). O PDF final deve ser reexportado do Word após essa atualização e novamente conferido. O [registro de verificação](../evidencias/documentacao/ers-modelo-verificacao.json) associa a revisão às fontes, contagens e evidências.
 
-`update-template-pdf.py`, `build-template-word.py`, `secoes.json`, `primeiras-paginas.json` e `figuras/` pertencem ao processo anterior da v2.5. Não devem ser executados para regenerar a revisão 2.6: o processo antigo montava primeiro o PDF e reconstruía o Word com quadros posicionados. A [síntese técnica](../ERS-v2.md) e seus arquivos auxiliares também não substituem a ERS completa acima.
+`update-template-pdf.py`, `build-template-word.py`, `secoes.json`, `primeiras-paginas.json` e `figuras/` pertencem ao processo anterior da v2.5. Não devem ser executados para regenerar a revisão 2.6: o processo antigo montava primeiro o PDF e reconstruía o Word com quadros posicionados. A [síntese técnica](../requisitos/ERS-v2.md) e seus arquivos auxiliares também não substituem a ERS completa acima.

@@ -3,7 +3,7 @@ import { mkdtemp, writeFile, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { randomBytes } from 'node:crypto'
-import { backupKey } from '../../scripts/backup-shared.js'
+import { backupKey } from '../../scripts/banco/backup-shared.js'
 
 let directory: string | undefined
 afterEach(async () => {

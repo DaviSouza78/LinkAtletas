@@ -29,3 +29,5 @@ docs/evolucao/ERS-completa-v2.5-editavel.docx
 docs/evolucao/evidencias/documentos/
 docs/evolucao/relatorio-testes.docx
 docs/evolucao/relatorio-testes.pdf
+docs/evolucao/evidencias/**/playwright-artifacts/
+docs/evolucao/evidencias/**/playwright-report/

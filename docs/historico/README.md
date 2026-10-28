@@ -1,6 +1,6 @@
 # Histórico do projeto
 
-Os links abaixo abrem versões históricas fixadas no Git. Os planos de execução e as exportações antigas foram retirados da árvore atual para manter somente os documentos úteis à entrega e à manutenção. A documentação atual está no [índice principal](../README.md); decisões consolidadas estão no [registro técnico](../evolucao/decisoes.md).
+Os links abaixo abrem versões históricas fixadas no Git. Os planos de execução e as exportações antigas foram retirados da árvore atual para manter somente os documentos úteis à entrega e à manutenção. A documentação atual está no [índice principal](../README.md); decisões consolidadas estão no [registro técnico](../evolucao/gestao/decisoes.md).
 
 - [Proposta inicial da Sprint 2](https://github.com/DaviSouza78/LinkAtletas/blob/c472f2709d4053dda051d8d4da18fc9bf3096d8a/docs/historico/planejamento/specs/2026-10-14-sprint-2-design.md) e [plano de execução](https://github.com/DaviSouza78/LinkAtletas/blob/c472f2709d4053dda051d8d4da18fc9bf3096d8a/docs/historico/planejamento/plans/2026-10-14-sprint-2.md).
 - [Ampliação do escopo](https://github.com/DaviSouza78/LinkAtletas/blob/c472f2709d4053dda051d8d4da18fc9bf3096d8a/docs/historico/planejamento/specs/2026-10-14-expansao-completa-design.md) e [plano da ampliação](https://github.com/DaviSouza78/LinkAtletas/blob/c472f2709d4053dda051d8d4da18fc9bf3096d8a/docs/historico/planejamento/plans/2026-10-14-expansao-completa.md).
