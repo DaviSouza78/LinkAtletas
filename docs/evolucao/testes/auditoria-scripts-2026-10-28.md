@@ -6,6 +6,8 @@ Escopo: leitura dos **24 arquivos executáveis/helpers** versionados em `scripts
 
 Mantidas as cinco áreas existentes e seus caminhos de execução, com [índice geral](../../../scripts/README.md) e um README em cada pasta. Não foram removidos scripts usados por workflows nem materiais de reprodução histórica. Os geradores anteriores ficaram identificados e suas saídas foram protegidas para não substituir a ERS final.
 
+Localmente, removidos sete arquivos de cache Python e suas três pastas vazias; fontes e arquivos de trabalho foram preservados. Esses caches já eram ignorados pelo Git.
+
 ## Cobertura da leitura
 
 | Pasta / arquivo | Conferência e conclusão |
@@ -59,7 +61,22 @@ Mantidas as cinco áreas existentes e seus caminhos de execução, com [índice 
 
 Os nove testes novos cobrem seis formas de argumentos Android inválidos, geração coerente da configuração local sem segredos na saída e preservação de cada um dos dois arquivos de configuração existentes. O arquivo de testes permite repetir os cenários; configurações são geradas somente em diretórios temporários.
 
-O Docker local não respondeu a `docker info` dentro de 15 segundos. Assim, **backup/restauração, carga, TLS e APK não foram reexecutados localmente nesta revisão**. Conferência de sintaxe, proteção de entrada e leitura de código não foram contabilizadas como execução desses ensaios. O workflow geral será consultado após a publicação para verificar os cenários que executa em ambiente isolado.
+O Docker local não respondeu a `docker info` dentro de 15 segundos. Assim, **backup/restauração, carga, TLS e APK não foram reexecutados localmente nesta revisão**. Conferência de sintaxe, proteção de entrada e leitura de código não foram contabilizadas como execução desses ensaios.
+
+## Reexecução no GitHub
+
+A [CI do commit 413cac8, execução 40636092933](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40636092933) terminou com sucesso em 28/10/2026. A rotina separada de documentação também passou. O artefato `test-evidence` foi consultado para conferir os resultados, não apenas o ícone verde do workflow.
+
+| Etapa | Resultado observado |
+|---|---|
+| API e unidade | **224/224 aprovados**, zero falhas e zero pendentes em `docs/evolucao/evidencias/api/ci-vitest.json` do artefato. Os 61 unitários locais são parte desse conjunto; não somar as contagens. |
+| Backup/restauração | 37 tabelas e um objeto fictício; contagens, hashes, chave, campo privado e mídia decifrada conferidos. O dump cifrado não continha o texto privado em claro. |
+| Navegador/acessibilidade | **15 execuções aprovadas**: cinco cenários repetidos em Chromium, Firefox e WebKit. |
+| Documentação/metadados | Exportação de esquema, ausência de diferenças inesperadas no JSON/DER e conferência documental aprovadas. |
+| Aplicativo | Tipos, compatibilidade, exportação dos bundles e **22/22 testes aprovados**. Esta etapa não instala APK. |
+| Implantação TLS isolada | TLS 1.3, saúde/interface 200, cadastro 201, cookie Secure/HttpOnly, recusa sem Origin 403, recusa de CA não confiada e sessão/perfil preservados após reinício. |
+
+A CI usa serviços isolados no runner. Não foi reiniciada a aplicação pública, não houve pagamento real e não foi executado o workflow completo de emulador Android, o ensaio privado de backup nem o teste de carga nesta revisão.
 
 ## Limites preservados
 
