@@ -1,0 +1,217 @@
+{
+  "executedAt": "2026-10-28T04:40:01.458198+00:00",
+  "environment": "production",
+  "sourceCommit": "084fc37",
+  "deployment": "https://link-atletas-44ib6wlz4-luccacastilho13-6001s-projects.vercel.app",
+  "scope": "HTTPS login, read-only domain queries and temporary session logout; no complete browser journey or domain mutation",
+  "checks": [
+    {
+      "role": "anonymous",
+      "method": "GET",
+      "path": "/health",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "anonymous",
+      "method": "GET",
+      "path": "/openapi.json",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "anonymous",
+      "method": "GET",
+      "path": "/admin/verifications",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "role": "anonymous",
+      "method": "POST",
+      "path": "/auth/native/login",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "admin",
+      "method": "GET",
+      "path": "/auth/session",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "admin",
+      "method": "GET",
+      "path": "/admin/verifications",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "admin",
+      "method": "GET",
+      "path": "/admin/privacy/requests",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "anonymous",
+      "method": "POST",
+      "path": "/auth/native/login",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "GET",
+      "path": "/auth/session",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "GET",
+      "path": "/profiles/me",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "GET",
+      "path": "/contracts",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "GET",
+      "path": "/workouts",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "GET",
+      "path": "/consultations",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "GET",
+      "path": "/notifications",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "GET",
+      "path": "/admin/verifications",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "role": "anonymous",
+      "method": "POST",
+      "path": "/auth/native/login",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "GET",
+      "path": "/auth/session",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "GET",
+      "path": "/profiles/me",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "GET",
+      "path": "/contracts",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "GET",
+      "path": "/workouts",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "GET",
+      "path": "/consultations",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "GET",
+      "path": "/notifications",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "GET",
+      "path": "/admin/verifications",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "role": "admin",
+      "method": "POST",
+      "path": "/auth/logout",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "athlete",
+      "method": "POST",
+      "path": "/auth/logout",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "role": "coach",
+      "method": "POST",
+      "path": "/auth/logout",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    }
+  ]
+}

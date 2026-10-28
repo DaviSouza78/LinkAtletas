@@ -67,6 +67,14 @@ O Docker Desktop local foi iniciado, mas seu daemon não respondeu no período d
 
 O relatório separa achados corrigidos de limites conhecidos. Ausência de falha nos cenários executados não transforma esses limites em itens concluídos.
 
+## Conferência da publicação
+
+O commit documental `084fc37`, com o código aprovado de `34a153d`, foi publicado em produção no deployment `dpl_8ztJjYrxqFUEYzhE2x3BKAeQh1Nv`. O domínio principal passou a atender a versão revisada.
+
+Foram aprovadas **26 verificações HTTP**: saúde com PostgreSQL, OpenAPI com a descrição atual, acesso administrativo anônimo negado, login de administrador/atleta/treinador, consultas autorizadas e acesso administrativo negado aos dois papéis esportivos. As três sessões temporárias foram encerradas. [Resultado da produção](../evidencias/execucoes/server-2026-10-28/producao.json).
+
+Essa conferência não criou nem alterou registros de domínio e não repetiu a jornada completa pelo navegador em produção. Login e logout alteram apenas as sessões temporárias utilizadas. Não houve troca de credenciais, aplicação de migrações ou seed no Neon.
+
 ## Resultado final da CI do servidor
 
 Fonte: commit `34a153d`, [CI 40632347453](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40632347453), Ubuntu com PostgreSQL, SMTP e S3 isolados. Os números abaixo são desta execução, não a soma de execuções históricas.
