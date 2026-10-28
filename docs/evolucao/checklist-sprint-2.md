@@ -73,7 +73,7 @@ Conferência de 26/10: [implantação pública verificada](implantacao-2026-10-2
 - [x] [ERS final de entrega](ERS-template-original-atualizada.pdf) e [síntese técnica auxiliar](ERS-v2.md): RF-01–24, RNF-01–16, RN-01–16 preservados, RF-A explícitos e fluxos/exceções.
 - [x] [Backlog](backlog.md), [matriz de UCs/rastreabilidade](rastreabilidade.md) e [diagramas](diagramas.md) com fontes editáveis.
 - [x] Casos de uso UML: atores, elipses e limite de sistema, [PlantUML](diagramas/casos-de-uso.puml) e [SVG](diagramas/casos-de-uso.svg).
-- [x] [ERS final v2.6 em PDF](ERS-template-original-atualizada.pdf), ajustada e fornecida pela equipe em 26/10/2026, preservada sem conversão. O DOCX anterior foi retirado para evitar divergência com a versão entregue. Relatório de testes em [Word](relatorio-testes.docx) e [PDF](relatorio-testes.pdf).
+- [x] [ERS final v2.6 em PDF](ERS-template-original-atualizada.pdf), ajustada e fornecida pela equipe em 26/10/2026, preservada sem conversão. O DOCX anterior foi retirado para evitar divergência com a versão entregue. [Relatório de testes reorganizado, com cenários individuais e evidências](relatorio-testes.md); as exportações antigas foram retiradas para evitar versões conflitantes.
 - [x] Revisão coletiva concluída, conforme confirmação da equipe; a ERS ajustada é a versão final de entrega.
 - [x] Relacionar a contribuição da Eletiva I e suas evidências na [matriz](rastreabilidade.md).
 

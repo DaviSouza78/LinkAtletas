@@ -349,4 +349,4 @@ A referencia externa e recebida como string JSON, validada no servidor e mostrad
 
 Sem homologacao Asaas real, API oficial de CREF, Google OAuth, aparelho fisico/iOS ou lojas. Testes automatizados de acessibilidade nao equivalem a auditoria manual integral. O ajuste da referencia externa e uma regressao adicional, nao uma reexecucao de todos os 99 testes.
 
-Este Markdown e o relatorio atualizado. As exportacoes PDF/Word anteriores representam a organizacao antiga e nao devem substituir esta versao. O [relatorio anterior no historico](https://github.com/DaviSouza78/LinkAtletas/blob/fc9ed73/docs/evolucao/relatorio-testes.md) preserva detalhes operacionais e tentativas anteriores, sem misturar suas contagens com esta leitura.
+Este Markdown e o relatorio atualizado. As exportacoes PDF/Word anteriores foram retiradas da arvore atual, pois representavam a organizacao antiga. O [relatorio anterior no historico](https://github.com/DaviSouza78/LinkAtletas/blob/fc9ed73/docs/evolucao/relatorio-testes.md) preserva detalhes operacionais e tentativas anteriores, sem misturar suas contagens com esta leitura.
