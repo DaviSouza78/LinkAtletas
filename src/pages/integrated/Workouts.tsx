@@ -409,15 +409,10 @@ function WorkoutDetails({ workout: w }: { workout: Workout }) {
             <strong>{b.name}</strong>
             <p>{b.instructions}</p>
             <BlockMeta block={b} />
-            {b.videoUrl && /^https?:\/\//i.test(b.videoUrl) && (
-              <a
-                href={b.videoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="live-link"
-              >
-                Ver vídeo de referência ↗
-              </a>
+            {b.videoUrl && (
+              <p style={{ overflowWrap: 'anywhere' }}>
+                Referencia externa (texto): {b.videoUrl}
+              </p>
             )}
           </div>
         </div>

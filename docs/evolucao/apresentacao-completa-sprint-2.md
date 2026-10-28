@@ -4,6 +4,8 @@ Guia de fala, navegação e respostas para a apresentação. Usar como apoio, se
 
 **Se o professor perguntar pelos casos de teste, resultados ou commits:** abrir a [seção de consulta rápida](#consulta-rápida--casos-de-teste-resultados-e-commits-no-github), ao final deste guia.
 
+**Revisão após o retorno do professor:** o [relatório reorganizado](relatorio-testes.md) lista os cenários individualmente, resultados, arquivos e evidências. “API” significa a API interna Node/Fastify do LinkAtletas; não existe API externa de CREF integrada. A referência de vídeo do treino é exibida como texto, sem link executável ou abertura automática; a API valida HTTPS, tamanho, caracteres e ausência de credenciais. Converter uma URL para string, sozinho, não torna seu destino confiável.
+
 ## Preparação antes de apresentar
 
 1. Abrir a [ERS final](ERS-template-original-atualizada.pdf), o [GitHub do grupo](https://github.com/DaviSouza78/LinkAtletas), o [site](https://link-atletas.vercel.app/), o [Neon](https://console.neon.tech/), a [API](https://link-atletas.vercel.app/api/docs/) e os [resultados de testes](relatorio-testes.md).

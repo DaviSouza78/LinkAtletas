@@ -1,99 +1,352 @@
-# Relatório de testes — ampliação LinkAtletas
+# Relatorio de testes - LinkAtletas
 
-Atualização final de 26/10/2026: [99/99 testes de API/unidade](evidencias/nuvem-2026-10-26-vitest.json), [15/15 E2E na verificação final](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) e [22/22 testes móveis](evidencias/mobile-tests.json). Serviços reais, Preview e produção estão no [registro de implantação](implantacao-2026-10-26.md). As contagens e limitações anteriores abaixo são históricas; SMTP externo, S3 hospedado e publicação já possuem evidências nesse registro. A ERS oficial é o [PDF final fornecido pela equipe](ERS-template-original-atualizada.pdf); as verificações anteriores de DOCX referem-se à versão anterior.
+Data da revisão: 27/10/2026.
 
-Consolidação revisada em 21/10/2026, com evidências datadas de cada execução; registros de 14–15/10 preservados quando não houve mudança no cenário. Este relatório registra evidência efetivamente produzida; testes escritos, aprovação técnica, build, sandbox e homologação de aparelho são estados distintos. As evidências históricas da Sprint 2 inicial permanecem em [docs/sprint-2/evidencias](../sprint-2/evidencias).
+Este relatorio identifica cada cenario executado, seu resultado e o arquivo que comprova a execucao. As contagens sao de casos automatizados, nao de usuarios, requisitos, telas ou percentual de cobertura.
 
-## Ambiente
+## O que significa API neste relatorio?
 
-Windows, Node 24.15.0, pnpm 10.33.2, PostgreSQL 17 em Docker; CI reproduzida em runner Ubuntu do GitHub Actions. API Fastify, React web, SeaweedFS S3 privado e Mailpit SMTP locais. Banco de testes termina em `_test`; migrations sequenciais, sem limpeza da base demonstrativa. Dados fictícios. Cliente Expo tem manifesto e lock próprios. Não houve cobrança, abertura de conta financeira ou implantação de site/API públicos. O código foi publicado no GitHub com autorização.
+**API interna do LinkAtletas** e o back-end Node/Fastify usado pelo site e pelo aplicativo para autenticar, salvar perfis, contratar, prescrever treinos e consultar resultados. Exemplo: `POST /api/workouts`. **Nao ha API externa de CREF integrada.** Os testes de CREF verificam submissao de evidencia, decisao manual do administrador e permissoes; nao consultam um conselho profissional.
 
-## Resultados executados e verificações pendentes
+## Como interpretar os resultados
 
-Suíte local Windows: **82/82 Vitest aprovados**, nenhuma falha, conforme [JSON gerado](evidencias/vitest-results.json). Na CI Ubuntu, **15/15 E2E aprovados** — cinco cenários em cada motor Chromium, Firefox e WebKit — sem falhas/retries, conforme [Playwright JSON](evidencias/playwright-results.json). O cliente nativo possui 22 testes de transporte/configuração separados; suas verificações não substituem homologação em aparelho.
+- Caso: uma verificacao identificada pelo nome, com preparacao, acao e assercao no codigo vinculado.
+- Aprovado: a assercao passou naquela execucao. Nao significa que todos os comportamentos possiveis foram testados.
+- Os 99 testes da raiz, os 15 testes de navegador e os 22 testes moveis sao execucoes distintas. Nao somar resultados de reexecucoes dos mesmos casos.
+- Testes de integracao usam PostgreSQL e servicos locais isolados; resultados de nuvem estao identificados separadamente.
+- A auditoria ampliada ainda local nao integra estas contagens. Arquivos de teste escritos e nao publicados nao sao evidencias de entrega.
 
-| Camada | Cenários implementados | Estado desta revisão |
+## Execucoes de referencia
+
+| Execucao | Quantidade e significado | Evidencia |
 |---|---|---|
-| Match | [matching.test.ts](../../tests/unit/matching.test.ts): pesos/elegibilidade/cidade | 13/13 aprovados no JSON consolidado |
-| API original | [api.test.ts](../../tests/integration/api.test.ts): conta/perfil/vínculo/treino/propriedade | 20/20 aprovados; evidência inicial preservada |
-| Criptografia | [crypto.test.ts](../../tests/unit/crypto.test.ts): roundtrip, integridade e IV | 2/2 aprovados |
-| Plataforma | [platform.test.ts](../../tests/integration/platform.test.ts): consentimento, SQL/S3 cifrados, mídia, recuperação SMTP, sessão nativa, expiração e exclusão | 10/10 aprovados |
-| Comunicação | [interactions.test.ts](../../tests/integration/interactions.test.ts): persistência/WS/leitura/isolações/reviews/agenda | 13/13 aprovados |
-| Financeiro | [billing.test.ts](../../tests/integration/billing.test.ts): contrato HTTP, duplicata, evento/timeout/conciliação/acesso | 14/14 aprovados; nenhum sandbox real do Asaas foi utilizado |
-| Concorrência e privacidade | [privacy-races.test.ts](../../tests/integration/privacy-races.test.ts): perfil, sessão e feedback durante eliminação/troca de senha | 3/3 aprovados; bloqueios reais PostgreSQL, sem sleeps usados como prova de ordenação |
-| Arquivos públicos | [static-security.test.ts](../../tests/unit/static-security.test.ts): acesso normal e tentativa de sair da raiz estática | 5/5 aprovados |
-| Chave de backup | [backup-key.test.ts](../../tests/unit/backup-key.test.ts): variável vazia e chave inválida, preservando o arquivo original | 2/2 aprovados |
-| Tipos web | `pnpm exec tsc -p tsconfig.app.json --noEmit` | Passou após integração das novas telas |
-| Navegador e acessibilidade | Fluxo ampliado, 390/1440, três motores e axe | 15 E2E aprovados; seis telas por motor sem violações nas regras automáticas WCAG 2 A/AA e 2.1 A/AA: [Chromium](evidencias/chromium-axe.json), [Firefox](evidencias/firefox-axe.json), [WebKit](evidencias/webkit-axe.json) |
-| App Expo | Tipos, dependências, Doctor, transporte, Hermes Android/iOS e compilação APK | Passaram: [verificação detalhada](evidencias/mobile-verificacao.md), [22/22 transporte/configuração](evidencias/mobile-tests.json), [hashes dos bundles](evidencias/mobile-bundles.json) e [build APK local](evidencias/github-android-local-build.json). Ensaio integrado no emulador registrado abaixo; aparelho físico e IPA pendentes |
-| APK local integrado | 18 etapas na interface Android com API/PostgreSQL/SMTP/S3 reais | [18/18 aprovadas](evidencias/android-integrated-result.json), [execução remota, tentativa 2](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39522996463/attempts/2), [upload e feedback](evidencias/android-integrated-midia-feedback.png); aparelho físico não validado |
-| APK documental histórico | Instalação e abertura da tela de login no Android API 35 x86_64 | [Resultado anterior](evidencias/android-emulator-result.json), [captura](evidencias/android-emulator-startup.png). Esse teste inicial não é a evidência de integração do APK local corrigido |
-| TLS local | Container/HTTPS, banco, autenticação, origem e reinício | [TLS 1.3](evidencias/production-tls.json): CA explícita, cookie Secure/HttpOnly, HTTP 200/201, mutation sem Origin 403 e sessão/perfil preservados após reinício da aplicação; sem trust global/domínio público |
-| Backup/restauração | Banco e S3 cifrados em destinos isolados | [36 tabelas e checksums iguais](evidencias/backup-restore.json), roundtrip de campo/mídia e dump sem texto claro; [worker privado](evidencias/private-network-backup.json) |
-| Carga do match | 500 treinadores sintéticos, 200 chamadas HTTP, concorrência 10 | [Medição](evidencias/carga-matchmaking.json): 200 respostas 200, p50 78,54 ms, p95 97,78 ms, p99 132,54 ms; não extrapolar nuvem/escala |
-| CI e build final | Instalação, tipos/build, Vitest, backup, browsers/axe, Expo e TLS/reinício | [Tipos/build locais aprovados](evidencias/verificacao-build.txt); [CI após Vite 8.2.4 aprovada](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806), [registro remoto](evidencias/github-ci-pr-2.json) |
-| Documentação | Links relativos e OpenAPI runtime | [Conferência reproduzível](evidencias/documentation-check.json), sem links quebrados; ERS/relatório DOCX validados e PDFs renderizados pelo LibreOffice |
+| Raiz: unidade e integracao | 99 casos aprovados, zero reprovados, distribuidos pelos 11 arquivos detalhados abaixo | [JSON Vitest](evidencias/nuvem-2026-10-26-vitest.json) |
+| Navegador | 5 cenarios repetidos em Chromium, Firefox e WebKit: 15 execucoes aprovadas, zero inesperadas e zero instaveis | [JSON Playwright](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) |
+| Aplicativo | 22 casos de transporte e configuracao aprovados, detalhados abaixo | [JSON mobile](evidencias/mobile-tests.json) |
+| Referencia externa do treino | 12 casos de validacao executados nesta revisao, separados da base historica de 99 | [JSON da correcao](evidencias/referencia-treino-2026-10-27.json) |
 
-Contagens acima foram conferidas em arquivos de resultado, não inferidas apenas da existência de cenários. Falhas de tentativas anteriores não substituem o resultado final; correções e limites permanecem explícitos. O manifesto de backup registra necessidade de pausar escritas em operação, pois não existe transação distribuída banco/objetos.
+## Casos da API interna e testes unitarios
 
-Na finalização de 15/10, o cenário de chat passou a forçar o fechamento atrasado da conexão descartada pelo StrictMode depois de aberta a conexão válida. O indicador permaneceu conectado e a troca real de mensagens foi verificada nos três motores. A [CI após a correção](https://github.com/DaviSouza78/LinkAtletas/actions/runs/38675094079) aprovou novamente todas as etapas; [registro remoto](evidencias/github-ci-finalizacao.json).
+### Execucao de referencia: raiz
 
-No E2E, `REVIEW_MIN_DAYS=0` permite avaliar o vínculo recém-criado; os testes da API verificam a regra padrão de sete dias. SMTP e S3 são serviços locais reais. O teste de transporte Expo controla os módulos nativos e não executa Keychain/Keystore real. A auditoria axe não incluiu telas administrativas ou uma avaliação manual completa de leitores de tela. Os testes de concorrência reproduzem requisições já autenticadas enquanto o banco mantém um bloqueio e confirmam a resposta após a eliminação/troca concorrente.
+Inicio registrado (UTC): `2026-10-26T22:51:37.515000+00:00`. Fonte: [nuvem-2026-10-26-vitest.json](evidencias/nuvem-2026-10-26-vitest.json).
 
-## Controles examinados pelos testes de API
+#### integration/api.test.ts
 
-Credenciais e token não aparecem em URL de WebSocket. Reset guarda hash e expiração, token usado uma vez e sessões anteriores revogadas; e-mail capturado por Mailpit. S3 privado recebe ciphertext e download autorizado recupera bytes originais; consentimento negado/revogado, assinatura falsa e terceiro falham. SQL de saúde, mensagem, descrição de consultoria e execução não conserva conteúdo privado em claro. Conferência profissional expira/suspende e remove descoberta com auditoria.
+Autenticacao, perfis, conferencia manual de CREF, vinculo, treino, execucao e persistencia.
 
-Chat persiste depois de recriar API, pagina sem perder/duplicar mensagens, comunica duas sessões e nega upgrade anônimo/origem indevida. Reviews exigem prazo e titularidade, preservam uma por ciclo, resposta pelo treinador correto e ocultação retira conteúdo/média. Agenda protege conflitos entre diferentes vínculos, horários e histórico. Financeiro usa servidor HTTP controlado, verifica cabeçalho de autenticação e minimização; duplicatas, eventos antigos, timeouts e cancelamento incerto não viram cobrança nova ou confirmação falsa.
+**20 aprovados de 20 casos deste arquivo.** [Codigo](../../tests/integration/api.test.ts). Cada linha abaixo corresponde a um caso do JSON.
 
-## Reprodução
+| Caso executado | Resultado observado |
+|---|---|
+| não cria administrador pelo cadastro público nem aceita senha fraca | Aprovado |
+| impede e-mail duplicado sem distinguir maiúsculas e senha incorreta | Aprovado |
+| exige sessão e rejeita cookie inválido | Aprovado |
+| não autentica sessão que ultrapassou a validade persistida | Aprovado |
+| autentica com senha correta e armazena somente hash com sal | Aprovado |
+| protege mutações contra origem ausente e externa | Aprovado |
+| valida perfil e não permite a atleta aprovar CREF | Aprovado |
+| oculta treinador ainda não aprovado e impede sua contratação | Aprovado |
+| submete comprovação e registra aprovação administrativa com auditoria | Aprovado |
+| mantém profissional reprovado fora dos resultados | Aprovado |
+| retorna recomendação calculada e respeita filtros | Aprovado |
+| revalida elegibilidade ao contratar diretamente sem passar pela descoberta | Aprovado |
+| cria solicitação pendente, bloqueia duplicata e aceite por terceiros | Aprovado |
+| aceita uma única vez mesmo com requisições simultâneas | Aprovado |
+| valida a prescrição e protege o rascunho | Aprovado |
+| publica e mostra a ficha somente ao atleta do vínculo | Aprovado |
+| rejeita métricas desconhecidas, fora dos limites e blocos inexistentes | Aprovado |
+| grava e atualiza uma única execução visível ao treinador | Aprovado |
+| preserva sessão, vínculo, ficha e execução ao recriar a aplicação | Aprovado |
+| encerra sessão e invalida o cookie anterior | Aprovado |
 
-```powershell
-docker compose up -d --wait
-pnpm db:migrate
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm exec playwright install chromium firefox webkit
-pnpm test:e2e
-```
+#### integration/billing.test.ts
 
-Não execute integração Vitest e E2E simultaneamente no mesmo banco de teste. Configuração final do E2E define portas e diretório de evidência; conferir arquivo de configuração antes de executar. Manual do cliente e operação estão em [manual.md](manual.md).
+Financeiro com respostas HTTP controladas do adaptador Asaas; sem cobranca real ou homologacao externa.
 
-## Homologações pendentes na revisão anterior à implantação
+**14 aprovados de 14 casos deste arquivo.** [Codigo](../../tests/integration/billing.test.ts). Cada linha abaixo corresponde a um caso do JSON.
 
-Asaas sandbox real, split/repasse de carteira real, CREF autorizado, SMTP externo, S3 hospedado, domínio público, stores e fluxo completo em aparelhos Android/iOS. Google OAuth/Agenda/Meet reais também não foram exercitados. Axe não substitui ensaio com leitor de tela ou revisão integral WCAG. WebKit não comprova Safari real; Chromium não comprova Edge real. Carga local não comprova autoescala em nuvem. Veja [publicação e APK](publicacao.md) e [pendências humanas](pendencias-lucca.md).
+| Caso executado | Resultado observado |
+|---|---|
+| keeps academic access explicit and denies a foreign actor | Aprovado |
+| validates ownership, whole cents, receiver wallet and audited admin settings | Aprovado |
+| creates exactly one hosted recurring checkout under simultaneous requests and keeps unpaid access blocked | Aprovado |
+| authenticates webhook before persistence; minimizes card data and consumes duplicate event only once | Aprovado |
+| ignores old and regressive unpaid events without reducing the paid period | Aprovado |
+| does not mix events from a production endpoint with sandbox subscriptions | Aprovado |
+| preserves paid access during confirmed cancellation, idempotence and immutable history | Aprovado |
+| withdraws a pending cycle idempotently, refusing outsiders and new writes | Aprovado |
+| records uncertain checkout responses without blindly issuing another provider operation | Aprovado |
+| preserves a definitely refused attempt and permits a new contract cycle after configuration is corrected | Aprovado |
+| enforces grace expiry, professional suspension and denies further prescriptions | Aprovado |
+| keeps failed cancellation pending, reconciles by safe GET and does not issue a second DELETE | Aprovado |
+| retains unmatched authenticated events for reconciliation instead of crediting an unrelated account | Aprovado |
+| treats provider timeout as an uncertain result with no retry in the adapter | Aprovado |
 
-## Revisão técnica e documental de 15–21/10/2026
+#### integration/interactions.test.ts
 
-A [CI mais recente no commit b931e44](evidencias/github-ci-revisao-mais-recente.json) também passou integralmente: [run 39508144201](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39508144201). As capturas consolidadas dos browsers e provas SQL/S3/TLS foram atualizadas com a execução aprovada 39645457806, após Vite 8.2.4 e a checagem do SDK fixado. A nova CI confirma 82 testes de API/unidade, 15 E2E e 22 testes móveis.
+Mensagens, leitura, autorizacao, avaliacoes e conflitos de agenda.
 
-O [ambiente local](evidencias/ambiente-local-revisado.json) foi recuperado preservando containers, volumes e chave. Os sockets transitórios inválidos voltaram a impedir a partida após nova sessão do Windows; ambos os diretórios de runtime foram preservados e recriados em 20/10. Não foi realizado reset de fábrica. Os 82 testes passaram novamente com os serviços saudáveis e Vitest 4.1.11. O primeiro ensaio dessa retomada encontrou o banco ainda desligado e foi descartado; sua falha não foi contada como teste aprovado.
+**13 aprovados de 13 casos deste arquivo.** [Codigo](../../tests/integration/interactions.test.ts). Cada linha abaixo corresponde a um caso do JSON.
 
-Os 15 E2E de 15/10 foram repetidos após a atualização dos plugins HTTP e passaram sem retry; a execução aprovada substitui o relatório parcial de uma tentativa interrompida. O cliente Expo 57.0.30 passou em 22 testes, tipos, dependências, Doctor 21/21 e exportação Hermes (631 módulos Android e 633 iOS). [Hashes dos bundles](evidencias/mobile-bundles.json) não equivalem a IPA ou homologação física.
+| Caso executado | Resultado observado |
+|---|---|
+| nega conversa a terceiro e visitantes, valida mensagem vazia e anexo alheio | Aprovado |
+| persiste mensagens cifradas, mantém ordem e pagina sem perda/duplicação | Aprovado |
+| confirma leitura até o cursor e conserva mensagens posteriores não lidas | Aprovado |
+| publica para duas sessões autenticadas após gravação e fecha sessão revogada | Aprovado |
+| recusa upgrade WebSocket anônimo e com origem indevida | Aprovado |
+| notificações pertencem ao destinatário e não são marcadas por terceiros | Aprovado |
+| avalia apenas depois de sete dias e impede duplicação por vínculo | Aprovado |
+| permite edição só ao autor e resposta só ao treinador avaliado | Aprovado |
+| denúncia e moderação auditada removem todo conteúdo da publicação/média | Aprovado |
+| agenda persistida cifra descrição e isola dados por vínculo | Aprovado |
+| bloqueia conflitos do treinador entre diferentes vínculos e horários passados | Aprovado |
+| reagenda, registra histórico e cancela sem criar evento externo fictício | Aprovado |
+| histórico sobrevive recriação da API e contrato encerrado recusa novas interações | Aprovado |
 
-A auditoria completa das dependências de produção e desenvolvimento retornou zero alertas na raiz e dois alertas altos sem correção oficial nas ferramentas transitivas do Expo: [resultado](evidencias/auditoria-dependencias.json), [exposição e tratamento](seguranca-dependencias.md). Não foram suprimidos avisos. O perfil normal Android foi pré-gerado com tráfego claro desabilitado e sem exceção local; o perfil de demonstração permite apenas três destinos locais explícitos.
+#### integration/platform.test.ts
 
-A [revisão dos materiais](revisao-materiais.md) preserva os originais e identifica ajustes de escopo definidos pela equipe. Os modelos foram conferidos automaticamente contra 36 tabelas/257 colunas/45 FKs, 16 casos de uso únicos e 11 chamadas das sequências/OpenAPI, sem exportar dados de usuários.
+Consentimento, arquivos privados, cifra, recuperacao e sessoes.
 
-Na CI de 20/10, a regressão do socket descartado falhou no WebKit porque esse navegador pode não emitir `close` quando a conexão é abortada antes de abrir. O ensaio agora injeta explicitamente o callback atrasado após abrir a conexão válida, mantendo o transporte real; a asserção não foi removida. A prontidão do E2E passou a consultar `/api/health` através do proxy web, evitando iniciar a primeira requisição quando somente o Vite já estava disponível.
+**13 aprovados de 13 casos deste arquivo.** [Codigo](../../tests/integration/platform.test.ts). Cada linha abaixo corresponde a um caso do JSON.
 
-No Windows, a jornada WebKit com três contextos concluiu individualmente suas ações, mas somou 80 segundos apenas nos cadastros/perfis e atingiu o limite global de 90 segundos durante a aprovação. O limite dessa única jornada nesse sistema foi ajustado para 180 segundos; os limites por ação (15 s), por asserção (10 s) e a ausência de retries foram preservados. O trace não mostrou falha de API nessa tentativa. A CI Ubuntu executou a jornada completa e os outros 14 cenários sem esse ajuste de plataforma.
+| Caso executado | Resultado observado |
+|---|---|
+| Bearer permite mutação nativa, cookie continua exigindo Origin | Aprovado |
+| saúde exige consentimento, cifra e exporta exclusivamente os dados próprios | Aprovado |
+| upload exige consentimento e recusa assinatura falsa/extensão indevida | Aprovado |
+| S3 contém bytes cifrados, bucket é privado e download autorizado recupera original | Aprovado |
+| envio em partes preserva arquivo grande, impede terceiro e finaliza sem duplicar | Aprovado |
+| video no limite de 50 MiB atravessa partes e retorna em stream | Aprovado |
+| partes invalidas, sessao expirada e assinatura falsa sao recusadas | Aprovado |
+| feedback é privado e revogação elimina mídia do S3 e impede download | Aprovado |
+| execução mantém notas e métricas cifradas em SQL | Aprovado |
+| expiração e suspensão profissional removem descoberta e registram auditoria | Aprovado |
+| recuperação envia via SMTP, token só tem hash SQL, uso único e invalida sessões | Aprovado |
+| token expirado falha e logout Bearer invalida a sessão | Aprovado |
+| exclusão reautentica, anonimiza e invalida a conta | Aprovado |
 
-A jornada multiperfil do WebKit voltou a passar no Windows, em 2,7 minutos, com o orçamento total ajustado e os limites por ação preservados: [resultado do cenário isolado](evidencias/webkit-windows-fluxo.json). O Chrome instalado neste computador também abriu a interface em 1440/390 sem overflow ou erro JavaScript e alcançou a API pelo proxy: [smoke local](evidencias/chrome-local-smoke.json). Esse smoke de Chrome não substitui os fluxos completos executados nas três engines.
+#### integration/privacy-races.test.ts
 
-O teste curto de mídia reproduziu no APK anterior a mensagem `Unsupported FormDataPart implementation`: [resultado de falha histórica](evidencias/android-upload-legado.json), [captura](evidencias/android-upload-legado.png). O `fetch` global do Expo rejeita o objeto legado com URI; o cliente foi corrigido para transmitir `File`, preservando o nome original, com regressão de bytes/MIME/nome/autenticação. Os 22 testes móveis passaram. A fixture PNG também teve seu CRC corrigido. Esse registro histórico não é contabilizado como teste aprovado do APK corrigido.
+Concorrencia durante alteracao e eliminacao de dados privados.
 
-Em 21/10, o Chrome instalado revelou overflow na página inicial a 390 px, fora das jornadas autenticadas existentes. O cabeçalho e as colunas públicas receberam regras responsivas; o menu móvel ganhou rótulo, estado expandido e navegação que fecha após escolher uma seção. A página passou em 320/390/1440, sem overflow ou erro JavaScript: [resultado e navegação](evidencias/chrome-landing-revisada.json), [captura móvel](evidencias/chrome-landing-390.png). A quantidade de modalidades agora usa o catálogo real de cinco itens; a média de avaliações fictícia foi removida e o gráfico foi identificado como ilustrativo.
+**3 aprovados de 3 casos deste arquivo.** [Codigo](../../tests/integration/privacy-races.test.ts). Cada linha abaixo corresponde a um caso do JSON.
 
-A checagem axe da página pública apontou contraste insuficiente na faixa de informações, numeração dos cartões/passos e indicador de exemplo. As cores foram corrigidas; o cabeçalho móvel recebeu fundo escuro para manter a leitura sobre a imagem. A nova execução em 320/390/1440 retornou zero violações nas regras WCAG 2 A/AA e 2.1 A/AA verificadas: [resultado, incluindo verificações incompletas](evidencias/chrome-landing-axe.json). Essa análise automática não substitui avaliação manual integral ou leitor de tela.
+| Caso executado | Resultado observado |
+|---|---|
+| edição de perfil já autenticada aguarda e recusa conta encerrada | Aprovado |
+| login com senha antiga não cria sessão após a troca concorrente | Aprovado |
+| feedback aguardando arquivo eliminado não é recriado | Aprovado |
 
-## APK conectado — jornada completa aprovada em 21/10/2026
+#### integration/vercel-runtime.test.ts
 
-O APK de SHA-256 `5e8365264c329bbb5539b0ab3b5affb664440705c3fe12ec9eb833dbf39fdc0b`, fonte `e3393fa`, passou pelas 18 etapas no Android API 35 x86_64: [resultado completo](evidencias/android-integrated-result.json), [registro do GitHub](evidencias/github-android-integrated.json). A automação usou o commit `588071d`; o código do APK e o roteiro de teste possuem proveniências distintas e explícitas.
+Contrato da entrada serverless e inicializacao da API.
 
-Foram conferidos acesso inválido/perfil recusado, cadastro, restauração real do SecureStore, consentimentos/saúde, perfil, contratação, execução de treino, chat bidirecional, consultoria, avaliação elegível na fixture, modo financeiro sem cobrança, seletor/upload S3/correção, notificações, reinicialização, recuperação por SMTP/token/senha nova, revogação da mídia e encerramento/revogação da sessão. Os dados são fictícios, o banco termina em `_test` e a carência da avaliação foi reduzida só nessa fixture. Não houve crash detectado nos logs examinados: [log](evidencias/android-integrated-errors.log).
+**4 aprovados de 4 casos deste arquivo.** [Codigo](../../tests/integration/vercel-runtime.test.ts). Cada linha abaixo corresponde a um caso do JSON.
 
-Uma tentativa anterior aprovou 17 etapas, mas procurou o botão final com capitalização diferente da exibida pelo diálogo Android; o seletor foi corrigido para o texto nativo em maiúsculas. A primeira tentativa do run final perdeu o ADB durante `dumpsys input_method`, sem diagnóstico suficiente para atribuir causa ao aplicativo. A tentativa 2 repetiu a jornada inteira e passou, em 802,68 s, sem evento do launcher registrado. As tentativas incompletas não foram somadas para produzir o resultado de 18/18.
+| Caso executado | Resultado observado |
+|---|---|
+| exporta um handler sem abrir outra porta durante a importacao | Aprovado |
+| serve a interface e uma rota interna do navegador | Aprovado |
+| preserva a API no mesmo servidor sem devolver o HTML | Aprovado |
+| protege o agendador no servidor de producao | Aprovado |
 
-Na verificação de 21/10, o catálogo online do Expo recomendou 57.0.31/Sharing 57.0.24; o APK validado utiliza 57.0.30/57.0.23. A CI agora verifica instalação exata e compatibilidade dos nove pacotes de runtime contra `bundledNativeModules.json` do SDK 57.0.30 fixado: [resultado](evidencias/mobile-compatibility-locked.json). `pnpm --dir mobile check:updates` mantém a consulta separada a recomendações online. A compatibilidade do runtime permanece verificada; atualizações do runtime exigem novo APK e novo ensaio. Doctor e auditorias anteriores conservam suas datas próprias.
+#### unit/backup-key.test.ts
+
+Validacao da chave de backup.
+
+**2 aprovados de 2 casos deste arquivo.** [Codigo](../../tests/unit/backup-key.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| usa a chave existente quando a variavel do exemplo esta vazia | Aprovado |
+| recusa uma chave configurada invalida sem substituir o arquivo existente | Aprovado |
+
+#### unit/crypto.test.ts
+
+Cifra, integridade e variacao do vetor de inicializacao.
+
+**2 aprovados de 2 casos deste arquivo.** [Codigo](../../tests/unit/crypto.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| preserva Unicode, varia o IV e não armazena conteúdo em claro | Aprovado |
+| rejeita bytes adulterados | Aprovado |
+
+#### unit/matching.test.ts
+
+Regras de elegibilidade e compatibilidade de perfis.
+
+**13 aprovados de 13 casos deste arquivo.** [Codigo](../../tests/unit/matching.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| soma os pesos documentados até 100 e informa os critérios | Aprovado |
+| exclui treinador pending | Aprovado |
+| exclui treinador rejected | Aprovado |
+| exclui treinador unsubmitted | Aprovado |
+| exige modalidade esportiva em comum | Aprovado |
+| exige mesma cidade para atendimento presencial | Aprovado |
+| permite cidades distintas para atendimento online | Aprovado |
+| não recomenda treinador exclusivamente presencial de outra cidade para atleta híbrido | Aprovado |
+| retira apenas o peso do critério incompatível: {"goals":[]} | Aprovado |
+| retira apenas o peso do critério incompatível: {"levels":[]} | Aprovado |
+| retira apenas o peso do critério incompatível: {"price":201} | Aprovado |
+| retira apenas o peso do critério incompatível: {"availability":[]} | Aprovado |
+| não atribui pontos a critérios ausentes no perfil do atleta | Aprovado |
+
+#### unit/scheduled.test.ts
+
+Autenticacao, trava e tratamento de falhas dos jobs.
+
+**10 aprovados de 10 casos deste arquivo.** [Codigo](../../tests/unit/scheduled.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| recusa acesso sem autorizacao: undefined | Aprovado |
+| recusa acesso sem autorizacao: curta | Aprovado |
+| recusa acesso sem autorizacao: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | Aprovado |
+| recusa token incorreto: Bearer errada | Aprovado |
+| recusa token incorreto: Bearer bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb | Aprovado |
+| executa somente com o segredo correto | Aprovado |
+| evita outra execucao enquanto a trava esta ocupada | Aprovado |
+| mantem a trava dentro de uma transacao ate concluir o trabalho | Aprovado |
+| libera a trava mesmo quando o trabalho falha | Aprovado |
+| descarta a conexao quando nao consegue encerrar a transacao | Aprovado |
+
+#### unit/static-security.test.ts
+
+Protecao contra acesso a arquivos fora da raiz publica.
+
+**5 aprovados de 5 casos deste arquivo.** [Codigo](../../tests/unit/static-security.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| mantem o acesso ao arquivo publico | Aprovado |
+| nao expoe arquivo fora da raiz publica: /files/../private.txt | Aprovado |
+| nao expoe arquivo fora da raiz publica: /files/%2e%2e/private.txt | Aprovado |
+| nao expoe arquivo fora da raiz publica: /files/..%2fprivate.txt | Aprovado |
+| nao expoe arquivo fora da raiz publica: /files/..%5cprivate.txt | Aprovado |
+
+### Execucao de referencia: aplicativo
+
+Inicio registrado (UTC): `2026-10-20T23:55:42.832000+00:00`. Fonte: [mobile-tests.json](evidencias/mobile-tests.json).
+
+#### api.test.ts
+
+Autenticacao, perfis, conferencia manual de CREF, vinculo, treino, execucao e persistencia.
+
+**12 aprovados de 12 casos deste arquivo.** [Codigo](../../mobile/tests/api.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| envia bytes e nome original do arquivo em multipart compativel com fetch | Aprovado |
+| cadastro com nome vazio mantém a rota de cadastro e recebe validação do servidor | Aprovado |
+| guarda sessão no SecureStore e usa Bearer sem token em URLs | Aprovado |
+| recusa perfil treinador e invalida sessão criada antes de persistir | Aprovado |
+| nega sessão expirada, apaga token e avisa a aplicação | Aprovado |
+| senha de confirmação incorreta permite tentar novamente sem perder sessão válida | Aprovado |
+| limpa sessão local mesmo quando logout não consegue acessar a rede | Aprovado |
+| WebSocket usa cabeçalho nativo e mantém segredo fora da URL | Aprovado |
+| download autorizado usa cabeçalho e elimina cópia do cache após ação do usuário | Aprovado |
+| produção sem HTTPS apresenta erro de configuração sem transmitir credenciais | Aprovado |
+| remove cópia parcial de mídia quando o download falha | Aprovado |
+| remove exportação parcial quando a gravação falha | Aprovado |
+
+#### config.test.ts
+
+Transporte e configuracao do cliente movel.
+
+**10 aprovados de 10 casos deste arquivo.** [Codigo](../../mobile/tests/config.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| usa loopback na demonstração local e mantém produção com HTTPS | Aprovado |
+| recusa destino fora do ambiente local: http://192.168.1.2:3001/api | Aprovado |
+| recusa destino fora do ambiente local: http://localhost.evil.test/api | Aprovado |
+| recusa destino fora do ambiente local: https://api.linkatletas.test/api | Aprovado |
+| recusa configuração imprópria: https://api.linkatletas.example/api | Aprovado |
+| recusa configuração imprópria: ftp://localhost/api | Aprovado |
+| recusa configuração imprópria: https://user:senha@api.linkatletas.test/api | Aprovado |
+| recusa configuração imprópria: https://api.linkatletas.test/api?token=segredo | Aprovado |
+| recusa configuração imprópria: endereco-invalido | Aprovado |
+| mantém o endereço do emulador em desenvolvimento | Aprovado |
+
+### Regressao adicional: referencia externa
+
+Inicio registrado (UTC): `2026-10-28T01:31:44.935000+00:00`. Fonte: [referencia-treino-2026-10-27.json](evidencias/referencia-treino-2026-10-27.json).
+
+#### unit/workout-reference.test.ts
+
+HTTPS, tipo de entrada, tamanho, caracteres de controle e credenciais na referencia do treino.
+
+**12 aprovados de 12 casos deste arquivo.** [Codigo](../../tests/unit/workout-reference.test.ts). Cada linha abaixo corresponde a um caso do JSON.
+
+| Caso executado | Resultado observado |
+|---|---|
+| aceita HTTPS como dado sem alterar o texto | Aprovado |
+| permite omitir a referencia | Aprovado |
+| rejeita referencia insegura: "javascript:alert(1)" | Aprovado |
+| rejeita referencia insegura: "data:text/html,<script>alert(1)</script>" | Aprovado |
+| rejeita referencia insegura: "http://example.com/video" | Aprovado |
+| rejeita referencia insegura: "https://user:password@example.com/video" | Aprovado |
+| rejeita referencia insegura: "https://example.com/\nvideo" | Aprovado |
+| rejeita referencia insegura: "https://example.com/<script>" | Aprovado |
+| rejeita referencia insegura: "https://example.com/\"onclick=" | Aprovado |
+| rejeita referencia insegura: "https://example.com/\\video" | Aprovado |
+| rejeita referencia insegura: "https://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" | Aprovado |
+| rejeita referencia insegura: {"href":"https://example.com/video"} | Aprovado |
+
+## Cenarios de navegador: o que sao as 15 execucoes?
+
+O [codigo do fluxo principal](../../tests/e2e/sprint-2.spec.ts) verifica login invalido e a jornada de cadastro ate execucao persistida. O [codigo dos cenarios ampliados](../../tests/e2e/expansion.spec.ts) verifica comunicacao/agenda/privacidade/financeiro academico, recuperacao e acessibilidade/responsividade. Cada um dos cinco cenarios e repetido nos tres motores; isso explica 15, sem afirmar quinze funcionalidades distintas.
+
+[Resultados completos por cenario, motor e tentativa](evidencias/verificacao-nuvem-entrega-2026-10-26/playwright-results.json). [Captura administrativa](evidencias/verificacao-nuvem-entrega-2026-10-26/aprovacao-administrativa.png) e [captura movel](evidencias/verificacao-nuvem-entrega-2026-10-26/execucao-mobile.png).
+
+### Lista das execucoes de navegador
+
+| Cenario | Motor | Resultado registrado |
+|---|---|---|
+| chat ao vivo → agenda → avaliação → consentimento e mídia → financeiro | chromium | passed |
+| recuperação pela interface usa SMTP local e permite senha nova | chromium | passed |
+| telas ampliadas têm acesso por teclado, responsividade e auditoria axe | chromium | passed |
+| chat ao vivo → agenda → avaliação → consentimento e mídia → financeiro | firefox | passed |
+| recuperação pela interface usa SMTP local e permite senha nova | firefox | passed |
+| telas ampliadas têm acesso por teclado, responsividade e auditoria axe | firefox | passed |
+| chat ao vivo → agenda → avaliação → consentimento e mídia → financeiro | webkit | passed |
+| recuperação pela interface usa SMTP local e permite senha nova | webkit | passed |
+| telas ampliadas têm acesso por teclado, responsividade e auditoria axe | webkit | passed |
+| login informa erro real e mantém formulário utilizável em celular | chromium | passed |
+| cadastro → aprovação → contratação → publicação → execução persistida | chromium | passed |
+| login informa erro real e mantém formulário utilizável em celular | firefox | passed |
+| cadastro → aprovação → contratação → publicação → execução persistida | firefox | passed |
+| login informa erro real e mantém formulário utilizável em celular | webkit | passed |
+| cadastro → aprovação → contratação → publicação → execução persistida | webkit | passed |
+
+## Verificacoes manuais, producao e operacao
+
+| Verificacao | O que foi conferido | Evidencia e limites |
+|---|---|---|
+| Revisao manual | Login, perfis, vinculo, treino, execucao, mensagens, agenda e erros | [Cenarios, resultados e limites](testes-manuais-2026-10-27.md); administracao manual local distinguida da preparacao por API em producao |
+| Banco em producao | Gravacao por HTTPS, leitura direta no Neon e releitura pela API; perfil restaurado | [Registro da demonstracao](evidencias/demonstracao-preparada-2026-10-27.json); nao e teste manual de navegador |
+| Producao e Preview | Banco, arquivos privados, recuperacao, jobs e APK | [Registro por ambiente](implantacao-2026-10-26.md); aceite SMTP nao comprova caixa de entrada |
+| Backup | Restauracao isolada de banco e arquivos cifrados | [Resultados e verificacoes](evidencias/backup-restore.json); nao comprova rotina recorrente automatizada de backup da producao |
+| Carga | 200 chamadas com 500 perfis sinteticos | [Metricas](evidencias/carga-matchmaking.json); nao extrapolar para capacidade de producao |
+
+## CI, casos na ERS e reproducao
+
+- [Casos de teste documentados na ERS](ERS-template-original-atualizada.pdf), secao 6. Os nomes dos testes automatizados acima identificam verificacoes implementadas; nao se presume correspondencia um-para-um com todos os CTs da ERS.
+- [CI aprovada registrada](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40420233293/attempts/2) e [workflow](../../.github/workflows/ci.yml). Uma execucao anterior nao comprova sucesso de um commit posterior.
+- `pnpm test`: unidade/integracao. `pnpm test:e2e`: navegador. `pnpm --dir mobile test`: cliente movel. Usar banco isolado `_test`, nunca producao. Nao executar suites concorrentes na mesma base.
+- [Guia de apresentacao](apresentacao-completa-sprint-2.md): demonstracao, consultas SQL e respostas ao professor.
+
+## Limites e documentos anteriores
+
+Na revisao da referencia externa, os 12 testes unitarios passaram, o build web passou e os tipos e 22 testes do aplicativo passaram. A tentativa adicional de repetir os 20 testes de integracao da API **nao executou os casos**, pois o Docker/banco local estava indisponivel: [resultado com 20 pendentes](evidencias/regressao-api-referencia-2026-10-27.json). Isso nao e uma nova aprovacao dos 20 casos nem altera o resultado da execucao historica de referencia.
+
+A referencia externa e recebida como string JSON, validada no servidor e mostrada como texto sem abertura automatica na web e no aplicativo. Foram acrescentadas recusas para protocolos diferentes de HTTPS, credenciais, caracteres de controle e tamanho excessivo. Nao foi demonstrada exploracao de XSS no fluxo anterior; esta revisao reduz a superficie de navegacao externa. HTTPS e conversao para texto nao certificam a confiabilidade do destino. [Referencia tecnica OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
+
+Sem homologacao Asaas real, API oficial de CREF, Google OAuth, aparelho fisico/iOS ou lojas. Testes automatizados de acessibilidade nao equivalem a auditoria manual integral. O ajuste da referencia externa e uma regressao adicional, nao uma reexecucao de todos os 99 testes.
+
+Este Markdown e o relatorio atualizado. As exportacoes PDF/Word anteriores representam a organizacao antiga e nao devem substituir esta versao. O [relatorio anterior no historico](https://github.com/DaviSouza78/LinkAtletas/blob/fc9ed73/docs/evolucao/relatorio-testes.md) preserva detalhes operacionais e tentativas anteriores, sem misturar suas contagens com esta leitura.

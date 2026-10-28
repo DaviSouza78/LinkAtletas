@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Alert, Linking } from 'react-native'
+import { Alert } from 'react-native'
 import * as DocumentPicker from 'expo-document-picker'
 import type { MetricType, Workout } from '../../../shared/contracts'
 import { api, shareMedia, upload, type Media } from '../api'
@@ -161,14 +161,7 @@ function WorkoutDetail({
               .join(' · ')}
           </Body>
           {block.videoUrl && (
-            <Button
-              title="Abrir orientação externa"
-              secondary
-              onPress={() => {
-                if (block.videoUrl?.startsWith('https://'))
-                  void Linking.openURL(block.videoUrl)
-              }}
-            />
+            <Body>Referencia externa (texto): {block.videoUrl}</Body>
           )}
         </Panel>
       ))}
