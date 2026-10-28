@@ -19,7 +19,7 @@ import xml.etree.ElementTree as ET
 PACKAGE = 'br.edu.linkatletas.app.local'
 BASE = 'http://127.0.0.1:3001/api'
 FOCUS = os.getenv('ANDROID_TEST_FOCUS', 'all')
-if FOCUS not in ('all', 'workout', 'media'):
+if FOCUS not in ('all', 'workout', 'media', 'roles'):
     raise ValueError('Foco de teste desconhecido')
 database = urllib.parse.urlsplit(os.getenv('DATABASE_URL', ''))
 if (database.scheme not in ('postgres', 'postgresql')
@@ -248,8 +248,11 @@ def test():
     fill('E-mail', 'emailtreinador@email.com')
     fill('Senha', 'senhatreinador')
     tap('Entrar')
-    locate('Use a interface web para os perfis de treinador e administração.')
-    record('Perfil treinador recusado pelo cliente atleta')
+    locate('Seu trabalho como treinador', scroll=True)
+    record('Perfil treinador autenticado no cliente nativo')
+    top()
+    tap('Sair')
+    locate('E-mail')
 
     tap('Criar conta', scroll=True)
     email = 'apk-' + str(int(time.time())) + '@e2e.local'
@@ -469,24 +472,25 @@ def test_media_focus():
     exercise_media(coach, athlete, workout)
 
 
-size = list(map(int, re.findall(r'\d+', adb('shell', 'wm', 'size'))))[-2:]
-try:
-    {'all': test, 'workout': test_workout_focus, 'media': test_media_focus}[FOCUS]()
-    errors = adb('logcat', '-d', '-s', 'AndroidRuntime:E', 'ReactNativeJS:E')
-    assert not re.search(r'FATAL EXCEPTION|TypeError:|ReferenceError:|Unhandled JS Exception', errors), 'Crash detectado no log nativo'
-    result = {'passed': True, 'environment': 'Android API 35 x86_64 emulator + real PostgreSQL/SMTP/S3/API',
-              'testCommit': os.getenv('GITHUB_SHA'), 'apkSourceRun': os.getenv('APK_SOURCE_RUN'),
-              'apkSha256': hashlib.sha256(Path('android-local/LinkAtletas-local.apk').read_bytes()).hexdigest(),
-              'buildProfile': 'local', 'testFocus': FOCUS, 'infrastructureEvents': infrastructure_events, 'realDeviceValidated': False, 'externalBillingValidated': False,
-              'reviewMinimumDaysForIsolatedFixture': 0, 'steps': steps, 'durationSeconds': round(time.time()-started, 2)}
-except Exception as error:
+if __name__ == '__main__':
+    size = list(map(int, re.findall(r'\d+', adb('shell', 'wm', 'size'))))[-2:]
     try:
-        capture('falha')
-    except Exception:
-        pass
-    result = {'passed': False, 'steps': steps, 'error': str(error), 'durationSeconds': round(time.time()-started, 2)}
-    (OUT/'integrated-result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
-    raise
-else:
-    (OUT/'integrated-result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+        {'all': test, 'workout': test_workout_focus, 'media': test_media_focus}[FOCUS]()
+        errors = adb('logcat', '-d', '-s', 'AndroidRuntime:E', 'ReactNativeJS:E')
+        assert not re.search(r'FATAL EXCEPTION|TypeError:|ReferenceError:|Unhandled JS Exception', errors), 'Crash detectado no log nativo'
+        result = {'passed': True, 'environment': 'Android API 35 x86_64 emulator + real PostgreSQL/SMTP/S3/API',
+                  'testCommit': os.getenv('GITHUB_SHA'), 'apkSourceRun': os.getenv('APK_SOURCE_RUN'),
+                  'apkSha256': hashlib.sha256(Path('android-local/LinkAtletas-local.apk').read_bytes()).hexdigest(),
+                  'buildProfile': 'local', 'testFocus': FOCUS, 'infrastructureEvents': infrastructure_events, 'realDeviceValidated': False, 'externalBillingValidated': False,
+                  'reviewMinimumDaysForIsolatedFixture': 0, 'steps': steps, 'durationSeconds': round(time.time()-started, 2)}
+    except Exception as error:
+        try:
+            capture('falha')
+        except Exception:
+            pass
+        result = {'passed': False, 'steps': steps, 'error': str(error), 'durationSeconds': round(time.time()-started, 2)}
+        (OUT/'integrated-result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
+        raise
+    else:
+        (OUT/'integrated-result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
+        print(json.dumps(result, ensure_ascii=False, indent=2))

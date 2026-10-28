@@ -2,6 +2,8 @@ import type { ConfigContext, ExpoConfig } from 'expo/config'
 
 export default ({ config }: ConfigContext): ExpoConfig => {
   const local = process.env.EXPO_PUBLIC_BUILD_PROFILE === 'local'
+  const iosClient = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID?.trim()
+  const googlePlugins: NonNullable<ExpoConfig['plugins']> = iosClient ? [['react-native-nitro-google-signin', { iosUrlScheme: iosClient.split('.').reverse().join('.') }]] : []
   return {
     ...config,
     name: local ? 'LinkAtletas Local' : 'LinkAtletas',
@@ -25,6 +27,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       'expo-sharing',
       'expo-status-bar',
       './plugins/withLocalNetwork.cjs',
+      ...googlePlugins,
     ],
     extra: { ...config.extra, projectScope: 'academic-athlete-client' },
   }

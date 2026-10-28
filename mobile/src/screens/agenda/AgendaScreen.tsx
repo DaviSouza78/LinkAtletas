@@ -21,10 +21,13 @@ import {
 import { useEvents } from '../../hooks/useEvents'
 import { ContractSelector } from '../../components/connections/ContractSelector'
 import { useSession } from '../../context/SessionContext'
+import { authorizeCalendar, disconnectCalendar, googleCalendarConfigured } from '../../services/googleAuthorization'
+import { createGoogleMeet } from '../../services/googleCalendar'
 
 export function AgendaScreen() {
   const coach = useSession().role === 'coach'
   const [meetingUrl, setMeetingUrl] = useState('')
+  const [pendingGoogle, setPendingGoogle] = useState<Record<string, { eventId: string; meetingUrl: string }>>({})
   const remote = useRemote<{ consultations: Consultation[] }>('/consultations'),
     contracts = useRemote<{ contracts: Contract[] }>('/contracts'),
     action = useAction()
@@ -71,6 +74,15 @@ export function AgendaScreen() {
       {remote.error && <Notice message={remote.error} error />}
       {action.error && <Notice message={action.error} error />}
       {action.notice && <Notice message={action.notice} />}
+      {coach && <Panel>
+        <Heading small>Google Agenda e Meet</Heading>
+        <Body>A conexao solicita acesso aos eventos das agendas que voce possui. O login Google nao substitui sua conta LinkAtletas. Criacao de evento exige sua confirmacao; nenhum convite sera enviado automaticamente.</Body>
+        {!googleCalendarConfigured && <Body>A configuracao OAuth deste build ainda precisa ser preenchida antes do ensaio real.</Body>}
+        <Row>
+          <Button title="Conectar Google Agenda" disabled={action.busy || !googleCalendarConfigured} onPress={() => void action.run(async () => { await authorizeCalendar() }, 'Google autorizado para esta sessao.')} />
+          <Button title="Desconectar Google" secondary disabled={action.busy} onPress={() => void action.run(disconnectCalendar, 'Sessao Google desconectada. A permissao pode ser revogada tambem na conta Google.')} />
+        </Row>
+      </Panel>}
       {choices.length > 0 && (
         <Panel>
           <Heading small>Nova consultoria</Heading>
@@ -142,6 +154,15 @@ export function AgendaScreen() {
                 : 'Concluída'}
           </Body>
           <Body>{item.description}</Body>
+          {coach && item.status === 'scheduled' && !item.externalEventId && <Button title={pendingGoogle[item.id] ? 'Vincular evento ja criado' : 'Criar evento Google e Meet'} disabled={action.busy || !googleCalendarConfigured} onPress={() => Alert.alert('Criar evento na sua agenda Google', 'O Google recebera apenas horario, duracao e titulo generico. Nao serao enviados dados de saude, descricao privada ou convites. Confirmar?', [
+            { text: 'Voltar', style: 'cancel' }, { text: 'Confirmar', onPress: () => void action.run(async () => {
+              const reference = pendingGoogle[item.id] || await createGoogleMeet(item)
+              setPendingGoogle((previous) => ({ ...previous, [item.id]: reference }))
+              await api(`/consultations/${item.id}/google-event`, 'POST', reference)
+              setPendingGoogle((previous) => { const next = { ...previous }; delete next[item.id]; return next })
+              await remote.reload()
+            }, 'Evento Google e Meet vinculados a consultoria.') },
+          ])} />}
           {item.meetingUrl ? (
             <Button
               title="Abrir reunião"

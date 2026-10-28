@@ -4,7 +4,7 @@ on:
     inputs:
       test_focus:
         type: string
-        default: all
+        default: roles
       build_only:
         description: 'Somente compilar; executar o ensaio usando apk_run_id depois'
         required: false
@@ -19,7 +19,7 @@ on:
     inputs:
       test_focus:
         type: string
-        default: all
+        default: roles
       build_only:
         required: false
         type: boolean
@@ -43,6 +43,8 @@ jobs:
       EXPO_NO_TELEMETRY: '1'
       EXPO_PUBLIC_BUILD_PROFILE: local
       EXPO_PUBLIC_API_URL: http://localhost:3001/api
+      EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
+      EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: ${{ vars.GOOGLE_IOS_CLIENT_ID }}
       DATABASE_URL: postgresql://linkatletas:linkatletas_dev@127.0.0.1:54329/linkatletas_test
       S3_ENDPOINT: http://127.0.0.1:8333
       S3_ACCESS_KEY: linkatletas-local
@@ -105,6 +107,7 @@ jobs:
         run: |
           mkdir -p android-local
           cp mobile/android/app/build/outputs/apk/release/*.apk android-local/LinkAtletas-local.apk
+          keytool -list -v -keystore mobile/android/app/debug.keystore -storepass android -alias androiddebugkey > android-local/signing-certificate.txt
           cd android-local
           sha256sum LinkAtletas-local.apk > SHA256SUMS
           printf '%s\n' "Commit: $GITHUB_SHA" 'APK standalone de demonstracao local, com chave de desenvolvimento.' 'API: http://localhost:3001/api. Inicie a API no computador e use adb reverse tcp:3001 tcp:3001 por USB ou emulador.' 'HTTP permitido somente nos enderecos locais; producao continua exigindo HTTPS.' 'Nenhum Metro ou servidor publico e necessario. Nao usar para dados ou pagamentos reais.' > LEIA-ME.txt
@@ -134,7 +137,7 @@ jobs:
           adb install android-local/LinkAtletas-local.apk
           adb reverse tcp:3001 tcp:3001
           adb logcat -c
-          python3 scripts/android/verify-integrated.py
+          if test "$ANDROID_TEST_FOCUS" = roles; then python3 mobile/scripts/verify-roles.py; else python3 scripts/android/verify-integrated.py; fi
       - name: Capture runtime diagnostics
         if: always()
         run: |

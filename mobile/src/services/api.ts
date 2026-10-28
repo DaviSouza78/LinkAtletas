@@ -7,6 +7,7 @@ import type { DocumentPickerAsset } from 'expo-document-picker'
 import type { AppUser } from '../../../shared/contracts'
 import { nativeConfiguration } from '../config/api'
 import { validRole } from '../navigation/access'
+import { disconnectCalendar } from './googleAuthorization'
 
 const configuration = nativeConfiguration(
   process.env.EXPO_PUBLIC_API_URL,
@@ -33,6 +34,7 @@ export async function loadSession() {
 export async function forgetSession() {
   token = null
   await SecureStore.deleteItemAsync(TOKEN_KEY)
+  await disconnectCalendar()
 }
 async function storeSession(value: string) {
   await SecureStore.setItemAsync(TOKEN_KEY, value, {

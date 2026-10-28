@@ -90,3 +90,13 @@ Esses testes não acessam dados reais, não enviam dinheiro e não comprovam a a
 O estado é **ampliação implementada no cliente, em validação**. Não se declara equivalência completa, APK homologado ou integração Google concluída apenas por tipos, testes controlados e bundles aprovados.
 
 [Aplicativo](../README.md) · [Telas atuais](../src/screens/README.md)
+
+### Validacao nativa e OAuth em andamento
+
+A integracao Google nativa foi implementada em `googleAuthorization.ts` e `googleCalendar.ts`, com SDK nativo e escopo `calendar.events.owned`. O ID web identifica o publico do token no SDK; Android tambem exige cliente proprio associado ao pacote e SHA-1 da assinatura. No iOS, e necessario o cliente iOS e o esquema correspondente. IDs sao publicos; nenhum segredo OAuth deve entrar no aplicativo.
+
+A suite passou a 105 testes em oito arquivos, incluindo 13 casos controlados de autorizacao, cancelamento, escopo, expiracao, minimizacao de dados e recuperacao de evento sem duplicacao. Isso ainda nao comprova consentimento real do Google nem criacao real de Meet.
+
+O roteiro Android foi atualizado para aceitar treinador e ganhou `mobile/scripts/verify-roles.py`, chamado pelo workflow integrado com foco `roles`. O ensaio usa API e PostgreSQL isolados, tres perfis ficticios e verificacao dos registros persistidos. Sua execucao e compilacao estao em andamento; nao substituir os resultados historicos antes de concluir.
+
+O cadastro de clientes Google depende do acesso ao Google Cloud e do aceite dos termos pelo titular. A assinatura de desenvolvimento do APK sera publicada como fingerprint no artefato de compilacao para configurar o cliente Android. A autorizacao de uma conta e a criacao real de um evento sao verificacoes separadas, ainda pendentes.
