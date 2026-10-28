@@ -1,3 +1,4 @@
+import argparse
 import hashlib
 import json
 import re
@@ -12,7 +13,14 @@ root = Path(__file__).resolve().parents[2]
 base = root / 'docs/evolucao'
 config = base / 'template'
 source = root / 'docs/referencias/ERS-Sprint-1-original.pdf'
-target = base / 'ERS-template-original-atualizada.pdf'
+parser = argparse.ArgumentParser(description='Gerador historico da ERS v2.5; nao reproduz os ajustes manuais da ERS final.')
+parser.add_argument('--output-dir', default=str(root / 'tmp/documentacao/ers-v2.5'))
+args = parser.parse_args()
+output = Path(args.output_dir).resolve()
+output.mkdir(parents=True, exist_ok=True)
+target = output / 'ERS-template-original-atualizada.pdf'
+if target.resolve() == (base / target.name).resolve():
+    raise ValueError('O gerador historico nao pode substituir a ERS oficial.')
 settings = json.loads((config / 'secoes.json').read_text(encoding='utf-8'))
 requirements = json.loads((config / 'requisitos.json').read_text(encoding='utf-8'))
 tests = json.loads((config / 'testes.json').read_text(encoding='utf-8'))
@@ -465,6 +473,6 @@ report = {
     'editableOriginalAvailable': False,
     'visualReview': 'pending inspection of rendered pages',
 }
-(base / 'evidencias/documentacao/ers-template-verificacao.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-(base / 'requisitos/ERS-template-original.md').write_text('\n'.join(markdown), encoding='utf-8')
+(output / 'ers-template-verificacao.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+(output / 'ERS-template-original.md').write_text('\n'.join(markdown), encoding='utf-8')
 print(json.dumps({'pages': len(updated), 'tocEntries': len(toc), 'bodyLines': len(layout), 'testCasesMatched': len(validated), 'preview': str(preview)}, indent=2))

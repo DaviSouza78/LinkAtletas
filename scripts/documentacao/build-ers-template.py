@@ -24,6 +24,8 @@ parser.add_argument('--reference', required=True)
 parser.add_argument('--page-map')
 args = parser.parse_args()
 reference = Path(args.reference)
+if reference.resolve() == (base / 'ERS-template-original-atualizada.docx').resolve():
+    raise ValueError('A referencia deve ser diferente do documento de saida.')
 document = Document(reference)
 settings = json.loads((config / 'revisao-modelo.json').read_text(encoding='utf-8'))
 previous = json.loads((config / 'secoes.json').read_text(encoding='utf-8'))

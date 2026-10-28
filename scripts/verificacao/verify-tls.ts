@@ -12,10 +12,12 @@ if (!/^[a-zA-Z0-9_.-]+$/.test(proxy)) throw new Error('Container TLS inválido.'
 const { stdout: ca } = await exec(
   'docker',
   ['exec', proxy, 'cat', '/data/caddy/pki/authorities/local/root.crt'],
-  { windowsHide: true },
+  { windowsHide: true, timeout: 30_000 },
 )
 const port = Number(process.env.HTTPS_PORT ?? 8443),
   origin = `https://localhost:${port}`
+if (!Number.isInteger(port) || port < 1 || port > 65535)
+  throw new Error('HTTPS_PORT invalida.')
 async function call(
   path: string,
   method = 'GET',
@@ -68,13 +70,21 @@ async function call(
       },
     )
     req.on('error', reject)
+    req.setTimeout(10_000, () => req.destroy(new Error('Tempo limite na verificacao TLS.')))
     req.end(payload === undefined ? undefined : JSON.stringify(payload))
   })
 }
 let refusedUntrusted = false
 try {
   await call('/api/health', 'GET', undefined, undefined, false)
-} catch {
+} catch (error) {
+  if (![
+    'DEPTH_ZERO_SELF_SIGNED_CERT',
+    'SELF_SIGNED_CERT_IN_CHAIN',
+    'UNABLE_TO_VERIFY_LEAF_SIGNATURE',
+    'UNABLE_TO_GET_ISSUER_CERT_LOCALLY',
+    'CERT_UNTRUSTED',
+  ].includes((error as NodeJS.ErrnoException).code ?? '')) throw error
   refusedUntrusted = true
 }
 if (!refusedUntrusted)
@@ -85,6 +95,7 @@ const health = await call('/api/health'),
   frontend = await call('/login')
 if (
   health.status !== 200 ||
+  !['TLSv1.2', 'TLSv1.3'].includes(health.protocol) ||
   JSON.parse(health.body).database !== 'postgresql' ||
   frontend.status !== 200 ||
   !frontend.body.includes('id="root"')
@@ -130,7 +141,7 @@ const before = await call(
   undefined,
   cookie.split(';')[0],
 )
-await exec('docker', ['restart', appContainer], { windowsHide: true })
+await exec('docker', ['restart', appContainer], { windowsHide: true, timeout: 60_000 })
 let ready = false
 for (let attempt = 0; attempt < 60; attempt++) {
   try {
@@ -155,6 +166,7 @@ const after = await call(
   cookie.split(';')[0],
 )
 if (
+  before.status !== 200 || after.status !== 200 || afterSession.status !== 200 ||
   JSON.parse(afterSession.body).user?.email !== email ||
   before.body !== after.body
 )

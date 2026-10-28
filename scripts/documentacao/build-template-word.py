@@ -1,6 +1,7 @@
+import argparse
+import hashlib
 import io
 import json
-import sys
 from pathlib import Path
 
 import fitz
@@ -12,9 +13,16 @@ from docx.oxml.ns import qn
 from docx.shared import Pt, RGBColor
 
 root = Path(__file__).resolve().parents[2]
-base = root / 'docs/evolucao'
-pdf = fitz.open(base / 'ERS-template-original-atualizada.pdf')
-proof = json.loads((base / 'evidencias/documentacao/ers-template-verificacao.json').read_text(encoding='utf-8'))
+parser = argparse.ArgumentParser(description='Reconstrucao historica v2.5 com quadros posicionados; nao usar para editar a ERS final.')
+parser.add_argument('pages', nargs='?')
+parser.add_argument('--source-dir', default=str(root / 'tmp/documentacao/ers-v2.5'))
+args = parser.parse_args()
+source_dir = Path(args.source_dir).resolve()
+source = source_dir / 'ERS-template-original-atualizada.pdf'
+proof = json.loads((source_dir / 'ers-template-verificacao.json').read_text(encoding='utf-8'))
+if hashlib.sha256(source.read_bytes()).hexdigest() != proof['updatedSha256']:
+    raise ValueError('O PDF nao corresponde ao registro historico de figuras.')
+pdf = fitz.open(source)
 document = Document()
 document.core_properties.title = 'LinkAtletas - ERS v2.5'
 document.core_properties.author = 'Equipe LinkAtletas'
@@ -29,10 +37,12 @@ normal.paragraph_format.space_after = Pt(0)
 normal.paragraph_format.space_before = Pt(0)
 normal.paragraph_format.line_spacing = Pt(12)
 normal.paragraph_format.widow_control = False
-backgrounds = fitz.open(base / 'ERS-template-original-atualizada.pdf')
+backgrounds = fitz.open(source)
 selected = list(range(len(pdf)))
-if len(sys.argv) > 1:
-    selected = [int(x) - 1 for x in sys.argv[1].split(',')]
+if args.pages:
+    selected = [int(x) - 1 for x in args.pages.split(',')]
+    if not selected or any(number < 0 or number >= len(pdf) for number in selected):
+        raise ValueError('Paginas fora do intervalo do PDF.')
 
 
 def element(name, values):
@@ -125,6 +135,6 @@ for index, number in enumerate(selected):
     anchor.paragraph_format.line_spacing = Pt(1)
     anchor.add_run().font.size = Pt(1)
 
-output = base / ('ERS-completa-v2.5-editavel.docx' if len(selected) == len(pdf) else 'ERS-word-amostra.docx')
+output = source_dir / ('ERS-completa-v2.5-editavel.docx' if len(selected) == len(pdf) else 'ERS-word-amostra.docx')
 document.save(output)
 print(json.dumps({'file': str(output), 'pages': len(selected)}))

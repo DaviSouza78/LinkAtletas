@@ -19,7 +19,14 @@ import xml.etree.ElementTree as ET
 PACKAGE = 'br.edu.linkatletas.app.local'
 BASE = 'http://127.0.0.1:3001/api'
 FOCUS = os.getenv('ANDROID_TEST_FOCUS', 'all')
-assert FOCUS in ('all', 'workout', 'media'), 'Foco de teste desconhecido'
+if FOCUS not in ('all', 'workout', 'media'):
+    raise ValueError('Foco de teste desconhecido')
+database = urllib.parse.urlsplit(os.getenv('DATABASE_URL', ''))
+if (database.scheme not in ('postgres', 'postgresql')
+        or not database.path.endswith('_test')
+        or database.hostname not in ('127.0.0.1', 'localhost', '::1')
+        or os.getenv('NODE_ENV') == 'production'):
+    raise ValueError('Ensaio Android exige DATABASE_URL local com sufixo _test e ambiente de teste.')
 OUT = Path('emulator-evidence')
 OUT.mkdir(exist_ok=True)
 steps = []

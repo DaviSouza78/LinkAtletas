@@ -119,7 +119,7 @@ try {
     if (decryptPrivate(bytes.toString()) !== privateText)
       throw new Error('Mídia restaurada divergente.')
     const encryptedDump = await readFile(
-      resolve('tmp/backups', directory, 'database.dump.enc'),
+      resolve(process.env.BACKUP_ROOT ?? 'tmp/backups', directory, 'database.dump.enc'),
     )
     if (encryptedDump.includes(Buffer.from(privateText)))
       throw new Error('Texto privado presente no backup cifrado.')

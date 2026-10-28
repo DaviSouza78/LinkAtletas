@@ -14,6 +14,7 @@ Use este índice para localizar os materiais por finalidade. O [índice geral](.
 | Encontrar testes e resultados | [Relatório por cenário](relatorio-testes.md) e [índice das evidências](evidencias/README.md) |
 | Consultar a API interna | [Guia](api.md) e [OpenAPI](openapi.json) |
 | Entender os arquivos do back-end | [README completo do servidor](../../server/README.md) e [auditoria técnica](testes/auditoria-server-2026-10-28.md) |
+| Entender comandos de manutenção | [Guia dos scripts](../../scripts/README.md) e [auditoria da pasta](testes/auditoria-scripts-2026-10-28.md) |
 | Executar localmente | [Manual](operacao/manual.md) |
 | Entender decisões e pendências | [Decisões](gestao/decisoes.md), [pendências](gestao/pendencias-lucca.md) e [backlog](requisitos/backlog.md) |
 

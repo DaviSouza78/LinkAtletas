@@ -40,6 +40,7 @@ As terminações `.test.ts` e `.spec.ts` são convenções de identificação do
 | [transaction.test.ts](unit/transaction.test.ts) | Confirmação, rollback e descarte de conexão quando a transação não pode ser recuperada. |
 | [mail-cleanup.test.ts](unit/mail-cleanup.test.ts) | Fechamento do transporte SMTP inclusive quando o banco falha, sem envio a destinatários reais. |
 | [runtime-jobs.test.ts](unit/runtime-jobs.test.ts) | Uso do executor com trava pelo intervalo local e ausência de intervalo no modo Vercel. |
+| [scripts.test.ts](unit/scripts.test.ts) | Recusa de argumentos Android antes de acessar aparelho; geração coerente de configuração local, proteção de arquivos existentes e ausência de segredos na saída. |
 
 Esses testes podem ser executados sem iniciar o ambiente completo em Docker. Ainda utilizam recursos locais quando necessário, como arquivos temporários ou um servidor HTTP de teste.
 
