@@ -1,0 +1,90 @@
+{
+  "sourceCommit": "34a153d8cd5bb08b99da21910a2a8c65cdd3078f",
+  "run": "https://github.com/DaviSouza78/LinkAtletas/actions/runs/40632347453",
+  "environment": "GitHub Actions Ubuntu with isolated PostgreSQL SMTP and S3",
+  "passed": 215,
+  "failed": 0,
+  "pending": 0,
+  "suites": [
+    {
+      "file": "api.test.ts",
+      "passed": 20,
+      "total": 20
+    },
+    {
+      "file": "billing.test.ts",
+      "passed": 18,
+      "total": 18
+    },
+    {
+      "file": "interactions.test.ts",
+      "passed": 13,
+      "total": 13
+    },
+    {
+      "file": "permissions.test.ts",
+      "passed": 92,
+      "total": 92
+    },
+    {
+      "file": "platform.test.ts",
+      "passed": 13,
+      "total": 13
+    },
+    {
+      "file": "privacy-races.test.ts",
+      "passed": 3,
+      "total": 3
+    },
+    {
+      "file": "vercel-runtime.test.ts",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "file": "backup-key.test.ts",
+      "passed": 2,
+      "total": 2
+    },
+    {
+      "file": "crypto.test.ts",
+      "passed": 2,
+      "total": 2
+    },
+    {
+      "file": "mail-cleanup.test.ts",
+      "passed": 2,
+      "total": 2
+    },
+    {
+      "file": "matching.test.ts",
+      "passed": 13,
+      "total": 13
+    },
+    {
+      "file": "runtime-jobs.test.ts",
+      "passed": 2,
+      "total": 2
+    },
+    {
+      "file": "scheduled.test.ts",
+      "passed": 10,
+      "total": 10
+    },
+    {
+      "file": "static-security.test.ts",
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "file": "transaction.test.ts",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "file": "workout-reference.test.ts",
+      "passed": 12,
+      "total": 12
+    }
+  ]
+}

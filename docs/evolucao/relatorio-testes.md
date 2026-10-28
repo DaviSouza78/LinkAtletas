@@ -2,6 +2,8 @@
 
 Data da revisão: 27/10/2026.
 
+**Revisão posterior do servidor — 28/10/2026:** [215 casos de unidade/API aprovados, discriminados por arquivo e finalidade](testes/auditoria-server-2026-10-28.md#resultado-final-da-ci-do-servidor), além de 15 execuções de navegador aprovadas. Os nomes individuais e resultados estão nos JSONs vinculados nessa seção. As contagens de referência de 26–27/10 abaixo permanecem históricas; não somar as reexecuções.
+
 Este relatorio identifica cada cenario executado, seu resultado e o arquivo que comprova a execucao. As contagens sao de casos automatizados, nao de usuarios, requisitos, telas ou percentual de cobertura.
 
 ## O que significa API neste relatorio?

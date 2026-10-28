@@ -53,7 +53,7 @@ O Docker Desktop local foi iniciado, mas seu daemon não respondeu no período d
 - Os testes específicos de transação e trava foram executados com dependências controladas e passaram antes da reorganização.
 - Tipos e exportação OpenAPI foram executados após a separação dos módulos.
 - Build e tipos da raiz, tipos móveis, 52 testes unitários e 22 testes móveis aprovados localmente. [Resultado unitário desta revisão](../evidencias/api/server-unit-2026-10-28.json).
-- Integração, navegador e verificações completas: serão conferidos na CI do commit publicado; não são presumidos aprovados pela execução unitária.
+- Integração, navegador e verificações completas aprovados na CI; os números por arquivo e evidências estão na seção de resultado final abaixo.
 
 ## Limitações e acompanhamento
 
@@ -66,3 +66,32 @@ O Docker Desktop local foi iniciado, mas seu daemon não respondeu no período d
 - Combinações concorrentes não cobertas pelos casos escritos, acessibilidade manual, aparelhos físicos e homologação dos provedores continuam fora da conclusão automática.
 
 O relatório separa achados corrigidos de limites conhecidos. Ausência de falha nos cenários executados não transforma esses limites em itens concluídos.
+
+## Resultado final da CI do servidor
+
+Fonte: commit `34a153d`, [CI 40632347453](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40632347453), Ubuntu com PostgreSQL, SMTP e S3 isolados. Os números abaixo são desta execução, não a soma de execuções históricas.
+
+| Arquivo | Casos aprovados | O que significa |
+|---|---|---|
+| api.test.ts | 20 de 20 | Fluxo principal e validações da API interna. |
+| billing.test.ts | 18 de 18 | Contrato HTTP financeiro controlado e elegibilidade. |
+| interactions.test.ts | 13 de 13 | Mensagens, avaliações e agenda. |
+| permissions.test.ts | 92 de 92 | Autenticação, papel, titularidade, contas, arquivos e cinco modalidades. |
+| platform.test.ts | 13 de 13 | Privacidade, arquivos, recuperação e sessões. |
+| privacy-races.test.ts | 3 de 3 | Concorrência de dados privados. |
+| vercel-runtime.test.ts | 4 de 4 | Entrada HTTP serverless reproduzida localmente. |
+| backup-key.test.ts | 2 de 2 | Chave do backup. |
+| crypto.test.ts | 2 de 2 | Cifra e integridade. |
+| mail-cleanup.test.ts | 2 de 2 | Liberação SMTP em sucesso e falha. |
+| matching.test.ts | 13 de 13 | Compatibilidade de perfis. |
+| runtime-jobs.test.ts | 2 de 2 | Intervalo protegido e modo Vercel. |
+| scheduled.test.ts | 10 de 10 | Autorização e trava dos jobs. |
+| static-security.test.ts | 5 de 5 | Proteção de arquivos estáticos. |
+| transaction.test.ts | 4 de 4 | Commit, rollback e descarte. |
+| workout-reference.test.ts | 12 de 12 | Validação da referência externa do treino. |
+
+Total: **215 aprovados, zero reprovados e zero pendentes**. [Nomes de todos os cenários e resultados](../evidencias/execucoes/server-2026-10-28/vitest-results.json); [resumo por arquivo](../evidencias/execucoes/server-2026-10-28/resumo.json).
+
+Navegador: **15 aprovados, zero inesperados e zero instáveis** — cinco cenários em três motores. [Resultado da execução](../evidencias/execucoes/server-2026-10-28/playwright-results.json). O `roles.spec.ts` local não integra essa contagem.
+
+[Backup/restauração](../evidencias/execucoes/server-2026-10-28/backup-restore.json) e [TLS/implantação em contêineres](../evidencias/execucoes/server-2026-10-28/production-tls.json) aprovados. As etapas de tipos, aplicativo/bundles, documentação e build também passaram na mesma CI. Isso não representa ensaio destrutivo da produção ou homologação financeira externa.

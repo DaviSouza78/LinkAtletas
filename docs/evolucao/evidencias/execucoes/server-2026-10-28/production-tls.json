@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-28T04:32:16.167Z",
+  "url": "https://localhost:8443",
+  "localOnly": true,
+  "caExplicit": true,
+  "systemTrustChanged": false,
+  "untrustedConnectionRefused": true,
+  "tlsProtocol": "TLSv1.3",
+  "cipher": "TLS_AES_128_GCM_SHA256",
+  "caFingerprint": "9B:26:89:A1:85:AA:58:9F:89:FC:79:C9:44:D6:0B:91:F0:AF:54:D8:48:75:41:24:5B:44:D5:1D:F2:E6:5D:59",
+  "healthStatus": 200,
+  "frontendStatus": 200,
+  "registrationStatus": 201,
+  "authenticatedSession": true,
+  "secureHttpOnlyCookie": true,
+  "csrfWithoutOriginStatus": 403,
+  "sessionSurvivedContainerRestart": true,
+  "profileIdenticalAfterRestart": true,
+  "billing": "academic, no external payment",
+  "publicDeployment": false
+}
