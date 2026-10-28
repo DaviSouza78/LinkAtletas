@@ -15,6 +15,7 @@ src/
   App.tsx              rotas da aplicação
   main.tsx             inicialização do React e dos provedores
   vite-env.d.ts        tipos de ambiente do Vite
+  assets/              imagens importadas pelos componentes
   pages/               telas organizadas por assunto
   components/          componentes reutilizados ou extraídos das telas
   context/             sessão e autenticação compartilhadas
@@ -26,6 +27,8 @@ src/
 ```
 
 Não existe mais a pasta genérica `pages/integrated`. As páginas antes reunidas em arquivos extensos foram separadas por responsabilidade. Nomes e textos de interface preexistentes foram preservados; a organização não altera os caminhos públicos de navegação.
+
+A imagem de destaque da página inicial fica em [assets/hero-training.webp](assets/hero-training.webp) e é importada pela `LandingPage`. O Vite inclui o arquivo no build com nome versionado por conteúdo. Não é necessária uma pasta `public` na raiz enquanto não houver arquivos que precisem de endereço fixo.
 
 ## Onde localizar cada funcionalidade
 

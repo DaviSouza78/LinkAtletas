@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Logo } from '../../components/Logo'
 import { SPORTS } from '../../../shared/contracts'
+import heroTraining from '../../assets/hero-training.webp'
 
 const benefits = [
   { icon: Target, title: 'Matches que fazem sentido', text: 'Modalidade, objetivos, orçamento e disponibilidade cruzados para indicar o profissional certo.' },
@@ -42,7 +43,7 @@ export function LandingPage() {
 
     <main>
       <section className="hero">
-        <img className="hero__image" src="/hero-training.webp" alt="Atleta treinando em uma pista com orientação de treinador" />
+        <img className="hero__image" src={heroTraining} alt="Atleta treinando em uma pista com orientação de treinador" />
         <div className="hero__overlay" />
         <div className="hero__content container">
           <span className="hero__tag"><Sparkles size={14} /> Sua evolução encontra direção</span>
