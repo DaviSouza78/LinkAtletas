@@ -77,7 +77,7 @@ Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/e
 
 Os três perfis são derivados da sessão autenticada; o cadastro público permite somente atleta e treinador. Cada perfil visualiza seus destinos, e a API mantém a autorização por recurso. Treinos executados não são editados. As listas persistidas são atualizadas a cada 15 segundos somente em primeiro plano e ao retornar ao aplicativo; a proteção de formulários evita recargas periódicas durante edição de perfil.
 
-Recuperação: o e-mail enviado contém o link web seguro de redefinição. O usuário pode abri-lo no navegador ou copiar o token após `token=` para a tela “Redefinir senha” do aplicativo. O esquema `linkatletas` está reservado para integração futura; não há universal links homologados. A criação OAuth de evento Google continua específica da interface web; o aplicativo permite informar/abrir reunião HTTPS e concluir consultorias, mas ainda não cria eventos Google automaticamente. Isso permanece como diferença explícita no plano.
+Recuperação: o e-mail enviado contém o link web seguro de redefinição. O usuário pode abri-lo no navegador ou copiar o token após `token=` para a tela “Redefinir senha” do aplicativo. O esquema `linkatletas` está reservado para integração futura; não há universal links homologados. O aplicativo possui integracao nativa de autorizacao Google e criacao de evento/Meet, ainda em validacao real. Exige build proprio, clientes Google por plataforma e acesso autorizado ao Calendar; Expo Go nao inclui o modulo nativo. Consulte [OAuth nativo](docs/oauth-nativo.md) para configuracao e limites. Informar/abrir reuniao HTTPS continua disponivel sem conectar Google.
 
 ## Sessão e arquivos privados
 

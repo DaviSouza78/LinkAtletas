@@ -83,8 +83,8 @@ Esses testes não acessam dados reais, não enviam dinheiro e não comprovam a a
 ### Pendências antes de declarar equivalência integral
 
 1. Executar nova compilação/instalação e percurso dos três perfis em APK, com backend de teste e contas fictícias, registrando casos e resultados separados dos testes controlados.
-2. O roteiro `scripts/android/verify-integrated.py`, fora de `mobile`, ainda espera a rejeição do treinador no cliente. Foi preservado pelo limite de escopo; atualizar o roteiro e o cenário nativo em uma etapa autorizada que inclua os scripts/workflow. O resultado histórico daquele ensaio não valida esta revisão.
-3. Definir e validar OAuth nativo para criação automática de evento Google/Meet. A operação web correspondente não foi apresentada como nativa. Informar/abrir reunião HTTPS e registrar a consulta continuam disponíveis.
+2. Concluir o novo roteiro `mobile/scripts/verify-roles.py`, chamado pelo workflow integrado. O auxiliar original ja aceita o treinador. O resultado historico do ensaio anterior nao valida esta revisao.
+3. Concluir o ensaio real do OAuth nativo implementado, com consentimento no dispositivo, evento criado no Google e vinculo persistido. Clientes OAuth e API configurados nao substituem essa verificacao.
 4. Conferir a matriz da web com a equipe, executar erros/permissões por recurso no ambiente integrado e revisar disposição/acessibilidade em telas reais. Só então atualizar ERS e documentação geral.
 
 O estado é **ampliação implementada no cliente, em validação**. Não se declara equivalência completa, APK homologado ou integração Google concluída apenas por tipos, testes controlados e bundles aprovados.
@@ -95,8 +95,8 @@ O estado é **ampliação implementada no cliente, em validação**. Não se dec
 
 A integracao Google nativa foi implementada em `googleAuthorization.ts` e `googleCalendar.ts`, com SDK nativo e escopo `calendar.events.owned`. O ID web identifica o publico do token no SDK; Android tambem exige cliente proprio associado ao pacote e SHA-1 da assinatura. No iOS, e necessario o cliente iOS e o esquema correspondente. IDs sao publicos; nenhum segredo OAuth deve entrar no aplicativo.
 
-A suite passou a 105 testes em oito arquivos, incluindo 13 casos controlados de autorizacao, cancelamento, escopo, expiracao, minimizacao de dados e recuperacao de evento sem duplicacao. Isso ainda nao comprova consentimento real do Google nem criacao real de Meet.
+A suite passou a 106 testes em oito arquivos, incluindo 14 casos controlados de autorizacao, cancelamento, escopo, expiracao, minimizacao de dados e recuperacao de evento sem duplicacao. Isso ainda nao comprova consentimento real do Google nem criacao real de Meet.
 
 O roteiro Android foi atualizado para aceitar treinador e ganhou `mobile/scripts/verify-roles.py`, chamado pelo workflow integrado com foco `roles`. O ensaio usa API e PostgreSQL isolados, tres perfis ficticios e verificacao dos registros persistidos. Sua execucao e compilacao estao em andamento; nao substituir os resultados historicos antes de concluir.
 
-O cadastro de clientes Google depende do acesso ao Google Cloud e do aceite dos termos pelo titular. A assinatura de desenvolvimento do APK sera publicada como fingerprint no artefato de compilacao para configurar o cliente Android. A autorizacao de uma conta e a criacao real de um evento sao verificacoes separadas, ainda pendentes.
+Projeto Google `linkatletas` configurado, Calendar API habilitada e clientes web, iOS e Android registrados. A assinatura de desenvolvimento foi extraida do APK compilado e conferida no cliente Android local e HTTPS. A conta profissional foi adicionada ao publico de teste. A autorizacao de uma conta e a criacao real de um evento sao verificacoes separadas, ainda pendentes.

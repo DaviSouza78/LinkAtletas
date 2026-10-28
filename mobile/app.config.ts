@@ -3,7 +3,14 @@ import type { ConfigContext, ExpoConfig } from 'expo/config'
 export default ({ config }: ConfigContext): ExpoConfig => {
   const local = process.env.EXPO_PUBLIC_BUILD_PROFILE === 'local'
   const iosClient = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID?.trim()
-  const googlePlugins: NonNullable<ExpoConfig['plugins']> = iosClient ? [['react-native-nitro-google-signin', { iosUrlScheme: iosClient.split('.').reverse().join('.') }]] : []
+  const googlePlugins: NonNullable<ExpoConfig['plugins']> = iosClient
+    ? [
+        [
+          'react-native-nitro-google-signin',
+          { iosUrlScheme: iosClient.split('.').reverse().join('.') },
+        ],
+      ]
+    : []
   return {
     ...config,
     name: local ? 'LinkAtletas Local' : 'LinkAtletas',
@@ -19,7 +26,9 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     android: {
       ...config.android,
-      package: local ? 'br.edu.linkatletas.app.local' : 'br.edu.linkatletas.app',
+      package: local
+        ? 'br.edu.linkatletas.app.local'
+        : 'br.edu.linkatletas.app',
     },
     plugins: [
       'expo-secure-store',

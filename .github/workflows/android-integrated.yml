@@ -2,6 +2,11 @@ name: Android integrated verification
 on:
   workflow_dispatch:
     inputs:
+      build_profile:
+        description: 'Local integrado ou APK HTTPS de demonstracao'
+        type: choice
+        options: [local, cloud]
+        default: local
       test_focus:
         type: string
         default: roles
@@ -17,6 +22,9 @@ on:
         default: ''
   workflow_call:
     inputs:
+      build_profile:
+        type: string
+        default: local
       test_focus:
         type: string
         default: roles
@@ -32,7 +40,7 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: native-integrated-${{ github.ref_name }}-${{ inputs.apk_run_id || github.sha }}-${{ inputs.build_only }}-${{ inputs.test_focus }}
+  group: native-integrated-${{ github.ref_name }}-${{ inputs.apk_run_id || github.sha }}-${{ inputs.build_only }}-${{ inputs.test_focus }}-${{ inputs.build_profile }}
   cancel-in-progress: false
 jobs:
   integrated:
@@ -41,8 +49,8 @@ jobs:
     env:
       CI: '1'
       EXPO_NO_TELEMETRY: '1'
-      EXPO_PUBLIC_BUILD_PROFILE: local
-      EXPO_PUBLIC_API_URL: http://localhost:3001/api
+      EXPO_PUBLIC_BUILD_PROFILE: ${{ inputs.build_profile == 'cloud' && 'cloud' || 'local' }}
+      EXPO_PUBLIC_API_URL: ${{ inputs.build_profile == 'cloud' && 'https://link-atletas.vercel.app/api' || 'http://localhost:3001/api' }}
       EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
       EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: ${{ vars.GOOGLE_IOS_CLIENT_ID }}
       DATABASE_URL: postgresql://linkatletas:linkatletas_dev@127.0.0.1:54329/linkatletas_test
@@ -59,6 +67,17 @@ jobs:
       JOBS_INTERVAL_MS: '1000'
     steps:
       - uses: actions/checkout@v5
+      - name: Validate build target
+        env:
+          REQUESTED_PROFILE: ${{ inputs.build_profile || 'local' }}
+          BUILD_ONLY: ${{ inputs.build_only }}
+          APK_RUN_ID: ${{ inputs.apk_run_id }}
+        run: |
+          case "$REQUESTED_PROFILE" in local|cloud) ;; *) exit 1 ;; esac
+          if test "$EXPO_PUBLIC_BUILD_PROFILE" = cloud; then
+            test "$BUILD_ONLY" = true
+            test -z "$APK_RUN_ID"
+          fi
       - uses: pnpm/action-setup@v4
         with:
           version: 10.33.2
@@ -88,6 +107,7 @@ jobs:
           pnpm --dir mobile typecheck
           pnpm --dir mobile test
       - name: Start isolated real services and API
+        if: inputs.build_profile != 'cloud'
         run: |
           docker compose up -d --wait
           pnpm db:migrate
@@ -111,10 +131,15 @@ jobs:
           cd android-local
           sha256sum LinkAtletas-local.apk > SHA256SUMS
           printf '%s\n' "Commit: $GITHUB_SHA" 'APK standalone de demonstracao local, com chave de desenvolvimento.' 'API: http://localhost:3001/api. Inicie a API no computador e use adb reverse tcp:3001 tcp:3001 por USB ou emulador.' 'HTTP permitido somente nos enderecos locais; producao continua exigindo HTTPS.' 'Nenhum Metro ou servidor publico e necessario. Nao usar para dados ou pagamentos reais.' > LEIA-ME.txt
+          if test "$EXPO_PUBLIC_BUILD_PROFILE" = cloud; then
+            mv LinkAtletas-local.apk LinkAtletas.apk
+            sha256sum LinkAtletas.apk > SHA256SUMS
+            printf '%s\n' "Commit: $GITHUB_SHA" 'APK HTTPS de demonstracao com assinatura de desenvolvimento; nao e distribuicao de loja.' 'API: https://link-atletas.vercel.app/api. Nao depende de Docker, Metro ou USB.' 'Nao usar para pagamentos reais. OAuth requer conta autorizada no projeto Google.' > LEIA-ME.txt
+          fi
       - uses: actions/upload-artifact@v4
         if: inputs.apk_run_id == ''
         with:
-          name: LinkAtletas-APK-local
+          name: LinkAtletas-APK-${{ inputs.build_profile == 'cloud' && 'cloud' || 'local' }}
           path: android-local/
           retention-days: 30
       - uses: actions/download-artifact@v4
@@ -151,5 +176,5 @@ jobs:
           path: emulator-evidence/
           retention-days: 30
       - name: Stop isolated services
-        if: always()
+        if: always() && inputs.build_profile != 'cloud'
         run: docker compose down
