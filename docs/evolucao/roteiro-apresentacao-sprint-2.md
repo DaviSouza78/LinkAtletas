@@ -1,5 +1,7 @@
 # Roteiro de apresentação da Sprint 2
 
+Para explicações completas e respostas às perguntas do professor, abrir a [apresentação completa](apresentacao-completa-sprint-2.md).
+
 **Ordem:** ERS → GitHub → arquitetura e serviços → site → testes/API → decisões e próximos passos.
 **Tempo sugerido:** 12–15 minutos. Usar os itens abaixo como lembrete, sem ler os documentos inteiros.
 

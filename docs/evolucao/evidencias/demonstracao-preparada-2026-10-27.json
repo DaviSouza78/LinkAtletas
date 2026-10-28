@@ -1,0 +1,50 @@
+{
+  "executedAt": "2026-10-28T00:52:30.184365+00:00",
+  "environment": "production",
+  "transport": "HTTPS API and direct read-only Neon SQL",
+  "syntheticDataOnly": true,
+  "manualBrowserTest": false,
+  "originalProfileRestored": true,
+  "checks": [
+    {
+      "check": "login admin",
+      "passed": true
+    },
+    {
+      "check": "login athlete",
+      "passed": true
+    },
+    {
+      "check": "login coach",
+      "passed": true
+    },
+    {
+      "check": "DEMO - treino concluido",
+      "passed": true
+    },
+    {
+      "check": "DEMO - treino para executar ao vivo",
+      "passed": true
+    },
+    {
+      "check": "DEMO - rascunho para publicar ao vivo",
+      "passed": true
+    },
+    {
+      "check": "agenda compartilhada",
+      "passed": true
+    },
+    {
+      "check": "solicitacao ficticia pendente para administracao",
+      "passed": true
+    },
+    {
+      "check": "gravacao por HTTPS, leitura direta no Neon e releitura pela API",
+      "passed": true
+    },
+    {
+      "check": "rascunho invisivel para atleta",
+      "passed": true
+    }
+  ]
+}
