@@ -6,6 +6,7 @@ import * as Sharing from 'expo-sharing'
 import type { DocumentPickerAsset } from 'expo-document-picker'
 import type { AppUser } from '../../../shared/contracts'
 import { nativeConfiguration } from '../config/api'
+import { validRole } from '../navigation/access'
 
 const configuration = nativeConfiguration(
   process.env.EXPO_PUBLIC_API_URL,
@@ -98,8 +99,11 @@ export async function authenticate(
   email: string,
   password: string,
   name?: string,
+  role: 'athlete' | 'coach' = 'athlete',
 ) {
   const registering = name !== undefined
+  if (registering && role !== 'athlete' && role !== 'coach')
+    throw new Error('Cadastro publico permite apenas atleta ou treinador.')
   const response = await api<{
     user: AppUser
     token: string
@@ -107,15 +111,19 @@ export async function authenticate(
   }>(`/auth/native/${registering ? 'register' : 'login'}`, 'POST', {
     email,
     password,
-    ...(registering ? { name, role: 'athlete' } : {}),
+    ...(registering ? { name, role } : {}),
   })
-  if (response.user.role !== 'athlete') {
-    // This client is explicitly the athlete application. Invalidate the created session.
+  if (
+    !response.user ||
+    !validRole(response.user.role) ||
+    typeof response.token !== 'string' ||
+    !/^[a-f0-9]{64}$/.test(response.token)
+  ) {
     token = response.token
     await api('/auth/logout', 'POST', {}).catch(() => undefined)
     await forgetSession()
     throw new Error(
-      'Use a interface web para os perfis de treinador e administração.',
+      'Perfil de acesso nao reconhecido. Entre em contato com o responsavel.',
     )
   }
   await storeSession(response.token)
@@ -143,7 +151,7 @@ class SelectedFile extends File {
 }
 export async function upload(
   asset: DocumentPickerAsset,
-  purpose: 'performance' | 'message',
+  purpose: 'performance' | 'message' | 'instruction' | 'verification',
   resourceId: string,
 ) {
   if (API_CONFIGURATION_ERROR) throw new Error(API_CONFIGURATION_ERROR)

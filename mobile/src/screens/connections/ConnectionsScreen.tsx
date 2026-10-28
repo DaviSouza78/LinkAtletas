@@ -5,6 +5,7 @@ import { api } from '../../services/api'
 import { datetime } from '../../utils/format'
 import { useAction } from '../../hooks/useAction'
 import { useRemote } from '../../hooks/useRemote'
+import { useSession } from '../../context/SessionContext'
 import {
   Body,
   Button,
@@ -25,13 +26,15 @@ const status: Record<string, string> = {
 }
 
 export function ConnectionsScreen() {
+  const user = useSession(),
+    coach = user.role === 'coach'
   const remote = useRemote<{ contracts: Contract[] }>('/contracts'),
     action = useAction(),
     [reason, setReason] = useState('')
   const cancel = (contract: Contract) =>
     Alert.alert(
       'Encerrar vínculo',
-      `Deseja encerrar seu vínculo com ${contract.coachName}? Se houver assinatura paga, a vigência segue a confirmação financeira.`,
+      `Deseja encerrar seu vínculo com ${coach ? contract.athleteName : contract.coachName}? Se houver assinatura paga, a vigência segue a confirmação financeira.`,
       [
         { text: 'Voltar', style: 'cancel' },
         {
@@ -62,10 +65,65 @@ export function ConnectionsScreen() {
       </Panel>
       {remote.data?.contracts.map((contract) => (
         <Panel key={contract.id}>
-          <Heading small>{contract.coachName}</Heading>
+          <Heading small>
+            {coach ? contract.athleteName : contract.coachName}
+          </Heading>
           <Body>{status[contract.status] || contract.status}</Body>
           <Body muted>Solicitado em {datetime(contract.createdAt)}</Body>
-          {['active', 'pending', 'suspended'].includes(contract.status) && (
+          {coach && contract.status === 'pending' && (
+            <>
+              <Button
+                title="Aceitar solicitacao"
+                disabled={action.busy}
+                onPress={() =>
+                  Alert.alert(
+                    'Aceitar acompanhamento',
+                    `Ativar vinculo com ${contract.athleteName}?`,
+                    [
+                      { text: 'Voltar', style: 'cancel' },
+                      {
+                        text: 'Aceitar',
+                        onPress: () =>
+                          void action.run(async () => {
+                            await api(`/contracts/${contract.id}`, 'PATCH', {
+                              status: 'active',
+                            })
+                            await remote.reload()
+                          }, 'Vinculo ativado.'),
+                      },
+                    ],
+                  )
+                }
+              />
+              <Button
+                title="Recusar solicitacao"
+                destructive
+                disabled={action.busy}
+                onPress={() =>
+                  Alert.alert(
+                    'Recusar acompanhamento',
+                    'Confirmar recusa desta solicitacao?',
+                    [
+                      { text: 'Voltar', style: 'cancel' },
+                      {
+                        text: 'Recusar',
+                        onPress: () =>
+                          void action.run(async () => {
+                            await api(`/contracts/${contract.id}`, 'PATCH', {
+                              status: 'rejected',
+                            })
+                            await remote.reload()
+                          }, 'Solicitacao recusada.'),
+                      },
+                    ],
+                  )
+                }
+              />
+            </>
+          )}
+          {['active', ...(coach ? [] : ['pending']), 'suspended'].includes(
+            contract.status,
+          ) && (
             <Button
               title={
                 contract.status === 'pending'

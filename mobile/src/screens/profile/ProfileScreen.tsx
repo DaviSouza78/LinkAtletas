@@ -14,6 +14,8 @@ import {
   Panel,
 } from '../../components/ui'
 import { items, number } from '../../utils/forms'
+import { useSession } from '../../context/SessionContext'
+import { CoachVerification } from '../verification/CoachVerification'
 
 export function ProfileScreen({
   onUpdated,
@@ -22,8 +24,10 @@ export function ProfileScreen({
 }) {
   const remote = useRemote<{ profile: Profile }>('/profiles/me'),
     action = useAction()
+  const user = useSession()
   const [form, setForm] = useState<ProfileInput | null>(null),
-    [budget, setBudget] = useState('')
+    [budget, setBudget] = useState(''),
+    [price, setPrice] = useState('')
   useEffect(() => {
     if (remote.data) {
       const p = remote.data.profile
@@ -40,6 +44,7 @@ export function ProfileScreen({
         price: p.price,
       })
       setBudget(String(p.budget))
+      setPrice(String(p.price))
     }
   }, [remote.data])
   const patch = (value: Partial<ProfileInput>) =>
@@ -110,9 +115,13 @@ export function ProfileScreen({
             }
           />
           <Field
-            label="Orçamento mensal (R$)"
-            value={budget}
-            onChange={setBudget}
+            label={
+              user.role === 'coach'
+                ? 'Preco mensal (R$)'
+                : 'Orçamento mensal (R$)'
+            }
+            value={user.role === 'coach' ? price : budget}
+            onChange={user.role === 'coach' ? setPrice : setBudget}
             numeric
           />
           <Button
@@ -123,7 +132,7 @@ export function ProfileScreen({
                 const { profile } = await api<{ profile: Profile }>(
                   '/profiles/me',
                   'PUT',
-                  { ...form, budget: number(budget) },
+                  { ...form, budget: number(budget), price: number(price) },
                 )
                 onUpdated(profile.name)
                 await remote.reload()
@@ -131,6 +140,12 @@ export function ProfileScreen({
             }
           />
         </Panel>
+      )}
+      {user.role === 'coach' && remote.data && (
+        <CoachVerification
+          currentStatus={remote.data.profile.verificationStatus}
+          onChange={remote.reload}
+        />
       )}
     </>
   )

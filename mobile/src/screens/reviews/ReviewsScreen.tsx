@@ -17,8 +17,13 @@ import {
   Panel,
 } from '../../components/ui'
 import { ContractSelector } from '../../components/connections/ContractSelector'
+import { useSession } from '../../context/SessionContext'
 
 export function ReviewsScreen() {
+  const user = useSession(),
+    coach = user.role === 'coach'
+  const [replies, setReplies] = useState<Record<string, string>>({}),
+    [reportReasons, setReportReasons] = useState<Record<string, string>>({})
   const contracts = useRemote<{ contracts: Contract[] }>('/contracts'),
     [contractId, setContractId] = useState(''),
     [rating, setRating] = useState('5'),
@@ -34,7 +39,9 @@ export function ReviewsScreen() {
     reviews: Review[]
     average: number
     count: number
-  }>(`/reviews${selected ? `?coachId=${selected.coachId}` : ''}`)
+  }>(
+    `/reviews${coach ? `?coachId=${user.id}` : selected ? `?coachId=${selected.coachId}` : ''}`,
+  )
   useEffect(() => {
     if (!contractId && choices.length) setContractId(choices[0].id)
   }, [contracts.data, contractId])
@@ -48,15 +55,17 @@ export function ReviewsScreen() {
       {remote.error && <Notice message={remote.error} error />}
       {action.error && <Notice message={action.error} error />}
       {action.notice && <Notice message={action.notice} />}
-      <ContractSelector
-        contracts={choices}
-        selected={contractId}
-        onChange={(id) => {
-          setContractId(id)
-          setEditing(null)
-          setText('')
-        }}
-      />
+      {!coach && (
+        <ContractSelector
+          contracts={choices}
+          selected={contractId}
+          onChange={(id) => {
+            setContractId(id)
+            setEditing(null)
+            setText('')
+          }}
+        />
+      )}
       {remote.data && (
         <Panel>
           <Heading small>{remote.data.average.toFixed(1)} / 5</Heading>
@@ -66,7 +75,7 @@ export function ReviewsScreen() {
           </Body>
         </Panel>
       )}
-      {selected && (editing || !mine) && (
+      {!coach && selected && (editing || !mine) && (
         <Panel>
           <Heading small>
             {editing ? 'Editar avaliação' : 'Avalie o acompanhamento'}
@@ -124,21 +133,66 @@ export function ReviewsScreen() {
               <Body>{review.reply}</Body>
             </>
           )}
-          {review.contractId === contractId && (
-            <Button
-              title="Editar minha avaliação"
-              secondary
-              onPress={() => {
-                setEditing(review.id)
-                setRating(String(review.rating))
-                setText(review.text)
-              }}
-            />
+          {!coach &&
+            review.athleteId === user.id &&
+            review.contractId === contractId && (
+              <Button
+                title="Editar minha avaliação"
+                secondary
+                onPress={() => {
+                  setEditing(review.id)
+                  setRating(String(review.rating))
+                  setText(review.text)
+                }}
+              />
+            )}
+          {coach && review.coachId === user.id && (
+            <>
+              <Field
+                label="Resposta ao atleta"
+                value={replies[review.id] ?? review.reply ?? ''}
+                onChange={(value) =>
+                  setReplies((previous) => ({
+                    ...previous,
+                    [review.id]: value,
+                  }))
+                }
+                multiline
+              />
+              <Button
+                title="Salvar resposta"
+                disabled={
+                  action.busy ||
+                  !(replies[review.id] ?? review.reply ?? '').trim()
+                }
+                onPress={() =>
+                  void action.run(async () => {
+                    await api(`/reviews/${review.id}/reply`, 'POST', {
+                      text: replies[review.id] ?? review.reply ?? '',
+                    })
+                    await remote.reload()
+                  }, 'Resposta registrada.')
+                }
+              />
+            </>
           )}
+          <Field
+            label="Motivo da denuncia"
+            value={reportReasons[review.id] || ''}
+            onChange={(value) =>
+              setReportReasons((previous) => ({
+                ...previous,
+                [review.id]: value,
+              }))
+            }
+            multiline
+          />
           <Button
             title="Denunciar conteúdo"
             secondary
-            disabled={action.busy}
+            disabled={
+              action.busy || (reportReasons[review.id] || '').trim().length < 5
+            }
             onPress={() =>
               Alert.alert(
                 'Denunciar avaliação',
@@ -150,8 +204,7 @@ export function ReviewsScreen() {
                     onPress: () =>
                       void action.run(async () => {
                         await api(`/reviews/${review.id}/report`, 'POST', {
-                          reason:
-                            'Participante solicita análise desta publicação pelo aplicativo.',
+                          reason: reportReasons[review.id],
                         })
                       }, 'Pedido de revisão registrado.'),
                   },

@@ -30,8 +30,12 @@ vi.mock('expo-file-system', () => ({
     constructor(readonly uri: string) {
       super([new Uint8Array([137, 80, 78, 71])], { type: 'image/png' })
     }
-    get name() { return this.uri.split('/').at(-1) || '' }
-    async bytes() { return new Uint8Array(await this.arrayBuffer()) }
+    get name() {
+      return this.uri.split('/').at(-1) || ''
+    }
+    async bytes() {
+      return new Uint8Array(await this.arrayBuffer())
+    }
   },
 }))
 vi.mock('expo-sharing', () => ({
@@ -55,6 +59,7 @@ const fetcher = vi.fn<typeof fetch>()
 beforeEach(() => {
   vi.resetModules()
   vi.clearAllMocks()
+  fetcher.mockReset()
   native.storage.clear()
   vi.stubGlobal('__DEV__', true)
   vi.stubGlobal('fetch', fetcher)
@@ -79,19 +84,33 @@ async function loggedIn() {
   return client
 }
 describe('Transporte do cliente nativo com módulos nativos controlados', () => {
-  it('envia bytes e nome original do arquivo em multipart compativel com fetch', async () => {
-    const client = await loggedIn()
-    fetcher.mockResolvedValueOnce(response({ media: { id: 'media-test' } }))
-    await client.upload({ uri: 'file:///private/cache/aleatorio.png', name: 'corrida.png', mimeType: 'image/png', lastModified: 0 }, 'performance', athlete.id)
-    const [url, options] = fetcher.mock.calls.at(-1)!
-    expect(url).toContain('/media?purpose=performance&resourceId=')
-    const form = options!.body as FormData
-    const file = form.get('file') as File
-    expect(file.name).toBe('corrida.png')
-    expect(file.type).toBe('image/png')
-    expect(new Uint8Array(await file.arrayBuffer())).toEqual(new Uint8Array([137, 80, 78, 71]))
-    expect(options!.headers).toEqual({ Authorization: `Bearer ${secret}` })
-  })
+  it.each(['performance', 'message', 'instruction', 'verification'] as const)(
+    'envia bytes, nome e finalidade %s em multipart',
+    async (purpose) => {
+      const client = await loggedIn()
+      fetcher.mockResolvedValueOnce(response({ media: { id: 'media-test' } }))
+      await client.upload(
+        {
+          uri: 'file:///private/cache/aleatorio.png',
+          name: 'corrida.png',
+          mimeType: 'image/png',
+          lastModified: 0,
+        },
+        purpose,
+        athlete.id,
+      )
+      const [url, options] = fetcher.mock.calls.at(-1)!
+      expect(url).toContain(`/media?purpose=${purpose}&resourceId=`)
+      const form = options!.body as FormData
+      const file = form.get('file') as File
+      expect(file.name).toBe('corrida.png')
+      expect(file.type).toBe('image/png')
+      expect(new Uint8Array(await file.arrayBuffer())).toEqual(
+        new Uint8Array([137, 80, 78, 71]),
+      )
+      expect(options!.headers).toEqual({ Authorization: `Bearer ${secret}` })
+    },
+  )
   it('cadastro com nome vazio mantém a rota de cadastro e recebe validação do servidor', async () => {
     const client = await import('../src/services/api')
     fetcher.mockResolvedValueOnce(
@@ -119,19 +138,77 @@ describe('Transporte do cliente nativo com módulos nativos controlados', () => 
     })
     expect(options?.headers).not.toHaveProperty('Origin')
   })
-  it('recusa perfil treinador e invalida sessão criada antes de persistir', async () => {
+  it('recusa perfil desconhecido e invalida sessao criada antes de persistir', async () => {
     const client = await import('../src/services/api')
     fetcher
       .mockResolvedValueOnce(
-        response({ user: { ...athlete, role: 'coach' }, token: secret }),
+        response({ user: { ...athlete, role: 'unsupported' }, token: secret }),
       )
       .mockResolvedValueOnce(response({ ok: true }))
     await expect(
       client.authenticate(athlete.email, 'SenhaTeste123!'),
-    ).rejects.toThrow('interface web')
+    ).rejects.toThrow('nao reconhecido')
     expect(fetcher.mock.calls[1][0]).toContain('/auth/logout')
     expect(native.storage.size).toBe(0)
   })
+  it.each(['athlete', 'coach', 'admin'])(
+    'autentica e restaura sessao do papel %s',
+    async (role) => {
+      const client = await import('../src/services/api')
+      fetcher.mockResolvedValueOnce(
+        response({ user: { ...athlete, role }, token: secret }),
+      )
+      const user = await client.authenticate(athlete.email, 'SenhaTeste123!')
+      expect(user.role).toBe(role)
+      expect(native.storage.get('linkatletas.session')).toBe(secret)
+      expect(await client.loadSession()).toBe(secret)
+      fetcher.mockResolvedValueOnce(response({ user: { ...athlete, role } }))
+      expect(
+        (await client.api<{ user: { role: string } }>('/auth/session')).user
+          .role,
+      ).toBe(role)
+    },
+  )
+  it.each(['athlete', 'coach'] as const)(
+    'envia cadastro publico de %s',
+    async (role) => {
+      const client = await import('../src/services/api')
+      fetcher.mockResolvedValueOnce(
+        response({ user: { ...athlete, role }, token: secret }),
+      )
+      await client.authenticate(
+        athlete.email,
+        'SenhaTeste123!',
+        'Conta teste',
+        role,
+      )
+      expect(fetcher.mock.calls[0][0]).toContain('/auth/native/register')
+      expect(JSON.parse(String(fetcher.mock.calls[0][1]?.body))).toMatchObject({
+        role,
+        name: 'Conta teste',
+      })
+    },
+  )
+  it.each(['athlete', 'coach', 'admin'])(
+    'preserva sessao de %s diante de resposta de permissao negada',
+    async (role) => {
+      const client = await import('../src/services/api')
+      fetcher.mockResolvedValueOnce(
+        response({ user: { ...athlete, role }, token: secret }),
+      )
+      await client.authenticate(athlete.email, 'SenhaTeste123!')
+      fetcher.mockResolvedValueOnce(
+        response(
+          { code: 'FORBIDDEN', message: 'Operacao nao permitida.' },
+          403,
+        ),
+      )
+      await expect(client.api('/admin/verifications')).rejects.toThrow(
+        'Operacao nao permitida.',
+      )
+      expect(native.storage.get('linkatletas.session')).toBe(secret)
+    },
+  )
   it('nega sessão expirada, apaga token e avisa a aplicação', async () => {
     const client = await loggedIn(),
       expired = vi.fn()
@@ -215,26 +292,44 @@ describe('Transporte do cliente nativo com módulos nativos controlados', () => 
     )
     expect(fetcher).not.toHaveBeenCalled()
     expect(client.connectEvents(() => undefined)).toBeNull()
-    await expect(client.shareMedia({
-      id: athlete.id, ownerId: athlete.id, resourceId: athlete.id,
-      purpose: 'message', name: 'privado.pdf', mimeType: 'application/pdf', size: 10, createdAt: '',
-    })).rejects.toThrow('HTTPS')
+    await expect(
+      client.shareMedia({
+        id: athlete.id,
+        ownerId: athlete.id,
+        resourceId: athlete.id,
+        purpose: 'message',
+        name: 'privado.pdf',
+        mimeType: 'application/pdf',
+        size: 10,
+        createdAt: '',
+      }),
+    ).rejects.toThrow('HTTPS')
     expect(native.download).not.toHaveBeenCalled()
   })
   it('remove cópia parcial de mídia quando o download falha', async () => {
     const client = await loggedIn()
     native.download.mockRejectedValueOnce(new Error('download interrompido'))
-    await expect(client.shareMedia({
-      id: athlete.id, ownerId: athlete.id, resourceId: athlete.id,
-      purpose: 'message', name: 'privado.pdf', mimeType: 'application/pdf', size: 10, createdAt: '',
-    })).rejects.toThrow('download interrompido')
+    await expect(
+      client.shareMedia({
+        id: athlete.id,
+        ownerId: athlete.id,
+        resourceId: athlete.id,
+        purpose: 'message',
+        name: 'privado.pdf',
+        mimeType: 'application/pdf',
+        size: 10,
+        createdAt: '',
+      }),
+    ).rejects.toThrow('download interrompido')
     expect(native.deleted).toHaveBeenCalledOnce()
     expect(native.share).not.toHaveBeenCalled()
   })
   it('remove exportação parcial quando a gravação falha', async () => {
     const client = await loggedIn()
     native.write.mockRejectedValueOnce(new Error('disco indisponível'))
-    await expect(client.shareExport({ health: 'dado privado fictício' })).rejects.toThrow('disco indisponível')
+    await expect(
+      client.shareExport({ health: 'dado privado fictício' }),
+    ).rejects.toThrow('disco indisponível')
     expect(native.deleted).toHaveBeenCalledOnce()
     expect(native.share).not.toHaveBeenCalled()
   })

@@ -1,6 +1,6 @@
-# LinkAtletas — aplicativo do atleta
+# LinkAtletas — aplicativo móvel
 
-Cliente React Native/Expo da mesma API Node/PostgreSQL. Perfis de treinador e administrador usam a interface web. Não há servidor nem dados fictícios próprios no aplicativo.
+Cliente React Native/Expo da mesma API Node/PostgreSQL, com sessão e navegação por perfil de atleta, treinador e administrador. Não há servidor nem banco de dados próprio no aplicativo. A ampliação dos perfis está descrita no [plano de equivalência web/mobile](docs/equivalencia-web-mobile.md), incluindo diferenças e verificações ainda necessárias.
 
 API pública: `https://link-atletas.vercel.app/api`. O [APK HTTPS compilado e seu ensaio em emulador](../docs/evolucao/evidencias/android/android-nuvem-2026-10-26.json) estão identificados pelo commit e pelo hash do artefato. Os resultados históricos e locais nas seções seguintes conservam seu alcance; início em emulador não comprova uso em aparelho físico ou publicação nas lojas.
 
@@ -12,6 +12,7 @@ API pública: `https://link-atletas.vercel.app/api`. O [APK HTTPS compilado e se
 | [tests](tests/README.md) | Testes de configuração, sessão, transporte e arquivos, com dependências nativas controladas. |
 | [plugins](plugins/README.md) | Configuração nativa de rede para diferenciar APK local de produção. |
 | [scripts](scripts/README.md) | Conferência reproduzível das dependências do SDK instalado. |
+| [docs/equivalencia-web-mobile.md](docs/equivalencia-web-mobile.md) | Escopo, comparação com a web, etapas implementadas, testes e pendências. |
 
 | Arquivo da raiz | Função |
 |---|---|
@@ -71,8 +72,12 @@ Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/e
 - Avaliações elegíveis, edição, leitura de resposta e pedido de moderação.
 - Notificações persistidas, financeiro e acesso ao checkout hospedado somente quando configurado.
 - Consentimentos versionados, dados privados de saúde, exportação e solicitação de exclusão com senha.
+- Treinador: cadastro, perfil/preço/CREF, decisão dos vínculos, rascunho/edição/publicação de treinos, orientação privada e feedback, respostas a avaliações e plano/carteira.
+- Administrador: conferência manual de CREF, aprovação/recusa/suspensão/revogação, moderação de avaliações, regras financeiras, pedidos de privacidade e avisos.
 
-Recuperação: o e-mail enviado contém o link web seguro de redefinição. O usuário pode abri-lo no navegador ou copiar o token após `token=` para a tela “Redefinir senha” do aplicativo. O esquema `linkatletas` está reservado para integração futura; não há universal links homologados. A criação OAuth de evento Google acontece na interface web quando configurada; o aplicativo abre a referência persistida, sem criar convites em segundo plano.
+Os três perfis são derivados da sessão autenticada; o cadastro público permite somente atleta e treinador. Cada perfil visualiza seus destinos, e a API mantém a autorização por recurso. Treinos executados não são editados. As listas persistidas são atualizadas a cada 15 segundos somente em primeiro plano e ao retornar ao aplicativo; a proteção de formulários evita recargas periódicas durante edição de perfil.
+
+Recuperação: o e-mail enviado contém o link web seguro de redefinição. O usuário pode abri-lo no navegador ou copiar o token após `token=` para a tela “Redefinir senha” do aplicativo. O esquema `linkatletas` está reservado para integração futura; não há universal links homologados. A criação OAuth de evento Google continua específica da interface web; o aplicativo permite informar/abrir reunião HTTPS e concluir consultorias, mas ainda não cria eventos Google automaticamente. Isso permanece como diferença explícita no plano.
 
 ## Sessão e arquivos privados
 

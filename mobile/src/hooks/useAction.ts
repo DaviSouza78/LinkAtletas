@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export function useAction() {
+  const running = useRef(false)
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [notice, setNotice] = useState('')
   const run = async (action: () => Promise<void>, success = '') => {
-    if (busy) return
+    if (running.current) return
+    running.current = true
     setBusy(true)
     setError('')
     setNotice('')
@@ -19,6 +21,7 @@ export function useAction() {
           : 'Não foi possível concluir a ação.',
       )
     } finally {
+      running.current = false
       setBusy(false)
     }
   }

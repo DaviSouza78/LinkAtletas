@@ -5,6 +5,7 @@ import type { MetricType, Workout } from '../../../../shared/contracts'
 import { api, shareMedia, upload, type Media } from '../../services/api'
 import { useAction } from '../../hooks/useAction'
 import { useRemote } from '../../hooks/useRemote'
+import { useSession } from '../../context/SessionContext'
 import {
   Body,
   Button,
@@ -33,6 +34,9 @@ export function WorkoutDetail({
   workout: Workout
   onBack: () => void
 }) {
+  const user = useSession(),
+    coach = user.role === 'coach'
+  const [feedback, setFeedback] = useState<Record<string, string>>({})
   const action = useAction(),
     metrics = useRemote<{ metrics: MetricType[] }>(
       `/metrics?sport=${encodeURIComponent(workout.sport)}`,
@@ -82,7 +86,11 @@ export function WorkoutDetail({
         multiple: false,
       })
       if (result.canceled) return
-      await upload(result.assets[0], 'performance', workout.id)
+      await upload(
+        result.assets[0],
+        coach ? 'instruction' : 'performance',
+        workout.id,
+      )
       await files.reload()
     })
   return (
@@ -122,50 +130,82 @@ export function WorkoutDetail({
           )}
         </Panel>
       ))}
-      <Panel>
-        <Heading small>Registre sua execução</Heading>
-        <Choices
-          label="Blocos realizados"
-          multiple
-          options={workout.blocks.map((block, index) => ({
-            id: String(index),
-            label: block.name,
-          }))}
-          selected={completed}
-          onChange={setCompleted}
-        />
-        <Field
-          label="Percepção de esforço (1 a 10)"
-          value={effort}
-          onChange={setEffort}
-          numeric
-        />
-        {metrics.loading && <Loading />}
-        {metrics.error && <Notice message={metrics.error} error />}
-        {metrics.data?.metrics.map((metric) => (
-          <Field
-            key={metric.key}
-            label={`${metric.label} (${metric.unit})`}
-            value={values[metric.key] || ''}
-            onChange={(value) =>
-              setValues((current) => ({ ...current, [metric.key]: value }))
-            }
-            numeric
-            hint={`Valores de ${metric.min} a ${metric.max}. Deixe vazio se não mediu.`}
+      {!coach && (
+        <Panel>
+          <Heading small>Registre sua execução</Heading>
+          <Choices
+            label="Blocos realizados"
+            multiple
+            options={workout.blocks.map((block, index) => ({
+              id: String(index),
+              label: block.name,
+            }))}
+            selected={completed}
+            onChange={setCompleted}
           />
-        ))}
-        <Field
-          label="Notas ao treinador"
-          value={notes}
-          onChange={setNotes}
-          multiline
-        />
-        <Button
-          title="Salvar execução"
-          disabled={action.busy}
-          onPress={() => void save()}
-        />
-      </Panel>
+          <Field
+            label="Percepção de esforço (1 a 10)"
+            value={effort}
+            onChange={setEffort}
+            numeric
+          />
+          {metrics.loading && <Loading />}
+          {metrics.error && <Notice message={metrics.error} error />}
+          {metrics.data?.metrics.map((metric) => (
+            <Field
+              key={metric.key}
+              label={`${metric.label} (${metric.unit})`}
+              value={values[metric.key] || ''}
+              onChange={(value) =>
+                setValues((current) => ({ ...current, [metric.key]: value }))
+              }
+              numeric
+              hint={`Valores de ${metric.min} a ${metric.max}. Deixe vazio se não mediu.`}
+            />
+          ))}
+          <Field
+            label="Notas ao treinador"
+            value={notes}
+            onChange={setNotes}
+            multiline
+          />
+          <Button
+            title="Salvar execução"
+            disabled={action.busy}
+            onPress={() => void save()}
+          />
+        </Panel>
+      )}
+      {coach && (
+        <Panel>
+          <Heading small>Retorno do atleta: {workout.athleteName}</Heading>
+          <Body>
+            {workout.execution
+              ? `Esforco: ${workout.execution.effort}/10`
+              : 'Execucao ainda nao registrada.'}
+          </Body>
+          {workout.execution && (
+            <>
+              <Body>
+                Blocos:{' '}
+                {workout.execution.completedBlocks
+                  .map(
+                    (index) => workout.blocks[index]?.name || String(index + 1),
+                  )
+                  .join(', ')}
+              </Body>
+              <Body>{workout.execution.notes}</Body>
+              {Object.entries(workout.execution.metrics).map(([key, value]) => (
+                <Body key={key}>
+                  {metrics.data?.metrics.find((item) => item.key === key)
+                    ?.label || key}
+                  : {value}
+                </Body>
+              ))}
+            </>
+          )}
+        </Panel>
+      )}
       <Panel>
         <Heading small>Vídeos e correções</Heading>
         <Body muted>
@@ -173,7 +213,11 @@ export function WorkoutDetail({
           Imagens/documentos até 10 MiB e vídeos até 50 MiB.
         </Body>
         <Button
-          title="Enviar arquivo de performance"
+          title={
+            coach
+              ? 'Enviar orientacao privada'
+              : 'Enviar arquivo de performance'
+          }
           disabled={action.busy}
           onPress={() => void attach()}
         />
@@ -200,7 +244,7 @@ export function WorkoutDetail({
                 })
               }
             />
-            {media.purpose === 'performance' && (
+            {media.ownerId === user.id && (
               <Button
                 title="Excluir arquivo"
                 destructive
@@ -232,6 +276,31 @@ export function WorkoutDetail({
               <Body>{feedback.text}</Body>
             </Panel>
           ))}
+          {coach && media.purpose === 'performance' && (
+            <>
+              <Field
+                label="Correcao ao atleta"
+                value={feedback[media.id] || ''}
+                onChange={(text) =>
+                  setFeedback((previous) => ({ ...previous, [media.id]: text }))
+                }
+                multiline
+              />
+              <Button
+                title="Enviar correcao"
+                disabled={action.busy || !(feedback[media.id] || '').trim()}
+                onPress={() =>
+                  void action.run(async () => {
+                    await api(`/media/${media.id}/feedback`, 'POST', {
+                      text: feedback[media.id],
+                    })
+                    setFeedback((previous) => ({ ...previous, [media.id]: '' }))
+                    await files.reload()
+                  }, 'Correcao registrada.')
+                }
+              />
+            </>
+          )}
         </Panel>
       ))}
     </>

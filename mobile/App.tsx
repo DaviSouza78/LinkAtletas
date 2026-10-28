@@ -32,29 +32,29 @@ import { NotificationsScreen } from './src/screens/notifications/NotificationsSc
 import { FinanceScreen } from './src/screens/billing/FinanceScreen'
 import { PrivacyScreen } from './src/screens/privacy/PrivacyScreen'
 import { Body, Button, Loading, colors } from './src/components/ui'
+import { SessionContext } from './src/context/SessionContext'
+import {
+  navigation,
+  canNavigate,
+  validRole,
+  type Destination,
+} from './src/navigation/access'
+import { AdminHomeScreen } from './src/screens/admin/AdminHomeScreen'
+import { AdminVerificationScreen } from './src/screens/admin/AdminVerificationScreen'
+import { AdminReviewsScreen } from './src/screens/admin/AdminReviewsScreen'
+import { AdminBillingScreen } from './src/screens/admin/AdminBillingScreen'
+import { AdminPrivacyScreen } from './src/screens/admin/AdminPrivacyScreen'
+import { CoachWorkoutsScreen } from './src/screens/workouts/CoachWorkoutsScreen'
 
-const tabs = [
-  'Início',
-  'Treinos',
-  'Buscar',
-  'Vínculos',
-  'Mensagens',
-  'Agenda',
-  'Avaliações',
-  'Financeiro',
-  'Avisos',
-  'Perfil',
-  'Privacidade',
-] as const
-type Tab = (typeof tabs)[number]
 export default function App() {
   const [user, setUser] = useState<AppUser | null>(null),
     [initializing, setInitializing] = useState(true),
-    [tab, setTab] = useState<Tab>('Início')
+    [tab, setTab] = useState<Destination>('Início')
   const [sessionNotice, setSessionNotice] = useState(API_CONFIGURATION_ERROR)
   useEffect(() => {
     const dispose = onSessionExpired(() => {
       setUser(null)
+      setTab('Início')
       setSessionNotice('Sua sessão encerrou. Entre novamente.')
     })
     loadSession()
@@ -63,7 +63,7 @@ export default function App() {
         const { user: account } = await api<{ user: AppUser | null }>(
           '/auth/session',
         )
-        if (account?.role === 'athlete') setUser(account)
+        if (account && validRole(account.role)) setUser(account)
         else await forgetSession()
       })
       .catch(() => {
@@ -86,16 +86,28 @@ export default function App() {
           notice={sessionNotice}
           onAuthenticated={(account) => {
             setUser(account)
+            setTab('Início')
             setSessionNotice('')
           }}
         />
       )
-    const navigation = (target: string) => setTab(target as Tab)
-    switch (tab) {
+    const navigate = (target: string) => {
+      if (canNavigate(user.role, target)) setTab(target)
+    }
+    const destination = canNavigate(user.role, tab) ? tab : 'Início'
+    switch (destination) {
       case 'Início':
-        return <HomeScreen name={user.name} navigate={navigation} />
+        return user.role === 'admin' ? (
+          <AdminHomeScreen navigate={navigate} />
+        ) : (
+          <HomeScreen name={user.name} navigate={navigate} />
+        )
       case 'Treinos':
-        return <WorkoutsScreen />
+        return user.role === 'coach' ? (
+          <CoachWorkoutsScreen />
+        ) : (
+          <WorkoutsScreen />
+        )
       case 'Buscar':
         return <DiscoverScreen />
       case 'Vínculos':
@@ -123,6 +135,14 @@ export default function App() {
             }}
           />
         )
+      case 'CREF':
+        return <AdminVerificationScreen />
+      case 'Moderacao':
+        return <AdminReviewsScreen />
+      case 'Regras financeiras':
+        return <AdminBillingScreen />
+      case 'Pedidos de privacidade':
+        return <AdminPrivacyScreen />
     }
   }
   return (
@@ -142,8 +162,8 @@ export default function App() {
                 {LOCAL_DEMO
                   ? 'Ambiente de demonstração local'
                   : user
-                  ? 'Seu acompanhamento, perto de você'
-                  : 'Conecte seu próximo passo'}
+                    ? 'Seu acompanhamento, perto de você'
+                    : 'Conecte seu próximo passo'}
               </Body>
             </View>
             {user && (
@@ -157,7 +177,7 @@ export default function App() {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={layout.tabs}
               >
-                {tabs.map((item) => (
+                {navigation[user.role].map((item) => (
                   <Button
                     key={item}
                     title={item}
@@ -172,7 +192,9 @@ export default function App() {
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={layout.content}
           >
-            {initializing ? <Loading /> : content()}
+            <SessionContext.Provider value={user}>
+              {initializing ? <Loading /> : content()}
+            </SessionContext.Provider>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>

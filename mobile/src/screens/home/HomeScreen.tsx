@@ -1,5 +1,6 @@
 import type { Dashboard } from '../../../../shared/contracts'
 import { useRemote } from '../../hooks/useRemote'
+import { useSession } from '../../context/SessionContext'
 import {
   Body,
   Button,
@@ -17,6 +18,7 @@ export function HomeScreen({
   name: string
   navigate: (target: string) => void
 }) {
+  const user = useSession()
   const remote = useRemote<Dashboard>('/dashboard')
   return (
     <>
@@ -38,8 +40,12 @@ export function HomeScreen({
               vínculo(s) ativo(s)
             </Body>
             <Body>
-              {remote.data.workouts.filter((w) => !w.execution).length}{' '}
-              treino(s) aguardando registro
+              {
+                remote.data.workouts.filter(
+                  (w) => !w.execution && w.status === 'published',
+                ).length
+              }{' '}
+              treino(s) publicados aguardando registro
             </Body>
             <Row>
               <Button title="Ver treinos" onPress={() => navigate('Treinos')} />
@@ -70,7 +76,7 @@ export function HomeScreen({
               />
             </Panel>
           ))}
-          {!remote.data.contracts.length && (
+          {!remote.data.contracts.length && user.role === 'athlete' && (
             <Panel>
               <Heading small>Encontre seu treinador</Heading>
               <Body>
@@ -88,6 +94,28 @@ export function HomeScreen({
                   onPress={() => navigate('Buscar')}
                 />
               </Row>
+            </Panel>
+          )}
+          {user.role === 'coach' && (
+            <Panel>
+              <Heading small>Seu trabalho como treinador</Heading>
+              <Body>
+                {
+                  remote.data.contracts.filter(
+                    (item) => item.status === 'pending',
+                  ).length
+                }{' '}
+                solicitacoes aguardando decisao.
+              </Body>
+              <Button
+                title="Gerenciar vinculos"
+                onPress={() => navigate('Vínculos')}
+              />
+              <Button
+                title="Perfil e CREF"
+                secondary
+                onPress={() => navigate('Perfil')}
+              />
             </Panel>
           )}
         </>

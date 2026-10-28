@@ -5,6 +5,7 @@ import { useAction } from '../../hooks/useAction'
 import {
   Body,
   Button,
+  Choices,
   Field,
   Heading,
   Notice,
@@ -27,6 +28,7 @@ export function AuthScreen({
     [name, setName] = useState(''),
     [token, setToken] = useState('')
   const action = useAction()
+  const [role, setRole] = useState<'athlete' | 'coach'>('athlete')
   const submit = () =>
     action.run(
       async () => {
@@ -48,6 +50,7 @@ export function AuthScreen({
             email.trim(),
             password,
             mode === 'register' ? name.trim() : undefined,
+            role,
           ),
         )
       },
@@ -69,15 +72,25 @@ export function AuthScreen({
               : 'Redefinir senha'}
       </Heading>
       <Body muted>
-        Aplicativo do atleta. Treinadores e administradores usam a interface
-        web.
+        Entre com sua conta de atleta, treinador ou administrador.
       </Body>
       {notice && <Notice message={notice} />}
       {action.error && <Notice message={action.error} error />}
       {action.notice && <Notice message={action.notice} />}
       <Panel>
         {mode === 'register' && (
-          <Field label="Nome" value={name} onChange={setName} />
+          <>
+            <Field label="Nome" value={name} onChange={setName} />
+            <Choices
+              label="Tipo de conta"
+              options={[
+                { id: 'athlete', label: 'Atleta' },
+                { id: 'coach', label: 'Treinador' },
+              ]}
+              selected={[role]}
+              onChange={(values) => setRole(values[0] as 'athlete' | 'coach')}
+            />
+          </>
         )}
         {mode !== 'reset' && (
           <Field label="E-mail" value={email} onChange={setEmail} email />

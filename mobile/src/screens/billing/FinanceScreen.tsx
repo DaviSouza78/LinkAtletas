@@ -1,11 +1,18 @@
 import { useState } from 'react'
-import { Alert, Linking } from 'react-native'
+import { Alert } from 'react-native'
+import { openExternal } from '../../services/externalLinks'
 import type { Contract } from '../../../../shared/contracts'
-import type { BillingConfig, BillingSubscription, BillingSummary } from '../../../../shared/billing-contracts'
+import type {
+  BillingConfig,
+  BillingSubscription,
+  BillingSummary,
+} from '../../../../shared/billing-contracts'
 import { api } from '../../services/api'
 import { datetime, money } from '../../utils/format'
 import { useAction } from '../../hooks/useAction'
 import { useRemote } from '../../hooks/useRemote'
+import { useSession } from '../../context/SessionContext'
+import { CoachBillingSettings } from './CoachBillingSettings'
 import {
   Body,
   Button,
@@ -28,6 +35,7 @@ const billingState: Record<string, string> = {
 }
 
 export function FinanceScreen() {
+  const coach = useSession().role === 'coach'
   const config = useRemote<BillingConfig>('/billing/config'),
     summary = useRemote<BillingSummary>('/billing/summary'),
     contracts = useRemote<{ contracts: Contract[] }>('/contracts'),
@@ -80,7 +88,24 @@ export function FinanceScreen() {
           </Body>
         </Panel>
       )}
-      {config.data?.available &&
+      {summary.data && (
+        <Panel>
+          <Body>
+            Total confirmado: {money(summary.data.totals.receivedCents)}
+          </Body>
+          <Body>
+            Parcela estimada dos treinadores:{' '}
+            {money(summary.data.totals.coachShareCents)}
+          </Body>
+          <Body>
+            Parcela estimada da plataforma:{' '}
+            {money(summary.data.totals.platformShareCents)}
+          </Body>
+        </Panel>
+      )}
+      {coach && <CoachBillingSettings />}
+      {!coach &&
+        config.data?.available &&
         contracts.data?.contracts
           .filter((contract) => contract.status === 'active')
           .map((contract) => (
@@ -96,7 +121,7 @@ export function FinanceScreen() {
                     }>('/billing/checkout', 'POST', { contractId: contract.id })
                     await summary.reload()
                     if (subscription.checkoutUrl?.startsWith('https://'))
-                      await Linking.openURL(subscription.checkoutUrl)
+                      await openExternal(subscription.checkoutUrl)
                     else
                       throw new Error(
                         'Checkout aguarda confirmação do provedor.',
@@ -124,10 +149,10 @@ export function FinanceScreen() {
               <Button
                 title="Abrir checkout hospedado"
                 secondary
-                onPress={() => {
-                  if (subscription.checkoutUrl?.startsWith('https://'))
-                    void Linking.openURL(subscription.checkoutUrl)
-                }}
+                disabled={action.busy}
+                onPress={() =>
+                  void action.run(() => openExternal(subscription.checkoutUrl!))
+                }
               />
             )}
           <Body muted>

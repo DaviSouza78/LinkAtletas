@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Alert, Linking } from 'react-native'
+import { Alert } from 'react-native'
+import { externalHttps, openExternal } from '../../services/externalLinks'
 import type { Contract } from '../../../../shared/contracts'
 import type { Consultation } from '../../../../shared/interaction-contracts'
 import { api } from '../../services/api'
@@ -19,8 +20,11 @@ import {
 } from '../../components/ui'
 import { useEvents } from '../../hooks/useEvents'
 import { ContractSelector } from '../../components/connections/ContractSelector'
+import { useSession } from '../../context/SessionContext'
 
 export function AgendaScreen() {
+  const coach = useSession().role === 'coach'
+  const [meetingUrl, setMeetingUrl] = useState('')
   const remote = useRemote<{ consultations: Consultation[] }>('/consultations'),
     contracts = useRemote<{ contracts: Contract[] }>('/contracts'),
     action = useAction()
@@ -47,7 +51,10 @@ export function AgendaScreen() {
   useEvents((event) => {
     if (event.type === 'consultation') void remote.reload()
   })
-  const update = (item: Consultation, status: 'cancelled' | 'scheduled') =>
+  const update = (
+    item: Consultation,
+    status: 'cancelled' | 'scheduled' | 'completed',
+  ) =>
     action.run(async () => {
       await api(`/consultations/${item.id}`, 'PATCH', {
         status,
@@ -102,12 +109,21 @@ export function AgendaScreen() {
                   description,
                   startsAt,
                   durationMinutes: Number(duration),
+                  ...(meetingUrl.trim()
+                    ? { meetingUrl: externalHttps(meetingUrl.trim()) }
+                    : {}),
                 })
                 setTitle('')
                 setDescription('')
+                setMeetingUrl('')
                 await remote.reload()
               }, 'Consultoria registrada. Sem integração configurada, nenhuma reunião externa foi criada.')
             }
+          />
+          <Field
+            label="Link HTTPS do encontro (opcional)"
+            value={meetingUrl}
+            onChange={setMeetingUrl}
           />
         </Panel>
       )}
@@ -118,7 +134,7 @@ export function AgendaScreen() {
             {datetime(item.startsAt)} · {item.durationMinutes} minutos
           </Body>
           <Body>
-            {item.coachName} ·{' '}
+            {coach ? item.athleteName : item.coachName} ·{' '}
             {item.status === 'scheduled'
               ? 'Agendada'
               : item.status === 'cancelled'
@@ -130,7 +146,10 @@ export function AgendaScreen() {
             <Button
               title="Abrir reunião"
               secondary
-              onPress={() => void Linking.openURL(item.meetingUrl!)}
+              disabled={action.busy}
+              onPress={() =>
+                void action.run(() => openExternal(item.meetingUrl!))
+              }
             />
           ) : (
             <Body muted>
@@ -163,6 +182,12 @@ export function AgendaScreen() {
               }
             />
           </Row>
+          {item.externalEventId && (
+            <Body muted>
+              Evento externo vinculado. Atualize tambem sua agenda externa ao
+              reagendar ou cancelar.
+            </Body>
+          )}
           {editing?.id === item.id && (
             <>
               <Field
@@ -176,6 +201,25 @@ export function AgendaScreen() {
                 onChange={setReason}
               />
               <Row>
+                {coach && (
+                  <Button
+                    title="Concluir consultoria"
+                    disabled={action.busy || reason.trim().length < 5}
+                    onPress={() =>
+                      Alert.alert(
+                        'Concluir consultoria',
+                        'Confirmar conclusao com a justificativa informada?',
+                        [
+                          { text: 'Voltar', style: 'cancel' },
+                          {
+                            text: 'Confirmar',
+                            onPress: () => void update(item, 'completed'),
+                          },
+                        ],
+                      )
+                    }
+                  />
+                )}
                 <Button
                   title="Confirmar reagendamento"
                   disabled={action.busy || reason.trim().length < 5}
