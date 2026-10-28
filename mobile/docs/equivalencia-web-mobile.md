@@ -82,8 +82,8 @@ Esses testes não acessam dados reais, não enviam dinheiro e não comprovam a a
 
 ### Pendências antes de declarar equivalência integral
 
-1. Executar nova compilação/instalação e percurso dos três perfis em APK, com backend de teste e contas fictícias, registrando casos e resultados separados dos testes controlados.
-2. Concluir o novo roteiro `mobile/scripts/verify-roles.py`, chamado pelo workflow integrado. O auxiliar original ja aceita o treinador. O resultado historico do ensaio anterior nao valida esta revisao.
+1. Concluido o ensaio dos tres perfis (17 etapas) e a jornada ampliada do atleta (18 etapas), em API/PostgreSQL isolados. [Resultados, alcance e capturas](evidencias/android/README.md). Os dois roteiros reaproveitam o APK do commit 445c607; nao homologam Google, iOS ou aparelho fisico.
+2. O novo roteiro `mobile/scripts/verify-roles.py` foi executado com sucesso pelo workflow integrado. O auxiliar original tambem aceita treinador e concluiu seu percurso atualizado. Os JSON registram separadamente o commit do roteiro e a origem do APK.
 3. Concluir o ensaio real do OAuth nativo implementado, com consentimento no dispositivo, evento criado no Google e vinculo persistido. Clientes OAuth e API configurados nao substituem essa verificacao.
 4. Conferir a matriz da web com a equipe, executar erros/permissões por recurso no ambiente integrado e revisar disposição/acessibilidade em telas reais. Só então atualizar ERS e documentação geral.
 
@@ -97,6 +97,6 @@ A integracao Google nativa foi implementada em `googleAuthorization.ts` e `googl
 
 A suite passou a 106 testes em oito arquivos, incluindo 14 casos controlados de autorizacao, cancelamento, escopo, expiracao, minimizacao de dados e recuperacao de evento sem duplicacao. Isso ainda nao comprova consentimento real do Google nem criacao real de Meet.
 
-O roteiro Android foi atualizado para aceitar treinador e ganhou `mobile/scripts/verify-roles.py`, chamado pelo workflow integrado com foco `roles`. O ensaio usa API e PostgreSQL isolados, tres perfis ficticios e verificacao dos registros persistidos. Sua execucao e compilacao estao em andamento; nao substituir os resultados historicos antes de concluir.
+O roteiro Android foi atualizado para aceitar treinador e ganhou `mobile/scripts/verify-roles.py`, chamado pelo workflow integrado com foco `roles`. O ensaio usa API e PostgreSQL isolados, tres perfis ficticios e verificacao dos registros persistidos. Compilacao e execucao concluidas; resultados preservados em [evidencias Android](evidencias/android/README.md), com commits e limites proprios.
 
 Projeto Google `linkatletas` configurado, Calendar API habilitada e clientes web, iOS e Android registrados. A assinatura de desenvolvimento foi extraida do APK compilado e conferida no cliente Android local e HTTPS. A conta profissional foi adicionada ao publico de teste. A autorizacao de uma conta e a criacao real de um evento sao verificacoes separadas, ainda pendentes.

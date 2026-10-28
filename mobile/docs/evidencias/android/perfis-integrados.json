@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "steps": [
+    {
+      "name": "Erro de login nativo tratado sem crash",
+      "passed": true,
+      "elapsedSeconds": 48.43
+    },
+    {
+      "name": "Cadastro do treinador pelo APK com papel persistido no PostgreSQL",
+      "passed": true,
+      "elapsedSeconds": 97.39
+    },
+    {
+      "name": "Sessao restaurada, preco editado e CREF enviado pelo treinador no APK",
+      "passed": true,
+      "elapsedSeconds": 180.45
+    },
+    {
+      "name": "Administrador aprova CREF pelo APK com auditoria e efeito no perfil",
+      "passed": true,
+      "elapsedSeconds": 246.73
+    },
+    {
+      "name": "Administrador altera comissao e carencia pelo APK em modo academico",
+      "passed": true,
+      "elapsedSeconds": 282.52
+    },
+    {
+      "name": "Administrador acessa pedidos de privacidade e notificacoes pelo APK",
+      "passed": true,
+      "elapsedSeconds": 319.76
+    },
+    {
+      "name": "Atleta encontra treinador aprovado e solicita vinculo pelo APK",
+      "passed": true,
+      "elapsedSeconds": 395.8
+    },
+    {
+      "name": "Treinador aceita vinculo pelo APK e atleta ve estado ativo na API",
+      "passed": true,
+      "elapsedSeconds": 447.86
+    },
+    {
+      "name": "Treinador prescreve e publica treino com bloco pelo APK",
+      "passed": true,
+      "elapsedSeconds": 511.1
+    },
+    {
+      "name": "Treinador configura plano pelo APK sem cobranca externa",
+      "passed": true,
+      "elapsedSeconds": 553.07
+    },
+    {
+      "name": "Atleta executa treino nativo com retorno disponivel ao treinador",
+      "passed": true,
+      "elapsedSeconds": 637.16
+    },
+    {
+      "name": "Atleta envia mensagem nativa com leitura autorizada pelo treinador",
+      "passed": true,
+      "elapsedSeconds": 662.92
+    },
+    {
+      "name": "Atleta publica avaliacao pelo APK na fixture com carencia isolada",
+      "passed": true,
+      "elapsedSeconds": 698.57
+    },
+    {
+      "name": "Treinador responde avaliacao pelo APK",
+      "passed": true,
+      "elapsedSeconds": 763.07
+    },
+    {
+      "name": "Treinador conversa pelo APK com identidade e contraparte corretas",
+      "passed": true,
+      "elapsedSeconds": 791.23
+    },
+    {
+      "name": "Administrador oculta avaliacao pelo APK com justificativa",
+      "passed": true,
+      "elapsedSeconds": 853.32
+    },
+    {
+      "name": "API real recusa acessos cruzados de atleta treinador e administrador",
+      "passed": true,
+      "elapsedSeconds": 855.62
+    }
+  ],
+  "testCommit": "445c607607a57ea40301dd1c5c0d7a1f0d4e2a86",
+  "apkSourceRun": "40646752787",
+  "apkSha256": "58c934f12fd4f9a22b907a335fb8ec74ba1f00e94a6f9f2b3645bb5a56468a71",
+  "roles": [
+    "athlete",
+    "coach",
+    "admin"
+  ],
+  "environment": "Android API 35 emulator with isolated real API/PostgreSQL",
+  "googleOAuthRealValidated": false,
+  "realDeviceValidated": false,
+  "externalBillingValidated": false,
+  "durationSeconds": 855.8
+}

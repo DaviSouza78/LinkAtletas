@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "environment": "Android API 35 x86_64 emulator + real PostgreSQL/SMTP/S3/API",
+  "testCommit": "af874d15ce4912aae4a45ccd2d1224d5453859c5",
+  "apkSourceRun": "40646752787",
+  "apkSha256": "58c934f12fd4f9a22b907a335fb8ec74ba1f00e94a6f9f2b3645bb5a56468a71",
+  "buildProfile": "local",
+  "testFocus": "all",
+  "infrastructureEvents": [],
+  "realDeviceValidated": false,
+  "externalBillingValidated": false,
+  "reviewMinimumDaysForIsolatedFixture": 0,
+  "steps": [
+    {
+      "name": "Login inválido tratado pela API sem crash",
+      "passed": true,
+      "elapsedSeconds": 35.63
+    },
+    {
+      "name": "Perfil treinador autenticado no cliente nativo",
+      "passed": true,
+      "elapsedSeconds": 60.37
+    },
+    {
+      "name": "Cadastro pelo APK persistido no PostgreSQL",
+      "passed": true,
+      "elapsedSeconds": 102.66
+    },
+    {
+      "name": "Sessão real restaurada pelo SecureStore após fechar o processo",
+      "passed": true,
+      "elapsedSeconds": 108.36
+    },
+    {
+      "name": "Consentimentos e dados privados enviados pelo APK",
+      "passed": true,
+      "elapsedSeconds": 202.92
+    },
+    {
+      "name": "Edição de perfil pelo APK conferida no servidor",
+      "passed": true,
+      "elapsedSeconds": 252.04
+    },
+    {
+      "name": "Descoberta e solicitação nativas, aceite do treinador e vínculo ativo",
+      "passed": true,
+      "elapsedSeconds": 285.98
+    },
+    {
+      "name": "Treino publicado pelo treinador e execução gravada pelo APK",
+      "passed": true,
+      "elapsedSeconds": 331.29
+    },
+    {
+      "name": "Chat nativo nos dois sentidos com resposta recebida por WebSocket",
+      "passed": true,
+      "elapsedSeconds": 365.83
+    },
+    {
+      "name": "Consultoria criada no APK e persistida na agenda",
+      "passed": true,
+      "elapsedSeconds": 408.54
+    },
+    {
+      "name": "Avaliação publicada no APK com elegibilidade de fixture isolada",
+      "passed": true,
+      "elapsedSeconds": 437.51
+    },
+    {
+      "name": "Financeiro acadêmico identificado sem acionar cobrança externa",
+      "passed": true,
+      "elapsedSeconds": 455.31
+    },
+    {
+      "name": "Seletor nativo, upload real S3 e correção do treinador visível no APK",
+      "passed": true,
+      "elapsedSeconds": 522.42
+    },
+    {
+      "name": "Notificações persistidas acessíveis no aplicativo",
+      "passed": true,
+      "elapsedSeconds": 544.59
+    },
+    {
+      "name": "Execução e sessão preservadas após nova inicialização do APK",
+      "passed": true,
+      "elapsedSeconds": 569.83
+    },
+    {
+      "name": "Recuperação pelo APK com e-mail SMTP real, token e senha nova",
+      "passed": true,
+      "elapsedSeconds": 639.52
+    },
+    {
+      "name": "Revogação no APK elimina o arquivo de performance no servidor",
+      "passed": true,
+      "elapsedSeconds": 665.08
+    },
+    {
+      "name": "Encerramento pelo APK elimina a conta e revoga a sessão",
+      "passed": true,
+      "elapsedSeconds": 702.54
+    }
+  ],
+  "durationSeconds": 704.77
+}

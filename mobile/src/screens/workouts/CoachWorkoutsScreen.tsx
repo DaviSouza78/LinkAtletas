@@ -28,8 +28,15 @@ export function CoachWorkoutsScreen() {
   return (
     <>
       <Heading>Treinos dos atletas</Heading>
-      <RemoteState remote={remote} />
-      <RemoteState remote={contracts} />
+      <RemoteState
+        remote={{
+          loading: remote.loading || contracts.loading,
+          error: remote.error || contracts.error,
+          reload: async () => {
+            await Promise.all([remote.reload(), contracts.reload()])
+          },
+        }}
+      />
       <Button
         title="Novo treino"
         disabled={!active.length || !!editing}
