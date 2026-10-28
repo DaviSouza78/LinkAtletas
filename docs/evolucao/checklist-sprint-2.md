@@ -17,7 +17,7 @@ Conferência de 26/10: [implantação pública verificada](operacao/implantacao-
 ## 2. Fluxo principal funcional de ponta a ponta
 
 - [x] Cadastro → perfil → CREF manual → descoberta → solicitação → aceite → prescrição → execução/feedback: [API original](../../tests/integration/api.test.ts), [web](../../src/App.tsx), [roteiro](operacao/manual.md) e [jornada real em Preview HTTPS](evidencias/nuvem/vercel-fluxo-2026-10-26.json).
-- [x] Funcionalidades antes abertas agora possuem código e telas: [mensagens/agenda/reviews/notificações](../../src/pages/integrated/InteractionPages.tsx), [financeiro](../../src/pages/integrated/BillingPages.tsx), [privacidade/mídia/reset](../../src/pages/integrated/Expansion.tsx).
+- [x] Funcionalidades antes abertas agora possuem código e telas: [mensagens](../../src/pages/messages), [agenda](../../src/pages/agenda), [avaliações](../../src/pages/reviews), [notificações](../../src/pages/notifications), [financeiro](../../src/pages/billing), [privacidade](../../src/pages/privacy), [mídia](../../src/components/media) e [recuperação de senha](../../src/pages/auth/PasswordRecoveryPage.tsx).
 - [x] Cancelamento, novos ciclos, carência e conciliação: [billing](../../server/modules/billing.ts), [contratos](../../server/modules/contracts.ts), [testes de financeiro](../../tests/integration/billing.test.ts).
 - [x] Fluxo ampliado em Chromium, Firefox e WebKit: [15/15 E2E da verificação final](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/playwright-results.json) e [relatório](relatorio-testes.md).
 
@@ -31,8 +31,8 @@ Conferência de 26/10: [implantação pública verificada](operacao/implantacao-
 
 ## 4. Interface responsiva integrada ao back-end
 
-- [x] Web real para atleta, treinador e administrador; [rotas](../../src/App.tsx), [navegação](../../src/components/AppShell.tsx), [cliente HTTP](../../src/services/api.ts).
-- [x] Formulários novos com rótulos/erro/espera/sucesso e layout responsivo: [CSS](../../src/styles.css) e páginas integradas.
+- [x] Web real para atleta, treinador e administrador; [rotas](../../src/App.tsx), [navegação](../../src/components/layout/AppShell.tsx), [cliente HTTP](../../src/services/api.ts).
+- [x] Formulários novos com rótulos/erro/espera/sucesso e layout responsivo: [CSS](../../src/styles/index.css) e páginas integradas.
 - [x] Fonte do app Expo com a mesma API e SecureStore: [app](../../mobile/App.tsx), [cliente](../../mobile/src/api.ts).
 - [x] Evidências Chromium 390/1440 e seis telas sem violações axe: [E2E](evidencias/web/playwright-results.json), [axe](evidencias/web/chromium-axe.json), [chat desktop](evidencias/web/chromium-chat.png) e [privacidade mobile](evidencias/web/chromium-privacidade-mobile.png).
 - [x] App: tipos/dependências/Doctor, [22/22 testes de transporte/configuração](evidencias/android/mobile-tests.json) e [bundles Hermes Android/iOS](evidencias/android/mobile-bundles.json); ver [limites](evidencias/android/mobile-verificacao.md).

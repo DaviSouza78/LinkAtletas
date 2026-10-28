@@ -1,29 +1,24 @@
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { Plus, Save, Send, Trash2 } from 'lucide-react'
-import type {
-  Contract,
-  ExerciseBlock,
-  MetricType,
-  Workout,
-  WorkoutInput,
-} from '../../../shared/contracts'
-import { SPORTS } from '../../../shared/contracts'
-import { api, json } from '../../services/api'
-import { useAuth } from '../../context/AuthContext'
-import { MediaPanel } from './Expansion'
 import {
-  Badge,
-  day,
-  Empty,
-  message,
-  Notice,
-  PageTitle,
-  State,
-  useRemote,
-} from './common'
+  type ExerciseBlock,
+  type WorkoutInput,
+  type Workout,
+  type Contract,
+  SPORTS,
+} from '../../../shared/contracts'
+import { useRemote } from '../../hooks/useRemote'
+import { useSearchParams } from 'react-router-dom'
+import { useState } from 'react'
+import { api, json } from '../../services/api'
+import { message } from '../../utils/errors'
+import { PageTitle } from '../../components/ui/PageTitle'
+import { Plus, Trash2, Save, Send } from 'lucide-react'
+import { Notice, State, Empty } from '../../components/ui/Feedback'
+import { day } from '../../utils/formatters'
+import { Badge } from '../../components/ui/Badge'
+import { WorkoutDetails } from '../../components/workouts/WorkoutDetails'
 
 const blankBlock = (): ExerciseBlock => ({ name: '', instructions: '' })
+
 function blankWorkout(contractId = ''): WorkoutInput {
   return {
     contractId,
@@ -35,6 +30,7 @@ function blankWorkout(contractId = ''): WorkoutInput {
     blocks: [blankBlock()],
   }
 }
+
 export function CoachWorkoutsPage() {
   const remote = useRemote<{ workouts: Workout[] }>('/workouts')
   const contracts = useRemote<{ contracts: Contract[] }>('/contracts')
@@ -392,278 +388,5 @@ export function CoachWorkoutsPage() {
         ))}
       </div>
     </>
-  )
-}
-function WorkoutDetails({ workout: w }: { workout: Workout }) {
-  const { user } = useAuth()
-  const catalog = useRemote<{ metrics: MetricType[] }>(
-    '/metrics?sport=' + encodeURIComponent(w.sport),
-  )
-  return (
-    <div className="live-workout-detail">
-      <p>{w.instructions || 'Siga as orientações de cada bloco.'}</p>
-      {w.blocks.map((b, i) => (
-        <div className="live-exercise" key={i}>
-          <span>{String(i + 1).padStart(2, '0')}</span>
-          <div>
-            <strong>{b.name}</strong>
-            <p>{b.instructions}</p>
-            <BlockMeta block={b} />
-            {b.videoUrl && (
-              <p style={{ overflowWrap: 'anywhere' }}>
-                Referencia externa (texto): {b.videoUrl}
-              </p>
-            )}
-          </div>
-        </div>
-      ))}
-      {w.execution && (
-        <section className="live-execution-summary">
-          <h4>Execução do atleta</h4>
-          <p>
-            {w.execution.completedBlocks.length} de {w.blocks.length} blocos
-            realizados · Esforço percebido: {w.execution.effort}/10
-          </p>
-          <p>{w.execution.notes || 'Sem observações.'}</p>
-          <div className="live-tags">
-            {Object.entries(w.execution.metrics).map(([key, value]) => {
-              const metric = catalog.data?.metrics.find((m) => m.key === key)
-              return (
-                <span key={key}>
-                  {metric?.label || key}: {value}
-                  {metric ? ' ' + metric.unit : ''}
-                </span>
-              )
-            })}
-          </div>
-          <small>
-            Atualizado em{' '}
-            {new Date(w.execution.updatedAt).toLocaleString('pt-BR')}
-          </small>
-        </section>
-      )}
-      <MediaPanel
-        resourceId={w.id}
-        purpose={user?.role === 'coach' ? 'instruction' : 'performance'}
-      />
-    </div>
-  )
-}
-function BlockMeta({ block: b }: { block: ExerciseBlock }) {
-  return (
-    <div className="live-tags">
-      {b.sets != null && <span>{b.sets} séries</span>}
-      {b.repetitions != null && <span>{b.repetitions} repetições</span>}
-      {b.loadKg != null && <span>{b.loadKg} kg</span>}
-      {b.durationMinutes != null && <span>{b.durationMinutes} min</span>}
-      {b.distanceKm != null && <span>{b.distanceKm} km</span>}
-    </div>
-  )
-}
-export function AthleteWorkoutsPage() {
-  const remote = useRemote<{ workouts: Workout[] }>('/workouts')
-  const [selected, setSelected] = useState('')
-  const [executing, setExecuting] = useState(false)
-  const [success, setSuccess] = useState('')
-  const w =
-    remote.data?.workouts.find((w) => w.id === selected) ||
-    remote.data?.workouts[0]
-  useEffect(() => {
-    setExecuting(false)
-  }, [selected])
-  return (
-    <>
-      <PageTitle
-        title="Seu treino, sua evolução"
-        description="Confira as orientações, realize os exercícios e conte ao treinador como foi."
-      />
-      <State {...remote} retry={remote.reload} />
-      <Notice success={success} />
-      {remote.data && !remote.data.workouts.length && (
-        <Empty>
-          Você ainda não possui treinos publicados. Aguarde a prescrição do seu
-          treinador.
-        </Empty>
-      )}
-      {!!remote.data?.workouts.length && w && (
-        <>
-          <label className="live-field live-panel">
-            Treino selecionado
-            <select
-              value={w.id}
-              onChange={(e) => {
-                setSelected(e.target.value)
-                setSuccess('')
-              }}
-            >
-              {remote.data.workouts.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {day(item.scheduledDate)} · {item.title}
-                  {item.execution ? ' · Feedback registrado' : ''}
-                </option>
-              ))}
-            </select>
-          </label>
-          <section className="live-panel">
-            <div className="live-panel-heading">
-              <div>
-                <h3>{w.title}</h3>
-                <p>
-                  {w.sport} · {day(w.scheduledDate)} · Treinador: {w.coachName}
-                </p>
-              </div>
-              <Badge status={w.status} />
-            </div>
-            <WorkoutDetails workout={w} />
-            <button
-              className="button button--dark"
-              onClick={() => setExecuting(!executing)}
-            >
-              {executing
-                ? 'Fechar registro'
-                : w.execution
-                  ? 'Atualizar execução'
-                  : 'Registrar execução'}
-            </button>
-          </section>
-          {executing && (
-            <ExecutionForm
-              key={w.id}
-              workout={w}
-              onSave={async () => {
-                await remote.reload()
-                setExecuting(false)
-                setSuccess('Execução registrada com sucesso.')
-              }}
-            />
-          )}
-        </>
-      )}
-    </>
-  )
-}
-function ExecutionForm({
-  workout: w,
-  onSave,
-}: {
-  workout: Workout
-  onSave: () => Promise<void>
-}) {
-  const metrics = useRemote<{ metrics: MetricType[] }>(
-    '/metrics?sport=' + encodeURIComponent(w.sport),
-  )
-  const [completed, setCompleted] = useState<number[]>(
-    w.execution?.completedBlocks || [],
-  )
-  const [effort, setEffort] = useState(w.execution?.effort || 5)
-  const [notes, setNotes] = useState(w.execution?.notes || '')
-  const [values, setValues] = useState<Record<string, number>>(
-    w.execution?.metrics || {},
-  )
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState('')
-  async function save(e: React.FormEvent) {
-    e.preventDefault()
-    setBusy(true)
-    setError('')
-    try {
-      await api(
-        '/workouts/' + w.id + '/execution',
-        json('PUT', {
-          completedBlocks: completed,
-          effort,
-          notes,
-          metrics: values,
-        }),
-      )
-      await onSave()
-    } catch (e) {
-      setError(message(e))
-    } finally {
-      setBusy(false)
-    }
-  }
-  return (
-    <form className="live-panel live-form" onSubmit={save}>
-      <div>
-        <h3>Como foi seu treino?</h3>
-        <p>
-          Marque os blocos realizados. Você pode registrar uma execução parcial.
-        </p>
-      </div>
-      <fieldset className="live-execution-blocks">
-        <legend>Blocos realizados</legend>
-        {w.blocks.map((b, i) => (
-          <label key={i}>
-            <input
-              type="checkbox"
-              checked={completed.includes(i)}
-              onChange={() =>
-                setCompleted(
-                  completed.includes(i)
-                    ? completed.filter((n) => n !== i)
-                    : [...completed, i],
-                )
-              }
-            />
-            <span>
-              {i + 1}. {b.name}
-            </span>
-          </label>
-        ))}
-      </fieldset>
-      <label>
-        Esforço percebido (1 a 10)
-        <input
-          type="number"
-          min={1}
-          max={10}
-          step={1}
-          value={effort}
-          onChange={(e) => setEffort(Number(e.target.value))}
-          required
-        />
-      </label>
-      <p className="live-muted">1 = muito leve · 10 = esforço máximo.</p>
-      <State {...metrics} retry={metrics.reload} />
-      <div className="live-grid-3">
-        {metrics.data?.metrics.map((m) => (
-          <label key={m.key}>
-            {m.label} ({m.unit})
-            <input
-              type="number"
-              min={m.min}
-              max={m.max}
-              step={m.key === 'repetitions' ? 1 : 'any'}
-              value={values[m.key] ?? ''}
-              onChange={(e) => {
-                const next = { ...values }
-                if (e.target.value === '') delete next[m.key]
-                else next[m.key] = Number(e.target.value)
-                setValues(next)
-              }}
-            />
-          </label>
-        ))}
-      </div>
-      <label>
-        Observações do treino
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          rows={4}
-          maxLength={3000}
-          placeholder="Como você se sentiu? Houve alguma dificuldade?"
-        />
-      </label>
-      <Notice error={error} />
-      <button
-        className="button button--dark"
-        disabled={busy || metrics.loading || !!metrics.error}
-      >
-        <Save size={17} />
-        {busy ? 'Salvando…' : 'Salvar execução'}
-      </button>
-    </form>
   )
 }

@@ -1,8 +1,20 @@
-import { useEffect, useState } from 'react'
+import {
+  Target,
+  ShieldCheck,
+  Dumbbell,
+  ArrowRight,
+  X,
+  Menu,
+  Sparkles,
+  Star,
+  Check,
+  ChevronDown,
+  MessageSquare,
+} from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Check, ChevronDown, Dumbbell, Menu, MessageSquare, ShieldCheck, Sparkles, Star, Target, X } from 'lucide-react'
-import { Logo } from '../components/Logo'
-import { SPORTS } from '../../shared/contracts'
+import { Logo } from '../../components/Logo'
+import { SPORTS } from '../../../shared/contracts'
 
 const benefits = [
   { icon: Target, title: 'Matches que fazem sentido', text: 'Modalidade, objetivos, orçamento e disponibilidade cruzados para indicar o profissional certo.' },

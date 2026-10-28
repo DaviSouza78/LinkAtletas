@@ -1,64 +1,25 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
-import type { ReactNode } from 'react'
-import type { Role } from '../shared/contracts'
-import { homeFor, useAuth } from './context/AuthContext'
-import { LandingPage } from './pages/LandingPage'
-import { LoginPage } from './pages/LoginPage'
-import { AppShell } from './components/AppShell'
-import { AdminPage, ProfilePage } from './pages/integrated/Profile'
-import {
-  ContractsPage,
-  DashboardPage,
-  DiscoverPage,
-} from './pages/integrated/Connections'
-import {
-  AthleteWorkoutsPage,
-  CoachWorkoutsPage,
-} from './pages/integrated/Workouts'
-import {
-  AdminPrivacyPage,
-  PasswordRecoveryPage,
-  PrivacyPage,
-} from './pages/integrated/Expansion'
-import {
-  AdminReviewsPage,
-  AgendaPage,
-  MessagesPage,
-  NotificationsPage,
-  ReviewsPage,
-} from './pages/integrated/InteractionPages'
-import { AdminBillingPage, FinancePage } from './pages/integrated/BillingPages'
-function Protected({ role, children }: { role: Role; children: ReactNode }) {
-  const { user, loading, error, refresh } = useAuth()
-  if (loading)
-    return (
-      <div className="live-state" role="status">
-        Verificando sua sessão…
-      </div>
-    )
-  if (error)
-    return (
-      <div className="live-state" role="alert">
-        <p>{error}</p>
-        <button className="button button--dark" onClick={refresh}>
-          Tentar novamente
-        </button>
-      </div>
-    )
-  if (!user) return <Navigate to="/login" replace />
-  if (user.role !== role) return <Navigate to={homeFor(user.role)} replace />
-  return <AppShell role={role}>{children}</AppShell>
-}
-function LoginRoute() {
-  const { user, loading } = useAuth()
-  if (loading)
-    return (
-      <div className="live-state" role="status">
-        Verificando sua sessão…
-      </div>
-    )
-  return user ? <Navigate to={homeFor(user.role)} replace /> : <LoginPage />
-}
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { LandingPage } from './pages/public/LandingPage'
+import { LoginRoute } from './routes/LoginRoute'
+import { PasswordRecoveryPage } from './pages/auth/PasswordRecoveryPage'
+import { Protected } from './routes/ProtectedRoute'
+import { AdminPage } from './pages/verification/AdminPage'
+import { DashboardPage } from './pages/dashboard/DashboardPage'
+import { ContractsPage } from './pages/connections/ContractsPage'
+import { CoachWorkoutsPage } from './pages/workouts/CoachWorkoutsPage'
+import { ProfilePage } from './pages/profile/ProfilePage'
+import { AgendaPage } from './pages/agenda/AgendaPage'
+import { MessagesPage } from './pages/messages/MessagesPage'
+import { FinancePage } from './pages/billing/FinancePage'
+import { DiscoverPage } from './pages/connections/DiscoverPage'
+import { AthleteWorkoutsPage } from './pages/workouts/AthleteWorkoutsPage'
+import { ReviewsPage } from './pages/reviews/ReviewsPage'
+import { NotificationsPage } from './pages/notifications/NotificationsPage'
+import { PrivacyPage } from './pages/privacy/PrivacyPage'
+import { AdminReviewsPage } from './pages/reviews/AdminReviewsPage'
+import { AdminBillingPage } from './pages/billing/AdminBillingPage'
+import { AdminPrivacyPage } from './pages/privacy/AdminPrivacyPage'
+
 export default function App() {
   return (
     <Routes>

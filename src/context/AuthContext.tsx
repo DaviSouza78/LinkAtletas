@@ -1,12 +1,7 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from 'react'
 import type { AppUser, Role } from '../../shared/contracts'
+import { createContext, type ReactNode, useState, useEffect, useContext } from 'react'
 import { api, json } from '../services/api'
+
 interface AuthContextValue {
   user: AppUser | null
   loading: boolean
@@ -21,9 +16,12 @@ interface AuthContextValue {
   logout: () => Promise<void>
   refresh: () => Promise<void>
 }
+
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
+
 export const homeFor = (role: Role) =>
   role === 'admin' ? '/admin' : role === 'coach' ? '/treinador' : '/atleta'
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AppUser | null>(null)
   const [loading, setLoading] = useState(true)
@@ -79,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     </AuthContext.Provider>
   )
 }
+
 export function useAuth() {
   const value = useContext(AuthContext)
   if (!value) throw new Error('AuthProvider ausente')

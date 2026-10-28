@@ -1,4 +1,5 @@
 import type { ApiErrorBody } from '../../shared/contracts'
+
 export async function api<T>(
   path: string,
   options: RequestInit = {},
@@ -43,6 +44,7 @@ export async function api<T>(
     options.signal?.removeEventListener('abort', abort)
   }
 }
+
 export function json(method: string, body: unknown): RequestInit {
   return { method, body: JSON.stringify(body) }
 }

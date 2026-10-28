@@ -1,0 +1,185 @@
+/* Modals System Core */
+.modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  background: rgba(7, 14, 11, .65);
+  backdrop-filter: blur(6px);
+}
+.modal-card {
+  width: 100%;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 24px 80px rgba(10, 20, 16, 0.32);
+  animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+@keyframes modalPop {
+  0% { opacity: 0; transform: scale(0.96) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-card__header {
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+.modal-card__header h3 { margin: 0; font-size: 18px; letter-spacing: -0.02em; font-weight: 800; }
+.modal-card__header p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
+.modal-close-btn { border: 0; background: var(--soft); border-radius: 10px; width: 36px; height: 36px; cursor: pointer; }
+.modal-card__body { padding: 24px 28px; }
+.modal-actions-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 18px; border-top: 1px solid #edf0ee; }
+
+/* Workout Detail Modal */
+.workout-telemetry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.telemetry-box { background: #f6f8f6; border: 1px solid var(--line); border-radius: 13px; padding: 14px 16px; display: grid; gap: 3px; }
+.telemetry-icon { width: 32px; height: 32px; border-radius: 8px; background: #e7f3ee; color: #43796d; display: grid; place-items: center; margin-bottom: 3px; }
+.telemetry-box small { color: var(--muted); font-size: 12px; }
+.telemetry-box strong { font: 700 18px 'Manrope', sans-serif; color: var(--ink); }
+.text-lime { color: #5f7d24 !important; }
+.workout-splits-section { margin: 24px 0; }
+.section-subtitle { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+.table-wrap--compact table th { padding: 9px 10px; font-size: 12px; }
+.table-wrap--compact table td { padding: 10px; font-size: 13px; }
+.pace-badge { background: #e8f4f2; color: #2d6b63; font-weight: 700; padding: 3px 8px; border-radius: 6px; font-size: 12px; }
+.rpe-dot { background: #fcede0; color: #8e5824; font-weight: 700; padding: 3px 7px; border-radius: 6px; font-size: 12px; }
+.workout-feedback-cards { display: grid; gap: 12px; margin-top: 20px; }
+.feedback-card { padding: 16px; border-radius: 13px; font-size: 13px; line-height: 1.6; }
+.feedback-card__header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 700; }
+.feedback-card p { margin: 0; }
+.athlete-card-bg { background: #f7f9f7; border: 1px solid var(--line); }
+.coach-card-bg { background: #f2f7e7; border: 1px solid #d4e6a8; }
+
+/* Video Review Modal */
+.video-player-container { margin-bottom: 20px; }
+.video-viewport { position: relative; height: 280px; border-radius: 16px; background: radial-gradient(circle at center, #2e4a40, #101a16); overflow: hidden; display: grid; place-items: center; color: #fff; }
+.video-overlay-grid { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.video-indicator { padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; width: max-content; }
+.video-indicator--posture { background: rgba(215, 242, 102, 0.92); color: var(--ink); }
+.video-indicator--spine { background: rgba(116, 214, 209, 0.9); color: var(--ink); }
+.video-play-btn { width: 62px; height: 62px; border-radius: 50%; background: var(--lime); border: 2px solid #fff; color: var(--ink); display: grid; place-items: center; transition: transform 0.2s ease; cursor: pointer; }
+.video-play-btn:hover { transform: scale(1.08); }
+.video-controls-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 42px; background: rgba(10, 18, 14, 0.85); backdrop-filter: blur(6px); display: flex; align-items: center; gap: 14px; padding: 0 16px; font-size: 12px; }
+.video-progress-track { flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; }
+.video-progress-fill { height: 100%; background: var(--lime); border-radius: 3px; }
+.checkpoints-list { margin-bottom: 20px; }
+.checkpoints-list h4 { font-size: 14px; margin: 0 0 10px; font-weight: 700; }
+.checkpoints-grid { display: grid; gap: 10px; }
+.checkpoint-item { display: flex; align-items: flex-start; gap: 10px; padding: 11px 14px; border-radius: 10px; font-size: 13px; }
+.check--good { background: #edf6db; color: #435e26; }
+.check--warn { background: #fdf2e4; color: #94591e; }
+.checkpoint-item div { display: grid; gap: 2px; }
+.checkpoint-item strong { font-size: 13px; }
+.video-feedback-form label { display: grid; gap: 8px; font-size: 13px; font-weight: 700; }
+.video-feedback-form textarea { min-height: 85px; border: 1px solid var(--line); border-radius: 10px; padding: 12px; font-size: 14px; resize: vertical; outline: none; }
+.feedback-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+
+/* Student Detail Modal */
+.student-profile-hero { display: flex; align-items: center; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.student-profile-info { flex: 1; }
+.student-title-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.student-title-row h3 { font-size: 19px; margin: 0; font-weight: 800; }
+.student-contact-tags { display: flex; gap: 14px; color: var(--muted); font-size: 12px; }
+.student-contact-tags span { display: flex; align-items: center; gap: 5px; }
+.student-bio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+.bio-stat { background: #f7f9f7; border: 1px solid var(--line); border-radius: 11px; padding: 12px; text-align: center; }
+.bio-stat small { color: var(--muted); font-size: 11px; display: block; margin-bottom: 3px; }
+.bio-stat strong { font-size: 13px; color: var(--ink); }
+.student-cycle-card { background: #f8faf8; border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+.cycle-header { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 12px; font-weight: 700; }
+.cycle-progress-wrap { margin-bottom: 12px; }
+.progress-labels { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; color: var(--muted); }
+.next-training-box { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fff; border: 1px solid var(--line); border-radius: 10px; font-size: 13px; }
+.next-training-box svg { color: #58736a; }
+.student-notes-box { background: #f3f7ea; border: 1px solid #dbe8be; border-radius: 12px; padding: 14px; font-size: 13px; }
+.student-notes-box strong { color: #435e21; display: block; margin-bottom: 4px; }
+.student-notes-box p { margin: 0; color: #46574f; }
+
+/* Coach Detail Modal */
+.coach-detail-hero { display: flex; gap: 18px; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.coach-hero-text { flex: 1; }
+.coach-hero-title { display: flex; align-items: center; gap: 12px; }
+.coach-hero-title h3 { font-size: 20px; margin: 0; font-weight: 800; }
+.coach-hero-specialty { color: #4a7167; font-size: 14px; margin: 4px 0 8px; font-weight: 600; }
+.coach-hero-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); }
+.coach-hero-meta span { display: flex; align-items: center; gap: 5px; }
+.rating-pill { color: #b87f1d !important; font-weight: 700; }
+.coach-detail-section { margin-bottom: 20px; }
+.coach-detail-section h4 { font-size: 15px; margin: 0 0 10px; font-weight: 800; }
+.coach-detail-section p { font-size: 13px; line-height: 1.6; color: #4e5e58; margin: 0; }
+.methodology-card { background: #f3f6ea; border: 1px solid #dce8bf; border-radius: 12px; padding: 14px; margin-top: 12px; font-size: 13px; }
+.methodology-card strong { display: flex; align-items: center; gap: 6px; color: #4e6624; margin-bottom: 4px; }
+.coach-plans-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 12px; }
+.plan-select-card { position: relative; border: 2px solid var(--line); border-radius: 14px; padding: 18px; background: #fff; cursor: pointer; transition: all 0.2s ease; }
+.plan-select-card:hover { border-color: #92b7aa; transform: translateY(-2px); }
+.plan-select-card--selected { border-color: var(--ink); background: #fcfdfc; box-shadow: 0 8px 24px rgba(16,25,22,0.08); }
+.plan-badge { position: absolute; top: -11px; right: 16px; background: var(--lime); color: var(--ink); font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 10px; text-transform: uppercase; }
+.plan-select-card h5 { margin: 0 0 8px; font-size: 15px; font-weight: 800; }
+.plan-price { margin-bottom: 14px; }
+.plan-price strong { font: 700 24px 'Manrope', sans-serif; }
+.plan-price small { color: var(--muted); font-size: 12px; }
+.plan-features { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 12px; color: #4a5c55; }
+.plan-features li { display: flex; align-items: center; gap: 8px; }
+.plan-features svg { color: #527324; flex: none; }
+.testimonials-list { display: grid; gap: 10px; margin-top: 12px; }
+.testimonial-card { background: #f8faf8; border: 1px solid var(--line); border-radius: 12px; padding: 14px; font-size: 13px; }
+.testimonial-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.testimonial-header > div { flex: 1; display: grid; gap: 2px; }
+.testimonial-header small { color: var(--muted); font-size: 11px; }
+
+/* Live Workout Session Modal */
+.live-workout-modal { text-align: center; }
+.live-timer-display { margin: 12px 0 22px; }
+.timer-val { font: 700 52px 'Manrope', monospace; letter-spacing: -0.04em; color: var(--ink); display: block; line-height: 1; }
+.live-timer-display small { color: var(--muted); font-size: 13px; margin-top: 6px; display: block; }
+.live-rep-counter { background: #f8faf8; border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 18px; }
+.live-rep-counter span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 3px; font-weight: 700; }
+.live-rep-counter strong { font-size: 16px; color: var(--ink); display: block; margin-bottom: 12px; font-weight: 800; }
+.rep-pills { display: flex; justify-content: center; gap: 8px; }
+.rep-pill { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: #fff; font-size: 12px; font-weight: 700; cursor: pointer; display: grid; place-items: center; }
+.rep-pill--active { background: var(--lime); border-color: var(--lime); color: var(--ink); transform: scale(1.08); }
+.rep-pill--done { background: #264037; border-color: #264037; color: var(--lime); }
+.live-telemetry-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 22px; background: #edf5f3; border-radius: 12px; padding: 14px; }
+.live-telemetry-row small { font-size: 11px; color: #43665c; display: block; }
+.live-telemetry-row b { font-size: 15px; color: var(--ink); font-weight: 800; }
+.live-controls-row { display: flex; justify-content: center; gap: 14px; }
+
+/* Interactive Hover States */
+.activity-item--clickable, .student-card--clickable, .metric-card-interactive, .table-row-clickable {
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.activity-item--clickable:hover { background: #f8faf8; }
+.student-card--clickable:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.metric-card-interactive:hover { background: #edf4ef !important; transform: translateY(-1px); }
+.table-row-clickable:hover td { background: #f9fbf9; }
+
+/* Forms in modals */
+.prescribe-form, .invite-student-form { display: grid; gap: 16px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.prescribe-form label, .invite-student-form label, .filter-field { display: grid; gap: 7px; font-size: 13px; font-weight: 700; color: #3e5048; }
+.prescribe-form input, .prescribe-form select, .prescribe-form textarea,
+.invite-student-form input, .invite-student-form select {
+  width: 100%; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; background: #fff; outline: 0; color: var(--ink);
+}
+.prescribe-form input:focus, .prescribe-form select:focus, .prescribe-form textarea:focus { border-color: #648c80; box-shadow: 0 0 0 3px rgba(116, 214, 209, 0.15); }
+.advanced-filters-body { display: grid; gap: 20px; }
+.mode-pill-options { display: flex; gap: 8px; }
+.mode-btn { flex: 1; height: 40px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font-size: 13px; font-weight: 700; cursor: pointer; }
+.mode-btn--selected { background: var(--ink); color: #fff; border-color: var(--ink); }
+.bank-card-preview { display: flex; align-items: center; gap: 14px; padding: 18px; background: #f5f8f5; border: 1px solid var(--line); border-radius: 14px; margin-bottom: 14px; }
+.bank-card-preview svg { color: #43695e; }
+.bank-card-preview strong { font-size: 14px; display: block; }
+.bank-card-preview span { font-size: 12px; color: var(--muted); display: block; }
+.bank-card-preview small { font-size: 11px; color: #486259; font-weight: 700; display: block; margin-top: 3px; }
+.banking-note { font-size: 12px; color: var(--muted); line-height: 1.5; margin: 0; }
+.invite-link-box { display: flex; gap: 10px; margin-top: 16px; }
+.invite-link-box input { flex: 1; min-height: 44px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; font-size: 13px; background: #f8faf8; }
+

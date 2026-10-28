@@ -4,7 +4,7 @@ Plataforma que conecta atletas a treinadores e reúne perfis esportivos, contrat
 
 [Acessar aplicação](https://link-atletas.vercel.app) · [Documentação](docs/README.md) · [Entrega da Sprint 2](docs/evolucao/checklist-sprint-2.md)
 
-Para localizar cada assunto, usar o [índice da documentação atual](docs/evolucao/README.md), o [índice dos scripts](scripts/README.md) e o [índice dos testes](tests/README.md).
+Para localizar cada assunto, usar o [índice da documentação atual](docs/evolucao/README.md), o [guia da interface web](src/README.md), o [índice dos scripts](scripts/README.md) e o [índice dos testes](tests/README.md).
 
 ## Funcionalidades
 

@@ -1,7 +1,9 @@
-import type { Consultation } from '../types'
+import type { Consultation } from './googleCalendar.types'
 
 interface TokenResponse { access_token?: string; error?: string; error_description?: string }
+
 interface TokenClient { requestAccessToken: (options?: { prompt?: string }) => void }
+
 interface GoogleOAuth {
   accounts: { oauth2: { initTokenClient: (config: { client_id: string; scope: string; callback: (response: TokenResponse) => void; error_callback?: (error: unknown) => void }) => TokenClient } }
 }
@@ -9,10 +11,13 @@ interface GoogleOAuth {
 declare global { interface Window { google?: GoogleOAuth } }
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined
+
 const CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar.events'
+
 let accessToken = ''
 
 export const googleCalendarConfigured = Boolean(CLIENT_ID)
+
 export const googleCalendarConnected = () => Boolean(accessToken)
 
 function waitForGoogleIdentity(): Promise<GoogleOAuth> {

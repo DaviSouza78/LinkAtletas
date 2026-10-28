@@ -1,15 +1,9 @@
+import { useSearchParams, useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import {
-  ArrowLeft,
-  ArrowRight,
-  CheckCircle2,
-  Eye,
-  EyeOff,
-  UserRound,
-} from 'lucide-react'
-import { Logo } from '../components/Logo'
-import { homeFor, useAuth } from '../context/AuthContext'
+import { useAuth, homeFor } from '../../context/AuthContext'
+import { Logo } from '../../components/Logo'
+import { CheckCircle2, ArrowLeft, UserRound, EyeOff, Eye, ArrowRight } from 'lucide-react'
+
 export function LoginPage() {
   const [params] = useSearchParams()
   const [registering, setRegistering] = useState(params.get('cadastro') === '1')

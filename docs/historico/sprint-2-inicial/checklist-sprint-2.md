@@ -12,7 +12,7 @@ Conferência: **14/10/2026**. Prazo informado no roteiro: **26/10/2026**. Branch
 
 - [x] **Código-fonte atualizado e versionado localmente.** Implementação no commit `07940e4`, documentação/evidências na base `6de0e2d`, preservando o histórico original.
 - [x] API Node/TypeScript implementada. Conferir [composição da API](../../../server/app.ts) e [inicialização do servidor](../../../server/index.ts).
-- [x] Frontend integrado nas rotas de atleta, treinador e administrador. Conferir [rotas](../../../src/App.tsx), [conexões e painéis](../../../src/pages/integrated/Connections.tsx), [perfis e administração](../../../src/pages/integrated/Profile.tsx) e [treinos](../../../src/pages/integrated/Workouts.tsx).
+- [x] Frontend integrado nas rotas de atleta, treinador e administrador. Conferir [rotas](../../../src/App.tsx), [conexões e painéis](../../../src/pages/connections), [perfis e administração](../../../src/pages/profile) e [treinos](../../../src/pages/workouts).
 - [x] Dependências, scripts e instalação documentados. Conferir [package.json](../../../package.json), [lockfile](../../../pnpm-lock.yaml) e [README](../../../README.md).
 - [x] Commits locais usam **Lucca <luccacc.contato@gmail.com>**. Conferir com `git log --format="%h %an <%ae> %s" main..sprint-2` na raiz do clone.
 - [ ] **Publicar os commits no GitHub do grupo ou em um fork.** Não houve push, fork nem pull request. Versionamento local não equivale a disponibilização remota.
@@ -43,8 +43,8 @@ Conferência: **14/10/2026**. Prazo informado no roteiro: **26/10/2026**. Branch
 ## 4. Interface responsiva integrada ao back-end
 
 - [x] **Interfaces centrais conectadas à API**, com cookies de sessão, em lugar dos mocks do fluxo principal. Conferir [cliente HTTP](../../../src/services/api.ts) e [rotas integradas](../../../src/App.tsx).
-- [x] Telas de cadastro/login, perfil, administração, descoberta, solicitações, treinos e execução disponíveis. Conferir [tela de acesso](../../../src/pages/LoginPage.tsx), [perfis/admin](../../../src/pages/integrated/Profile.tsx), [conexões](../../../src/pages/integrated/Connections.tsx) e [prescrição/execução](../../../src/pages/integrated/Workouts.tsx).
-- [x] Componentes de carregamento, erro, repetição da consulta e estado vazio. Conferir [componentes compartilhados](../../../src/pages/integrated/common.tsx).
+- [x] Telas de cadastro/login, perfil, administração, descoberta, solicitações, treinos e execução disponíveis. Conferir [tela de acesso](../../../src/pages/auth/LoginPage.tsx), [perfis/admin](../../../src/pages/profile), [conexões](../../../src/pages/connections) e [prescrição/execução](../../../src/pages/workouts).
+- [x] Componentes de carregamento, erro, repetição da consulta e estado vazio. Conferir [componentes compartilhados](../../../src/components/ui).
 - [x] Verificação em **1440 × 1000** e **390 × 844**; checagem de largura e abertura/fechamento do menu mobile. Conferir [teste E2E](../../../tests/e2e/sprint-2.spec.ts), [captura desktop](evidencias/execucao-desktop.png) e [captura mobile](evidencias/execucao-mobile.png).
 - [x] Áreas fora do incremento exibem aviso de evolução futura. Conferir `FuturePage` nas [rotas](../../../src/App.tsx).
 

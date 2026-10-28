@@ -1,25 +1,26 @@
-import { useEffect, useState, type ReactNode } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
 import {
-  CircleUserRound,
-  Dumbbell,
   LayoutDashboard,
-  LogOut,
-  Menu,
-  Search,
-  ShieldCheck,
   Users,
-  X,
-  Bell,
+  Dumbbell,
+  CircleUserRound,
+  Search,
+  MessageSquare,
   CalendarDays,
   CreditCard,
-  MessageSquare,
-  Shield,
   Star,
+  Bell,
+  Shield,
+  ShieldCheck,
+  X,
+  LogOut,
+  Menu,
 } from 'lucide-react'
-import { Logo } from './Logo'
-import { useAuth } from '../context/AuthContext'
-import type { Role } from '../../shared/contracts'
+import { type ReactNode, useState, useEffect } from 'react'
+import type { Role } from '../../../shared/contracts'
+import { useAuth } from '../../context/AuthContext'
+import { useLocation, NavLink } from 'react-router-dom'
+import { Logo } from '../Logo'
+
 const coachItems = [
   { to: '/treinador', label: 'Visão geral', icon: LayoutDashboard },
   { to: '/treinador/alunos', label: 'Alunos e solicitações', icon: Users },
@@ -30,12 +31,14 @@ const coachItems = [
     icon: CircleUserRound,
   },
 ]
+
 const athleteItems = [
   { to: '/atleta', label: 'Início', icon: LayoutDashboard },
   { to: '/atleta/descobrir', label: 'Descobrir', icon: Search },
   { to: '/atleta/treino', label: 'Meu treino', icon: Dumbbell },
   { to: '/atleta/perfil', label: 'Perfil', icon: CircleUserRound },
 ]
+
 function expansionItems(root: string) {
   return [
     { to: root + '/mensagens', label: 'Mensagens', icon: MessageSquare },
@@ -50,6 +53,7 @@ function expansionItems(root: string) {
     { to: root + '/privacidade', label: 'Privacidade', icon: Shield },
   ]
 }
+
 export function AppShell({
   children,
   role,
