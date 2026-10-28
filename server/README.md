@@ -4,6 +4,8 @@ Esta pasta contém a API interna Node.js/TypeScript com Fastify. Ela recebe cham
 
 Não é uma API do conselho profissional. A conferência de CREF é manual e registrada pela administração. Os contratos compartilhados com os clientes ficam em [shared](../shared/README.md); as telas ficam em [src](../src/README.md) e [mobile](../mobile/README.md).
 
+Guias por área: [banco](db/README.md), [módulos e suas subpastas](modules/README.md), [serviços externos](services/README.md) e [recursos internos](shared/README.md). Cada guia resume a responsabilidade local; este documento mantém a visão geral do servidor.
+
 ## Como uma requisição percorre o sistema
 
 **Site ou aplicativo → entrada HTTP → sessão → rota do módulo → validação e autorização → banco/serviço → resposta.**
