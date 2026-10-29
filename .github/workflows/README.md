@@ -2,7 +2,7 @@
 
 | Workflow | Disparo | Funcao |
 |---|---|---|
-| [ci.yml](ci.yml) | Push de codigo e pull request | Tipos/build, unidade/API, navegador, backup, esquema/diagramas, verificacoes moveis e HTTPS local. |
+| [ci.yml](ci.yml) | Todos os pushes, pull request ou execucao manual | Tipos/build, unidade/API, navegador, backup, esquema/diagramas, verificacoes moveis e HTTPS local. |
 | [docs.yml](docs.yml) | Push de documentacao | Links locais e contratos documentados, sem iniciar servicos. |
 | [android.yml](android.yml) | Manual ou chamada por outro workflow | Compilacao, inicializacao e ensaio integrado do APK. |
 
@@ -30,3 +30,9 @@ Consultar a aba Actions e o commit de cada execucao. A CI preserva `test-evidenc
 As credenciais de banco, SMTP e S3 declaradas nos ensaios sao exclusivas do ambiente local isolado. Valores reais devem permanecer em secrets dos provedores. IDs OAuth publicos podem ser configurados nas variaveis `GOOGLE_WEB_CLIENT_ID` e `GOOGLE_IOS_CLIENT_ID` do repositorio.
 
 [Documentacao do projeto](../../docs/README.md)
+
+## Check de publicacao
+
+O job `LinkAtletas - validacao completa` tem nome estavel e responde a todos os pushes, inclusive documentacao, para permitir sua exigencia antes da promocao de um deployment. No projeto Vercel, o provedor GitHub precisa consultar esse check no repositorio conectado (`luccalck/LinkAtletas`). A existencia de uma CI no repositorio do grupo nao gera automaticamente o mesmo resultado no fork.
+
+Nao renomear o job sem atualizar a configuracao correspondente na Vercel. CI aprovada comprova os testes executados, nao homologacao Google, cobrancas reais ou dispositivos fisicos.
