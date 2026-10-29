@@ -2,7 +2,7 @@
 
 Data da revisão: 27/10/2026.
 
-**Revisão posterior do servidor — 28/10/2026:** [215 casos de unidade/API aprovados, discriminados por arquivo e finalidade](testes/auditoria-server-2026-10-28.md#resultado-final-da-ci-do-servidor), além de 15 execuções de navegador aprovadas. Os nomes individuais e resultados estão nos JSONs vinculados nessa seção. As contagens de referência de 26–27/10 abaixo permanecem históricas; não somar as reexecuções.
+**Revisão posterior do servidor — 28/10/2026:** [215 casos de unidade/API aprovados, discriminados por arquivo e finalidade](testes/revisoes/auditoria-server-2026-10-28.md#resultado-final-da-ci-do-servidor), além de 15 execuções de navegador aprovadas. Os nomes individuais e resultados estão nos JSONs vinculados nessa seção. As contagens de referência de 26–27/10 abaixo permanecem históricas; não somar as reexecuções.
 
 Este relatorio identifica cada cenario executado, seu resultado e o arquivo que comprova a execucao. As contagens sao de casos automatizados, nao de usuarios, requisitos, telas ou percentual de cobertura.
 
@@ -341,7 +341,7 @@ O [codigo do fluxo principal](../../tests/e2e/sprint-2.spec.ts) verifica login i
 - [Casos de teste documentados na ERS](ERS-template-original-atualizada.pdf), secao 6. Os nomes dos testes automatizados acima identificam verificacoes implementadas; nao se presume correspondencia um-para-um com todos os CTs da ERS.
 - [CI aprovada registrada](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40420233293/attempts/2) e [workflow](../../.github/workflows/ci.yml). Uma execucao anterior nao comprova sucesso de um commit posterior.
 - `pnpm test`: unidade/integracao. `pnpm test:e2e`: navegador. `pnpm --dir mobile test`: cliente movel. Usar banco isolado `_test`, nunca producao. Nao executar suites concorrentes na mesma base.
-- [Guia de apresentacao](apresentacao-completa-sprint-2.md): demonstracao, consultas SQL e respostas ao professor.
+- [Guia de apresentacao](apresentacao/guia-completo-sprint-2.md): demonstracao, consultas SQL e respostas ao professor.
 
 ## Limites e documentos anteriores
 

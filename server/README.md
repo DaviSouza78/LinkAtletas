@@ -205,6 +205,6 @@ Swagger local: `http://localhost:3001/api/docs/`. Saúde local: `http://localhos
 
 ## Revisão e testes
 
-O [guia de testes](../tests/README.md) explica as suítes. A [auditoria técnica do servidor](../docs/evolucao/testes/auditoria-server-2026-10-28.md) registra arquivos examinados, correções, verificações e limites desta reorganização.
+O [guia de testes](../tests/README.md) explica as suítes. A [auditoria técnica do servidor](../docs/evolucao/testes/revisoes/auditoria-server-2026-10-28.md) registra arquivos examinados, correções, verificações e limites desta reorganização.
 
 Não interpretar esta revisão como certificação de segurança, cobertura de todas as combinações concorrentes ou autorização para ativar pagamentos reais. Mudanças futuras precisam atualizar os contratos e casos afetados e preservar os caminhos públicos de entrega.

@@ -88,6 +88,6 @@ Os scripts estão divididos em banco, documentação, operação, verificação 
 - [ERS final v2.6 ajustada pela equipe em PDF](docs/evolucao/ERS-template-original-atualizada.pdf).
 - [Checklist dos nove entregáveis](docs/evolucao/checklist-sprint-2.md), [diagramas](docs/evolucao/diagramas.md), [backlog](docs/evolucao/requisitos/backlog.md) e [matriz de UCs](docs/evolucao/requisitos/rastreabilidade.md).
 - [API](docs/evolucao/api.md), [aplicativo](mobile/README.md) e [implantação na Vercel](docs/evolucao/operacao/vercel.md).
-- [Testes de nuvem e APK](docs/evolucao/operacao/implantacao-2026-10-26.md), [decisões técnicas](docs/evolucao/gestao/decisoes.md) e [pendências](docs/evolucao/gestao/pendencias-lucca.md).
+- [Testes de nuvem e APK](docs/evolucao/operacao/implantacao-2026-10-26.md), [decisões técnicas](docs/evolucao/gestao/decisoes.md) e [pendências](docs/evolucao/gestao/continuidade.md).
 
 O [índice da documentação](docs/README.md) identifica os documentos principais, as fontes auxiliares da ERS e os materiais históricos. A equipe deve revisar a demonstração e cada integrante concluir sua entrega acadêmica.

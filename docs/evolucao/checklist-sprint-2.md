@@ -2,11 +2,11 @@
 
 Atualização da nuvem em 26/10/2026: [aplicação pública](https://link-atletas.vercel.app) com API, PostgreSQL Neon, Tigris privado e Brevo integrados. [Verificações de Preview e produção, arquivos de 50 MiB, recuperação de senha, APK e limites](operacao/implantacao-2026-10-26.md). O [PR #3](https://github.com/DaviSouza78/LinkAtletas/pull/3) integrou a versão na `main` do grupo, sincronizada com o fork. A revisão coletiva foi concluída conforme confirmação da equipe. O envio individual é realizado por cada integrante no ambiente acadêmico.
 
-Atualizado em 26/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](../historico/sprint-2-inicial/checklist-sprint-2.md) permanece histórica. `[x]` indica implementação, artefato ou revisão concluída com referência. Este checklist reúne os entregáveis da Sprint 2; evoluções e homologações não executadas permanecem no backlog e no registro de implantação, sem indicação de conclusão. A [ERS final revisada pela equipe](ERS-template-original-atualizada.pdf) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](gestao/pendencias-lucca.md) distinguem a entrega acadêmica da ativação externa.
+Atualizado em 26/10/2026. Use este documento para revisar os nove entregáveis obrigatórios. A [entrega inicial](https://github.com/DaviSouza78/LinkAtletas/blob/84f9d29a60513dbeb2349f9fa653d0bea8c815d6/docs/historico/sprint-2-inicial/checklist-sprint-2.md) permanece histórica. `[x]` indica implementação, artefato ou revisão concluída com referência. Este checklist reúne os entregáveis da Sprint 2; evoluções e homologações não executadas permanecem no backlog e no registro de implantação, sem indicação de conclusão. A [ERS final revisada pela equipe](ERS-template-original-atualizada.pdf) define o alcance e o [relatório](relatorio-testes.md) registra resultados sem presumir aprovação. As [pendências humanas](gestao/continuidade.md) distinguem a entrega acadêmica da ativação externa.
 
 ## 1. Código-fonte atualizado e versionado
 
-Conferência de 26/10: [implantação pública verificada](operacao/implantacao-2026-10-26.md), com 99 testes de unidade/API, 15 de navegador e verificações reais de Preview e produção. A [conferência anterior](historico/conferencia-entrega-2026-10-26.md) preserva o contexto da demonstração local e da publicação posterior.
+Conferência de 26/10: [implantação pública verificada](operacao/implantacao-2026-10-26.md), com 99 testes de unidade/API, 15 de navegador e verificações reais de Preview e produção. A [conferência anterior](../historico/revisoes-ers/conferencia-entrega-2026-10-26.md) preserva o contexto da demonstração local e da publicação posterior.
 
 - [x] Clone local separado e branch de ampliação; código de [API](../../server), [web](../../src) e [app](../../mobile); base anterior preservada em `sprint-2`.
 - [x] Autor Git definido como Lucca com e-mail fornecido; [decisões](gestao/decisoes.md) explicam autoria e limites.
@@ -51,14 +51,14 @@ Conferência de 26/10: [implantação pública verificada](operacao/implantacao-
 
 ## 6. Testes iniciais com evidências
 
-- [x] Evidência inicial preservada: [33 Vitest e 2 E2E históricos](../historico/sprint-2-inicial/relatorio-testes.md).
+- [x] Evidência inicial preservada: [33 Vitest e 2 E2E históricos](https://github.com/DaviSouza78/LinkAtletas/blob/84f9d29a60513dbeb2349f9fa653d0bea8c815d6/docs/historico/sprint-2-inicial/relatorio-testes.md).
 - [x] Novos testes de [plataforma](../../tests/integration/platform.test.ts), [interações](../../tests/integration/interactions.test.ts), [financeiro](../../tests/integration/billing.test.ts), [cifra](../../tests/unit/crypto.test.ts).
 - [x] [99/99 testes de API/unidade](evidencias/api/nuvem-2026-10-26-vitest.json), [15/15 E2E nos três motores na verificação final](evidencias/execucoes/verificacao-nuvem-entrega-2026-10-26/playwright-results.json), testes/bundles do app e operação TLS/backup/carga: [relatório](relatorio-testes.md).
 - [x] Corridas de privacidade verificadas com bloqueios reais: [três testes](../../tests/integration/privacy-races.test.ts) de perfil, senha/sessão e feedback eliminado.
 - [x] [TLS 1.3 local](evidencias/infraestrutura/production-tls.json) com CA explícita, sem alteração do trust global; [carga](evidencias/infraestrutura/carga-matchmaking.json) 200 chamadas/500 perfis sintéticos e p95 97,78 ms.
 - [x] [CI versionada](../../.github/workflows/ci.yml) e executada com sucesso após a integração da nuvem na main: [run 40417254496](https://github.com/DaviSouza78/LinkAtletas/actions/runs/40417254496). O [registro da CI anterior](evidencias/github/github-ci-main.json) permanece histórico.
 - [x] Correção do indicador de chat após evento tardio de socket descartado e regressão no navegador: [CI final aprovada](evidencias/github/github-ci-finalizacao.json), [cenário de chat](../../tests/e2e/expansion.spec.ts).
-- [x] [Tipos e build aprovados na execução registrada](evidencias/infraestrutura/verificacao-build.txt); engines adicionais incluídos no relatório.
+- [x] [Tipos e build aprovados na execução registrada](https://github.com/DaviSouza78/LinkAtletas/blob/84f9d29a60513dbeb2349f9fa653d0bea8c815d6/docs/evolucao/evidencias/infraestrutura/verificacao-build.txt); engines adicionais incluídos no relatório.
 
 - [x] Revisão manual posterior da interface pública e administração local, com três correções e regressão Chromium: [cenários e limites de 27/10/2026](testes/testes-manuais-2026-10-27.md).
 
@@ -96,13 +96,13 @@ Evoluções e homologações não realizadas, como cobrança real, Google OAuth 
 
 As contagens, versões e execuções abaixo pertencem às datas desses registros. As evidências atuais de entrega estão nos nove itens acima.
 
-- [x] Todos os materiais originais inventariados e comparados: [revisão](historico/revisao-materiais.md) e [hashes](evidencias/documentacao/materiais-originais.json).
+- [x] Todos os materiais originais inventariados e comparados: [revisão](../historico/revisoes-ers/revisao-materiais.md) e [hashes](evidencias/documentacao/materiais-originais.json).
 - [x] Checklist dos fornecedores, obrigação por Sprint, alternativas locais e homologações: [serviços externos](operacao/servicos-externos-sprint-2.md).
 - [x] DER e sequências conferidos automaticamente contra 36 tabelas/257 colunas/45 FKs e OpenAPI: [dicionário](banco/dicionario-dados.md), [verificador](../../scripts/documentacao/check-docs.ts).
 - [x] Docker reiniciado com dados preservados, migrations e saúde: [ambiente](evidencias/infraestrutura/ambiente-local-revisado.json).
 - [x] Correções de limpeza de arquivos privados, backup com variável vazia e bibliotecas: [decisões](gestao/decisoes.md), [auditoria](operacao/seguranca-dependencias.md).
 - [x] Página pública com informações coerentes, menu móvel e layout sem overflow em 320/390/1440: [Chrome](evidencias/web/chrome-landing-revisada.json); contraste corrigido e [axe sem violações nas regras verificadas](evidencias/web/chrome-landing-axe.json).
-- [x] APK corrigido conectado à API/PostgreSQL/SMTP/S3: [18/18 etapas aprovadas](evidencias/android/android-integrated-result.json), [execução remota](evidencias/android/github-android-integrated.json), [upload e correção](evidencias/android/android-integrated-midia-feedback.png), [encerramento](evidencias/android/android-integrated-conta-encerrada.png).
+- [x] APK corrigido conectado à API/PostgreSQL/SMTP/S3: [18/18 etapas aprovadas](evidencias/android-integrated-result.json), [execução remota](evidencias/android/github-android-integrated.json), [upload e correção](evidencias/android/android-integrated-midia-feedback.png), [encerramento](evidencias/android/android-integrated-conta-encerrada.png).
 
 - [x] CI completa da revisão, com tipos/build, 82 testes, backup, 15 E2E, nativo e TLS: [run 39645457806](https://github.com/DaviSouza78/LinkAtletas/actions/runs/39645457806), [registro](evidencias/github/github-ci-pr-2.json).
 

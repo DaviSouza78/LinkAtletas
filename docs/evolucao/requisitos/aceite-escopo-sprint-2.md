@@ -1,5 +1,7 @@
 # Escopo atual e homologações da Sprint 2
 
+> Registro de escopo datado: referências a tarefas pendentes refletem a situação descrita naquela revisão. Para a entrega consolidada, consultar o [checklist](../checklist-sprint-2.md) e o [registro da implantação](../operacao/implantacao-2026-10-26.md).
+
 Revisão de 23/10/2026. As mudanças da ERS são decisões da equipe, consolidadas nesta versão. Este registro distingue escopo atual, evidências de implementação e evoluções; não representa nova execução de testes.
 
 ## Decisões de escopo
@@ -13,7 +15,7 @@ Revisão de 23/10/2026. As mudanças da ERS são decisões da equipe, consolidad
 | Banco de dados | PostgreSQL único | Migrações, persistência e recuperação verificadas. A menção inicial a dois SGBDs foi substituída por decisão de arquitetura |
 | Demais evoluções | Rascunho salvo por ação explícita, agenda própria e disponibilidade usada no match | Autosave contínuo, sincronização Google bidirecional e outras evoluções estão no backlog; não são apresentados como concluídos |
 
-A [ERS](ERS-v2.md), o [backlog](backlog.md) e as [decisões](../gestao/decisoes.md) documentam o recorte. Os [materiais originais](../historico/revisao-materiais.md) são preservados como histórico e referência da evolução.
+A [ERS](ERS-v2.md), o [backlog](backlog.md) e as [decisões](../gestao/decisoes.md) documentam o recorte. Os [materiais originais](../../historico/revisoes-ers/revisao-materiais.md) são preservados como histórico e referência da evolução.
 
 ## Eletiva I
 
@@ -25,4 +27,4 @@ Os nove entregáveis gerais possuem artefatos e evidências no [checklist](../ch
 
 O financeiro avançado foi planejado na [ERS original, página 40](../../referencias/ERS-Sprint-1-original.pdf#page=40) para a Sprint 3. Se mantido no MVP, a homologação em sandbox deverá comprovar a integração com o provedor; testes HTTP controlados não equivalem a pagamento/repasse externo. Google, aparelhos e lojas seguem os estados específicos do [checklist de serviços](../operacao/servicos-externos-sprint-2.md).
 
-Permanecem a implantação em nuvem, a revisão coletiva e as entregas individuais. Credenciais externas, infraestrutura remota e dispositivos não são substituídos por testes simulados; ver [pendências do grupo](../gestao/pendencias-lucca.md).
+Permanecem a implantação em nuvem, a revisão coletiva e as entregas individuais. Credenciais externas, infraestrutura remota e dispositivos não são substituídos por testes simulados; ver [pendências do grupo](../gestao/continuidade.md).

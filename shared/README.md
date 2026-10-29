@@ -1,6 +1,6 @@
 # Contratos compartilhados do LinkAtletas
 
-Esta pasta mantém as definições de dados utilizadas pelo [site](../src/README.md), pela [API interna](../server/) e pelo [aplicativo](../mobile/README.md). Seu objetivo é manter essas três partes compatíveis sem duplicar os mesmos tipos e catálogos em vários lugares.
+Esta pasta mantém as definições de dados utilizadas pelo [site](../src/README.md), pela [API interna](../server) e pelo [aplicativo](../mobile/README.md). Seu objetivo é manter essas três partes compatíveis sem duplicar os mesmos tipos e catálogos em vários lugares.
 
 ## Por que esta pasta existe?
 
@@ -51,7 +51,7 @@ O dado real passa pela API e pelo banco. A definição compartilhada descreve o 
 | Pasta | Alcance |
 |---|---|
 | `shared/` | Tipos e catálogos que podem ser reutilizados pelo site, API e aplicativo. |
-| [server/shared/](../server/shared/) | Recursos internos do servidor: segurança, erros, validação, criptografia e documentação de respostas. Não devem ser importados pelo navegador para executar operações privadas. |
+| [server/shared/](../server/shared) | Recursos internos do servidor: segurança, erros, validação, criptografia e documentação de respostas. Não devem ser importados pelo navegador para executar operações privadas. |
 
 Os formatos TypeScript também não substituem a [documentação OpenAPI](../docs/evolucao/openapi.json). O [guia da API](../docs/evolucao/api.md) e o Swagger descrevem as rotas HTTP. A autenticação web utiliza sessão por cookie; as rotas nativas fornecem token Bearer ao aplicativo. O resumo antigo de rotas foi retirado de `contracts.ts` para evitar duplicidade e a indicação incorreta de cookie obrigatório para todos os clientes.
 

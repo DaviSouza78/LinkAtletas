@@ -18,10 +18,10 @@ Um caso documentado na ERS, sua implementação automatizada e o resultado de um
 
 | Pasta | O que verifica | Ferramenta |
 |---|---|---|
-| [unit](unit/) | Regras e componentes específicos, com dependências reduzidas ou controladas. | Vitest |
-| [integration](integration/) | API, banco e interação entre módulos; alguns cenários usam serviços reais locais e outros simulam dependências. | Vitest |
-| [e2e](e2e/) | Jornadas completas pela interface, automatizando ações no navegador. | Playwright |
-| [mobile/tests](../mobile/tests/) | Transporte, sessão e configuração do cliente React Native. Ficam junto ao aplicativo. | Vitest, na configuração própria do mobile |
+| [unit](unit) | Regras e componentes específicos, com dependências reduzidas ou controladas. | Vitest |
+| [integration](integration) | API, banco e interação entre módulos; alguns cenários usam serviços reais locais e outros simulam dependências. | Vitest |
+| [e2e](e2e) | Jornadas completas pela interface, automatizando ações no navegador. | Playwright |
+| [mobile/tests](../mobile/tests) | Transporte, sessão e configuração do cliente React Native. Ficam junto ao aplicativo. | Vitest, na configuração própria do mobile |
 
 As terminações `.test.ts` e `.spec.ts` são convenções de identificação dos arquivos. A [configuração do Vitest](../vitest.config.ts) inclui `unit` e `integration`; a [configuração do Playwright](../playwright.config.ts) inclui `e2e` e os motores Chromium, Firefox e WebKit. O comando da raiz não executa automaticamente os testes móveis.
 
@@ -76,7 +76,7 @@ O Playwright inicia os serviços da aplicação para a suíte local, usa uma bas
 | [mobile/tests/api.test.ts](../mobile/tests/api.test.ts) | Transporte HTTP, arquivos, sessão, SecureStore, cabeçalhos de autenticação e tratamento de erros, com dependências nativas controladas. |
 | [mobile/tests/config.test.ts](../mobile/tests/config.test.ts) | Endereço da API e diferenças entre ambiente local, emulador e produção HTTPS. |
 
-Esses testes não instalam um APK nem demonstram, por si, funcionamento em aparelho físico. Ensaios Android, carga, backup e TLS também possuem scripts em [scripts/android](../scripts/android/) e [scripts/verificacao](../scripts/verificacao/); seus resultados são apresentados separadamente no relatório.
+Esses testes não instalam um APK nem demonstram, por si, funcionamento em aparelho físico. Ensaios Android, carga, backup e TLS também possuem scripts em [scripts/android](../scripts/android) e [scripts/verificacao](../scripts/verificacao); seus resultados são apresentados separadamente no relatório.
 
 ## Preparar o ambiente local
 
@@ -221,7 +221,7 @@ Uma CI aprovada de um commit anterior não comprova aprovação de alterações 
 
 As tabelas deste README descrevem os arquivos publicados que compõem a referência atual. Na revisão do servidor de **28/10/2026**, `integration/permissions.test.ts` foi incorporado à regressão da API. O arquivo `e2e/roles.spec.ts` permanece em desenvolvimento local, fora do GitHub, como parte da auditoria ampliada da navegação.
 
-Se arquivos locais ainda não publicados aparecerem no computador, eles podem ser descobertos pelos comandos e alterar a quantidade de casos. Isso não significa que foram aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. O [registro da revisão do servidor](../docs/evolucao/testes/auditoria-server-2026-10-28.md) distingue os resultados desta etapa da auditoria ampliada ainda não concluída.
+Se arquivos locais ainda não publicados aparecerem no computador, eles podem ser descobertos pelos comandos e alterar a quantidade de casos. Isso não significa que foram aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. O [registro da revisão do servidor](../docs/evolucao/testes/revisoes/auditoria-server-2026-10-28.md) distingue os resultados desta etapa da auditoria ampliada ainda não concluída.
 
 ## Limites das verificações
 

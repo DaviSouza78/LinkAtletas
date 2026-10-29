@@ -7,7 +7,6 @@ const root = process.cwd(),
 async function visit(directory: string): Promise<string[]> {
   const result: string[] = []
   for (const entry of await readdir(directory, { withFileTypes: true })) {
-    if (entry.name === 'evidencias') continue
     const file = path.join(directory, entry.name)
     if (entry.isDirectory()) result.push(...(await visit(file)))
     else if (file.endsWith('.md')) result.push(file)
@@ -16,10 +15,8 @@ async function visit(directory: string): Promise<string[]> {
 }
 for (const file of [
   path.resolve('README.md'),
-  path.resolve('docs/README.md'),
   ...(await visit(path.resolve('scripts'))),
-  ...(await visit(path.resolve('docs/historico'))),
-  ...(await visit(path.resolve('docs/evolucao'))),
+  ...(await visit(path.resolve('docs'))),
 ]) {
   const text = await readFile(file, 'utf8')
   for (const match of text.matchAll(/!?\[[^\]]*\]\(([^)]+)\)/g)) {

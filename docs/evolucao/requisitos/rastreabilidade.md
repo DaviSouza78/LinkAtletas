@@ -38,6 +38,6 @@ Equipe informada: João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lu
 
 ## Conferência com os materiais originais — 15/10/2026
 
-A [revisão documental](../historico/revisao-materiais.md) compara ERS, proposta, roteiro, portaria, convivência e templates. O [dicionário](../banco/dicionario-dados.md) e os [diagramas](../diagramas.md) demonstram 36 tabelas e 45 chaves estrangeiras reais. O diagrama de classes inclui os módulos de integração financeira existentes; não representa um ORM inexistente.
+A [revisão documental](../../historico/revisoes-ers/revisao-materiais.md) compara ERS, proposta, roteiro, portaria, convivência e templates. O [dicionário](../banco/dicionario-dados.md) e os [diagramas](../diagramas.md) demonstram 36 tabelas e 45 chaves estrangeiras reais. O diagrama de classes inclui os módulos de integração financeira existentes; não representa um ORM inexistente.
 
 A conferência manual de CREF substitui a automação no RF-04 atual, conforme decisão da equipe registrada na ERS. Evolução de IA, nuvem e suporte Android/iOS seguem os recortes de escopo e estados de implementação do backlog. O match atual é por regras e o APK local não comprova operação pública ou iOS. Os commits de Lucca não comprovam participação dos demais integrantes.

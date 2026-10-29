@@ -1,6 +1,6 @@
 # Roteiro de apresentação da Sprint 2
 
-Para explicações completas e respostas às perguntas do professor, abrir a [apresentação completa](../apresentacao-completa-sprint-2.md).
+Para explicações completas e respostas às perguntas do professor, abrir a [apresentação completa](guia-completo-sprint-2.md).
 
 **Ordem:** ERS → GitHub → arquitetura e serviços → site → testes/API → decisões e próximos passos.
 **Tempo sugerido:** 12–15 minutos. Usar os itens abaixo como lembrete, sem ler os documentos inteiros.
@@ -150,7 +150,7 @@ Para explicações completas e respostas às perguntas do professor, abrir a [ap
 
 - [ ] Abrir o [registro de decisões](../gestao/decisoes.md) e selecionar dois exemplos: substituição da automação do CREF pela conferência manual e organização da solução com PostgreSQL/API compartilhada.
 - Abrir o [registro da implantação](../operacao/implantacao-2026-10-26.md): explicar a dificuldade de inicialização/roteamento na Vercel e o envio em partes de 3 MiB para arquivos grandes.
-- Fechar com as [pendências reais](../gestao/pendencias-lucca.md): revisão/entrega individual, aparelho físico/iOS e serviços opcionais ainda sem homologação. Reforçar que financeiro acadêmico não cobra e que limitações estão documentadas.
+- Fechar com as [pendências reais](../gestao/continuidade.md): revisão/entrega individual, aparelho físico/iOS e serviços opcionais ainda sem homologação. Reforçar que financeiro acadêmico não cobra e que limitações estão documentadas.
 
 As caixas deste roteiro são lembretes do que mostrar na apresentação, não indicadores de funcionalidades pendentes.
 

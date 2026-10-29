@@ -6,8 +6,8 @@ A documentação atual está organizada no [índice principal](../../README.md).
 - [Diagramas](../diagramas.md), [backlog](../requisitos/backlog.md) e [matriz de UCs](../requisitos/rastreabilidade.md).
 - [API](../api.md), [manual de execução](../operacao/manual.md) e [decisões técnicas](decisoes.md).
 - [Relatório de testes](../relatorio-testes.md) e [evidências da implantação e do APK](../operacao/implantacao-2026-10-26.md).
-- [Publicação e histórico de commits](../operacao/publicacao.md) e [pendências da equipe](pendencias-lucca.md).
+- [Publicação e histórico de commits](../operacao/publicacao.md) e [pendências da equipe](continuidade.md).
 
 A [aplicação pública](https://link-atletas.vercel.app) integra interface, API, PostgreSQL Neon, armazenamento privado Tigris e SMTP Brevo. O modo acadêmico não cobra dinheiro. Cada integrante deve revisar a demonstração, registrar sua contribuição e concluir a própria submissão.
 
-A [entrega inicial](../../historico/sprint-2-inicial/entrega.md), os [planos anteriores](../../historico/README.md) e as [revisões da ERS](../historico) permanecem como registros históricos.
+A [entrega inicial](https://github.com/DaviSouza78/LinkAtletas/blob/84f9d29a60513dbeb2349f9fa653d0bea8c815d6/docs/historico/sprint-2-inicial/entrega.md), os [planos anteriores](../../historico/README.md) e as [revisões da ERS](../../historico/revisoes-ers) permanecem como registros históricos.

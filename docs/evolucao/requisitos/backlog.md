@@ -1,6 +1,6 @@
 # Backlog consolidado — ampliação
 
-Atualizado em 26/10/2026. Base: [backlog histórico](../../historico/sprint-2-inicial/backlog.md). Estados separam desenvolvimento de homologação; o [relatório](../relatorio-testes.md) e as [verificações da implantação](../operacao/implantacao-2026-10-26.md) identificam o ambiente e a data de cada resultado. [Revisão dos materiais](../historico/revisao-materiais.md) e [dependências externas](../operacao/servicos-externos-sprint-2.md) registram diferenças em relação à proposta/ERS originais.
+Atualizado em 26/10/2026. Base: [backlog histórico](https://github.com/DaviSouza78/LinkAtletas/blob/84f9d29a60513dbeb2349f9fa653d0bea8c815d6/docs/historico/sprint-2-inicial/backlog.md). Estados separam desenvolvimento de homologação; o [relatório](../relatorio-testes.md) e as [verificações da implantação](../operacao/implantacao-2026-10-26.md) identificam o ambiente e a data de cada resultado. [Revisão dos materiais](../../historico/revisoes-ers/revisao-materiais.md) e [dependências externas](../operacao/servicos-externos-sprint-2.md) registram diferenças em relação à proposta/ERS originais.
 
 | Item | Prioridade | Resultado da ampliação | Verificação/dependência |
 |---|---|---|---|

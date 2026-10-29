@@ -338,8 +338,8 @@ for index, item in enumerate(settings['figures']):
 heading(settings['testsTitle'], 1, fresh=True)
 for value in settings['testsIntro']:
     paragraph(value)
-vitest = json.loads((base / 'evidencias/api/vitest-results.json').read_text(encoding='utf-8'))
-apk = json.loads((base / 'evidencias/android/android-integrated-result.json').read_text(encoding='utf-8'))
+vitest = json.loads((base / 'evidencias/vitest-results.json').read_text(encoding='utf-8'))
+apk = json.loads((base / 'evidencias/android-integrated-result.json').read_text(encoding='utf-8'))
 test_date = datetime.fromtimestamp(vitest['startTime'] / 1000, timezone(timedelta(hours=-3))).strftime('%d/%m/%Y %H:%M:%S UTC-03:00')
 validated = []
 for item in tests:

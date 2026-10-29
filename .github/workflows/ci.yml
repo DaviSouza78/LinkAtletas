@@ -78,7 +78,6 @@ jobs:
           name: test-evidence
           path: |
             docs/evolucao/evidencias
-            docs/historico/sprint-2-inicial/evidencias
             mobile/dist
           retention-days: 14
       - name: Stop local services

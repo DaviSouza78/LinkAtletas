@@ -1,6 +1,6 @@
 # Interface web do LinkAtletas
 
-Esta pasta contém a interface React/TypeScript executada no navegador. Ela apresenta as telas, administra a sessão do usuário e chama a API interna. O banco, os jobs e as regras de autorização do servidor ficam em [server](../server/); o aplicativo React Native fica em [mobile](../mobile/).
+Esta pasta contém a interface React/TypeScript executada no navegador. Ela apresenta as telas, administra a sessão do usuário e chama a API interna. O banco, os jobs e as regras de autorização do servidor ficam em [server](../server); o aplicativo React Native fica em [mobile](../mobile).
 
 ## Como a interface é iniciada
 
@@ -85,7 +85,7 @@ Esses controles de navegação melhoram a experiência, mas **a autorização pr
 - [formatters.ts](utils/formatters.ts): moeda, data e horários apresentados pela interface.
 - [errors.ts](utils/errors.ts): extração da mensagem de erro usada pelas páginas.
 
-Os contratos reais compartilhados com a API e o aplicativo ficam em [shared](../shared/). O antigo `src/types.ts` reunia tipos do protótipo sem consumidores; os que não eram usados foram retirados. O tipo efetivamente utilizado pelo adaptador de calendário foi preservado no arquivo específico acima.
+Os contratos reais compartilhados com a API e o aplicativo ficam em [shared](../shared). O antigo `src/types.ts` reunia tipos do protótipo sem consumidores; os que não eram usados foram retirados. O tipo efetivamente utilizado pelo adaptador de calendário foi preservado no arquivo específico acima.
 
 Ter um adaptador Google no código não comprova sua ativação externa. O estado dos fornecedores, CREF manual e financeiro acadêmico está no [guia dos serviços](../docs/evolucao/operacao/servicos-externos-sprint-2.md).
 

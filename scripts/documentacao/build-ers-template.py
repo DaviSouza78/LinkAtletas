@@ -381,8 +381,8 @@ for value in settings['testsIntro']:
     paragraph(value)
 hyperlink('Relat\u00f3rio de testes e evid\u00eancias', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/relatorio-testes.md')
 hyperlink('Implanta\u00e7\u00e3o e testes remotos de 26/10/2026', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/operacao/implantacao-2026-10-26.md')
-vitest = json.loads((base / 'evidencias/api/vitest-results.json').read_text(encoding='utf-8'))
-apk = json.loads((base / 'evidencias/android/android-integrated-result.json').read_text(encoding='utf-8'))
+vitest = json.loads((base / 'evidencias/vitest-results.json').read_text(encoding='utf-8'))
+apk = json.loads((base / 'evidencias/android-integrated-result.json').read_text(encoding='utf-8'))
 test_date = datetime.fromtimestamp(vitest['startTime'] / 1000, timezone(timedelta(hours=-3))).strftime('%d/%m/%Y %H:%M:%S UTC-03:00')
 validated = []
 for item in tests:

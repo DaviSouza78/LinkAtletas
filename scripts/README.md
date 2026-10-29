@@ -40,4 +40,4 @@ Os [testes automatizados](../tests/README.md) continuam em `tests`; esta pasta c
 
 Os caminhos usados pelo Docker, pelos comandos e workflows foram mantidos. `__pycache__` e `.pyc` são caches locais ignorados, não arquivos de entrega.
 
-[Auditoria da pasta](../docs/evolucao/testes/auditoria-scripts-2026-10-28.md) · [Manual](../docs/evolucao/operacao/manual.md) · [Servidor](../server/README.md)
+[Auditoria da pasta](../docs/evolucao/testes/revisoes/auditoria-scripts-2026-10-28.md) · [Manual](../docs/evolucao/operacao/manual.md) · [Servidor](../server/README.md)
