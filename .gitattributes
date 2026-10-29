@@ -1,1 +1,2 @@
 *.pdf binary
+mobile/patches/*.patch text eol=lf -whitespace
