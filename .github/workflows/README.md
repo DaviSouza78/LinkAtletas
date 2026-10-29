@@ -36,3 +36,5 @@ As credenciais de banco, SMTP e S3 declaradas nos ensaios sao exclusivas do ambi
 O job `LinkAtletas - validacao completa` tem nome estavel e responde a todos os pushes, inclusive documentacao, para permitir sua exigencia antes da promocao de um deployment. No projeto Vercel, esse check do repositorio conectado (`luccalck/LinkAtletas`) e exigido antes da promocao em Production. A existencia de uma CI no repositorio do grupo nao gera automaticamente o mesmo resultado no fork.
 
 Nao renomear o job sem atualizar a configuracao correspondente na Vercel. CI aprovada comprova os testes executados, nao homologacao Google, cobrancas reais ou dispositivos fisicos.
+
+Ao usar um fork pela primeira vez, abrir a aba Actions e confirmar a habilitacao dos workflows desse fork. O bloqueio inicial do GitHub pode impedir disparos automaticos mesmo quando a API informa workflows ativos e uma execucao manual funciona. Conferir um push real antes de depender do check para liberar producao.
