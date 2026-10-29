@@ -29,16 +29,16 @@ Reagendar/cancelar a consultoria interna ainda exige atualizar tambem o evento e
 
 [google-calendar.test.ts](../tests/google-calendar.test.ts) verifica autorizacao, cancelamento, escopo faltante, ausencia de configuracao, limpeza de token, envio minimo de dados, reuso de evento, conflito de criacao, expiracao, conferencia indisponivel e URLs indevidas. Usa SDK e HTTP controlados; nao e prova de consentimento real.
 
-O workflow [android-integrated.yml](../../.github/workflows/android-integrated.yml) compila um APK real e testa a aplicacao com API/PostgreSQL isolados. O ensaio de tres perfis esta em [verify-roles.py](../scripts/verify-roles.py). Nao autentica uma conta pessoal Google no runner nem prova funcionamento em aparelho fisico ou iOS.
+O workflow [android.yml](../../.github/workflows/android.yml) compila um APK real e testa a aplicacao com API/PostgreSQL isolados. O ensaio de tres perfis esta em [verify-roles.py](../scripts/verify-roles.py). Nao autentica uma conta pessoal Google no runner nem prova funcionamento em aparelho fisico ou iOS.
 
 A homologacao real do OAuth exige uma conta de teste autorizada em um dispositivo, evento criado no Calendar e vinculo confirmado na API. Enquanto essa verificacao nao estiver registrada, a integracao permanece em validacao.
 
 ## APK HTTPS para demonstracao
 
-O workflow aceita `build_profile=cloud` somente com `build_only=true` e sem reaproveitar APK de outro perfil. Exemplo na raiz:
+O workflow aceita `build_profile=cloud` com `mode=build` ou `mode=startup`; APK reaproveitado deve ter o mesmo perfil. Exemplo na raiz:
 
 ```powershell
-gh workflow run android-integrated.yml --repo DaviSouza78/LinkAtletas --ref main -f build_profile=cloud -f build_only=true
+gh workflow run android.yml --repo DaviSouza78/LinkAtletas --ref main -f build_profile=cloud -f mode=build
 ```
 
 O artefato `LinkAtletas-APK-cloud` contem `LinkAtletas.apk`, SHA-256 e fingerprint da assinatura. Usa a API HTTPS publicada e nao depende de Docker/Metro local. Continua sendo APK de demonstracao com chave de desenvolvimento; nao e assinatura para lojas. O ensaio integrado usa somente o perfil local, nunca executa criacao de fixtures automaticamente em producao.

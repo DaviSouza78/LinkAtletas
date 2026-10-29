@@ -1,21 +1,80 @@
-name: Android APK verification
+name: Android verification
 on:
   workflow_dispatch:
+    inputs:
+      build_profile:
+        description: 'API local isolada ou API HTTPS publicada'
+        type: choice
+        options: [local, cloud]
+        default: local
+      mode:
+        description: 'Compilar, conferir abertura ou testar os tres perfis'
+        type: choice
+        options: [build, startup, integrated]
+        default: integrated
+      apk_run_id:
+        description: 'Run deste workflow com APK do mesmo perfil; vazio recompila'
+        required: false
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      build_profile:
+        type: string
+        default: local
+      mode:
+        type: string
+        default: integrated
+      apk_run_id:
+        type: string
+        default: ''
 permissions:
   contents: read
+  actions: read
 concurrency:
-  group: android-${{ github.event.pull_request.head.ref || github.ref_name }}
-  cancel-in-progress: true
+  group: native-integrated-${{ github.ref_name }}-${{ inputs.apk_run_id || github.sha }}-${{ inputs.mode }}-${{ inputs.build_profile }}
+  cancel-in-progress: false
 jobs:
-  apk:
+  verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 50
     env:
       CI: '1'
       EXPO_NO_TELEMETRY: '1'
-      EXPO_PUBLIC_API_URL: ${{ vars.EXPO_PUBLIC_API_URL || 'https://api.linkatletas.example/api' }}
+      EXPO_PUBLIC_BUILD_PROFILE: ${{ inputs.build_profile == 'cloud' && 'cloud' || 'local' }}
+      EXPO_PUBLIC_API_URL: ${{ inputs.build_profile == 'cloud' && 'https://link-atletas.vercel.app/api' || 'http://localhost:3001/api' }}
+      EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
+      EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: ${{ vars.GOOGLE_IOS_CLIENT_ID }}
+      DATABASE_URL: postgresql://linkatletas:linkatletas_dev@127.0.0.1:54329/linkatletas_test
+      S3_ENDPOINT: http://127.0.0.1:8333
+      S3_ACCESS_KEY: linkatletas-local
+      S3_SECRET_KEY: local-only-change-in-production
+      S3_BUCKET: linkatletas-private
+      SMTP_HOST: 127.0.0.1
+      SMTP_PORT: 1025
+      SMTP_FROM: no-reply@linkatletas.local
+      APP_ORIGIN: http://localhost:5173
+      BILLING_MODE: academic
+      REVIEW_MIN_DAYS: '0'
+      JOBS_INTERVAL_MS: '1000'
     steps:
       - uses: actions/checkout@v5
+      - name: Validate build target
+        env:
+          REQUESTED_PROFILE: ${{ inputs.build_profile || 'local' }}
+          VERIFICATION_MODE: ${{ inputs.mode || 'integrated' }}
+          APK_RUN_ID: ${{ inputs.apk_run_id }}
+        run: |
+          case "$REQUESTED_PROFILE" in local|cloud) ;; *) exit 1 ;; esac
+          case "$VERIFICATION_MODE" in build|startup|integrated) ;; *) exit 1 ;; esac
+          if test "$REQUESTED_PROFILE" = cloud && test "$VERIFICATION_MODE" = integrated; then
+            echo 'O ensaio integrado exige o perfil local e servicos isolados.' >&2
+            exit 1
+          fi
+          if test -n "$APK_RUN_ID" && ! [[ "$APK_RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo 'apk_run_id deve ser um identificador numerico de execucao.' >&2
+            exit 1
+          fi
       - uses: pnpm/action-setup@v4
         with:
           version: 10.33.2
@@ -23,30 +82,134 @@ jobs:
         with:
           node-version: 24.15.0
           cache: pnpm
-          cache-dependency-path: mobile/pnpm-lock.yaml
-      - uses: actions/setup-java@v4
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            mobile/pnpm-lock.yaml
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
-      - name: Install locked native dependencies
-        run: pnpm --dir mobile install --frozen-lockfile
-      - name: Native types and transport
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: android-local-${{ runner.os }}-${{ hashFiles('mobile/pnpm-lock.yaml') }}
+          restore-keys: |
+            android-local-${{ runner.os }}-
+      - name: Install and verify native source
         run: |
+          pnpm install --frozen-lockfile
+          pnpm --dir mobile install --frozen-lockfile
           pnpm --dir mobile typecheck
           pnpm --dir mobile test
+      - name: Start isolated real services and API
+        if: inputs.mode == 'integrated'
+        run: |
+          docker compose up -d --wait
+          pnpm db:migrate
+          pnpm db:seed
+          mkdir -p emulator-evidence
+          node --import tsx server/index.ts > emulator-evidence/api.log 2>&1 &
+          timeout 60 bash -c 'until curl --fail --silent http://127.0.0.1:3001/api/health; do sleep 1; done'
       - name: Generate Android project
+        if: inputs.apk_run_id == ''
         run: pnpm --dir mobile exec expo prebuild --platform android --no-install
-      - name: Compile standalone verification APK
+      - name: Compile the actual APK
+        if: inputs.apk_run_id == ''
         working-directory: mobile/android
         run: ./gradlew :app:assembleRelease --no-daemon --max-workers=2 -PreactNativeArchitectures=arm64-v8a,x86_64
-      - name: Record artifact and signing limitations
+      - name: Record APK and signing information
+        if: inputs.apk_run_id == ''
         run: |
-          mkdir -p android-artifacts
-          cp mobile/android/app/build/outputs/apk/release/*.apk android-artifacts/LinkAtletas-verificacao.apk
-          sha256sum android-artifacts/*.apk > android-artifacts/SHA256SUMS
-          printf '%s\n' "Commit: $GITHUB_SHA" 'APK para verificação técnica, assinado com chave de desenvolvimento gerada pelo template Expo. Não é distribuição de loja.' 'API: configure a variável pública EXPO_PUBLIC_API_URL do repositório com uma URL HTTPS real e gere nova versão. Na ausência dela, o domínio .example é documental.' 'Compilação não comprova funcionamento do fluxo em aparelho. Homologação real e assinatura de distribuição continuam pendentes.' > android-artifacts/LEIA-ME.txt
+          mkdir -p android-local
+          cp mobile/android/app/build/outputs/apk/release/*.apk android-local/LinkAtletas-local.apk
+          keytool -list -v -keystore mobile/android/app/debug.keystore -storepass android -alias androiddebugkey > android-local/signing-certificate.txt
+          cd android-local
+          sha256sum LinkAtletas-local.apk > SHA256SUMS
+          printf '%s\n' "Commit: $GITHUB_SHA" 'APK standalone de demonstracao local, com chave de desenvolvimento.' 'API: http://localhost:3001/api. Inicie a API no computador e use adb reverse tcp:3001 tcp:3001 por USB ou emulador.' 'HTTP permitido somente nos enderecos locais; producao continua exigindo HTTPS.' 'Nenhum Metro ou servidor publico e necessario. Nao usar para dados ou pagamentos reais.' > LEIA-ME.txt
+          if test "$EXPO_PUBLIC_BUILD_PROFILE" = cloud; then
+            mv LinkAtletas-local.apk LinkAtletas.apk
+            sha256sum LinkAtletas.apk > SHA256SUMS
+            printf '%s\n' "Commit: $GITHUB_SHA" 'APK HTTPS de demonstracao com assinatura de desenvolvimento; nao e distribuicao de loja.' 'API: https://link-atletas.vercel.app/api. Nao depende de Docker, Metro ou USB.' 'Nao usar para pagamentos reais. OAuth requer conta autorizada no projeto Google.' > LEIA-ME.txt
+          fi
       - uses: actions/upload-artifact@v4
+        if: inputs.apk_run_id == ''
         with:
-          name: LinkAtletas-APK-verificacao
-          path: android-artifacts/
+          name: LinkAtletas-APK-${{ inputs.build_profile == 'cloud' && 'cloud' || 'local' }}
+          path: android-local/
           retention-days: 30
+      - uses: actions/download-artifact@v4
+        if: inputs.apk_run_id != ''
+        with:
+          name: LinkAtletas-APK-${{ inputs.build_profile == 'cloud' && 'cloud' || 'local' }}
+          run-id: ${{ inputs.apk_run_id }}
+          github-token: ${{ github.token }}
+          path: android-local
+      - name: Boot emulator
+        if: inputs.mode != 'build'
+        run: bash scripts/android/start-emulator.sh
+      - name: Check APK installation and startup
+        if: inputs.mode == 'startup'
+        run: |
+          (cd android-local && sha256sum -c SHA256SUMS)
+          if test "$EXPO_PUBLIC_BUILD_PROFILE" = cloud; then
+            apk=android-local/LinkAtletas.apk
+            package=br.edu.linkatletas.app
+          else
+            apk=android-local/LinkAtletas-local.apk
+            package=br.edu.linkatletas.app.local
+          fi
+          adb install "$apk"
+          adb logcat -c
+          adb shell am start -W -n "$package/.MainActivity"
+          python3 - <<'PY'
+          import json
+          import subprocess
+          import time
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          out = Path('emulator-evidence')
+          ready = False
+          for attempt in range(15):
+              time.sleep(2)
+              subprocess.run(['adb', 'shell', 'uiautomator', 'dump', '/sdcard/window.xml'], check=True)
+              subprocess.run(['adb', 'pull', '/sdcard/window.xml', str(out / 'window.xml')], check=True)
+              tree = ET.parse(out / 'window.xml')
+              text = ' '.join(node.attrib.get('text', '') + ' ' + node.attrib.get('content-desc', '') for node in tree.iter('node'))
+              if all(label in text for label in ['E-mail', 'Senha', 'Entrar']):
+                  ready = True
+                  break
+          subprocess.run(['adb', 'exec-out', 'screencap', '-p'], stdout=(out / 'startup.png').open('wb'), check=True)
+          errors = subprocess.check_output(['adb', 'logcat', '-d', '-s', 'AndroidRuntime:E', 'ReactNativeJS:E'], text=True)
+          (out / 'runtime-errors.log').write_text(errors, encoding='utf-8')
+          assert ready, 'Tela de login nao encontrada no prazo.'
+          assert 'FATAL EXCEPTION' not in errors and 'TypeError:' not in errors, 'Falha de runtime no log.'
+          (out / 'startup-result.json').write_text(json.dumps({'installed': True, 'loginVisible': ready, 'fullFlowValidated': False, 'realDeviceValidated': False}, indent=2), encoding='utf-8')
+          PY
+      - name: Install and exercise the APK against the real API
+        if: inputs.mode == 'integrated'
+        env:
+          APK_SOURCE_RUN: ${{ inputs.apk_run_id || github.run_id }}
+        run: |
+          (cd android-local && sha256sum -c SHA256SUMS)
+          adb install android-local/LinkAtletas-local.apk
+          adb reverse tcp:3001 tcp:3001
+          adb logcat -c
+          python3 mobile/scripts/verify-roles.py
+      - name: Capture runtime diagnostics
+        if: always() && inputs.mode != 'build'
+        run: |
+          if command -v adb >/dev/null && adb get-state >/dev/null 2>&1; then
+            adb logcat -d -s AndroidRuntime:E ReactNativeJS:E > emulator-evidence/runtime-errors.log
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always() && inputs.mode != 'build'
+        with:
+          name: LinkAtletas-Android-${{ inputs.mode }}-evidence
+          path: emulator-evidence/
+          retention-days: 30
+      - name: Stop isolated services
+        if: always() && inputs.mode == 'integrated'
+        run: docker compose down

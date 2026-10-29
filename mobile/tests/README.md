@@ -14,6 +14,6 @@ Executar `pnpm test` em `mobile`, ou `pnpm --dir mobile test` na raiz. A configu
 
 Usa Vitest em Node, React Test Renderer na mesma versão de React do app e módulos nativos/HTTP controlados. Não exige Docker nem altera contas reais. Os testes de resposta 403 verificam o tratamento do cliente, não a autorização real do servidor. A suíte da raiz não inclui automaticamente estes arquivos; o workflow chama o comando móvel separadamente.
 
-Tipos, compatibilidade e exportação são verificações complementares: `pnpm typecheck`, `pnpm check` e `pnpm export`. Nenhuma substitui instalar e operar o APK. O [workflow Android](../../.github/workflows/android-integrated.yml) possui ensaio separado por UIAutomator. O roteiro anterior ainda espera que treinador seja recusado pelo aplicativo: ele precisa de atualização fora de `mobile` antes de testar os novos três perfis. Não apresentar seu resultado histórico como validação desta ampliação.
+Tipos, compatibilidade e exportação são verificações complementares: `pnpm typecheck`, `pnpm check` e `pnpm export`. Nenhuma substitui instalar e operar o APK. O [workflow Android](../../.github/workflows/android.yml) possui ensaio separado por UIAutomator. O modo integrado utiliza `mobile/scripts/verify-roles.py` para os tres perfis. O roteiro legado em `scripts/android/verify-integrated.py` continua como auxiliar e diagnostico; seus resultados anteriores nao comprovam os novos fluxos.
 
 [Aplicativo](../README.md) · [Relatório geral](../../docs/evidencias/relatorio-testes.md)

@@ -15,11 +15,11 @@ pnpm mobile:connect --serial IDENTIFICADOR --install C:/caminho/LinkAtletas-loca
 
 `API_PORT` escolhe a porta da API no computador; o aplicativo acessa porta 3001 encaminhada pelo ADB. Com mais de um aparelho, `--serial` é obrigatório. O pacote esperado é `br.edu.linkatletas.app.local`, não um aplicativo publicado em loja.
 
-Os outros scripts são usados pelo [workflow Android](../../.github/workflows/android-integrated.yml). O shell depende das ferramentas e variáveis do runner; não é instalador genérico para Windows. O ensaio Python exige um único emulador selecionável por ADB, APK instalado e ambiente local isolado com PostgreSQL, SMTP e S3.
+Os outros scripts são usados pelo [workflow Android](../../.github/workflows/android.yml). O shell depende das ferramentas e variáveis do runner; não é instalador genérico para Windows. O ensaio Python exige um único emulador selecionável por ADB, APK instalado e ambiente local isolado com PostgreSQL, SMTP e S3.
 
 O Python recusa `DATABASE_URL` ausente, remota ou sem sufixo `_test`, e `NODE_ENV=production`. Essa proteção confere o ambiente do processo: o operador também deve garantir que a API local use o mesmo banco. `ANDROID_TEST_FOCUS` aceita `all`, `workout` e `media`; o relatório identifica o foco executado.
 
-O cliente nativo atende ao atleta. Ações auxiliares do treinador são feitas por HTTP; não apresentar como jornada nativa dos três papéis. Usa fixtures locais e `REVIEW_MIN_DAYS=0` no runner, sem alterar a regra de produção.
+O workflow integrado atual usa `mobile/scripts/verify-roles.py` para atleta, treinador e administrador, reutilizando helpers do roteiro legado. A descricao de `ANDROID_TEST_FOCUS` acima se aplica ao script legado, nao a uma opcao do workflow atual. Fixtures e `REVIEW_MIN_DAYS=0` ficam restritos ao ambiente local de testes.
 
 Resultados ficam em `emulator-evidence/`. O teste pode criar vínculos/treinos, mudar consentimentos, recuperar senha e encerrar conta fictícia. Valida emulador, não aparelho físico, iOS, lojas ou pagamentos externos.
 

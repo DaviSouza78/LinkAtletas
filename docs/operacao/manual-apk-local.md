@@ -33,8 +33,10 @@ O perfil normal exige `EXPO_PUBLIC_API_URL` HTTPS e rejeita domínios documentai
 
 ## Reproduzir o teste que exercita o APK
 
-O workflow `Android emulator smoke`, opção `integrated=true`, chama [android-integrated.yml](../../.github/workflows/android-integrated.yml). Sem `apk_run_id`, compila um APK novo; com esse campo preenchido, testa exatamente o artefato daquele build. `build_only=true` compila sem iniciar o emulador. `test_focus=all` executa o roteiro completo; `test_focus=workout` serve apenas para diagnóstico isolado do login/ficha e não comprova o fluxo inteiro. O ensaio usa Android API 35 e serviços reais PostgreSQL, SMTP e S3 em banco isolado `_test`.
+O workflow [Android verification](../../.github/workflows/android.yml) concentra compilacao, inicializacao e teste integrado. `mode=build` gera o APK; `mode=startup` instala e confere a tela de login; `mode=integrated` executa o ensaio dos tres perfis. O perfil `cloud` permite apenas compilacao ou inicializacao, sem criar dados de teste em producao.
 
-O [roteiro automatizado](../../scripts/android/verify-integrated.py) executa ações no APK e consulta o servidor para conferir persistência; ações de treinador e algumas preferências iniciais são fixtures via API. A regra de avaliação usa zero dias somente nesse banco de teste; a configuração normal mantém sete dias. Resultados e limites estão na [verificação móvel](https://github.com/DaviSouza78/LinkAtletas/blob/9d62794a8bb84aa77f41de2bab91ebe15b4060d2/docs/evidencias/android/mobile-verificacao.md).
+Sem `apk_run_id`, compila um APK novo. Com esse campo preenchido, baixa o artefato do mesmo perfil de outra execucao deste workflow e confere seu SHA-256. Artefatos tem retencao de 30 dias; nao ha uma execucao antiga selecionada por padrao.
+
+O [roteiro de tres perfis](../../mobile/scripts/verify-roles.py) executa acoes no APK e confere a API com PostgreSQL, SMTP e S3 locais isolados. `REVIEW_MIN_DAYS=0` e exclusivo do ambiente de teste; nao altera a regra de producao. Resultados tem commit do roteiro e origem do APK identificados separadamente.
 
 Não havia aparelho físico conectado ao ADB nesta revisão. Teste em emulador não certifica todas as versões/fabricantes, acessibilidade manual, iPhone/iPad nem publicação nas lojas.
