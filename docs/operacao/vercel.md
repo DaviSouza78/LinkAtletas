@@ -44,3 +44,17 @@ Uploads grandes utilizam sessões autenticadas em partes. Conferir o [contrato d
 O Deployment Check `LinkAtletas - validacao completa`, importado do GitHub, é exigido para promoção em Production. Ele corresponde ao job de mesmo nome em `.github/workflows/ci.yml` no fork conectado à Vercel. O build pode terminar antes dos testes; a liberação do domínio deve aguardar a aprovação desse check no mesmo commit.
 
 O workflow responde a todos os pushes, inclusive documentação, e permite execução manual. Se uma publicação ficar aguardando, conferir o commit, a execução no fork e o nome do check antes de tentar novamente. Uma CI aprovada somente no repositório do grupo não substitui o resultado do fork.
+
+## Tarefas agendadas
+
+O cron-job.org chama `GET https://link-atletas.vercel.app/api/internal/jobs` a cada minuto (`* * * * *`), no fuso `America/Sao_Paulo`, com timeout de 30 segundos. A autenticação utiliza `Authorization: Bearer <CRON_SECRET de produção>`; nunca colocar esse segredo na URL ou em arquivos versionados. Redirecionamentos HTTP 3xx não são considerados sucesso.
+
+Manter somente um agendamento para essa URL. Não há cron nativo declarado em `vercel.json`; na Vercel, o intervalo local do servidor fica desligado. O executor também usa uma trava transacional no PostgreSQL para evitar trabalho simultâneo: `skipped: true` significa que outra execução já possui a trava, enquanto `skipped: false` acompanha o resultado do processamento.
+
+O processamento verifica vencimentos profissionais, eventos e estados financeiros, e-mails pendentes, uploads incompletos, sessões e tokens expirados. O modo financeiro configurado determina o acesso ao provedor; não ativar cobranças reais para testar o agendador.
+
+Os avisos estão configurados para três falhas consecutivas, recuperação após falha, desativação por excesso de falhas e certificado TLS próximo do vencimento (sete dias). O canal de e-mail da conta do cron-job.org deve permanecer habilitado. Não provocar falhas em produção para testar notificações.
+
+Para conferir o serviço, consultar Cronjobs → History e executar Test run quando necessário. O retorno esperado é HTTP 200 com JSON de processamento; chamadas sem autorização ou com o segredo de Preview devem retornar 401. HTTP 200 não comprova chegada de e-mails à caixa de entrada: verificar também tentativas e pendências em `mail_outbox`, pois falhas SMTP são registradas na fila para nova tentativa. `sent: 0` pode simplesmente indicar fila vazia.
+
+Se houver mudança de domínio, credencial ou provedor, atualizar o agendamento e validar uma execução completa. As respostas não são armazenadas no histórico do provedor; o status e a duração continuam disponíveis. Preservar os segredos ao compartilhar prints.
