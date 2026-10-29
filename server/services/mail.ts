@@ -16,6 +16,7 @@ export async function queueMail(
   )
 }
 export async function deliverOutbox(pool: Pool) {
+  if (process.env.VERCEL_ENV === 'preview') return { sent: 0, disabled: true }
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || '127.0.0.1',
     port: Number(process.env.SMTP_PORT || 1025),

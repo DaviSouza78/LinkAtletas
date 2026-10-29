@@ -11,6 +11,18 @@ A interface React/Vite e a API Node/Fastify usam o mesmo domínio. A configuraç
 
 Produção e Preview devem ter banco, buckets e credenciais independentes. As variáveis necessárias estão em [.env.example](../../.env.example); seus valores reais são cadastrados privadamente nos provedores. Não copiar credenciais locais para produção nem expor segredos com prefixos públicos.
 
+### Isolamento de Preview
+
+A integração Neon gerenciada fornece credenciais somente a Production, sem criação automática de branches por deployment. Preview usa uma conexão explícita para a base `linkatletas_preview`, em outro branch Neon, com usuário exclusivo sem `CREATEROLE`, `CREATEDB` ou `BYPASSRLS`. Aplicar as migrações nessa base limpa; não clonar dados pessoais ou sessões de produção. As credenciais de produção não devem aparecer nos aliases `DATABASE_*` de Preview.
+
+O armazenamento utiliza buckets e chaves exclusivos. As variáveis `DATA_ENCRYPTION_KEY` e `CRON_SECRET` também devem ser distintas. Não substituir a chave de cifra de produção para organizar ambientes: isso impediria a leitura de dados já cifrados.
+
+Em deployments com `VERCEL_ENV=preview`, o servidor exige `BILLING_MODE=academic` e bloqueia a entrega SMTP antes de consultar a fila ou abrir transporte. E-mails de recuperação ficam pendentes nesse ambiente; não são entregues. Preview não recebe a senha SMTP do Brevo de produção. O teste de entrega real deve ser feito em um ambiente autorizado próprio.
+
+Quando disponível, `VERCEL_BRANCH_URL` define a origem HTTPS de Preview. Navegar pelo domínio estável do branch para operações autenticadas; uma URL específica de deployment pode não coincidir com a origem permitida.
+
+Antes de liberar uma configuração nova, verificar conexão com TLS, negação de autenticação do banco com a credencial do outro ambiente, negação HTTP 403 entre buckets e cadastro/login com persistência somente em Preview. Deployments antigos conservam configurações antigas; não usá-los como ambiente de testes atual.
+
 ## Publicação
 
 1. Instalar dependências e conferir `pnpm build` antes de publicar.

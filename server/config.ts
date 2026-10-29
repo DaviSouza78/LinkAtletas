@@ -1,7 +1,12 @@
 import 'dotenv/config'
 
 export const production = process.env.NODE_ENV === 'production'
-export const appOrigin = process.env.APP_ORIGIN || 'http://localhost:5173'
+export const appOrigin =
+  process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_BRANCH_URL
+    ? `https://${process.env.VERCEL_BRANCH_URL}`
+    : process.env.APP_ORIGIN || 'http://localhost:5173'
+if (process.env.VERCEL_ENV === 'preview' && process.env.BILLING_MODE !== 'academic')
+  throw new Error('Preview exige BILLING_MODE academic.')
 if (
   process.env.BILLING_MODE &&
   !['academic', 'asaas'].includes(process.env.BILLING_MODE)
