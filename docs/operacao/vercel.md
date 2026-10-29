@@ -26,3 +26,9 @@ O [manual](manual.md) descreve os comandos locais. Evidências já coletadas est
 Uma CI aprovada, um commit enviado e um deployment em produção são eventos diferentes. Antes de usar um resultado como evidência, conferir ambiente, commit e data. WebSockets em serverless exigem considerar as limitações do provedor; o histórico de mensagens persiste no PostgreSQL.
 
 Uploads grandes utilizam sessões autenticadas em partes. Conferir o [contrato da API](../api/README.md) e os limites do provedor antes de alterar essa configuração. Pagamentos reais, OAuth e publicação nas lojas têm requisitos próprios descritos em [continuidade](continuidade.md).
+
+## Aprovação antes da produção
+
+O Deployment Check `LinkAtletas - validacao completa`, importado do GitHub, é exigido para promoção em Production. Ele corresponde ao job de mesmo nome em `.github/workflows/ci.yml` no fork conectado à Vercel. O build pode terminar antes dos testes; a liberação do domínio deve aguardar a aprovação desse check no mesmo commit.
+
+O workflow responde a todos os pushes, inclusive documentação, e permite execução manual. Se uma publicação ficar aguardando, conferir o commit, a execução no fork e o nome do check antes de tentar novamente. Uma CI aprovada somente no repositório do grupo não substitui o resultado do fork.
