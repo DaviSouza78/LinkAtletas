@@ -34,7 +34,7 @@ for (const file of [
     }
   }
 }
-const api = JSON.parse(await readFile('docs/evolucao/openapi.json', 'utf8'))
+const api = JSON.parse(await readFile('docs/openapi.json', 'utf8'))
 assert(api.openapi.startsWith('3.0'), 'OpenAPI 3.0 exigida.')
 for (const endpoint of [
   '/api/auth/native/login',
@@ -50,12 +50,12 @@ assert(
   api.components.securitySchemes.bearerAuth,
   'Autenticação nativa documentada.',
 )
-const database = JSON.parse(await readFile('docs/evolucao/evidencias/api/database-schema.json', 'utf8')) as {
+const database = JSON.parse(await readFile('docs/evidencias/api/database-schema.json', 'utf8')) as {
   tables: string[]
   columns: Array<{ table_name: string; column_name: string }>
   constraints: Array<{ table_name: string; type: string; foreign_table: string | null; columns: string[] }>
 }
-const der = (await readFile('docs/evolucao/diagramas/der.mmd', 'utf8')).replaceAll('\r\n', '\n')
+const der = (await readFile('docs/diagramas/der.mmd', 'utf8')).replaceAll('\r\n', '\n')
 let diagramColumnsChecked = 0
 for (const entity of der.matchAll(/^  (\w+) \{\n([\s\S]*?)^  \}/gm)) {
   assert(database.tables.includes(entity[1]), `Tabela ausente no banco: ${entity[1]}`)
@@ -67,10 +67,10 @@ for (const entity of der.matchAll(/^  (\w+) \{\n([\s\S]*?)^  \}/gm)) {
 for (const fk of database.constraints.filter((c) => c.type === 'f'))
   assert(der.split('\n').some((line) => line.trim().startsWith(`${fk.foreign_table} `) && line.endsWith(` ${fk.table_name} : ${fk.columns.join('_')}`)), `Relação FK ausente no DER: ${fk.table_name}.${fk.columns.join(',')}`)
 let sequenceCallsChecked = 0
-const useCases = await readFile('docs/evolucao/diagramas/casos-de-uso.puml', 'utf8')
+const useCases = await readFile('docs/diagramas/casos-de-uso.puml', 'utf8')
 const useCaseIds = [...useCases.matchAll(/usecase "(UC-[\d.]+) /g)].map((match) => match[1])
 assert.equal(new Set(useCaseIds).size, useCaseIds.length, 'Identificadores de casos de uso repetidos.')
-const useCaseSvg = await readFile('docs/evolucao/diagramas/casos-de-uso.svg', 'utf8')
+const useCaseSvg = await readFile('docs/diagramas/casos-de-uso.svg', 'utf8')
 for (const id of useCaseIds) assert(useCaseSvg.includes('>' + id + '<'), `Caso de uso ausente na imagem: ${id}`)
 for (const name of [
   'sequencia-contratacao',
@@ -80,7 +80,7 @@ for (const name of [
   'sequencia-recuperacao',
   'sequencia-upload-privado',
 ]) {
-  const sequence = await readFile(`docs/evolucao/diagramas/${name}.mmd`, 'utf8')
+  const sequence = await readFile(`docs/diagramas/${name}.mmd`, 'utf8')
   for (const call of sequence.matchAll(/->>API: (GET|POST|PUT|PATCH|DELETE) (\/[\w/:?-]+)/g)) {
     const endpoint = '/api' + call[2].split('?')[0].replace(/:(\w+)/g, '{$1}')
     assert(api.paths[endpoint]?.[call[1].toLowerCase()], `Chamada de sequência não existe: ${call[1]} ${endpoint}`)
@@ -97,9 +97,9 @@ const result = {
   useCasesChecked: useCaseIds.length,
   foreignKeysDocumented: database.constraints.filter((c) => c.type === 'f').length,
 }
-await mkdir('docs/evolucao/evidencias/documentacao', { recursive: true })
+await mkdir('docs/evidencias/documentacao', { recursive: true })
 await writeFile(
-  'docs/evolucao/evidencias/documentacao/documentation-check.json',
+  'docs/evidencias/documentacao/documentation-check.json',
   JSON.stringify(result, null, 2) + '\n',
 )
 assert.equal(failures.length, 0, failures.join('\n'))

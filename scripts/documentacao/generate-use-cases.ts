@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises'
 
-const root = 'docs/evolucao/diagramas/'
+const root = 'docs/diagramas/'
 const source = await readFile(root + 'casos-de-uso.puml', 'utf8')
 const columns = [
   ['Conta', 'Descoberta', 'Financeiro', 'Execucao', 'Chat', 'Review', 'Agenda', 'Privacidade'],

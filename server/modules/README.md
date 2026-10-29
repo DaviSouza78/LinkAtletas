@@ -13,6 +13,6 @@ Cada área reúne rotas e regras de um assunto. [app.ts](../app.ts) registra os 
 
 Os módulos usam [db](../db/README.md), [recursos internos](../shared/README.md), [serviços](../services/README.md) e [contratos compartilhados](../../shared/README.md). Uma operação pode envolver mais de uma área: por exemplo, prescrever treino exige vínculo e elegibilidade profissional/financeira.
 
-Ao alterar uma rota, conferir sessão, papel, titularidade, entrada e efeito no banco. Preservar o histórico previsto e os contratos dos clientes. Consulte o [guia da API](../../docs/evolucao/api.md) e os [testes](../../tests/README.md).
+Ao alterar uma rota, conferir sessão, papel, titularidade, entrada e efeito no banco. Preservar o histórico previsto e os contratos dos clientes. Consulte o [guia da API](../../docs/api.md) e os [testes](../../tests/README.md).
 
 [Voltar ao servidor](../README.md)

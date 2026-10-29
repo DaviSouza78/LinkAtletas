@@ -16,6 +16,6 @@ TLS usa `TLS_PROXY_CONTAINER`, `TLS_APP_CONTAINER` e `HTTPS_PORT` (padrão 8443)
 
 O ensaio privado exige `BACKUP_DOCKER_NETWORK`, `BACKUP_DOCKER_ENV_FILE` e `BACKUP_DB_CONTAINER`; não executar sobre produção em uso. Não é backup do Neon. Chave e parâmetros S3 devem corresponder à instalação.
 
-Saídas JSON ficam em `docs/evolucao/evidencias/infraestrutura`. Carga local não mede autoescala; TLS local não comprova o domínio público; backup aprovado não substitui política de retenção ou ensaio da restauração de produção.
+Saídas JSON ficam em `docs/evidencias/infraestrutura`. Carga local não mede autoescala; TLS local não comprova o domínio público; backup aprovado não substitui política de retenção ou ensaio da restauração de produção.
 
-[Voltar aos scripts](../README.md) · [Relatório de testes](../../docs/evolucao/relatorio-testes.md)
+[Voltar aos scripts](../README.md) · [Relatório de testes](../../docs/relatorio-testes.md)

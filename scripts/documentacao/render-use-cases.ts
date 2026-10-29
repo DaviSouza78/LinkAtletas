@@ -8,12 +8,12 @@ try {
     deviceScaleFactor: 1,
   })
   await page.goto(
-    pathToFileURL(path.resolve('docs/evolucao/diagramas/casos-de-uso.svg'))
+    pathToFileURL(path.resolve('docs/diagramas/casos-de-uso.svg'))
       .href,
   )
   await page
     .locator('svg')
-    .screenshot({ path: 'docs/evolucao/diagramas/casos-de-uso.png' })
+    .screenshot({ path: 'docs/diagramas/casos-de-uso.png' })
 } finally {
   await browser.close()
 }

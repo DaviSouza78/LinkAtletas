@@ -19,6 +19,6 @@ A exportação OpenAPI documenta a **API própria do LinkAtletas**. A conferênc
 
 Os geradores sobrescrevem suas saídas. O gerador Word exige referência diferente da saída. O PDF histórico aceita `--output-dir`; o Word histórico aceita `--source-dir` e, opcionalmente, páginas como `1,2`. Esses processos antigos não devem recriar a ERS atual.
 
-O [PDF final](../../docs/evolucao/ERS-template-original-atualizada.pdf) foi ajustado manualmente pela equipe. As fontes registram a geração anterior, sem garantir reprodução idêntica desse PDF. Conferir o [guia do template](../../docs/evolucao/template/README.md) antes de regenerar.
+O [PDF final](../../docs/ERS-template-original-atualizada.pdf) foi ajustado manualmente pela equipe. As fontes registram a geração anterior, sem garantir reprodução idêntica desse PDF. Conferir o [guia do template](../../docs/template/README.md) antes de regenerar.
 
 [Voltar aos scripts](../README.md)

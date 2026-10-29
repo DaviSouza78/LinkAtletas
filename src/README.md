@@ -87,7 +87,7 @@ Esses controles de navegação melhoram a experiência, mas **a autorização pr
 
 Os contratos reais compartilhados com a API e o aplicativo ficam em [shared](../shared). O antigo `src/types.ts` reunia tipos do protótipo sem consumidores; os que não eram usados foram retirados. O tipo efetivamente utilizado pelo adaptador de calendário foi preservado no arquivo específico acima.
 
-Ter um adaptador Google no código não comprova sua ativação externa. O estado dos fornecedores, CREF manual e financeiro acadêmico está no [guia dos serviços](../docs/evolucao/operacao/servicos-externos-sprint-2.md).
+Ter um adaptador Google no código não comprova sua ativação externa. O estado dos fornecedores, CREF manual e financeiro acadêmico está no [guia dos serviços](../docs/operacao/servicos-externos-sprint-2.md).
 
 ## Estilos
 
@@ -118,6 +118,6 @@ Algumas regras visuais do protótipo permanecem nesses arquivos. A organização
 4. Preservar os caminhos de navegação, estados de carregamento/erro e permissões previstas.
 5. Conferir tipos, compilação e os testes proporcionais à alteração.
 
-Os comandos são executados na raiz do repositório: `pnpm dev:all` inicia web e API locais; `pnpm build` verifica tipos e compila; os testes de navegador usam `pnpm test:e2e` com os serviços e a base isolada preparados. Ver [manual de execução](../docs/evolucao/operacao/manual.md) e [guia dos testes](../tests/README.md).
+Os comandos são executados na raiz do repositório: `pnpm dev:all` inicia web e API locais; `pnpm build` verifica tipos e compila; os testes de navegador usam `pnpm test:e2e` com os serviços e a base isolada preparados. Ver [manual de execução](../docs/operacao/manual.md) e [guia dos testes](../tests/README.md).
 
 Configurações de banco, SMTP, armazenamento e chaves privadas pertencem ao servidor. Variáveis `VITE_*` são acessíveis ao cliente e não devem conter segredos. Não acrescentar credenciais ao código da interface.

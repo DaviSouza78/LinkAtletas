@@ -18,7 +18,7 @@ import {
 } from 'docx'
 import path from 'node:path'
 
-const root = 'docs/evolucao',
+const root = 'docs',
   width = 9638
 const plainText = (text: string) =>
   text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)').replace(/\*\*|`/g, '')

@@ -2,9 +2,9 @@
 
 Plataforma que conecta atletas a treinadores e reúne perfis esportivos, contratação, treinos e acompanhamento de resultados. Projeto Integrador Interdisciplinar II de ADS, Faculdade de Tecnologia SENAI Félix Guisard, desenvolvido para a demanda SAGA nº 12871 da Ivi-it.
 
-[Acessar aplicação](https://link-atletas.vercel.app) · [Documentação](docs/README.md) · [Entrega da Sprint 2](docs/evolucao/checklist-sprint-2.md)
+[Acessar aplicação](https://link-atletas.vercel.app) · [Documentação](docs/README.md) · [Entrega da Sprint 2](docs/checklist-sprint-2.md)
 
-Para localizar cada assunto, usar o [índice da documentação atual](docs/evolucao/README.md), o [guia da interface web](src/README.md), o [guia do servidor](server/README.md), o [índice dos scripts](scripts/README.md) e o [índice dos testes](tests/README.md).
+Para localizar cada assunto, usar o [índice da documentação atual](docs/README.md), o [guia da interface web](src/README.md), o [guia do servidor](server/README.md), o [índice dos scripts](scripts/README.md) e o [índice dos testes](tests/README.md).
 
 ## Funcionalidades
 
@@ -29,11 +29,11 @@ O modo financeiro acadêmico não realiza cobranças. A integração Asaas depen
 | Nuvem | Vercel, Neon, Tigris, Brevo e cron-job.org |
 | Qualidade | Vitest, Playwright, axe e GitHub Actions |
 
-Veja a [função de cada serviço e a separação entre nuvem e ambiente local](docs/evolucao/operacao/servicos-externos-sprint-2.md).
+Veja a [função de cada serviço e a separação entre nuvem e ambiente local](docs/operacao/servicos-externos-sprint-2.md).
 
 ## Contas para demonstração
 
-O site público utiliza contas próprias de atleta, treinador e administrador. As credenciais são fornecidas pelo responsável pela demonstração fora do GitHub. As contas fictícias do [manual](docs/evolucao/operacao/manual.md) são exclusivas do banco local e não permitem entrar na implantação pública.
+O site público utiliza contas próprias de atleta, treinador e administrador. As credenciais são fornecidas pelo responsável pela demonstração fora do GitHub. As contas fictícias do [manual](docs/operacao/manual.md) são exclusivas do banco local e não permitem entrar na implantação pública.
 
 ## Executar localmente
 
@@ -53,7 +53,7 @@ Preserve um `.env` existente. O seed é exclusivo de desenvolvimento; não o exe
 - Interface: [localhost:5173](http://localhost:5173).
 - API e Swagger: [localhost:3001/api/docs](http://localhost:3001/api/docs).
 - E-mails de desenvolvimento: [localhost:8025](http://localhost:8025).
-- Contas fictícias, configuração do app, diagnóstico de portas e backup: [manual de execução](docs/evolucao/operacao/manual.md).
+- Contas fictícias, configuração do app, diagnóstico de portas e backup: [manual de execução](docs/operacao/manual.md).
 
 ## Verificar o projeto
 
@@ -65,7 +65,7 @@ pnpm exec playwright install chromium firefox webkit
 pnpm test:e2e
 ```
 
-Os testes de integração usam bancos isolados com sufixo `_test`. Não aponte as suítes para produção nem execute suítes concorrentes sobre a mesma base de teste. Consulte os [resultados e limites das verificações](docs/evolucao/operacao/implantacao-2026-10-26.md).
+Os testes de integração usam bancos isolados com sufixo `_test`. Não aponte as suítes para produção nem execute suítes concorrentes sobre a mesma base de teste. Consulte os [resultados e limites das verificações](docs/operacao/implantacao-2026-10-26.md).
 
 ## Estrutura
 
@@ -85,9 +85,9 @@ Os scripts estão divididos em banco, documentação, operação, verificação 
 
 ## Documentação e entrega
 
-- [ERS final v2.6 ajustada pela equipe em PDF](docs/evolucao/ERS-template-original-atualizada.pdf).
-- [Checklist dos nove entregáveis](docs/evolucao/checklist-sprint-2.md), [diagramas](docs/evolucao/diagramas.md), [backlog](docs/evolucao/requisitos/backlog.md) e [matriz de UCs](docs/evolucao/requisitos/rastreabilidade.md).
-- [API](docs/evolucao/api.md), [aplicativo](mobile/README.md) e [implantação na Vercel](docs/evolucao/operacao/vercel.md).
-- [Testes de nuvem e APK](docs/evolucao/operacao/implantacao-2026-10-26.md), [decisões técnicas](docs/evolucao/gestao/decisoes.md) e [pendências](docs/evolucao/gestao/continuidade.md).
+- [ERS final v2.6 ajustada pela equipe em PDF](docs/ERS-template-original-atualizada.pdf).
+- [Checklist dos nove entregáveis](docs/checklist-sprint-2.md), [diagramas](docs/diagramas.md), [backlog](docs/requisitos/backlog.md) e [matriz de UCs](docs/requisitos/rastreabilidade.md).
+- [API](docs/api.md), [aplicativo](mobile/README.md) e [implantação na Vercel](docs/operacao/vercel.md).
+- [Testes de nuvem e APK](docs/operacao/implantacao-2026-10-26.md), [decisões técnicas](docs/gestao/decisoes.md) e [pendências](docs/gestao/continuidade.md).
 
 O [índice da documentação](docs/README.md) identifica os documentos principais, as fontes auxiliares da ERS e os materiais históricos. A equipe deve revisar a demonstração e cada integrante concluir sua entrega acadêmica.

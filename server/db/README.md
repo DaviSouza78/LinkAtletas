@@ -15,4 +15,4 @@ Comandos, executados na raiz: `pnpm db:migrate`, `pnpm db:seed` e `pnpm db:admin
 
 Não editar SQL já aplicado para atualizar um banco existente; criar nova migração. Reiniciar o Docker não reaplica automaticamente `init-test.sql` sobre volume existente. Backups e restauração ficam em [scripts/banco](../../scripts/banco).
 
-[Dicionário de dados](../../docs/evolucao/banco/dicionario-dados.md) · [Guia de testes](../../tests/README.md) · [Voltar ao servidor](../README.md)
+[Dicionário de dados](../../docs/banco/dicionario-dados.md) · [Guia de testes](../../tests/README.md) · [Voltar ao servidor](../README.md)

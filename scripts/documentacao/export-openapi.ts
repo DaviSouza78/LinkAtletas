@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import { buildApp } from '../../server/app.js'
 const app = await buildApp()
-const directory = process.env.API_DOCS_DIR || 'docs/evolucao'
+const directory = process.env.API_DOCS_DIR || 'docs'
 try {
   await app.ready()
   await mkdir(directory, { recursive: true })

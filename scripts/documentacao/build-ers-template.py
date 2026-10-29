@@ -17,7 +17,7 @@ from docx.shared import Pt, RGBColor
 from PIL import Image
 
 root = Path(__file__).resolve().parents[2]
-base = root / 'docs/evolucao'
+base = root / 'docs'
 config = base / 'template'
 parser = argparse.ArgumentParser()
 parser.add_argument('--reference', required=True)
@@ -347,7 +347,7 @@ picture(extract(108, 'cronograma-original.png'), 400)
 paragraph('Fonte: Planejamento inicial do grupo (2026). As janelas de entrega atualizadas constam na se\u00e7\u00e3o 3.1; o quadro preserva a distribui\u00e7\u00e3o de atividades do planejamento original.')
 schedule_url = next(item['uri'] for item in original[40].get_links() if item.get('uri', '').startswith('https://docs.google.com/spreadsheets/'))
 hyperlink('Cronograma_Projeto_Integrador_LinkAtletas', schedule_url)
-hyperlink('Backlog atualizado do projeto', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/requisitos/backlog.md')
+hyperlink('Backlog atualizado do projeto', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/requisitos/backlog.md')
 heading('4. Prot\u00f3tipo do produto', 'prototipos', 1, True)
 paragraph(settings['prototypeIntro'])
 field('Link para o Prot\u00f3tipo')
@@ -374,13 +374,13 @@ heading('5.4 DER', 'der', fresh=True)
 schema = json.loads((base / 'evidencias/api/database-schema.json').read_text(encoding='utf-8'))
 paragraph('O modelo representa as ' + str(len(schema['tables'])) + ' tabelas do esquema PostgreSQL exportado. O banco remoto utiliza Neon; o banco Docker \u00e9 independente. A figura apresenta atributos selecionados; os campos, \u00edndices e restri\u00e7\u00f5es completos est\u00e3o no dicion\u00e1rio de dados.')
 picture(base / 'diagramas/der.png', 470)
-hyperlink('DER vetorial ampli\u00e1vel', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/diagramas/der.svg')
-hyperlink('Dicion\u00e1rio de dados e relacionamentos', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/banco/dicionario-dados.md')
+hyperlink('DER vetorial ampli\u00e1vel', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/diagramas/der.svg')
+hyperlink('Dicion\u00e1rio de dados e relacionamentos', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/banco/dicionario-dados.md')
 heading('6. Casos de Testes', 'testes', 1, True)
 for value in settings['testsIntro']:
     paragraph(value)
-hyperlink('Relat\u00f3rio de testes e evid\u00eancias', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/relatorio-testes.md')
-hyperlink('Implanta\u00e7\u00e3o e testes remotos de 26/10/2026', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/operacao/implantacao-2026-10-26.md')
+hyperlink('Relat\u00f3rio de testes e evid\u00eancias', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/relatorio-testes.md')
+hyperlink('Implanta\u00e7\u00e3o e testes remotos de 26/10/2026', 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/operacao/implantacao-2026-10-26.md')
 vitest = json.loads((base / 'evidencias/vitest-results.json').read_text(encoding='utf-8'))
 apk = json.loads((base / 'evidencias/android-integrated-result.json').read_text(encoding='utf-8'))
 test_date = datetime.fromtimestamp(vitest['startTime'] / 1000, timezone(timedelta(hours=-3))).strftime('%d/%m/%Y %H:%M:%S UTC-03:00')
@@ -402,7 +402,7 @@ for item in tests:
     field('Resultado esperado', item['expected'], False)
     field('Resultado observado', 'Aprovado no registro preservado: ' + item['assertion'] + '.', False)
     field('Data e ambiente', environment, False)
-    hyperlink('Evid\u00eancia ' + item['id'], 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/' + item['file'])
+    hyperlink('Evid\u00eancia ' + item['id'], 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/' + item['file'])
     for p in document.paragraphs[first_paragraph:-1]:
         p.paragraph_format.keep_with_next = True
     validated.append({'id': item['id'], 'assertion': item['assertion'], 'file': item['file']})

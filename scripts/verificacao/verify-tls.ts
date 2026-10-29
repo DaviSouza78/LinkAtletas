@@ -192,9 +192,9 @@ const evidence = {
   billing: 'academic, no external payment',
   publicDeployment: false,
 }
-await mkdir(resolve('docs/evolucao/evidencias/infraestrutura'), { recursive: true })
+await mkdir(resolve('docs/evidencias/infraestrutura'), { recursive: true })
 await writeFile(
-  resolve('docs/evolucao/evidencias/infraestrutura/production-tls.json'),
+  resolve('docs/evidencias/infraestrutura/production-tls.json'),
   JSON.stringify(evidence, null, 2),
 )
 await mkdir(resolve('tmp/tls'), { recursive: true })

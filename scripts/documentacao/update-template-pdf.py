@@ -10,7 +10,7 @@ import fitz
 from PIL import Image, ImageChops, ImageDraw
 
 root = Path(__file__).resolve().parents[2]
-base = root / 'docs/evolucao'
+base = root / 'docs'
 config = base / 'template'
 source = root / 'docs/referencias/ERS-Sprint-1-original.pdf'
 parser = argparse.ArgumentParser(description='Gerador historico da ERS v2.5; nao reproduz os ajustes manuais da ERS final.')
@@ -226,7 +226,7 @@ def sequence(steps):
 def link(label, relative):
     start = len(layout)
     paragraph(label, gap=3)
-    uri = relative if relative.startswith('https://') else 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/evolucao/' + relative
+    uri = relative if relative.startswith('https://') else 'https://github.com/DaviSouza78/LinkAtletas/blob/main/docs/' + relative
     for line in layout[start:]:
         document[line['page'] - 1].insert_link({'kind': fitz.LINK_URI, 'from': fitz.Rect(line['x'], line['y'] - 12, 550, line['y'] + 4), 'uri': uri})
     markdown[-1] = '[' + label + '](' + relative + ')\n'

@@ -32,9 +32,9 @@ try {
     return left < right ? -1 : left > right ? 1 : 0
   })
   const metadata = { tables, columns: orderedColumns, constraints, indexes }
-  await mkdir('docs/evolucao/evidencias/api', { recursive: true })
-  await mkdir('docs/evolucao/banco', { recursive: true })
-  await writeFile('docs/evolucao/evidencias/api/database-schema.json', JSON.stringify(metadata, null, 2) + '\n')
+  await mkdir('docs/evidencias/api', { recursive: true })
+  await mkdir('docs/banco', { recursive: true })
+  await writeFile('docs/evidencias/api/database-schema.json', JSON.stringify(metadata, null, 2) + '\n')
   const lines = ['# Dicionário do banco implementado', '',
     'Gerado por `pnpm exec tsx scripts/banco/export-schema.ts` após as migrations, consultando apenas metadados PostgreSQL. Não contém dados pessoais. As 35 tabelas de domínio e as tabelas tecnicas `schema_migrations` e `media_uploads` refletem o banco implementado.', '',
     'O [DER](../diagramas/der.mmd) resume os atributos, mas inclui todas as relações FK. O modelo de classes é conceitual; cardinalidades do DER refletem restrições físicas, incluindo referências opcionais. Campos `resource_id` polimórficos são autorizados pela aplicação e não são FKs.', '']
@@ -53,9 +53,9 @@ try {
       lines.push(`- \`${index.indexname}\`: \`${index.indexdef.replaceAll('|', '&#124;')}\`.`)
     lines.push('')
   }
-  await writeFile('docs/evolucao/banco/dicionario-dados.md', lines.join('\n') + '\n')
+  await writeFile('docs/banco/dicionario-dados.md', lines.join('\n') + '\n')
 
-  const source = (await readFile('docs/evolucao/diagramas/der.mmd', 'utf8')).replaceAll('\r\n', '\n')
+  const source = (await readFile('docs/diagramas/der.mmd', 'utf8')).replaceAll('\r\n', '\n')
   const selected = new Map<string, string[]>()
   for (const match of source.matchAll(/^  (\w+) \{\n([\s\S]*?)^  \}/gm))
     selected.set(match[1], [...match[2].matchAll(/^\s+\w+ (\w+)/gm)].map((m) => m[1]))
@@ -79,7 +79,7 @@ try {
     }
     relations.push('  }')
   }
-  await writeFile('docs/evolucao/diagramas/der.mmd', relations.join('\n') + '\n')
+  await writeFile('docs/diagramas/der.mmd', relations.join('\n') + '\n')
   console.log(JSON.stringify({ tables: tables.length, columns: columns.length, foreignKeys: constraints.filter((c) => c.type === 'f').length }))
 } finally {
   await pool.end()

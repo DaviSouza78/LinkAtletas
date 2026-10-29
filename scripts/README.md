@@ -34,10 +34,10 @@ Os [testes automatizados](../tests/README.md) continuam em `tests`; esta pasta c
 
 - O PostgreSQL do Docker e o Neon são independentes. O backup desta pasta usa `docker exec`; definir `DATABASE_URL` não o transforma em backup remoto do Neon.
 - Backup de banco/S3 exige suspender escritas para obter um conjunto consistente. Preservar a chave AES separadamente. Não publicar dumps, manifestos privados, `.env` ou tokens.
-- Resultados ficam em `docs/evolucao/evidencias`, `tmp/` ou `emulator-evidence/`, conforme o script. Os ensaios de backup preservam recursos para inspeção; selecionar somente os recursos daquele ensaio na limpeza.
-- O [PDF final da ERS](../docs/evolucao/ERS-template-original-atualizada.pdf) foi ajustado pela equipe. Geradores históricos não substituem esse documento. Consultar as [instruções do template](../docs/evolucao/template/README.md) antes de regenerar.
+- Resultados ficam em `docs/evidencias`, `tmp/` ou `emulator-evidence/`, conforme o script. Os ensaios de backup preservam recursos para inspeção; selecionar somente os recursos daquele ensaio na limpeza.
+- O [PDF final da ERS](../docs/ERS-template-original-atualizada.pdf) foi ajustado pela equipe. Geradores históricos não substituem esse documento. Consultar as [instruções do template](../docs/template/README.md) antes de regenerar.
 - Carga, TLS, backup privado e Android têm efeitos sobre dados ou disponibilidade; usar instalações de teste, conforme os guias.
 
 Os caminhos usados pelo Docker, pelos comandos e workflows foram mantidos. `__pycache__` e `.pyc` são caches locais ignorados, não arquivos de entrega.
 
-[Auditoria da pasta](../docs/evolucao/testes/revisoes/auditoria-scripts-2026-10-28.md) · [Manual](../docs/evolucao/operacao/manual.md) · [Servidor](../server/README.md)
+[Auditoria da pasta](../docs/testes/revisoes/auditoria-scripts-2026-10-28.md) · [Manual](../docs/operacao/manual.md) · [Servidor](../server/README.md)

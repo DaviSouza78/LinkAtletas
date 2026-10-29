@@ -3,13 +3,13 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 
-const destination = path.resolve('docs/evolucao/template/figuras')
+const destination = path.resolve('docs/template/figuras')
 await mkdir(destination, { recursive: true })
 const browser = await chromium.launch()
 const manifest = []
 try {
   for (const name of ['casos-de-uso', 'der']) {
-    const source = await readFile(`docs/evolucao/diagramas/${name}.svg`, 'utf8')
+    const source = await readFile(`docs/diagramas/${name}.svg`, 'utf8')
     const box = source.match(/viewBox="([\d.]+) ([\d.]+) ([\d.]+) ([\d.]+)"/)
     if (!box) throw new Error('Missing SVG viewBox: ' + name)
     const width = Number(box[3])

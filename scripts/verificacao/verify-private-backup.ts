@@ -115,9 +115,9 @@ try {
     productionDatabasePreserved: true,
     publicDeployment: false,
   }
-  await mkdir(resolve('docs/evolucao/evidencias/infraestrutura'), { recursive: true })
+  await mkdir(resolve('docs/evidencias/infraestrutura'), { recursive: true })
   await writeFile(
-    resolve('docs/evolucao/evidencias/infraestrutura/private-network-backup.json'),
+    resolve('docs/evidencias/infraestrutura/private-network-backup.json'),
     JSON.stringify(result, null, 2),
   )
   console.log(JSON.stringify(result))

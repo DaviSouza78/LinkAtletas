@@ -23,4 +23,4 @@ A restauração exige banco existente e vazio com sufixo `_test` e bucket vazio.
 
 O worker privado exige rede, imagem e arquivo de ambiente configurados por `BACKUP_DOCKER_*`; não publica a porta do armazenamento. Esses utilitários não implementam agendamento recorrente nem substituem o procedimento de backup do Neon.
 
-[Voltar aos scripts](../README.md) · [Procedimento operacional](../../docs/evolucao/operacao/manual.md)
+[Voltar aos scripts](../README.md) · [Procedimento operacional](../../docs/operacao/manual.md)

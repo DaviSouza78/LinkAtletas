@@ -137,7 +137,7 @@ try {
       consistency:
         'Testes isolados sem escritas concorrentes. Produção requer pausar escritas e reaplicar eliminações posteriores.',
     }
-    const evidenceDirectory = resolve('docs/evolucao/evidencias/infraestrutura')
+    const evidenceDirectory = resolve('docs/evidencias/infraestrutura')
     await mkdir(evidenceDirectory, { recursive: true })
     await writeFile(
       resolve(evidenceDirectory, 'backup-restore.json'),

@@ -105,9 +105,9 @@ try {
     limits:
       'Uma instância local, 500 perfis fictícios, consulta sem paginação. Não valida dados reais, nuvem, autoescala ou multi-instância WS.',
   }
-  await mkdir('docs/evolucao/evidencias/infraestrutura', { recursive: true })
+  await mkdir('docs/evidencias/infraestrutura', { recursive: true })
   await writeFile(
-    'docs/evolucao/evidencias/infraestrutura/carga-matchmaking.json',
+    'docs/evidencias/infraestrutura/carga-matchmaking.json',
     JSON.stringify(result, null, 2) + '\n',
   )
   console.log(JSON.stringify(result, null, 2))

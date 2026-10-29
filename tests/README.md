@@ -7,10 +7,10 @@ Os arquivos não são telas nem funcionalidades acessadas pelo usuário. São ex
 ## Por onde começar
 
 - **Entender um cenário:** consultar o arquivo correspondente nas tabelas abaixo.
-- **Conferir o que passou:** abrir o [relatório de testes por cenário](../docs/evolucao/relatorio-testes.md).
-- **Encontrar resultados e capturas:** abrir o [índice das evidências](../docs/evolucao/evidencias/README.md).
+- **Conferir o que passou:** abrir o [relatório de testes por cenário](../docs/relatorio-testes.md).
+- **Encontrar resultados e capturas:** abrir o [índice das evidências](../docs/evidencias/README.md).
 - **Ver a automação:** abrir o [GitHub Actions](https://github.com/DaviSouza78/LinkAtletas/actions) e selecionar a execução e o commit desejados.
-- **Consultar os casos documentados:** abrir a seção 6 da [ERS final](../docs/evolucao/ERS-template-original-atualizada.pdf).
+- **Consultar os casos documentados:** abrir a seção 6 da [ERS final](../docs/ERS-template-original-atualizada.pdf).
 
 Um caso documentado na ERS, sua implementação automatizada e o resultado de uma execução são artefatos diferentes. Não se presume correspondência de um para um entre todos os casos da ERS e os testes desta pasta.
 
@@ -105,7 +105,7 @@ O [compose.yaml](../compose.yaml) fornece PostgreSQL, SeaweedFS e Mailpit. O [sc
 | `SMTP_HOST` e `SMTP_PORT` | Mailpit local para recuperação e inspeção de e-mails. |
 | `EVIDENCE_DIR` | Destino dos resultados e capturas do Playwright. |
 
-As suítes aplicam migrações e algumas limpam tabelas com `TRUNCATE`. **Nunca apontar essas suítes para o Neon de produção, para contas reais ou para o banco de desenvolvimento que se deseja preservar.** Não executar suítes concorrentes sobre a mesma base. Para os valores locais e o diagnóstico do ambiente, consultar o [manual](../docs/evolucao/operacao/manual.md).
+As suítes aplicam migrações e algumas limpam tabelas com `TRUNCATE`. **Nunca apontar essas suítes para o Neon de produção, para contas reais ou para o banco de desenvolvimento que se deseja preservar.** Não executar suítes concorrentes sobre a mesma base. Para os valores locais e o diagnóstico do ambiente, consultar o [manual](../docs/operacao/manual.md).
 
 ## Comandos de execução
 
@@ -149,7 +149,7 @@ Para selecionar o arquivo e o motor:
 pnpm exec playwright test tests/e2e/sprint-2.spec.ts --project=chromium
 ```
 
-A variável `EVIDENCE_DIR` definida acima vale para a sessão atual do PowerShell. Sem essa variável, o destino padrão é `docs/evolucao/evidencias/web`. O Playwright usa web em `localhost:5174` e API em `localhost:3002`; não é necessário iniciar `pnpm dev:all` para essa suíte. As portas devem estar livres. Não configurar `E2E_BASE_URL` com o site público: as jornadas criam e alteram dados.
+A variável `EVIDENCE_DIR` definida acima vale para a sessão atual do PowerShell. Sem essa variável, o destino padrão é `docs/evidencias/web`. O Playwright usa web em `localhost:5174` e API em `localhost:3002`; não é necessário iniciar `pnpm dev:all` para essa suíte. As portas devem estar livres. Não configurar `E2E_BASE_URL` com o site público: as jornadas criam e alteram dados.
 
 ### Aplicativo móvel
 
@@ -191,9 +191,9 @@ Nos resultados Vitest, consultar `success`, `numPassedTests`, `numFailedTests` e
 |---|---|
 | Vitest local padrão | Resumo no terminal. O comando padrão não salva um JSON automaticamente. |
 | Vitest com relatório JSON | Caminho escolhido em `--outputFile`; exemplo abaixo. |
-| Playwright | `EVIDENCE_DIR`, ou `docs/evolucao/evidencias/web` por padrão. Gera JSON, relatório HTML e artefatos conforme a configuração. |
+| Playwright | `EVIDENCE_DIR`, ou `docs/evidencias/web` por padrão. Gera JSON, relatório HTML e artefatos conforme a configuração. |
 | CI | Logs e artefato `test-evidence` da execução no GitHub Actions; sua retenção é limitada. |
-| Evidências selecionadas para entrega | [Pasta de evidências](../docs/evolucao/evidencias/README.md), com referências no relatório. |
+| Evidências selecionadas para entrega | [Pasta de evidências](../docs/evidencias/README.md), com referências no relatório. |
 
 Para gerar um novo resultado Vitest sem substituir evidência histórica:
 
@@ -221,7 +221,7 @@ Uma CI aprovada de um commit anterior não comprova aprovação de alterações 
 
 As tabelas deste README descrevem os arquivos publicados que compõem a referência atual. Na revisão do servidor de **28/10/2026**, `integration/permissions.test.ts` foi incorporado à regressão da API. O arquivo `e2e/roles.spec.ts` permanece em desenvolvimento local, fora do GitHub, como parte da auditoria ampliada da navegação.
 
-Se arquivos locais ainda não publicados aparecerem no computador, eles podem ser descobertos pelos comandos e alterar a quantidade de casos. Isso não significa que foram aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. O [registro da revisão do servidor](../docs/evolucao/testes/revisoes/auditoria-server-2026-10-28.md) distingue os resultados desta etapa da auditoria ampliada ainda não concluída.
+Se arquivos locais ainda não publicados aparecerem no computador, eles podem ser descobertos pelos comandos e alterar a quantidade de casos. Isso não significa que foram aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. O [registro da revisão do servidor](../docs/testes/revisoes/auditoria-server-2026-10-28.md) distingue os resultados desta etapa da auditoria ampliada ainda não concluída.
 
 ## Limites das verificações
 

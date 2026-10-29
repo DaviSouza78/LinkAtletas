@@ -2,7 +2,7 @@
 
 Cliente React Native/Expo da mesma API Node/PostgreSQL, com sessão e navegação por perfil de atleta, treinador e administrador. Não há servidor nem banco de dados próprio no aplicativo. A ampliação dos perfis está descrita no [plano de equivalência web/mobile](docs/equivalencia-web-mobile.md), incluindo diferenças e verificações ainda necessárias.
 
-API pública: `https://link-atletas.vercel.app/api`. O [APK HTTPS compilado e seu ensaio em emulador](../docs/evolucao/evidencias/android/android-nuvem-2026-10-26.json) estão identificados pelo commit e pelo hash do artefato. Os resultados históricos e locais nas seções seguintes conservam seu alcance; início em emulador não comprova uso em aparelho físico ou publicação nas lojas.
+API pública: `https://link-atletas.vercel.app/api`. O [APK HTTPS compilado e seu ensaio em emulador](../docs/evidencias/android/android-nuvem-2026-10-26.json) estão identificados pelo commit e pelo hash do artefato. Os resultados históricos e locais nas seções seguintes conservam seu alcance; início em emulador não comprova uso em aparelho físico ou publicação nas lojas.
 
 ## Organização
 
@@ -31,7 +31,7 @@ As antigas telas agrupadas em `CoreScreens`, `InteractionScreens` e `AccountScre
 
 ## Instalação e execução
 
-Pré-requisitos: Node 24 e pnpm 10.33.2. Para a API local, iniciar os serviços da raiz, aplicar migrações e iniciar a API conforme o [manual](../docs/evolucao/operacao/manual.md). Para usar a API pública, o Docker do computador não é necessário. Execute a partir deste diretório:
+Pré-requisitos: Node 24 e pnpm 10.33.2. Para a API local, iniciar os serviços da raiz, aplicar migrações e iniciar a API conforme o [manual](../docs/operacao/manual.md). Para usar a API pública, o Docker do computador não é necessário. Execute a partir deste diretório:
 
 ```powershell
 pnpm install --frozen-lockfile
@@ -39,7 +39,7 @@ if (!(Test-Path .env)) { Copy-Item .env.example .env }
 pnpm start
 ```
 
-Configure `EXPO_PUBLIC_API_URL` com a URL completa terminada em `/api`. Android em emulador pode alcançar o host em `http://10.0.2.2:3001/api`; iOS no simulador do Mac pode usar `http://localhost:3001/api`. Para o APK local standalone, prefira USB/ADB: `pnpm mobile:connect` na raiz verifica a API, cria o túnel e abre o aplicativo. O [manual do APK](../docs/evolucao/operacao/manual-apk-local.md) mostra instalação e configuração. Não é necessário expor API/banco à rede. Acesso direto por LAN exige configuração de rede pelo responsável e não é o perfil local restrito.
+Configure `EXPO_PUBLIC_API_URL` com a URL completa terminada em `/api`. Android em emulador pode alcançar o host em `http://10.0.2.2:3001/api`; iOS no simulador do Mac pode usar `http://localhost:3001/api`. Para o APK local standalone, prefira USB/ADB: `pnpm mobile:connect` na raiz verifica a API, cria o túnel e abre o aplicativo. O [manual do APK](../docs/operacao/manual-apk-local.md) mostra instalação e configuração. Não é necessário expor API/banco à rede. Acesso direto por LAN exige configuração de rede pelo responsável e não é o perfil local restrito.
 
 Abra com um cliente Expo compatível com SDK 57 ou development build. A compilação nativa local usa `pnpm android` (JDK/Android SDK) ou `pnpm ios` (Mac/Xcode). A disponibilidade do ambiente nativo precisa ser conferida separadamente; os comandos de tipos e exportação não o substituem. Compilação/distribuição EAS depende de conta e credenciais; nenhum aplicativo foi enviado às lojas.
 
@@ -57,9 +57,9 @@ pnpm export
 
 Use HTTPS real no perfil normal antes de distribuir e remova `EXPO_PUBLIC_BUILD_PROFILE=local` desse ambiente. Builds de produção recusam chamadas HTTP e mostram erro de configuração; desenvolvimento pode usar a rede local. O perfil `local` possui exceção restrita a loopback/emulador, descrita no manual do APK. O Metro precisa de `metro.config.cjs` para resolver o catálogo compartilhado em `../shared`.
 
-O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](../docs/evolucao/evidencias/android/mobile-verificacao.md).
+O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](../docs/evidencias/android/mobile-verificacao.md).
 
-Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/emulador e conexão por USB, compilado com Expo 57.0.30: [manual](../docs/evolucao/operacao/manual-apk-local.md), [evidências e limites](../docs/evolucao/evidencias/android/mobile-verificacao.md). O APK antigo com domínio `.example` permanece histórico. O perfil normal exige HTTPS real e assinatura de distribuição para lojas.
+Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/emulador e conexão por USB, compilado com Expo 57.0.30: [manual](../docs/operacao/manual-apk-local.md), [evidências e limites](../docs/evidencias/android/mobile-verificacao.md). O APK antigo com domínio `.example` permanece histórico. O perfil normal exige HTTPS real e assinatura de distribuição para lojas.
 
 ## Funcionalidades
 
