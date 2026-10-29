@@ -12,6 +12,7 @@ API pública: `https://link-atletas.vercel.app/api`. O [APK HTTPS compilado e se
 | [tests](tests/README.md) | Testes de configuração, sessão, transporte e arquivos, com dependências nativas controladas. |
 | [plugins](plugins/README.md) | Configuração nativa de rede para diferenciar APK local de produção. |
 | [scripts](scripts/README.md) | Conferência reproduzível das dependências do SDK instalado. |
+| [patches](patches/README.md) | Correção reproduzível de segurança para dependência transitiva sem release corrigido. |
 | [docs/equivalencia-web-mobile.md](docs/equivalencia-web-mobile.md) | Escopo, comparação com a web, etapas implementadas, testes e pendências. |
 
 | Arquivo da raiz | Função |
