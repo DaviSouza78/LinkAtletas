@@ -39,5 +39,5 @@ for (const match of source.matchAll(/usecase "([^"]+)" as (\w+)/g)) {
   lines.forEach((line, index) => svg.push(`<text x="${node.x}" y="${node.y - 13 + index * 15}" text-anchor="middle" font-size="12" font-weight="700">${escape(line)}</text>`))
   svg.push(`<text x="${node.x}" y="${node.y + 22}" text-anchor="middle" font-size="11">${id}</text>`)
 }
-svg.push('<text x="170" y="995" font-size="12">Atores secundários dependem de configuração; testes HTTP não comprovam sandbox real.</text><text x="170" y="1016" font-size="11">Fonte: casos-de-uso.puml · ERS v2.1 · 20/10/2026 · gerado por scripts/documentacao/generate-use-cases.ts</text></svg>')
+svg.push('<text x="170" y="995" font-size="12">Atores secundários dependem de configuração; testes HTTP não comprovam sandbox real.</text><text x="170" y="1016" font-size="11">Fonte: casos-de-uso.puml | API compartilhada entre web e aplicativo</text></svg>')
 await writeFile(root + 'casos-de-uso.svg', svg.join('\n') + '\n')

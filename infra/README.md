@@ -72,6 +72,6 @@ Para iniciar os serviços de desenvolvimento, execute na raiz do repositório:
 docker compose up -d --wait
 ```
 
-Esse comando inicia banco, e-mail de teste e armazenamento. As etapas para executar a aplicação e preparar o ambiente HTTPS estão no [manual de operação](../docs/operacao/manual.md). O [registro da implantação remota](../docs/operacao/implantacao-2026-10-26.md) detalha os serviços e as verificações realizadas na nuvem.
+Esse comando inicia banco, e-mail de teste e armazenamento. As etapas para executar a aplicação e preparar o ambiente HTTPS estão no [manual de operação](../docs/operacao/manual.md). O [registro da implantação remota](../docs/evidencias/relatorios/implantacao-2026-10-26.md) detalha os serviços e as verificações realizadas na nuvem.
 
 [Visão geral do projeto](../README.md) · [Scripts de operação](../scripts/operacao/README.md)

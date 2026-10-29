@@ -11,4 +11,4 @@ O [índice dos diagramas](../diagramas.md) relaciona cada modelo à solução e 
 
 Os pares de fonte e imagem têm finalidades distintas. Ao atualizar um diagrama, conferir a imagem correspondente e as referências da ERS. O DER técnico utiliza os [metadados do PostgreSQL](../evidencias/api/database-schema.json); as sequências devem corresponder aos contratos da [API](../api.md).
 
-[Fontes do template da ERS](../template/README.md) · [Documentação atual](../README.md)
+[Documentação](../README.md)

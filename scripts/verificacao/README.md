@@ -18,4 +18,4 @@ O ensaio privado exige `BACKUP_DOCKER_NETWORK`, `BACKUP_DOCKER_ENV_FILE` e `BACK
 
 Saídas JSON ficam em `docs/evidencias/infraestrutura`. Carga local não mede autoescala; TLS local não comprova o domínio público; backup aprovado não substitui política de retenção ou ensaio da restauração de produção.
 
-[Voltar aos scripts](../README.md) · [Relatório de testes](../../docs/relatorio-testes.md)
+[Voltar aos scripts](../README.md) · [Relatório de testes](../../docs/evidencias/relatorio-testes.md)

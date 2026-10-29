@@ -7,10 +7,10 @@ Os arquivos não são telas nem funcionalidades acessadas pelo usuário. São ex
 ## Por onde começar
 
 - **Entender um cenário:** consultar o arquivo correspondente nas tabelas abaixo.
-- **Conferir o que passou:** abrir o [relatório de testes por cenário](../docs/relatorio-testes.md).
+- **Conferir o que passou:** abrir o [relatório de testes por cenário](../docs/evidencias/relatorio-testes.md).
 - **Encontrar resultados e capturas:** abrir o [índice das evidências](../docs/evidencias/README.md).
 - **Ver a automação:** abrir o [GitHub Actions](https://github.com/DaviSouza78/LinkAtletas/actions) e selecionar a execução e o commit desejados.
-- **Consultar os casos documentados:** abrir a seção 6 da [ERS final](../docs/ERS-template-original-atualizada.pdf).
+- **Consultar os casos documentados:** abrir a seção 6 da [ERS final](../docs/requisitos/ERS-LinkAtletas.pdf).
 
 Um caso documentado na ERS, sua implementação automatizada e o resultado de uma execução são artefatos diferentes. Não se presume correspondência de um para um entre todos os casos da ERS e os testes desta pasta.
 
@@ -221,7 +221,7 @@ Uma CI aprovada de um commit anterior não comprova aprovação de alterações 
 
 As tabelas deste README descrevem os arquivos publicados que compõem a referência atual. Na revisão do servidor de **28/10/2026**, `integration/permissions.test.ts` foi incorporado à regressão da API. O arquivo `e2e/roles.spec.ts` permanece em desenvolvimento local, fora do GitHub, como parte da auditoria ampliada da navegação.
 
-Se arquivos locais ainda não publicados aparecerem no computador, eles podem ser descobertos pelos comandos e alterar a quantidade de casos. Isso não significa que foram aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. O [registro da revisão do servidor](../docs/testes/revisoes/auditoria-server-2026-10-28.md) distingue os resultados desta etapa da auditoria ampliada ainda não concluída.
+Se arquivos locais ainda não publicados aparecerem no computador, eles podem ser descobertos pelos comandos e alterar a quantidade de casos. Isso não significa que foram aprovados ou incluídos na CI do grupo. Antes de comparar resultados, conferir o commit e as alterações locais com `git status`. O [registro da revisão do servidor](../docs/evidencias/relatorios/auditoria-server-2026-10-28.md) distingue os resultados desta etapa da auditoria ampliada ainda não concluída.
 
 ## Limites das verificações
 

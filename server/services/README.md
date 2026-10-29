@@ -11,4 +11,4 @@ E-mail usa Brevo na nuvem e Mailpit localmente. O financeiro permanece em modo a
 
 Configuração vem das variáveis do servidor. Não registrar credenciais, tokens ou corpos privados nos logs. Aceite SMTP não garante chegada à caixa de entrada; resposta financeira incerta exige conciliação antes de repetir uma operação.
 
-[Voltar ao servidor](../README.md) · [Serviços utilizados](../../docs/operacao/servicos-externos-sprint-2.md)
+[Voltar ao servidor](../README.md) · [Serviços utilizados](../../docs/operacao/servicos-externos.md)

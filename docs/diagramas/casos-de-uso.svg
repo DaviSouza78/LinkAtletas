@@ -105,4 +105,4 @@
 <text x="800" y="872" text-anchor="middle" font-size="12" font-weight="700">Configurar</text>
 <text x="800" y="887" text-anchor="middle" font-size="12" font-weight="700">comissão/carência</text>
 <text x="800" y="907" text-anchor="middle" font-size="11">UC-04.2</text>
-<text x="170" y="995" font-size="12">Atores secundários dependem de configuração; testes HTTP não comprovam sandbox real.</text><text x="170" y="1016" font-size="11">Fonte: casos-de-uso.puml · ERS v2.1 · 20/10/2026 · gerado por scripts/documentacao/generate-use-cases.ts</text></svg>
+<text x="170" y="995" font-size="12">Atores secundários dependem de configuração; testes HTTP não comprovam sandbox real.</text><text x="170" y="1016" font-size="11">Fonte: casos-de-uso.puml | API compartilhada entre web e aplicativo</text></svg>

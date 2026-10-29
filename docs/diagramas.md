@@ -1,8 +1,8 @@
 # Modelos atualizados da solução
 
-Revisado em 26/10/2026. Fontes editáveis abaixo refletem API/migrations cumulativas e a [ERS completa v2.6](ERS-template-original-atualizada.pdf). Modelo conceitual de classes não equivale à declaração de classes ORM: o backend usa módulos e SQL explícito. O adaptador contém as classes reais `AsaasClient` e `AsaasError`, identificadas no modelo técnico.
+Revisado em 26/10/2026. Fontes editáveis abaixo refletem API/migrations cumulativas e a [ERS completa v2.6](requisitos/ERS-LinkAtletas.pdf). Modelo conceitual de classes não equivale à declaração de classes ORM: o backend usa módulos e SQL explícito. O adaptador contém as classes reais `AsaasClient` e `AsaasError`, identificadas no modelo técnico.
 
-A ERS preserva as figuras conceituais originais de [casos de uso](template/originais/casos-de-uso-original.png) e [classes](template/originais/classes-original.png), com explicação da conferência manual do CREF. As versões técnicas ampliadas abaixo continuam disponíveis para manutenção. As duas sequências existentes foram mantidas; quatro sequências e dois diagramas de atividade completam a estrutura do modelo do professor.
+A pasta mantém uma representação técnica por modelo, com fonte editável e imagem. O DER é conferido contra o esquema exportado; as chamadas das sequências são conferidas contra o OpenAPI. Isso não substitui a revisão das regras de negócio ou uma consulta ao banco implantado.
 
 | Modelo | Fonte | Visualização |
 |---|---|---|

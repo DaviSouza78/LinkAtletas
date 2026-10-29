@@ -9,6 +9,6 @@
 | [production-tls.json](production-tls.json) | Ensaio HTTPS do ambiente Docker. |
 | [backup-restore.json](backup-restore.json) | Resultado do ensaio de backup e restauração. |
 
-A [auditoria do servidor](../../../testes/revisoes/auditoria-server-2026-10-28.md) explica as correções e distingue os 215 casos de unidade/API das 15 execuções de navegador. As demais verificações têm seus próprios resultados; não devem ser somadas como casos Vitest.
+A [auditoria do servidor](../../relatorios/auditoria-server-2026-10-28.md) explica as correções e distingue os 215 casos de unidade/API das 15 execuções de navegador. As demais verificações têm seus próprios resultados; não devem ser somadas como casos Vitest.
 
-[Índice das execuções](../README.md)
+[Índice das execuções](https://github.com/DaviSouza78/LinkAtletas/blob/9d62794a8bb84aa77f41de2bab91ebe15b4060d2/docs/evidencias/execucoes/README.md)

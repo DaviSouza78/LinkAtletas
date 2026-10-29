@@ -1,20 +1,19 @@
-# Evidências por assunto
+# Evidências de verificação
 
-O [relatório de testes](../relatorio-testes.md) explica os cenários e resultados. Esta pasta organiza os arquivos de apoio; a existência de um arquivo não significa que todos os seus cenários passaram.
+Esta pasta guarda resultados de execuções: relatórios JSON, capturas e registros de integração. Ela permite conferir quais cenários foram executados, quando e com qual resultado, sem depender do acesso administrativo aos serviços.
 
-| Pasta | Conteúdo |
+O código que realiza os testes está em [tests](../../tests/README.md); esta pasta contém a saída das execuções, não outra implementação dos testes.
+
+| Conteúdo | Finalidade |
 |---|---|
-| [api](api/README.md) | Resultados Vitest, regressões e metadados do banco. |
-| [web](web/README.md) | Capturas da interface, responsividade, acessibilidade e resultados de navegador. |
-| [android](android/README.md) | Aplicativo, APK, emulador, testes móveis e capturas. |
-| [nuvem](nuvem/README.md) | Verificações de Vercel, Neon, Tigris, Brevo e agendador. |
-| [infraestrutura](infraestrutura/README.md) | Backup, TLS, carga, dependências e ambiente local. |
-| [github](github/README.md) | Registros de CI e pull requests. |
-| [documentacao](documentacao/README.md) | Conferências de links, materiais e elaboração dos documentos. |
-| [execucoes](execucoes/README.md) | Conjuntos que já pertenciam a uma mesma sessão ou execução, preservados juntos. |
+| [relatorio-testes.md](relatorio-testes.md) | Quantidades, nomes dos cenários e limites de interpretação. |
+| [execucoes/server-2026-10-28](execucoes/server-2026-10-28/README.md) | Referência mais recente preservada para unidade/API, navegador, backup, TLS e produção. |
+| [nuvem](nuvem/README.md) | Verificações específicas de banco, S3, SMTP e agendador. |
+| [api](api/README.md) | Metadados de esquema usados pelo dicionário e pelo DER. |
+| [android](android/README.md) | Identificação e inicialização do APK HTTPS; demais evidências móveis ficam em `mobile/docs`. |
+| [documentacao](documentacao/README.md) | Conferência dos links e contratos documentados. |
+| [relatorios](relatorios/README.md) | Explicações de revisões e implantação, com data e escopo. |
 
-Os resultados históricos foram movidos sem alterar seu conteúdo. Caminhos internos presentes em JSON, XML ou logs podem identificar a localização original no momento do teste. Os links dos documentos atuais foram ajustados para as novas pastas.
+As execuções repetidas e os diagnósticos superados foram retirados da árvore atual. Os dois JSONs na entrada, [vitest-results.json](vitest-results.json) e [android-integrated-result.json](android-integrated-result.json), continuam porque são as fontes dos resultados citados nos casos de teste da ERS fornecida. São históricos e não devem ser somados aos resultados posteriores.
 
-Os arquivos [android-integrated-result.json](android-integrated-result.json) e [vitest-results.json](vitest-results.json) têm uma única cópia, na entrada desta pasta, para preservar os links diretos da ERS final. São resultados históricos identificados no relatório, não execuções adicionais. As conferências atuais de documentação são geradas em `documentacao/`.
-
-Resultados de navegador gerados no ambiente local usam `web/` por padrão. O destino pode ser substituído por `EVIDENCE_DIR`. Relatórios HTML temporários e traces permanecem ignorados pelo Git.
+Resultados antigos não comprovam uma nova execução ou homologação externa. Relatórios HTML e traces temporários permanecem ignorados pelo Git. Os scripts podem gerar novas saídas nos diretórios configurados para cada execução.

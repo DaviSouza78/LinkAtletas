@@ -1,6 +1,6 @@
 # Manual de instalação, execução e demonstração
 
-Para desenvolvimento local use dados fictícios. A [aplicação pública](https://link-atletas.vercel.app) tem configuração independente de banco, arquivos e SMTP; consulte a [implantação verificada em 26/10/2026](implantacao-2026-10-26.md). O modo financeiro acadêmico não cobra dinheiro. [API](../api.md), [limitações](../requisitos/backlog.md) e [resultados de testes](../relatorio-testes.md) complementam este manual.
+Para desenvolvimento local use dados fictícios. A [aplicação pública](https://link-atletas.vercel.app) tem configuração independente de banco, arquivos e SMTP; consulte a [implantação verificada em 26/10/2026](../evidencias/relatorios/implantacao-2026-10-26.md). O modo financeiro acadêmico não cobra dinheiro. [API](../api.md), [limitações](../requisitos/backlog.md) e [resultados de testes](../evidencias/relatorio-testes.md) complementam este manual.
 
 ## Instalação local
 
@@ -132,18 +132,20 @@ pnpm exec tsx scripts/verificacao/verify-backup.ts
 
 `test:smoke` executa a mesma verificação TLS e reinicia somente o contêiner da aplicação LinkAtletas local, conferindo que sessão e perfil permanecem. Execute fora de um ensaio em andamento. Não reinicia PostgreSQL nem remove volumes; o smoke HTTP histórico permanece na branch `sprint-2`.
 
-Documentos: `pnpm docs:build` gera Word a partir do Markdown. Converter com LibreOffice: `soffice --headless --convert-to pdf --outdir docs/evolucao docs/ERS-v2.docx docs/relatorio-testes.docx`; depois `python -X utf8 scripts/documentacao/render-documents.py` gera páginas para inspeção (PyMuPDF instalado). `pnpm docs:check` confere links e OpenAPI. Para atualizar os PNGs Mermaid, CLI 12 usa `pnpm --package=@mermaid-js/mermaid-cli@12.0.0 dlx mmdc --input <fonte.mmd> --output <imagem.png> --size 2200`; `pnpm exec tsx scripts/documentacao/render-use-cases.ts` captura o SVG UML local.
 
 Antes de backup operacional, pause escritas: o snapshot SQL e a enumeração S3 não são transação distribuída. `backup.ts` usa `BACKUP_ROOT` (padrão `tmp/backups`), cifra dump, copia objetos já cifrados e grava manifesto/checksums/fingerprint da chave, sem guardar a chave. Defaults de desenvolvimento: container `linkatletas-db-1`, usuário/banco `linkatletas`; produção exige configurar `BACKUP_DB_CONTAINER`, `BACKUP_DB_NAME`, credenciais S3 e chave correspondentes. Worker `BACKUP_DOCKER_NETWORK` permite acesso S3 privado sem expor porta; conferir os parâmetros no [helper](../../scripts/banco/backup-shared.ts).
 
 Restauração: `pnpm exec tsx scripts/banco/restore.ts <diretorio-backup> <banco_vazio_test> <bucket_vazio>`. O diretório precisa ficar estritamente dentro de `BACKUP_ROOT`; banco deve existir, estar vazio e terminar em `_test`; bucket precisa estar vazio. Script valida chave/checksums antes das alterações e compara contagens/objetos ao final; não apaga destino ocupado. A chave AES original deve estar disponível por canal protegido. `verify-backup.ts` cria/preserva bases isoladas próprias e testa SQL privado e S3, sem limpar a demonstração.
 
-Medição reproduzível do match: [load-matching.ts](../../scripts/verificacao/load-matching.ts), comando `pnpm exec tsx scripts/verificacao/load-matching.ts`; usa dataset sintético e banco de teste isolado. Confirme o relatório/destinos antes de executar em ambiente compartilhado. Resultado real local em [carga-matchmaking.json](../evidencias/infraestrutura/carga-matchmaking.json) não comprova autoescala.
+Medição reproduzível do match: [load-matching.ts](../../scripts/verificacao/load-matching.ts), comando `pnpm exec tsx scripts/verificacao/load-matching.ts`; usa dataset sintético e banco de teste isolado. Confirme o relatório/destinos antes de executar em ambiente compartilhado. Resultado real local em [carga-matchmaking.json](https://github.com/DaviSouza78/LinkAtletas/blob/9d62794a8bb84aa77f41de2bab91ebe15b4060d2/docs/evidencias/infraestrutura/carga-matchmaking.json) não comprova autoescala.
 
 ## APK local e ambiente recuperado
 
-Para demonstrar o aplicativo com esta API sem hospedagem pública, usar o [manual do APK conectado por USB](manual-apk-local.md). O perfil local tem pacote e política de rede próprios; o perfil normal exige HTTPS. Consulte o [checklist de serviços](servicos-externos-sprint-2.md) antes de ativar fornecedores.
+Para demonstrar o aplicativo com esta API sem hospedagem pública, usar o [manual do APK conectado por USB](manual-apk-local.md). O perfil local tem pacote e política de rede próprios; o perfil normal exige HTTPS. Consulte o [checklist de serviços](servicos-externos.md) antes de ativar fornecedores.
 
-Nesta revisão, Docker Desktop voltou a iniciar após preservar os diretórios transitórios de sockets inválidos e permitir sua recriação. Os mesmos containers/volumes PostgreSQL, Mailpit e S3 permaneceram saudáveis; migrations foram reaplicadas sem apagar dados. Um ajuste de compatibilidade `RUNASADMIN` definido no Windows para `cmd.exe` impedia os scripts pnpm; a entrada específica foi salva e removida. Não é necessário executar pnpm como administrador nem redefinir o Docker de fábrica. [Registro do ambiente](../evidencias/infraestrutura/ambiente-local-revisado.json).
 
 A rotina de backup passou a interpretar a variável AES vazia do exemplo como uso da chave local existente, preservando a recusa de chave não vazia inválida. Nunca trocar ou apagar uma chave para fazer o backup passar.
+
+## Documentação e diagramas
+
+`pnpm docs:check` confere links e contratos documentados. `pnpm api:export` exporta o OpenAPI da API própria. Para atualizar os diagramas, editar as fontes e conferir as imagens correspondentes; consultar o [índice de diagramas](../diagramas.md). A ERS oficial é fornecida e revisada pela equipe; não há geração automática da sua versão final.

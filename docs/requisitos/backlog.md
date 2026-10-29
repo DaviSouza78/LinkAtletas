@@ -1,10 +1,10 @@
-# Backlog consolidado — ampliação
+# Backlog do projeto
 
-Atualizado em 26/10/2026. Base: [backlog histórico](https://github.com/DaviSouza78/LinkAtletas/blob/84f9d29a60513dbeb2349f9fa653d0bea8c815d6/docs/historico/sprint-2-inicial/backlog.md). Estados separam desenvolvimento de homologação; o [relatório](../relatorio-testes.md) e as [verificações da implantação](../operacao/implantacao-2026-10-26.md) identificam o ambiente e a data de cada resultado. [Revisão dos materiais](https://github.com/DaviSouza78/LinkAtletas/tree/094ed35704a4620eb358e217b7ee7b1c5cda22e0/docs/historico/revisoes-ers/revisao-materiais.md) e [dependências externas](../operacao/servicos-externos-sprint-2.md) registram diferenças em relação à proposta/ERS originais.
+Estados de implementação e validações têm alcances diferentes. Resultados estão no [relatório de testes](../evidencias/relatorio-testes.md); o [guia de serviços](../operacao/servicos-externos.md) descreve as dependências externas. A [ERS oficial](ERS-LinkAtletas.pdf) define os requisitos.
 
 | Item | Prioridade | Resultado da ampliação | Verificação/dependência |
 |---|---|---|---|
-| F01 App atleta React Native | P1 | Fonte Expo, API compartilhada, armazenamento seguro e perfis local/HTTPS | APK HTTPS compilado e iniciado em emulador; 22 testes móveis e jornada local de 18 etapas têm registros próprios. Aparelho físico, IPA e lojas continuam pendentes |
+| F01 App React Native por perfil | P1 | Interfaces de atleta, treinador e administrador e API compartilhada | Consultar a [matriz móvel](../../mobile/docs/equivalencia-web-mobile.md) para implementação, verificações e limites; homologação física, OAuth real e lojas têm validação própria |
 | F02 CREF, validade e revogação | P0 | Conferência manual, evidência privada, prazo, suspensão/revogação e job | Fluxo manual e auditoria testados; decisão da equipe registrada na ERS; consulta automática é evolução futura |
 | F03 Recorrência/split/financeiro | P1 | Adaptador Asaas e regras persistidas, checkout, webhook e conciliação | Servidor HTTP controlado; sandbox real/carteiras/repasse pendentes |
 | F04 Cancelamento e ciclos | P1 | Retirada, encerramento e período pago, unicidade de ciclo vigente | Testes financeiro/contrato e tela; preservar histórico |
@@ -15,7 +15,6 @@ Atualizado em 26/10/2026. Base: [backlog histórico](https://github.com/DaviSouz
 | F09 Implantação/recuperação | P1 | Containers/TLS/backup/CI, Vercel, Neon e agendador | Produção pública verificada, cron automático com 200 OK e snapshot cifrado Neon restaurado em banco local isolado. Backup SQL/S3 local testado; rotina recorrente de backup permanece evolução |
 | F10 Match e ciência de dados | P0 no matching RF-06; P2 na evolução de IA | Regra explicável e carga HTTP com 500 perfis/200 chamadas | Percentis medidos; dataset representativo, retroalimentação e IA treinada futuros. Prioridade não comprova homologação externa |
 | F11 Compatibilidade/acessibilidade | P1 | Web responsiva e correções de foco/estados; três motores e axe | 15/15 E2E e seis telas por motor sem violações axe; aparelhos/Edge/Safari/leitor de tela reais pendentes |
-| F12 Documentação acadêmica | P0 | ERSv2, fluxos, modelos UML, checklist, API/manual/matriz | PDF final v2.6 ajustado pela equipe; DOCX anterior retirado; Eletiva I relacionada na matriz; revisão coletiva concluída conforme confirmação da equipe; submissão individual a cargo de cada integrante |
 | A01 Agenda/consultorias | P1 | Persistência, conflitos, histórico, reagendamento/cancelamento/conclusão | Google OAuth real não executado; sincronização bidirecional externa futura |
 | A02 Catálogo ampliado | P2 | Métricas dinâmicas dos esportes atuais preservadas | Administração de novas modalidades e migração sem código futuro |
 | A03 Edição com autosave | P2 | Rascunho explícito preservado | Autosave contínuo e conflito colaborativo futuro |

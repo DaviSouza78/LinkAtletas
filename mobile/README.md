@@ -57,9 +57,9 @@ pnpm export
 
 Use HTTPS real no perfil normal antes de distribuir e remova `EXPO_PUBLIC_BUILD_PROFILE=local` desse ambiente. Builds de produção recusam chamadas HTTP e mostram erro de configuração; desenvolvimento pode usar a rede local. O perfil `local` possui exceção restrita a loopback/emulador, descrita no manual do APK. O Metro precisa de `metro.config.cjs` para resolver o catálogo compartilhado em `../shared`.
 
-O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](../docs/evidencias/android/mobile-verificacao.md).
+O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](docs/evidencias/android/README.md).
 
-Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/emulador e conexão por USB, compilado com Expo 57.0.30: [manual](../docs/operacao/manual-apk-local.md), [evidências e limites](../docs/evidencias/android/mobile-verificacao.md). O APK antigo com domínio `.example` permanece histórico. O perfil normal exige HTTPS real e assinatura de distribuição para lojas.
+Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/emulador e conexão por USB, compilado com Expo 57.0.30: [manual](../docs/operacao/manual-apk-local.md), [evidências e limites](docs/evidencias/android/README.md). O APK antigo com domínio `.example` permanece histórico. O perfil normal exige HTTPS real e assinatura de distribuição para lojas.
 
 ## Funcionalidades
 

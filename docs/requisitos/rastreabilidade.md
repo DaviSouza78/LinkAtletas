@@ -1,6 +1,6 @@
 # Matriz de rastreabilidade — ampliação
 
-Data: 14/10/2026. Mantém os IDs da ERS original. Referência de implementação/cenário não significa aprovação presumida: resultados estão no [relatório](../relatorio-testes.md).
+Data: 14/10/2026. Mantém os IDs da ERS original. Referência de implementação/cenário não significa aprovação presumida: resultados estão no [relatório](../evidencias/relatorio-testes.md).
 
 | Requisitos | Implementação | Cenário/evidência |
 |---|---|---|
@@ -29,15 +29,9 @@ UCs do roteiro original. Esta matriz relaciona conteúdo técnico, sem atribuir 
 | Computação em Nuvem | Serviços isolados, objetos S3 privados, configuração, container, TLS e recuperação | Compose/infra/scripts; nuvem/autoescala pública dependem implantação real |
 | Automação Industrial | Aquisição manual e validação de métricas, tarefas periódicas e fluxo de eventos | Execuções/catálogos/jobs; sem sensores, PLC ou IoT físico conectado |
 | Relações Humanas e Cidadania | Consentimento, privacidade, transparência profissional, acessibilidade e moderação | Política, revisão de dados, papéis, denúncias e limitações; sem certificação jurídica presumida |
-| Eletiva I | Integrar conhecimentos das UCs, organizar o desenvolvimento por Sprints, especificar requisitos, implementar e verificar a solução e comunicar resultados | [ERS](ERS-v2.md), [backlog](backlog.md), [diagramas](../diagramas.md), [testes](../relatorio-testes.md), [decisões](../gestao/decisoes.md) e [checklist](../checklist-sprint-2.md) |
+| Eletiva I | Integrar conhecimentos das UCs, organizar o desenvolvimento por Sprints, especificar requisitos, implementar e verificar a solução e comunicar resultados | [ERS](ERS-LinkAtletas.pdf), [backlog](backlog.md), [diagramas](../diagramas.md), [testes](../evidencias/relatorio-testes.md) |
 | Conhecimentos anteriores | Requisitos, modelagem relacional/UML, qualidade e versionamento | ERS, modelos, SQL, testes e histórico Git |
 
 ## Participação e submissão
 
-Equipe informada: João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa. Planejamento original não comprova execução individual desta Sprint. Cada integrante deve associar commit/revisão/ensaio/apresentação real com data e descrição e realizar sua própria entrega. A identidade Git configurada para o incremento é Lucca; não se distribui essa autoria automaticamente aos colegas.
-
-## Conferência com os materiais originais — 15/10/2026
-
-A [revisão documental](https://github.com/DaviSouza78/LinkAtletas/tree/094ed35704a4620eb358e217b7ee7b1c5cda22e0/docs/historico/revisoes-ers/revisao-materiais.md) compara ERS, proposta, roteiro, portaria, convivência e templates. O [dicionário](../banco/dicionario-dados.md) e os [diagramas](../diagramas.md) demonstram 36 tabelas e 45 chaves estrangeiras reais. O diagrama de classes inclui os módulos de integração financeira existentes; não representa um ORM inexistente.
-
-A conferência manual de CREF substitui a automação no RF-04 atual, conforme decisão da equipe registrada na ERS. Evolução de IA, nuvem e suporte Android/iOS seguem os recortes de escopo e estados de implementação do backlog. O match atual é por regras e o APK local não comprova operação pública ou iOS. Os commits de Lucca não comprovam participação dos demais integrantes.
+Equipe informada: João Gabriel Floriano Olimpio; Miguel Oliveira de Almeida; Lucas Souza Silva; Davi Marcondes Paes de Souza; João Pedro Fonseca Alves de Carvalho; Lucca Castilho Costa. O planejamento não comprova execução individual. Cada integrante deve associar commit/revisão/ensaio/apresentação real com data e descrição e realizar sua própria entrega. A identidade Git configurada para o incremento é Lucca; não se distribui essa autoria automaticamente aos colegas.

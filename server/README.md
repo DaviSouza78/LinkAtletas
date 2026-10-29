@@ -153,7 +153,7 @@ Esse módulo inclui recuperação porque a operação está ligada à proteção
 | [mail.ts](services/mail.ts) | Enfileira e-mail com corpo cifrado e entrega os pendentes por SMTP, com tentativas limitadas e recuo entre falhas. Fecha o transporte inclusive se o acesso ao banco falhar. Brevo é o provedor remoto; Mailpit captura mensagens locais. |
 | [asaas.ts](services/asaas.ts) | Adaptador HTTP de checkout, consulta e cancelamento, com timeout e validação das respostas relevantes. O endpoint alternativo de teste é restrito a loopback. |
 
-Os recursos privados de Tigris/Neon/Brevo são configurados por ambiente. Não expor chaves, tokens, senhas ou URLs de conexão em documentos, logs ou interface. Consulte o [mapa dos serviços](../docs/operacao/servicos-externos-sprint-2.md).
+Os recursos privados de Tigris/Neon/Brevo são configurados por ambiente. Não expor chaves, tokens, senhas ou URLs de conexão em documentos, logs ou interface. Consulte o [mapa dos serviços](../docs/operacao/servicos-externos.md).
 
 ## Recursos internos — `server/shared/`
 
@@ -205,6 +205,6 @@ Swagger local: `http://localhost:3001/api/docs/`. Saúde local: `http://localhos
 
 ## Revisão e testes
 
-O [guia de testes](../tests/README.md) explica as suítes. A [auditoria técnica do servidor](../docs/testes/revisoes/auditoria-server-2026-10-28.md) registra arquivos examinados, correções, verificações e limites desta reorganização.
+O [guia de testes](../tests/README.md) explica as suítes. A [auditoria técnica do servidor](../docs/evidencias/relatorios/auditoria-server-2026-10-28.md) registra arquivos examinados, correções, verificações e limites desta reorganização.
 
 Não interpretar esta revisão como certificação de segurança, cobertura de todas as combinações concorrentes ou autorização para ativar pagamentos reais. Mudanças futuras precisam atualizar os contratos e casos afetados e preservar os caminhos públicos de entrega.

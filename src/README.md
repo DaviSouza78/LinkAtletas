@@ -87,7 +87,7 @@ Esses controles de navegação melhoram a experiência, mas **a autorização pr
 
 Os contratos reais compartilhados com a API e o aplicativo ficam em [shared](../shared). O antigo `src/types.ts` reunia tipos do protótipo sem consumidores; os que não eram usados foram retirados. O tipo efetivamente utilizado pelo adaptador de calendário foi preservado no arquivo específico acima.
 
-Ter um adaptador Google no código não comprova sua ativação externa. O estado dos fornecedores, CREF manual e financeiro acadêmico está no [guia dos serviços](../docs/operacao/servicos-externos-sprint-2.md).
+Ter um adaptador Google no código não comprova sua ativação externa. O estado dos fornecedores, CREF manual e financeiro acadêmico está no [guia dos serviços](../docs/operacao/servicos-externos.md).
 
 ## Estilos
 

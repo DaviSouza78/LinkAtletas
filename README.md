@@ -2,7 +2,7 @@
 
 Plataforma que conecta atletas a treinadores e reúne perfis esportivos, contratação, treinos e acompanhamento de resultados. Projeto Integrador Interdisciplinar II de ADS, Faculdade de Tecnologia SENAI Félix Guisard, desenvolvido para a demanda SAGA nº 12871 da Ivi-it.
 
-[Acessar aplicação](https://link-atletas.vercel.app) · [Documentação](docs/README.md) · [Entrega da Sprint 2](docs/checklist-sprint-2.md)
+[Acessar aplicação](https://link-atletas.vercel.app) · [Documentação](docs/README.md)
 
 Para localizar cada assunto, usar o [índice da documentação atual](docs/README.md), o [guia da interface web](src/README.md), o [guia do servidor](server/README.md), o [índice dos scripts](scripts/README.md) e o [índice dos testes](tests/README.md).
 
@@ -14,7 +14,7 @@ Para localizar cada assunto, usar o [índice da documentação atual](docs/READM
 - Prescrição de treinos, registro de execução e feedback.
 - Mensagens, notificações, avaliações e agenda de consultorias.
 - Arquivos privados cifrados, consentimentos e recuperação de senha.
-- Aplicativo Android do atleta conectado à mesma API.
+- Aplicativo Android conectado à mesma API, com interfaces por perfil; consultar os limites na documentação móvel.
 
 O modo financeiro acadêmico não realiza cobranças. A integração Asaas depende de credenciais e homologação próprias; pagamentos reais e publicação nas lojas não fazem parte da demonstração atual.
 
@@ -29,7 +29,7 @@ O modo financeiro acadêmico não realiza cobranças. A integração Asaas depen
 | Nuvem | Vercel, Neon, Tigris, Brevo e cron-job.org |
 | Qualidade | Vitest, Playwright, axe e GitHub Actions |
 
-Veja a [função de cada serviço e a separação entre nuvem e ambiente local](docs/operacao/servicos-externos-sprint-2.md).
+Veja a [função de cada serviço e a separação entre nuvem e ambiente local](docs/operacao/servicos-externos.md).
 
 ## Contas para demonstração
 
@@ -65,7 +65,7 @@ pnpm exec playwright install chromium firefox webkit
 pnpm test:e2e
 ```
 
-Os testes de integração usam bancos isolados com sufixo `_test`. Não aponte as suítes para produção nem execute suítes concorrentes sobre a mesma base de teste. Consulte os [resultados e limites das verificações](docs/operacao/implantacao-2026-10-26.md).
+Os testes de integração usam bancos isolados com sufixo `_test`. Não aponte as suítes para produção nem execute suítes concorrentes sobre a mesma base de teste. Consulte os [resultados e limites das verificações](docs/evidencias/relatorios/implantacao-2026-10-26.md).
 
 ## Estrutura
 
@@ -85,9 +85,8 @@ Os scripts estão divididos em banco, documentação, operação, verificação 
 
 ## Documentação e entrega
 
-- [ERS final v2.6 ajustada pela equipe em PDF](docs/ERS-template-original-atualizada.pdf).
-- [Checklist dos nove entregáveis](docs/checklist-sprint-2.md), [diagramas](docs/diagramas.md), [backlog](docs/requisitos/backlog.md) e [matriz de UCs](docs/requisitos/rastreabilidade.md).
+- [ERS final v2.6 ajustada pela equipe em PDF](docs/requisitos/ERS-LinkAtletas.pdf).
 - [API](docs/api.md), [aplicativo](mobile/README.md) e [implantação na Vercel](docs/operacao/vercel.md).
-- [Testes de nuvem e APK](docs/operacao/implantacao-2026-10-26.md), [decisões técnicas](docs/gestao/decisoes.md) e [pendências](docs/gestao/continuidade.md).
+- [Testes de nuvem e APK](docs/evidencias/relatorios/implantacao-2026-10-26.md) e [pendências](docs/operacao/continuidade.md).
 
 O [índice da documentação](docs/README.md) identifica os documentos principais, as fontes auxiliares da ERS e os materiais históricos. A equipe deve revisar a demonstração e cada integrante concluir sua entrega acadêmica.

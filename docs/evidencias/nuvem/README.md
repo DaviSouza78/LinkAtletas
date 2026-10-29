@@ -1,6 +1,6 @@
 # Evidências dos serviços na nuvem
 
-Registros de 26/10/2026 utilizados na conferência da implantação. O [registro da operação remota](../../operacao/implantacao-2026-10-26.md) explica os resultados e as limitações.
+Registros de 26/10/2026 utilizados na conferência da implantação. O [registro da operação remota](../relatorios/implantacao-2026-10-26.md) explica os resultados e as limitações.
 
 | Grupo | O que consultar |
 |---|---|

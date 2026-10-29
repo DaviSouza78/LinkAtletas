@@ -1,15 +1,15 @@
-# Execução e operação
+# Operação
 
-| Documento | Quando consultar |
+Esta pasta explica como executar, configurar e manter o LinkAtletas. Complementa o código com procedimentos que não ficam claros apenas pela leitura dos arquivos.
+
+| Documento | Função |
 |---|---|
-| [manual.md](manual.md) | Instalar, executar e demonstrar a aplicação; comandos e cuidados de operação. |
-| [servicos-externos-sprint-2.md](servicos-externos-sprint-2.md) | Entender a função de cada serviço, o uso local e as integrações externas. |
-| [vercel.md](vercel.md) | Configurar a implantação, variáveis e serviços da Vercel; o histórico de preparação está identificado no documento. |
-| [implantacao-2026-10-26.md](implantacao-2026-10-26.md) | Consultar o que foi realmente conferido em Preview e produção nessa data. |
-| [manual-apk-local.md](manual-apk-local.md) | Entender o APK local, ligação por USB e seus limites. |
-| [publicacao.md](publicacao.md) | Localizar repositórios, implantação publicada e histórico de versões. |
-| [seguranca-dependencias.md](seguranca-dependencias.md) | Consultar a auditoria datada dos lockfiles; não substitui uma nova auditoria das versões instaladas. |
+| [manual.md](manual.md) | Instalação e execução local, comandos e cuidados com dados. |
+| [servicos-externos.md](servicos-externos.md) | Função de Vercel, Neon, Tigris, Brevo, agendador e alternativas locais. |
+| [vercel.md](vercel.md) | Configuração da implantação e separação de ambientes. |
+| [manual-apk-local.md](manual-apk-local.md) | Execução do APK local com API acessível pelo Android. |
+| [continuidade.md](continuidade.md) | Limitações, verificações externas e próximos trabalhos. |
 
-Credenciais reais pertencem aos ambientes privados e aos provedores. O [README de infraestrutura](../../infra/README.md) explica Caddy e S3 local. Limitações e próximos trabalhos estão em [continuidade](../gestao/continuidade.md).
+Resultados de implantação estão nas [evidências](../evidencias/README.md), separados das instruções operacionais. Segredos e senhas não pertencem à documentação pública.
 
-[Documentação atual](../README.md)
+[Documentação](../README.md)

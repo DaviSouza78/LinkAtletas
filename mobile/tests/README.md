@@ -16,4 +16,4 @@ Usa Vitest em Node, React Test Renderer na mesma versão de React do app e módu
 
 Tipos, compatibilidade e exportação são verificações complementares: `pnpm typecheck`, `pnpm check` e `pnpm export`. Nenhuma substitui instalar e operar o APK. O [workflow Android](../../.github/workflows/android-integrated.yml) possui ensaio separado por UIAutomator. O roteiro anterior ainda espera que treinador seja recusado pelo aplicativo: ele precisa de atualização fora de `mobile` antes de testar os novos três perfis. Não apresentar seu resultado histórico como validação desta ampliação.
 
-[Aplicativo](../README.md) · [Relatório geral](../../docs/relatorio-testes.md)
+[Aplicativo](../README.md) · [Relatório geral](../../docs/evidencias/relatorio-testes.md)
