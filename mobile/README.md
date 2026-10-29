@@ -41,7 +41,7 @@ pnpm start
 
 Configure `EXPO_PUBLIC_API_URL` com a URL completa terminada em `/api`. Android em emulador pode alcançar o host em `http://10.0.2.2:3001/api`; iOS no simulador do Mac pode usar `http://localhost:3001/api`. Para o APK local standalone, prefira USB/ADB: `pnpm mobile:connect` na raiz verifica a API, cria o túnel e abre o aplicativo. O [manual do APK](../docs/operacao/manual-apk-local.md) mostra instalação e configuração. Não é necessário expor API/banco à rede. Acesso direto por LAN exige configuração de rede pelo responsável e não é o perfil local restrito.
 
-Abra com um cliente Expo compatível com SDK 57 ou development build. A compilação nativa local usa `pnpm android` (JDK/Android SDK) ou `pnpm ios` (Mac/Xcode). A disponibilidade do ambiente nativo precisa ser conferida separadamente; os comandos de tipos e exportação não o substituem. Compilação/distribuição EAS depende de conta e credenciais; nenhum aplicativo foi enviado às lojas.
+Use um development build ou APK próprio: o módulo de autorização Google nativa não está disponível no Expo Go. A compilação nativa local usa `pnpm android` (JDK/Android SDK) ou `pnpm ios` (Mac/Xcode). A disponibilidade do ambiente nativo precisa ser conferida separadamente; os comandos de tipos e exportação não o substituem. Compilação/distribuição EAS depende de conta e credenciais; nenhum aplicativo foi enviado às lojas.
 
 ## Verificações reproduzíveis
 
@@ -59,11 +59,11 @@ Use HTTPS real no perfil normal antes de distribuir e remova `EXPO_PUBLIC_BUILD_
 
 O export gera bundles Hermes Android/iOS em `dist/`, ignorado pelo Git. Geração de bundles e testes do transporte com módulos nativos controlados não comprovam execução em dispositivo, APK/IPA, leitura de tela ou homologação nas lojas. Veja [evidências](docs/evidencias/android/README.md).
 
-Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/emulador e conexão por USB, compilado com Expo 57.0.30: [manual](../docs/operacao/manual-apk-local.md), [evidências e limites](docs/evidencias/android/README.md). O APK antigo com domínio `.example` permanece histórico. O perfil normal exige HTTPS real e assinatura de distribuição para lojas.
+Há um APK **LinkAtletas Local**, pacote separado com HTTP limitado a loopback/emulador e conexão por USB, compilado com Expo 57.0.30: [manual](../docs/operacao/manual-apk-local.md), [evidências e limites](docs/evidencias/android/README.md). O perfil normal exige HTTPS real e assinatura de distribuição para lojas.
 
 ## Funcionalidades
 
-- Cadastro e login do atleta, restauração de sessão, logout, recuperação e redefinição de senha.
+- Login dos três perfis, cadastro público de atleta/treinador, restauração de sessão, logout, recuperação e redefinição de senha.
 - Perfil, preferências de matchmaking, descoberta e solicitação/encerramento de vínculos.
 - Treinos publicados, blocos realizados, esforço, métricas por modalidade e notas ao treinador.
 - Envio de performance mediante consentimento, arquivos privados, download/compartilhamento explícito e correções recebidas.

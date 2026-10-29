@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
-    "@eslint/js": "10.0.1",
     "@playwright/test": "1.64.0",
     "@types/node": "26.2.0",
     "@types/nodemailer": "8.0.2",
@@ -59,12 +58,7 @@
     "@types/react-dom": "19.2.4",
     "@types/ws": "8.18.2",
     "concurrently": "9.2.5",
-    "eslint": "10.8.1",
-    "eslint-plugin-react-hooks": "7.1.1",
-    "eslint-plugin-react-refresh": "0.5.4",
-    "globals": "17.11.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.67.0",
     "vitest": "4.1.11"
   },
   "engines": {

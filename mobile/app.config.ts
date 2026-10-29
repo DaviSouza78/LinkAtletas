@@ -38,6 +38,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       './plugins/withLocalNetwork.cjs',
       ...googlePlugins,
     ],
-    extra: { ...config.extra, projectScope: 'academic-athlete-client' },
+    extra: { ...config.extra, projectScope: 'academic-multi-role-client' },
   }
 }

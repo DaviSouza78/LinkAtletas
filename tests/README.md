@@ -64,7 +64,7 @@ Grande parte dessas suítes chama as rotas com `app.inject`: a requisição perc
 
 | Arquivo | Responsabilidade e exemplos |
 |---|---|
-| [sprint-2.spec.ts](e2e/sprint-2.spec.ts) | Login inválido em tela móvel e jornada de cadastro → aprovação administrativa → contratação → publicação → execução persistida. |
+| [training-flow.spec.ts](e2e/training-flow.spec.ts) | Login inválido em tela móvel e jornada de cadastro → aprovação administrativa → contratação → publicação → execução persistida. |
 | [expansion.spec.ts](e2e/expansion.spec.ts) | Mensagens, agenda, avaliações, consentimento, mídia, financeiro acadêmico, recuperação pela interface, teclado, responsividade e verificações automáticas com axe. |
 
 O Playwright inicia os serviços da aplicação para a suíte local, usa uma base isolada e abre sessões para os atores do cenário. Por padrão, cada cenário é executado nos três motores configurados. Assim, cinco cenários repetidos em três motores geram quinze execuções; isso não significa quinze funcionalidades independentes.
@@ -146,7 +146,7 @@ pnpm test:e2e
 Para selecionar o arquivo e o motor:
 
 ```powershell
-pnpm exec playwright test tests/e2e/sprint-2.spec.ts --project=chromium
+pnpm exec playwright test tests/e2e/training-flow.spec.ts --project=chromium
 ```
 
 A variável `EVIDENCE_DIR` definida acima vale para a sessão atual do PowerShell. Sem essa variável, o destino padrão é `docs/evidencias/web`. O Playwright usa web em `localhost:5174` e API em `localhost:3002`; não é necessário iniciar `pnpm dev:all` para essa suíte. As portas devem estar livres. Não configurar `E2E_BASE_URL` com o site público: as jornadas criam e alteram dados.

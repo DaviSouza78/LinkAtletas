@@ -25,4 +25,4 @@ O [manual](manual.md) descreve os comandos locais. Evidências já coletadas est
 
 Uma CI aprovada, um commit enviado e um deployment em produção são eventos diferentes. Antes de usar um resultado como evidência, conferir ambiente, commit e data. WebSockets em serverless exigem considerar as limitações do provedor; o histórico de mensagens persiste no PostgreSQL.
 
-Uploads grandes utilizam sessões autenticadas em partes. Conferir o [contrato da API](../api.md) e os limites do provedor antes de alterar essa configuração. Pagamentos reais, OAuth e publicação nas lojas têm requisitos próprios descritos em [continuidade](continuidade.md).
+Uploads grandes utilizam sessões autenticadas em partes. Conferir o [contrato da API](../api/README.md) e os limites do provedor antes de alterar essa configuração. Pagamentos reais, OAuth e publicação nas lojas têm requisitos próprios descritos em [continuidade](continuidade.md).

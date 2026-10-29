@@ -1,10 +1,10 @@
 # Equivalência funcional entre web e aplicativo
 
-## Objetivo e escopo aprovado
+## Objetivo e escopo
 
 Em 28/10/2026, a equipe definiu que atleta, treinador e administrador devem realizar no aplicativo as operações disponíveis para seu papel na interface web. A equivalência é funcional: navegação, campos e componentes são adaptados ao aparelho. O aplicativo usa a mesma API, contas, permissões e banco.
 
-Esta evolução fica restrita a `mobile`. A ERS, a documentação geral, o servidor e os contratos compartilhados não serão alterados nesta etapa. Se faltar suporte na API, registrar o impedimento aqui antes de ampliar o escopo. Cadastro público permite atleta/treinador; administrador é provisionado pelo procedimento existente, nunca pelo cadastro público.
+A matriz descreve as operações oferecidas pelo cliente móvel. A API continua responsável pelas regras e permissões; equivalência de telas não comprova homologação em aparelho ou autorização Google real. Cadastro público permite atleta/treinador; administrador é provisionado pelo procedimento existente, nunca pelo cadastro público.
 
 ## Abordagem
 
@@ -12,24 +12,25 @@ Manter React Native/Expo e ampliar o cliente existente. Telas comuns recebem pap
 
 Sessão permanece no SecureStore e autorização permanece no servidor. Navegação utiliza uma lista explícita de destinos por papel, recusa destinos incompatíveis e é reiniciada ao trocar de sessão. Cada tela trata carregamento, erro, vazio e processamento. Ações destrutivas exigem confirmação e justificativa quando a API determina.
 
-## Matriz inicial
+## Operações por perfil
 
-| Área | Atleta | Treinador | Administrador | Situação inicial |
-|---|---|---|---|---|
-| Login/restauração/logout/recuperação | Sim | Sim | Sim | Login/restauração recusavam os outros papéis. |
-| Cadastro público | Sim | Sim | Não | Somente atleta no cliente. |
-| Perfil esportivo | Próprio | Próprio, preço e CREF | Não existe equivalente web | Perfil inicialmente de atleta. |
-| Descoberta | Busca treinadores | Não aplicável | Não aplicável | Implementada para atleta. |
-| Vínculos | Solicita/retira/encerra | Aceita/recusa/encerra | Não aplicável | Somente visão do atleta. |
-| Treinos | Lê e registra execução | Cria, edita, rascunha, publica, acompanha execução | Não aplicável | Somente execução do atleta. |
-| Arquivos esportivos | Performance e leitura autorizada | Orientações, feedback e leitura autorizada | Somente documento profissional | Cliente sem operação do treinador/admin. |
-| Mensagens | Conversa com treinador | Conversa com atleta | Não há conversa administrativa web | Seletor precisa exibir contraparte correta. |
-| Agenda | Agenda/altera/cancela/histórico | Mesmas operações e conclusão; reunião | Não aplicável | Conclusão e campo reunião ausentes no cliente. |
-| Avaliações | Publica/edita/denuncia | Consulta/responde/denuncia | Oculta/restaura com justificativa | Cliente somente atleta. |
-| Financeiro | Consulta/checkout/cancelamento | Plano, carteira, totais e assinaturas | Comissão/carência | Cliente somente atleta. |
-| Privacidade | Consentimentos/saúde/exportação/encerramento | Mesmas operações próprias | Consulta pedidos administrativos | Cliente sem visão administrativa. |
-| Avisos | Consulta/leitura | Consulta/leitura | Consulta/leitura | Reutilizável por papel. |
-| CREF manual | Não aplicável | Envia evidência/anexo, acompanha histórico | Aprova/recusa/suspende/revoga | Telas nativas ausentes. |
+| Área | Atleta | Treinador | Administrador |
+|---|---|---|---|
+| Login/restauração/logout/recuperação | Sim | Sim | Sim |
+| Cadastro público | Sim | Sim | Não |
+| Perfil esportivo | Próprio | Próprio, preço e CREF | Não existe equivalente web |
+| Descoberta | Busca treinadores | Não aplicável | Não aplicável |
+| Vínculos | Solicita/retira/encerra | Aceita/recusa/encerra | Não aplicável |
+| Treinos | Lê e registra execução | Cria, edita, rascunha, publica, acompanha execução | Não aplicável |
+| Arquivos esportivos | Performance e leitura autorizada | Orientações, feedback e leitura autorizada | Somente documento profissional |
+| Mensagens | Conversa com treinador | Conversa com atleta | Não há conversa administrativa web |
+| Agenda | Agenda/altera/cancela/histórico | Mesmas operações e conclusão; reunião | Não aplicável |
+| Avaliações | Publica/edita/denuncia | Consulta/responde/denuncia | Oculta/restaura com justificativa |
+| Financeiro | Consulta/checkout/cancelamento | Plano, carteira, totais e assinaturas | Comissão/carência |
+| Privacidade | Consentimentos/saúde/exportação/encerramento | Mesmas operações próprias | Consulta pedidos administrativos |
+| Avisos | Consulta/leitura | Consulta/leitura | Consulta/leitura |
+| CREF manual | Não aplicável | Envia evidência/anexo, acompanha histórico | Aprova/recusa/suspende/revoga |
+
 
 ## Etapas e critérios de aceite
 

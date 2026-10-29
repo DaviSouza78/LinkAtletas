@@ -13,7 +13,7 @@ Data: 14/10/2026. Mantém os IDs da ERS original. Referência de implementação
 | RF-19,A02 | [interactions](../../server/modules/interactions), mensagens/notificações | [Interações](../../tests/integration/interactions.test.ts): WS duas sessões, leitura/cursor, persistência, terceiros, sessão/origem |
 | RF-20,21,A08; RN-13 | Interactions; reviews/moderação | Elegibilidade temporal, única por ciclo, edição, resposta, denúncia/ocultação e média |
 | RF-A03 | Interactions; agenda e Google opcional | Conflito entre vínculos, histórico, reagendamento/cancelamento, cifragem; OAuth real não executado |
-| RF-A04; RN-14,15; RNF-01,02 | Platform, media, [crypto](../../server/shared/crypto.ts) | Plataforma/crypto: consentimentos, cifra SQL/S3, exportação e exclusão; política jurídica e domínio real pendentes |
+| RF-A04; RN-14,15; RNF-01,02 | Platform, media, [crypto](../../server/shared/crypto.ts) | Plataforma/crypto: consentimentos, cifra SQL/S3, exportação e exclusão; política jurídica e retenção operacional exigem validação própria; domínio publicado não comprova essa validação |
 | RF-A06; RNF-09,12 | [mobile/App.tsx](../../mobile/App.tsx), SecureStore e mesma API | Tipos/dependências/bundles separados de instalação/dispositivos; conferir relatório |
 | RF-A07; RNF-06,08,13,14,16 | Compose/config/API e ferramentas de verificação | Logs/build/TLS/backup/carga/CI conforme relatório; escala pública e browsers/aparelhos reais não inferidos |
 
@@ -29,7 +29,7 @@ UCs do roteiro original. Esta matriz relaciona conteúdo técnico, sem atribuir 
 | Computação em Nuvem | Serviços isolados, objetos S3 privados, configuração, container, TLS e recuperação | Compose/infra/scripts; nuvem/autoescala pública dependem implantação real |
 | Automação Industrial | Aquisição manual e validação de métricas, tarefas periódicas e fluxo de eventos | Execuções/catálogos/jobs; sem sensores, PLC ou IoT físico conectado |
 | Relações Humanas e Cidadania | Consentimento, privacidade, transparência profissional, acessibilidade e moderação | Política, revisão de dados, papéis, denúncias e limitações; sem certificação jurídica presumida |
-| Eletiva I | Integrar conhecimentos das UCs, organizar o desenvolvimento por Sprints, especificar requisitos, implementar e verificar a solução e comunicar resultados | [ERS](ERS-LinkAtletas.pdf), [backlog](backlog.md), [diagramas](../diagramas.md), [testes](../evidencias/relatorio-testes.md) |
+| Eletiva I | Integrar conhecimentos das UCs, organizar o desenvolvimento por Sprints, especificar requisitos, implementar e verificar a solução e comunicar resultados | [ERS](ERS-LinkAtletas.pdf), [backlog](backlog.md), [diagramas](../diagramas/README.md), [testes](../evidencias/relatorio-testes.md) |
 | Conhecimentos anteriores | Requisitos, modelagem relacional/UML, qualidade e versionamento | ERS, modelos, SQL, testes e histórico Git |
 
 ## Participação e submissão

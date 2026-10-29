@@ -7,8 +7,8 @@ Documentação de referência do projeto, organizada por finalidade. Aplicação
 | Requisitos oficiais | [ERS-LinkAtletas.pdf](requisitos/ERS-LinkAtletas.pdf) |
 | Prioridades e rastreabilidade | [Requisitos](requisitos/README.md) |
 | Banco de dados | [Dicionário de dados](banco/README.md) |
-| Arquitetura e fluxos | [Diagramas](diagramas.md) e [fontes](diagramas/README.md) |
-| API própria | [Guia REST](api.md) e [OpenAPI](openapi.json) |
+| Arquitetura e fluxos | [Diagramas](diagramas/README.md) e [fontes](diagramas/README.md) |
+| API própria | [Guia REST](api/README.md) e [OpenAPI](api/openapi.json) |
 | Executar e implantar | [Operação](operacao/README.md) |
 | Serviços externos | [Responsabilidade de cada serviço](operacao/servicos-externos.md) |
 | Testes realizados | [Relatório](evidencias/relatorio-testes.md) e [evidências](evidencias/README.md) |

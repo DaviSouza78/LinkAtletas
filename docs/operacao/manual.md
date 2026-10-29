@@ -1,6 +1,6 @@
 # Manual de instalação, execução e demonstração
 
-Para desenvolvimento local use dados fictícios. A [aplicação pública](https://link-atletas.vercel.app) tem configuração independente de banco, arquivos e SMTP; consulte a [implantação verificada em 26/10/2026](../evidencias/relatorios/implantacao-2026-10-26.md). O modo financeiro acadêmico não cobra dinheiro. [API](../api.md), [limitações](../requisitos/backlog.md) e [resultados de testes](../evidencias/relatorio-testes.md) complementam este manual.
+Para desenvolvimento local use dados fictícios. A [aplicação pública](https://link-atletas.vercel.app) tem configuração independente de banco, arquivos e SMTP; consulte a [implantação verificada em 26/10/2026](../evidencias/relatorios/implantacao-2026-10-26.md). O modo financeiro acadêmico não cobra dinheiro. [API](../api/README.md), [limitações](../requisitos/backlog.md) e [resultados de testes](../evidencias/relatorio-testes.md) complementam este manual.
 
 ## Instalação local
 
@@ -148,4 +148,4 @@ A rotina de backup passou a interpretar a variável AES vazia do exemplo como us
 
 ## Documentação e diagramas
 
-`pnpm docs:check` confere links e contratos documentados. `pnpm api:export` exporta o OpenAPI da API própria. Para atualizar os diagramas, editar as fontes e conferir as imagens correspondentes; consultar o [índice de diagramas](../diagramas.md). A ERS oficial é fornecida e revisada pela equipe; não há geração automática da sua versão final.
+`pnpm docs:check` confere links e contratos documentados. `pnpm api:export` exporta o OpenAPI da API própria. Para atualizar os diagramas, editar as fontes e conferir as imagens correspondentes; consultar o [índice de diagramas](../diagramas/README.md). A ERS oficial é fornecida e revisada pela equipe; não há geração automática da sua versão final.

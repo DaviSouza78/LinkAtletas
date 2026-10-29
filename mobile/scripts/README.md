@@ -10,6 +10,6 @@ Executar `pnpm check` dentro de `mobile`, ou `pnpm --dir mobile check` na raiz. 
 
 ## Ensaio integrado do APK
 
-[verify-roles.py](verify-roles.py) controla o APK instalado via ADB/UIAutomator e confere os registros pela API real. Reutiliza os auxiliares de `scripts/android/verify-integrated.py`; executado na raiz pelo workflow Android com foco `roles`.
+[verify-roles.py](verify-roles.py) controla o APK instalado via ADB/UIAutomator e confere os registros pela API real. Reutiliza os auxiliares de `scripts/android/verify-integrated.py`; executado na raiz pelo workflow Android no modo `integrated`.
 
 Exige emulador, APK instalado, API local, `DATABASE_URL` local com banco terminado em `_test` e contas ficticias. Nao executar contra producao. O resultado em `emulator-evidence/roles-result.json` descreve os passos efetivamente concluidos e os limites de OAuth, aparelho fisico e cobranca externa.

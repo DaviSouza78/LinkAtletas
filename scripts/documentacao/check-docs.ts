@@ -1,24 +1,25 @@
-import { readFile, readdir, stat, mkdir, writeFile } from 'node:fs/promises'
+import { readFile, stat, mkdir, writeFile } from 'node:fs/promises'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import path from 'node:path'
 import assert from 'node:assert/strict'
 const root = process.cwd(),
   failures: string[] = [],
   checked: string[] = []
-async function visit(directory: string): Promise<string[]> {
-  const result: string[] = []
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
-    const file = path.join(directory, entry.name)
-    if (entry.isDirectory()) result.push(...(await visit(file)))
-    else if (file.endsWith('.md')) result.push(file)
+const { stdout } = await promisify(execFile)(
+  'git',
+  ['ls-files', '--cached', '--others', '--exclude-standard', '--', '*.md'],
+  { cwd: root },
+)
+for (const name of new Set(stdout.split(/\r?\n/).filter(Boolean))) {
+  const file = path.resolve(root, name)
+  let text: string
+  try {
+    text = await readFile(file, 'utf8')
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') continue
+    throw error
   }
-  return result
-}
-for (const file of [
-  path.resolve('README.md'),
-  ...(await visit(path.resolve('scripts'))),
-  ...(await visit(path.resolve('docs'))),
-]) {
-  const text = await readFile(file, 'utf8')
   for (const match of text.matchAll(/!?\[[^\]]*\]\(([^)]+)\)/g)) {
     const target = match[1].replace(/^<|>$/g, '').split('#')[0]
     if (!target || /^(https?:|mailto:|app:|codex:)/.test(target)) continue
@@ -34,7 +35,7 @@ for (const file of [
     }
   }
 }
-const api = JSON.parse(await readFile('docs/openapi.json', 'utf8'))
+const api = JSON.parse(await readFile('docs/api/openapi.json', 'utf8'))
 assert(api.openapi.startsWith('3.0'), 'OpenAPI 3.0 exigida.')
 for (const endpoint of [
   '/api/auth/native/login',

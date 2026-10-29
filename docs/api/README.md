@@ -1,6 +1,6 @@
-# Guia da API — LinkAtletas v2
+# API do LinkAtletas
 
-Base local: `http://localhost:3001/api`. Swagger: `/api/docs`; especificação runtime: `/api/openapi.json`. Os contratos TypeScript estão em [contracts.ts](../shared/contracts.ts), [interaction-contracts.ts](../shared/interaction-contracts.ts) e [billing-contracts.ts](../shared/billing-contracts.ts). Este guia descreve os módulos; a especificação runtime contém schemas e códigos atualizados.
+Base local: `http://localhost:3001/api`. Swagger: `/api/docs`; especificação runtime: `/api/openapi.json`. Os contratos TypeScript estão em [contracts.ts](../../shared/contracts.ts), [interaction-contracts.ts](../../shared/interaction-contracts.ts) e [billing-contracts.ts](../../shared/billing-contracts.ts). Este guia descreve os módulos; a especificação runtime contém schemas e códigos atualizados.
 
 ## Sessão, origem e erros
 

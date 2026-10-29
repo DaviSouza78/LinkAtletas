@@ -2,8 +2,8 @@
 
 | Arquivo | Função |
 |---|---|
-| [check-docs.ts](check-docs.ts) | Confere links locais, OpenAPI, colunas/relações do DER e chamadas das sequências. |
-| [export-openapi.ts](export-openapi.ts) | Exporta o contrato da API própria para `docs/openapi.json` ou `API_DOCS_DIR`. |
+| [check-docs.ts](check-docs.ts) | Confere links de todos os Markdown versionados ou ainda não ignorados pelo Git, OpenAPI, colunas/relações do DER e chamadas das sequências. |
+| [export-openapi.ts](export-openapi.ts) | Exporta o contrato da API própria para `docs/api/openapi.json` ou `API_DOCS_DIR`. |
 | [generate-use-cases.ts](generate-use-cases.ts) | Converte o subconjunto PlantUML do projeto para SVG; não é um renderizador genérico. |
 | [render-use-cases.ts](render-use-cases.ts) | Converte esse SVG para PNG usando Chromium/Playwright. |
 

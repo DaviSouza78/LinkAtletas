@@ -73,7 +73,7 @@ Em processo convencional, há um intervalo local. Na Vercel, esse intervalo fica
 | [005_billing_compatibility.sql](db/migrations/005_billing_compatibility.sql) | Compatibilidade do identificador de cliente do provedor e da referência administrativa financeira. |
 | [006_media_uploads.sql](db/migrations/006_media_uploads.sql) | Sessões temporárias de upload em partes, associação ao arquivo final e expiração. |
 
-Não editar uma migração já aplicada para tentar atualizar um banco existente. Uma mudança futura de esquema precisa de nova migração e verificação de compatibilidade. Consultar o [dicionário do banco](../docs/banco/dicionario-dados.md) e os [diagramas](../docs/diagramas.md).
+Não editar uma migração já aplicada para tentar atualizar um banco existente. Uma mudança futura de esquema precisa de nova migração e verificação de compatibilidade. Consultar o [dicionário do banco](../docs/banco/dicionario-dados.md) e os [diagramas](../docs/diagramas/README.md).
 
 ## Funcionalidades — `modules/`
 

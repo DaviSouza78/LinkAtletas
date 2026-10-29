@@ -86,7 +86,7 @@ Os scripts estão divididos em banco, documentação, operação, verificação 
 ## Documentação e entrega
 
 - [ERS final v2.6 ajustada pela equipe em PDF](docs/requisitos/ERS-LinkAtletas.pdf).
-- [API](docs/api.md), [aplicativo](mobile/README.md) e [implantação na Vercel](docs/operacao/vercel.md).
+- [API](docs/api/README.md), [aplicativo](mobile/README.md) e [implantação na Vercel](docs/operacao/vercel.md).
 - [Testes de nuvem e APK](docs/evidencias/relatorios/implantacao-2026-10-26.md) e [pendências](docs/operacao/continuidade.md).
 
 O [índice da documentação](docs/README.md) identifica os documentos principais, as fontes auxiliares da ERS e os materiais históricos. A equipe deve revisar a demonstração e cada integrante concluir sua entrega acadêmica.

@@ -8,6 +8,7 @@
 | [workouts.test.ts](workouts.test.ts) | Serialização/limites dos blocos, referência HTTPS em texto, datas e preservação de ficha executada/vínculo. |
 | [screens.test.tsx](screens.test.tsx) | Renderização React com primitivas nativas controladas, menus/restauração/logout, decisão de vínculos, CREF, moderação, configuração financeira, publicação de treino, retorno do atleta, resposta e conclusão de agenda. |
 | [hooks.test.tsx](hooks.test.tsx) | Descarte de resposta atrasada, polling somente em primeiro plano, ausência de polling em perfil e bloqueio de envio duplicado. |
+| [google-calendar.test.ts](google-calendar.test.ts) | Autorização Google e criação de evento com SDK/HTTP controlados; cancelamento, escopos, conflitos, tokens e limites. Não comprova consentimento real. |
 | [external-links.test.ts](external-links.test.ts) | Recusa de endereços externos inseguros antes de acionar a abertura nativa. |
 
 Executar `pnpm test` em `mobile`, ou `pnpm --dir mobile test` na raiz. A configuração está em [vitest.config.ts](../vitest.config.ts); consultar a saída de cada execução para contagem e resultado atuais.
